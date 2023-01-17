@@ -1581,11 +1581,6 @@ with lib.hm.gvariant;
  (front-context-string . "** TODO macair f")
  (rear-context-string . "ntent\n\n* Tasks\n\n")
  (position . 70))
-("bin"
- (filename . "~/git/ubuntu/ubuntu-bin/")
- (front-context-string . "audio-silence\n  ")
- (rear-context-string . "6K Feb  3  2020 ")
- (position . 246))
 ("root"
  (filename . "/")
  (front-context-string . "bin -> usr/bin\n ")
@@ -1596,16 +1591,6 @@ with lib.hm.gvariant;
  (front-context-string . "..\n  drwxr-xr-x ")
  (rear-context-string . " 3 Oct 30 23:26 ")
  (position . 178))
-("dotfiles"
- (filename . "~/git/ubuntu/ubuntu-dotfiles/ubuntu-dotfiles.org")
- (front-context-string . "+TITLE: ubuntu d")
- (rear-context-string)
- (position . 1))
-("youtube"
- (filename . "~/git/personal/org/youtube-subscriptions.org")
- (front-context-string . "#+TITLE: Youtube")
- (rear-context-string)
- (position . 1))
 ("desktop"
  (filename . "~/Desktop/")
  (front-context-string . "zshrc-linux\n  -r")
