@@ -4915,7 +4915,7 @@ fi
 
 # mpd and taskspooler
 audio() {
-      tsp pinch -i "${url}" 1>/dev/null 
+      ts pinch -i "${url}" 1>/dev/null 
 }
 
 copy_link() {
@@ -4924,7 +4924,7 @@ copy_link() {
 
 # youtube-dl and taskspooler
 download() {
-      tsp \
+      ts \
       youtube-dl -f 'bestvideo[height<=?1080][fps<=?30][vcodec!=?vp9]+bestaudio/best' \
       --restrict-filenames \
       --no-playlist \
@@ -4935,28 +4935,28 @@ download() {
 
 # mpv fullscreen on second display and taskspooler
 fullscreen() {
-      tsp mpv --fs --screen=1 "${url}" 1>/dev/null 
+      ts mpv --fs --screen=1 "${url}" 1>/dev/null 
 }
 
 # mpv and taskspooler
 video() {
-      tsp mpv --no-terminal "${url}" 1>/dev/null
+      ts mpv --no-terminal "${url}" 1>/dev/null
 }
 
 # fzf prompt variables spaces to line up menu options
-audio_tsp='audio      - mpd play audio'
-copy_tsp='copy       - xsel copy url under the cusor to the clipboard'
-download_tsp='download   - youtube-dl download links'
-fullscreen_tsp='fullscreen - mpv play fullscreen on second display'
-video_tsp='video      - mpv play video on current display'
+audio_ts='audio      - mpd play audio'
+copy_ts='copy       - xsel copy url under the cusor to the clipboard'
+download_ts='download   - youtube-dl download links'
+fullscreen_ts='fullscreen - mpv play fullscreen on second display'
+video_ts='video      - mpv play video on current display'
 
 # fzf prompt to specify function to run on links from ytfzf
 menu=$(printf "%s\n" \
-	      "${audio_tsp}" \
-	      "${copy_tsp}" \
-	      "${download_tsp}" \
-	      "${fullscreen_tsp}" \
-	      "${video_tsp}" \
+	      "${audio_ts}" \
+	      "${copy_ts}" \
+	      "${download_ts}" \
+	      "${fullscreen_ts}" \
+	      "${video_ts}" \
 	      | fzf-tmux -d 15% --delimiter='\n' --prompt='Pipe links to: ' --info=inline --layout=reverse --no-multi)
 
 # case statement to run function based on fzf prompt output
@@ -4997,7 +4997,7 @@ fi
 #tsp mpv --no-terminal "${url}"
 
 # queue the video with taskpooler and play the url with mpv full screen on the second display
-tsp mpv --fs --screen=1 "${url}"
+ts mpv --fs --screen=1 "${url}"
 
 # remove http prefix for notify-send to fix issue with (U) in the notification title
 #title=$(echo "${url}" | sed -e 's#https\?://\([www.]*\)##g')
