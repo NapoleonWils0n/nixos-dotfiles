@@ -2047,23 +2047,17 @@ alias mpc='mpc --host="${HOME}/.config/mpd/socket"'
 
 # daemon start
 trd-daemon() {
-    [ -d "/etc/netns/vpn" ] \
-    && doas namespace transmission-daemon \
-    || transmission-daemon ;
+    transmission-daemon;
     }
 
 # start torrent <id> or all
 trd-start() {
-    [ -d "/etc/netns/vpn" ] \
-    && doas namespace transmission-remote -t"${1-all}" --start \
-    || transmission-remote -t"${1-all}" --start;
+    transmission-remote -t"${1-all}" --start;
     }
 
 # pause torrent <id> or all
 trd-pause() {
-    [ -d "/etc/netns/vpn" ] \
-    && doas namespace transmission-remote -t"${1-all}" --stop \
-    || transmission-remote -t"${1-all}" --stop;
+    transmission-remote -t"${1-all}" --stop;
     }
 
 # daemon stop
@@ -2071,9 +2065,7 @@ trd-quit() { killall transmission-daemon ;}
 
 # watch torrent list with viddy
 trd-watch() {
-    [ -d "/etc/netns/vpn" ] \
-    && doas namespace viddy -t transmission-remote --list \
-    || viddy -t transmission-remote --list ;
+    viddy -t transmission-remote --list;
     }
 #+END_SRC
 
