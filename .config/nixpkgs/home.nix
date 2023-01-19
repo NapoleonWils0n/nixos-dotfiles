@@ -85,6 +85,7 @@ in {
     jq
     lynx
     libxslt
+    libnotify
     mediainfo
     mpc_cli
     mpd
@@ -117,6 +118,7 @@ in {
     yt-dlp
     weechat
     widevine-cdm
+    xclip
     zathura
     zip
   ];
