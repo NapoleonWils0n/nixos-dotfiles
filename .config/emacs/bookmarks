@@ -1,17 +1,18 @@
-;;;; Emacs Bookmark Format Version 1 ;;;; -*- coding: utf-8-emacs -*- 
+;;;; Emacs Bookmark Format Version 1;;;; -*- coding: utf-8-emacs; mode: lisp-data -*-
 ;;; This format is meant to be slightly human-readable;
 ;;; nevertheless, you probably don't want to edit it.
 ;;; -*- End Of Bookmark File Format Version Stamp -*-
-(("org-refile-last-stored"
+(("dotfiles"
+ (filename . "~/git/nixos/nixos-dotfiles/nixos-dotfiles.org")
+ (front-context-string . "* nixos dotfiles")
+ (rear-context-string . "rc\n\n#+RESULTS:\n\n")
+ (position . 385)
+ (last-modified 25545 15873 954235 994000))
+("org-refile-last-stored"
  (filename . "~/git/personal/org/web.org")
  (front-context-string . "** [[https://its")
  (rear-context-string . "lview\" program.\n")
  (position . 173198))
-("todo"
- (filename . "~/git/personal/org/todo.org")
- (front-context-string . "#+TITLE: todo\n#+")
- (rear-context-string)
- (position . 1))
 ("org-capture-last-stored"
  (filename . "~/git/personal/org/todo.org")
  (front-context-string . "** TODO macair f")
