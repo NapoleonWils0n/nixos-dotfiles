@@ -56,8 +56,6 @@
           user_pref("browser.startup.homepage", "about:blank");
           // tabs firefox view = false
           user_pref("browser.tabs.firefox-view", false);
-          // dont close firefox when you close the last tab
-          user_pref("browser.tabs.closeWindowWithLastTab", false);
           // tabmanager = false
           user_pref("browser.tabs.tabmanager.enabled", false);
           // newtab = false

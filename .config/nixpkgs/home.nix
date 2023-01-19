@@ -89,6 +89,7 @@ in {
     mpc_cli
     mpd
     mpv
+    mpvScripts.mpris
     mutt
     ncdu
     ncmpc
@@ -122,6 +123,7 @@ in {
 
   # Home Manager needs a bit of information about you and the
   # paths it should manage.
+  manual.manpages.enable = false; # needed for dell xps15
   home.username = "djwilcox";
   home.homeDirectory = "/home/djwilcox";
 
