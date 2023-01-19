@@ -64,6 +64,15 @@ in {
       };
     };
 
+  # mpv mpris 
+  nixpkgs.overlays = [
+    (self: super: {
+      mpv = super.mpv.override {
+        scripts = [ self.mpvScripts.mpris ];
+      };
+    })
+  ];
+
   home.packages = with pkgs;[
     abook
     apg
@@ -90,7 +99,6 @@ in {
     mpc_cli
     mpd
     mpv
-    mpvScripts.mpris
     mutt
     ncdu
     ncmpc
