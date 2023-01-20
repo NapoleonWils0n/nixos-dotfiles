@@ -124,6 +124,7 @@ in {
     urlscan
     urlview
     yt-dlp
+    w3m
     weechat
     widevine-cdm
     xclip
