@@ -47,6 +47,19 @@ in {
         '';
         pinentryFlavor = "curses";
       };
+      mpd = {
+        enable = true;
+        musicDirectory = "~/Music";
+        network = {
+          startWhenNeeded = true;
+        };
+        extraConfig = ''
+          audio_output {
+            type "pipewire"
+            name "My PipeWire Output"
+          }
+        '';
+      };
     };
 
     # systemd ssh auth sock

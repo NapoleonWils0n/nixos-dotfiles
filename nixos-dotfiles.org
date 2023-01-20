@@ -78,6 +78,19 @@ in {
         '';
         pinentryFlavor = "curses";
       };
+      mpd = {
+        enable = true;
+        musicDirectory = "~/Music";
+        network = {
+          startWhenNeeded = true;
+        };
+        extraConfig = ''
+          audio_output {
+            type "pipewire"
+            name "My PipeWire Output"
+          }
+        '';
+      };
     };
 
     # systemd ssh auth sock
@@ -2129,7 +2142,8 @@ export QT_QPA_PLATFORMTHEME=qt5ct
 export KEYTIMEOUT=1
 
 # mpd host variable for mpc
-export MPD_HOST="/home/djwilcox/.config/mpd/socket"
+#export MPD_HOST="/home/djwilcox/.config/mpd/socket"
+export MPD_HOST="/run/user/1000/mpd/socket"
 
 # git pager bat with colour
 export GIT_PAGER="bat --color=always -p -l rs"
@@ -3142,90 +3156,6 @@ https://www.dnoid.to/rss/4.xml comics demonoid "~comics"
 <<newsboat-stylesheet>>
 #+END_SRC
 
-** mpd
-*** mpd config
-**** mpd.conf config
-
-#+NAME: mpd
-#+BEGIN_SRC conf
-music_directory		"~/Music"
-playlist_directory	"~/.config/mpd/playlists"
-db_file			"~/.config/mpd/mpd.db"
-log_file		"~/.config/mpd/mpd.log"
-pid_file		"~/.config/mpd/mpd.pid"
-state_file		"~/.config/mpd/mpdstate"
-sticker_file		"~/.config/mpd/sticker.sql"
-bind_to_address		"/home/djwilcox/.config/mpd/socket"
-auto_update    "yes"
-decoder {
-        plugin                  "hybrid_dsd"
-        enabled                 "no"
-#       gapless                 "no"
-}
-#audio_output {
-#	type		"alsa"
-#	name		"My ALSA Device"
-#}
-
-#audio_output {
-#        type            "pulse"
-#        name            "pulse audio"
-#}
-
-
-audio_output {
-        type            "pipewire"
-        name            "pipewire"
-}
-
-filesystem_charset		"UTF-8"
-#+END_SRC
-
-**** playlists config
-
-#+NAME: mpd-playlists
-#+begin_src conf
-#EXTM3U
-#EXTINF:0,Talk Sport
-https://radio.talksport.com/stream
-
-#EXTINF:0,LBC London
-http://icecast.thisisdax.com/LBCLondon
-#+end_src
-
-*** mpd tangle
-**** mpd.conf tangle
-
-+ home dir
-
-#+NAME: mpd-home-dir
-#+BEGIN_SRC conf :noweb yes :tangle "~/.config/mpd/mpd.conf"
-<<mpd>>
-#+END_SRC
-
-+ current dir
-
-#+NAME: mpd-current-dir
-#+BEGIN_SRC conf :noweb yes :tangle ".config/mpd/mpd.conf"
-<<mpd>>
-#+END_SRC
-
-**** playlists tangle
-
-+ home dir
-
-#+NAME: mpd-playlists-home-dir
-#+BEGIN_SRC conf :noweb yes :tangle "~/.config/mpd/playlists/radio.m3u"
-<<mpd-playlists>>
-#+END_SRC
-
-+ current dir
-
-#+NAME: mpd-playlists-current-dir
-#+BEGIN_SRC conf :noweb yes :tangle ".config/mpd/playlists/radio.m3u"
-<<mpd-playlists>>
-#+END_SRC
-
 ** ncmpc
 *** ncmpc config
 
@@ -3239,7 +3169,7 @@ http://icecast.thisisdax.com/LBCLondon
 ## Connect to mpd running on a specified host
 #host = "localhost"
 #host = "127.0.0.1"
-host = "/home/djwilcox/.config/mpd/socket"
+host = "/run/user/1000/mpd/socket"
 
 ## Connect to mpd on the specified port.
 #port = 6600
