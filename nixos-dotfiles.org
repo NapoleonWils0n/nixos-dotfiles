@@ -55,12 +55,6 @@ in {
       gpg = {
         enable = true;
       };
-      bat = {
-        enable = true;
-        config = {
-          theme = "Solarized (dark)";
-        };
-      };
     };
 
     imports = [
@@ -4418,6 +4412,33 @@ fi
 <<xdcceu>>
 #+END_SRC
 
+** bat
+*** bat config
+
+#+NAME: bat
+#+BEGIN_SRC conf
+# This is `bat`s configuration file
+
+# bat theme
+--theme="Solarized (dark)"
+#+END_SRC
+
+*** bat tangle
+
++ home dir
+
+#+NAME: bat-home-dir
+#+BEGIN_SRC conf :noweb yes :tangle "~/.config/bat/config"
+<<bat>>
+#+END_SRC
+
++ current dir
+
+#+NAME: bat-current-dir
+#+BEGIN_SRC conf :noweb yes :tangle ".config/bat/config"
+<<bat>>
+#+END_SRC
+
 ** w3m
 *** w3m config
 **** bookmark.html
@@ -6466,4 +6487,3 @@ Comment=nognome_notifications
 #+BEGIN_SRC conf :noweb yes :tangle ".config/autostart/nognome_notications.desktop"
 <<nognome_notications>>
 #+END_SRC
-

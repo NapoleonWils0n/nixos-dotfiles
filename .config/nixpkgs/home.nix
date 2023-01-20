@@ -24,12 +24,6 @@ in {
       gpg = {
         enable = true;
       };
-      bat = {
-        enable = true;
-        config = {
-          theme = "Solarized (dark)";
-        };
-      };
     };
 
     imports = [
