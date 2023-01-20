@@ -2063,12 +2063,7 @@ compdef _gnu_generic nix-env
 # aliases
 
 # mpc host and socket
-alias mpc='mpc --host="${HOME}/.config/mpd/socket"'
-
-# ls hide firefox.tmp snap folder in ~/Downloads, use ls -a to show the folder again
-#alias ls='ls --hide=firefox.tmp'
-
-# transmission functions - if the /etc/netns/vpn directory exists the vpn is active otherwise use transmission over regular network
+alias mpc='mpc --host="/run/user/1000/mpd/socket"'
 
 # daemon start
 trd-daemon() {
@@ -2142,7 +2137,6 @@ export QT_QPA_PLATFORMTHEME=qt5ct
 export KEYTIMEOUT=1
 
 # mpd host variable for mpc
-#export MPD_HOST="/home/djwilcox/.config/mpd/socket"
 export MPD_HOST="/run/user/1000/mpd/socket"
 
 # git pager bat with colour

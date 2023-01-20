@@ -42,7 +42,6 @@ export QT_QPA_PLATFORMTHEME=qt5ct
 export KEYTIMEOUT=1
 
 # mpd host variable for mpc
-#export MPD_HOST="/home/djwilcox/.config/mpd/socket"
 export MPD_HOST="/run/user/1000/mpd/socket"
 
 # git pager bat with colour
