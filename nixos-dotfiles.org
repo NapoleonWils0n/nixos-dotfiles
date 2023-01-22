@@ -93,8 +93,12 @@ in {
       };
     };
 
-    # systemd ssh auth sock
-    systemd.user.sessionVariables.SSH_AUTH_SOCK = "/run/user/1000/keyring/ssh";
+    # systemd
+    systemd.user.sessionVariables = {
+      SSH_AUTH_SOCK = "/run/user/1000/keyring/ssh";
+      DISPLAY = ":0";
+      WAYLAND_DISPLAY = "wayland-0";
+    };
 
 
     # gtk
