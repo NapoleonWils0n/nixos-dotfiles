@@ -95,8 +95,6 @@
           user_pref("browser.urlbar.suggest.topsites", false);
           // firefox healthreport upload = false
           user_pref("datareporting.healthreport.uploadEnabled", false);
-          // dont let sites disable right click contextual menus
-          user_pref("dom.event.contextmenu.enabled", false);
           // dont let sites disable copy and paste
           user_pref("dom.event.clipboardevents.enabled", false);
           // https mode = true
