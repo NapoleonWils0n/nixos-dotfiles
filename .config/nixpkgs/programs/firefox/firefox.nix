@@ -69,8 +69,6 @@
           user_pref("browser.toolbars.bookmarks.visibility", "never");
           // browser ui density
           user_pref("browser.uidensity", "1");
-          // replace google placeholdername with your own text
-          user_pref("browser.urlbar.placeholderName", "your mind");
           // urlbar speculativeconnect = false
           user_pref("browser.urlbar.speculativeConnect.enabled", false);
           // urlbar bookmarks = false
