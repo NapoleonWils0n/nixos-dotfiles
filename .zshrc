@@ -188,10 +188,7 @@ compdef _gnu_generic nix-env
 # mpc host and socket
 alias mpc='mpc --host="/run/user/1000/mpd/socket"'
 
-# daemon start
-trd-daemon() {
-    transmission-daemon;
-    }
+# transmission
 
 # start torrent <id> or all
 trd-start() {
@@ -202,9 +199,6 @@ trd-start() {
 trd-pause() {
     transmission-remote -t"${1-all}" --stop;
     }
-
-# daemon stop
-trd-quit() { killall transmission-daemon ;}
 
 # watch torrent list with viddy
 trd-watch() {
