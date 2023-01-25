@@ -129,6 +129,8 @@
           user_pref("network.http.referer.XOriginTrimmingPolicy", "2");
           user_pref("network.http.referer.trimmingPolicy", "1");
           user_pref("network.prefetch-next", false);
+          // magnet links
+          user_pref("network.protocol-handler.expose.magnet", false);
           // default shortcuts
           user_pref("permissions.default.shortcuts", "2");
           // privacy dont track = true
