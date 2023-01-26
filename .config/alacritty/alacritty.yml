@@ -12,22 +12,22 @@ window:
 # Font configuration
 font:
   normal:
-    family: monospace
+    family: Fira Code
     style: Regular
 
   # Bold font face
   bold:
-    family: monospace
+    family: Fira Code
     style: Bold
 
   # Italic font face
   italic:
-    family: monospace
+    family: Fira Code
     style: Italic
 
   # Bold italic font face
   bold_italic:
-    family: monospace
+    family: Fira Code
     style: Bold Italic
 
   # Point size
