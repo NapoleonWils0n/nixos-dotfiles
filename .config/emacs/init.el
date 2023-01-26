@@ -18,15 +18,11 @@
 
 ;; package-selected-packages
 (custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
  '(auth-source-save-behavior nil)
  '(custom-safe-themes
    '("636b135e4b7c86ac41375da39ade929e2bd6439de8901f53f88fde7dd5ac3561" default))
  '(package-selected-packages
-   '(ob-nix nix-mode 0blayout all-the-icons annalist company csv-mode doom-themes doom-modeline ednc embark-consult emmet-mode epl evil-collection evil-leader evil-surround fd-dired flycheck git-commit git-auto-commit-mode haskell-mode hydra iedit magit-section marginalia mpv multi-vterm ob-async openwith orderless ox-pandoc pkg-info rg s shrink-path undo-tree vertico vterm wgrep which-key yaml-mode))
+   '(ob-nix nix-mode 0blayout all-the-icons annalist company csv-mode doom-themes doom-modeline ednc embark-consult emmet-mode epl evil-collection evil-leader evil-surround fd-dired flycheck git-commit git-auto-commit-mode haskell-mode hydra iedit magit-section marginalia mpv ob-async openwith orderless ox-pandoc pkg-info rg s shrink-path undo-tree vertico wgrep which-key yaml-mode))
  '(warning-suppress-types '((comp))))
 
 ;; require package
@@ -120,9 +116,6 @@
 
 ;; doom modeline truncate text
 (setq doom-modeline-buffer-file-name-style 'truncate-except-project)
-
-;; dont display the minor modes in the mode-line.
-;;(setq doom-modeline-minor-modes nil)
 
 ;; hide the time icon
 (setq doom-modeline-time-icon nil)
@@ -348,11 +341,6 @@
 ;; keymap-global-set
 ;; ----------------------------------------------------------------------------------
 
-;; Multi Vterm keybinds 
-(keymap-global-set "C-c t v" 'multi-vterm)
-(keymap-global-set "C-c t r" 'multi-vterm-rename-buffer)
-(keymap-global-set "C-c p" 'vterm-yank-primary)
-
 ;; magit
 (keymap-global-set "C-x g" 'magit-status)
 
@@ -377,26 +365,6 @@
 
 ;; app-launcher
 (keymap-set global-map "C-c d" 'app-launcher-run-app)
-
-
-;; ----------------------------------------------------------------------------------
-;; vterm
-;; ----------------------------------------------------------------------------------
-
-(setq vterm-always-compile-module t)
-(setq vterm-buffer-name-string "vterm %s")
-
-;; vterm and evil
-(with-eval-after-load 'evil
-  (evil-set-initial-state 'vterm-mode 'emacs))
-
-;; vterm mode hide line numbers and position
-(defun nolinum ()
-  (setq-local line-number-mode nil)
-  (setq-local doom-modeline-percent-position nil)
-)
-
-(add-hook 'vterm-mode-hook 'nolinum)
 
 
 ;; ----------------------------------------------------------------------------------

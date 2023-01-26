@@ -18,7 +18,6 @@ in {
         enable = true;
         package = unstable.emacsPgtk;
         extraPackages = epkgs: with epkgs; [
-          vterm
         ];
       };
       gpg = {
