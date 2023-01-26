@@ -2394,6 +2394,539 @@ cache=auto
 <<aria2c>>
 #+end_src
 
+** ncmpc
+*** ncmpc config
+
+#+NAME: ncmpc
+#+BEGIN_SRC conf
+## Configuration file for ncmpc (~/.ncmpc/config)
+host = "/run/user/1000/mpd/socket"
+screen-list = playlist browse
+wrap-around = yes
+seek-time = 30
+list-format = "%name%|[%artist% - ]%title%|%file%"
+status-format = "[%artist% - ]%title%|%shortfile%"
+visible-bitrate = yes
+enable-colors = no
+color background = none
+color title = none,black
+color title-bold = blue,bold
+color line = black
+color line-flags = black,bold
+color list = none
+color list-bold = none,bold
+color browser-directory = none
+color browser-playlist = none
+color progressbar = black
+color status-state = black,bold
+color status-song  = black
+color status-time  = black
+color alert = black,bold
+#+END_SRC
+
+*** ncmpc tangle
+
++ home dir
+
+#+NAME: ncmpc-home-dir
+#+BEGIN_SRC conf :noweb yes :tangle "~/.config/ncmpc/config"
+<<ncmpc>>
+#+END_SRC
+
++ current dir
+
+#+NAME: ncmpc-current-dir
+#+BEGIN_SRC conf :noweb yes :tangle ".config/ncmpc/config"
+<<ncmpc>>
+#+END_SRC
+
+** tmux
+*** tmux config
+
+#+NAME: tmux
+#+BEGIN_SRC conf
+# .tmux.conf
+
+# vi mode
+set-window-option -g mode-keys vi
+
+# Some tweaks to the status line
+set -g status-right ""
+#set -g window-status-current-style "underscore"
+
+# If running inside tmux ($TMUX is set), then change the status line to red
+%if #{TMUX}
+set -g status-bg red
+%endif
+
+# Enable RGB colour if running in xterm(1)
+set-option -sa terminal-overrides ",xterm*:Tc"
+
+# Change the default $TERM to screen
+set -g default-terminal "tmux-256color"
+
+# No bells at all
+set -g bell-action none
+
+# close panes after command has finished
+set -g remain-on-exit off
+
+# Change the prefix key to C-a
+set -g prefix C-a
+unbind C-b
+bind C-a send-prefix
+
+# Turn the mouse on, but without copy mode dragging
+set -g mouse on
+#unbind -n MouseDrag1Pane
+#unbind -Tcopy-mode MouseDrag1Pane
+
+# A key to toggle between smallest and largest sizes if a window is visible in
+# multiple places
+bind F set -w window-size
+
+# Keys to toggle monitoring activity in a window and the synchronize-panes option
+bind m set monitor-activity
+bind y set synchronize-panes\; display 'synchronize-panes #{?synchronize-panes,on,off}'
+
+# Start windows and panes at 1, not 0
+set -g base-index 1
+setw -g pane-base-index 1
+
+# reload ~/.tmux.conf using PREFIX r
+bind r source-file ~/.config/tmux/tmux.conf \; display "Reloaded!"
+
+# default statusbar colors
+set -g status-style bg=default,fg=yellow #yellow
+
+# default window title colors
+set -g window-status-style fg=brightblue,bg=default
+
+# active window title colors
+set -g window-status-current-style fg=black,bg=blue
+
+# pane border
+set -g pane-border-style fg=black #base02
+set -g pane-active-border-style fg=black #base01
+
+# message text
+set -g message-style bg=black,fg=brightred #orange
+
+# pane number display
+set-option -g display-panes-active-colour blue #blue
+set-option -g display-panes-colour brightred #orange
+
+# clock
+set-window-option -g clock-mode-colour green #green
+
+# vim key bindings
+setw -g mode-keys vi
+bind h select-pane -L
+bind j select-pane -D
+bind k select-pane -U
+bind l select-pane -R
+bind-key -r C-h select-window -t :-
+bind-key -r C-l select-window -t :+
+
+# resize panes using PREFIX H, J, K, L
+bind H resize-pane -L 5
+bind J resize-pane -D 5
+bind K resize-pane -U 5
+bind L resize-pane -R 5
+
+# copy and paste
+set-window-option -g automatic-rename on
+
+# toggle statusbar
+bind-key s set -g status
+
+# copying selection vim style
+# requires xsel and xclip
+bind-key Escape copy-mode			# enter copy mode; default [
+bind-key p paste-buffer				# paste; (default hotkey: ] )
+bind-key P choose-buffer 			# tmux clipboard history
+bind-key + delete-buffer \; display-message "Deleted current Tmux Clipboard History"
+
+# Send To Tmux Clipboard or System Clipboard
+bind-key < run-shell "tmux set-buffer -- \"$(xsel -o -b)\"" \; display-message "Copy To Tmux Clipboard"
+bind-key > run-shell 'tmux show-buffer | xsel -i -b' \; display-message "Copy To System Clipboard"
+
+# Note: rectangle-toggle (aka Visual Block Mode) > hit v then C-v to trigger it
+bind-key -T copy-mode-vi v send-keys -X begin-selection
+bind-key -T copy-mode-vi V send-keys -X select-line
+bind-key -T copy-mode-vi C-v send-keys -X rectangle-toggle
+bind-key -T choice-mode-vi h send-keys -X tree-collapse
+bind-key -T choice-mode-vi l send-keys -X tree-expand
+bind-key -T choice-mode-vi H send-keys -X tree-collapse-all
+bind-key -T choice-mode-vi L send-keys -X tree-expand-all
+bind-key -T copy-mode-vi MouseDragEnd1Pane send-keys -X copy-pipe "xclip -in -selection clipboard"
+bind-key -T copy-mode-vi y send-keys -X copy-pipe "xclip -in -selection clipboard"
+
+# urlscan as context and url view
+bind-key u capture-pane \; save-buffer /tmp/tmux-buffer \; \
+new-window -n "urlscan" '$SHELL -c "urlscan < /tmp/tmux-buffer"'
+
+# copy mode - emulate right click "search google for {text}" like you do in GUI web browsers. 
+bind-key -T copy-mode-vi 'o' send-keys -X copy-selection \; \
+new-window -n google \; send-keys -t google 'sr -browser=/usr/bin/w3m google "$(tmux show-buffer)" && tmux kill-window' 'Enter'
+
+# copy mode - emulate right click "search imdb for {text}" like you do in GUI web browsers. 
+bind-key -T copy-mode-vi 'i' send-keys -X copy-selection \; \
+new-window -n imdb \; send-keys -t imdb 'sr -browser=/usr/bin/w3m imdb "$(tmux show-buffer)" && tmux kill-window' 'Enter'
+
+# tmux auto rename pane 
+set-option -g status-interval 1
+set-option -g automatic-rename on
+set-option -g automatic-rename-format "#{?#{==:#{pane_current_command},zsh},#{b:pane_current_path},#{pane_current_command}}"
+
+set-option -g default-shell ${SHELL}
+#+END_SRC
+
+*** tmux tangle
+
++ home dir
+
+#+NAME: tmux-home-dir
+#+BEGIN_SRC conf :noweb yes :tangle "~/.config/tmux/tmux.conf"
+<<tmux>>
+#+END_SRC
+
++ current dir
+
+#+NAME: tmux-current-dir
+#+BEGIN_SRC conf :noweb yes :tangle ".config/tmux/tmux.conf"
+<<tmux>>
+#+END_SRC
+
+** bat
+*** bat config
+
+#+NAME: bat
+#+BEGIN_SRC conf
+# This is `bat`s configuration file
+
+# bat theme
+--theme="Solarized (dark)"
+#+END_SRC
+
+*** bat tangle
+
++ home dir
+
+#+NAME: bat-home-dir
+#+BEGIN_SRC conf :noweb yes :tangle "~/.config/bat/config"
+<<bat>>
+#+END_SRC
+
++ current dir
+
+#+NAME: bat-current-dir
+#+BEGIN_SRC conf :noweb yes :tangle ".config/bat/config"
+<<bat>>
+#+END_SRC
+
+** wget
+*** wget config
+
+#+NAME: wget
+#+BEGIN_SRC conf
+hsts-file=/home/djwilcox/.cache/wget-hsts
+#+END_SRC
+
+*** wget tangle
+
++ home dir
+
+#+NAME: wget-home-dir
+#+BEGIN_SRC conf :noweb yes :tangle "~/.config/wget/wgetrc"
+<<wget>>
+#+END_SRC
+
++ current dir
+
+#+NAME: wget-current-dir
+#+BEGIN_SRC conf :noweb yes :tangle ".config/wget/wgetrc"
+<<wget>>
+#+END_SRC
+
+** urlscan
+*** urlscan config
+
+#+NAME: urlscan
+#+BEGIN_SRC conf
+{
+    "palettes": {
+        "default": [
+            [
+                "header",
+                "black",
+                "dark blue",
+                "standout"
+            ],
+            [
+                "footer",
+                "white",
+                "default",
+                "standout"
+            ],
+            [
+                "search",
+                "white",
+                "default",
+                "standout"
+            ],
+            [
+                "msgtext",
+                "",
+                ""
+            ],
+            [
+                "msgtext:ellipses",
+                "light gray",
+                "default"
+            ],
+            [
+                "urlref:number:braces",
+                "light gray",
+                "default"
+            ],
+            [
+                "urlref:number",
+                "default",
+                "default",
+                "standout"
+            ],
+            [
+                "urlref:url",
+                "white",
+                "default",
+                "standout"
+            ],
+            [
+                "url:sel",
+                "default",
+                "dark blue",
+                "bold"
+            ]
+        ],
+        "bw": [
+            [
+                "header",
+                "black",
+                "light gray",
+                "standout"
+            ],
+            [
+                "footer",
+                "black",
+                "light gray",
+                "standout"
+            ],
+            [
+                "search",
+                "black",
+                "light gray",
+                "standout"
+            ],
+            [
+                "msgtext",
+                "",
+                ""
+            ],
+            [
+                "msgtext:ellipses",
+                "white",
+                "black"
+            ],
+            [
+                "urlref:number:braces",
+                "white",
+                "black"
+            ],
+            [
+                "urlref:number",
+                "white",
+                "black",
+                "standout"
+            ],
+            [
+                "urlref:url",
+                "white",
+                "black",
+                "standout"
+            ],
+            [
+                "url:sel",
+                "black",
+                "light gray",
+                "bold"
+            ]
+        ]
+    },
+    "keys": {
+        "/": "search_key",
+        "0": "digits",
+        "1": "digits",
+        "2": "digits",
+        "3": "digits",
+        "4": "digits",
+        "5": "digits",
+        "6": "digits",
+        "7": "digits",
+        "8": "digits",
+        "9": "digits",
+        "C": "clipboard",
+        "c": "context",
+        "ctrl l": "clear_screen",
+        "f1": "help_menu",
+        "G": "bottom",
+        "g": "top",
+        "j": "down",
+        "k": "up",
+        "P": "clipboard_pri",
+        "l": "link_handler",
+        "p": "palette",
+        "Q": "quit",
+        "q": "quit",
+        "S": "all_shorten",
+        "s": "shorten",
+        "u": "all_escape"
+    }
+}
+#+END_SRC
+
+*** urlscan tangle
+
++ home dir
+
+#+NAME: urlscan-home-dir
+#+BEGIN_SRC conf :noweb yes :tangle "~/.config/urlscan/config.json"
+<<urlscan>>
+#+END_SRC
+
++ current dir
+
+#+NAME: urlscan-current-dir
+#+BEGIN_SRC conf :noweb yes :tangle ".config/urlscan/config.json"
+<<urlscan>>
+#+END_SRC
+
+** zathura
+*** zathura config
+
+#+NAME: zathura
+#+BEGIN_SRC conf
+set selection-clipboard clipboard
+#+END_SRC
+
+*** zathura tangle
+
++ home dir
+  
+#+NAME: zathura-home-dir
+#+BEGIN_SRC conf :noweb yes :tangle "~/.config/zathura/zathurarc"
+<<zathura>>
+#+END_SRC
+  
++ current dir
+
+#+NAME: zathura-current-dir
+#+BEGIN_SRC conf :noweb yes :tangle ".config/zathura/zathurarc"
+<<zathura>>
+#+END_SRC
+
+** desktop files
+*** desktop files config
+**** transmission config
+
+#+NAME: transmission-desktop
+#+begin_src conf
+[Desktop Entry]
+Name=Transmission
+Exec=/home/djwilcox/bin/magnet-add %u
+Icon=utilities-terminal
+Type=Application
+Terminal=false
+MimeType=application/x-bittorrent;x-scheme-handler/magnet;
+#+end_src
+
+*** desktop files tangle
+**** transmission tangle
+
++ home dir
+  
+#+NAME: transmission-desktop-home-dir
+#+BEGIN_SRC conf :noweb yes :tangle "~/.local/share/applications/transmission.desktop"
+<<transmission-desktop>>
+#+END_SRC
+  
++ current dir
+
+#+NAME: transmission-desktop-current-dir
+#+BEGIN_SRC conf :noweb yes :tangle ".local/share/applications/transmission.desktop"
+<<transmission-desktop>>
+#+END_SRC
+
+** autostart
+*** autostart config
+**** nognome_notications config
+
+#+NAME: nognome_notications
+#+BEGIN_SRC conf
+[Desktop Entry]
+Type=Application
+Exec=/home/djwilcox/bin/nognome_notifications
+Hidden=True
+NoDisplay=True
+X-GNOME-Autostart-enabled=true
+Name=nognome_notifications
+Comment=nognome_notifications
+#+END_SRC
+
+*** autostart tangle
+**** nognome_notications tangle
+
++ home dir
+
+#+NAME: nognome_notications-autostart-home-dir
+#+BEGIN_SRC conf :noweb yes :tangle "~/.config/autostart/nognome_notications.desktop"
+<<nognome_notications>>
+#+END_SRC
+
++ current dir
+
+#+NAME: nognome_notications-autostart-current-dir
+#+BEGIN_SRC conf :noweb yes :tangle ".config/autostart/nognome_notications.desktop"
+<<nognome_notications>>
+#+END_SRC
+** gitconfig
+*** gitconfig config
+
+#+NAME: gitconfig
+#+BEGIN_SRC conf
+[user]
+name = Daniel J Wilcox
+email = danieljwilcox@gmail.com
+[color]
+ui = true
+#+END_SRC
+
+*** gitconfig tangle
+
++ home dir
+
+#+NAME: gitconfig-home-dir
+#+BEGIN_SRC conf :noweb yes :tangle "~/.config/git/config"
+<<gitconfig>>
+#+END_SRC
+
++ current dir
+
+#+NAME: gitconfig-current-dir
+#+BEGIN_SRC conf :noweb yes :tangle ".config/git/gitconfig"
+<<gitconfig>>
+#+END_SRC
+
 ** newsboat
 *** newsboat config
 **** config
@@ -2794,210 +3327,6 @@ https://www.dnoid.to/rss/4.xml comics demonoid "~comics"
 <<newsboat-urls-torrents>>
 #+END_SRC
 
-** ncmpc
-*** ncmpc config
-
-#+NAME: ncmpc
-#+BEGIN_SRC conf
-## Configuration file for ncmpc (~/.ncmpc/config)
-host = "/run/user/1000/mpd/socket"
-screen-list = playlist browse
-wrap-around = yes
-seek-time = 30
-list-format = "%name%|[%artist% - ]%title%|%file%"
-status-format = "[%artist% - ]%title%|%shortfile%"
-visible-bitrate = yes
-enable-colors = no
-color background = none
-color title = none,black
-color title-bold = blue,bold
-color line = black
-color line-flags = black,bold
-color list = none
-color list-bold = none,bold
-color browser-directory = none
-color browser-playlist = none
-color progressbar = black
-color status-state = black,bold
-color status-song  = black
-color status-time  = black
-color alert = black,bold
-#+END_SRC
-
-*** ncmpc tangle
-
-+ home dir
-
-#+NAME: ncmpc-home-dir
-#+BEGIN_SRC conf :noweb yes :tangle "~/.config/ncmpc/config"
-<<ncmpc>>
-#+END_SRC
-
-+ current dir
-
-#+NAME: ncmpc-current-dir
-#+BEGIN_SRC conf :noweb yes :tangle ".config/ncmpc/config"
-<<ncmpc>>
-#+END_SRC
-
-** tmux
-*** tmux config
-
-#+NAME: tmux
-#+BEGIN_SRC conf
-# .tmux.conf
-
-# vi mode
-set-window-option -g mode-keys vi
-
-# Some tweaks to the status line
-set -g status-right ""
-#set -g window-status-current-style "underscore"
-
-# If running inside tmux ($TMUX is set), then change the status line to red
-%if #{TMUX}
-set -g status-bg red
-%endif
-
-# Enable RGB colour if running in xterm(1)
-set-option -sa terminal-overrides ",xterm*:Tc"
-
-# Change the default $TERM to screen
-set -g default-terminal "tmux-256color"
-
-# No bells at all
-set -g bell-action none
-
-# close panes after command has finished
-set -g remain-on-exit off
-
-# Change the prefix key to C-a
-set -g prefix C-a
-unbind C-b
-bind C-a send-prefix
-
-# Turn the mouse on, but without copy mode dragging
-set -g mouse on
-#unbind -n MouseDrag1Pane
-#unbind -Tcopy-mode MouseDrag1Pane
-
-# A key to toggle between smallest and largest sizes if a window is visible in
-# multiple places
-bind F set -w window-size
-
-# Keys to toggle monitoring activity in a window and the synchronize-panes option
-bind m set monitor-activity
-bind y set synchronize-panes\; display 'synchronize-panes #{?synchronize-panes,on,off}'
-
-# Start windows and panes at 1, not 0
-set -g base-index 1
-setw -g pane-base-index 1
-
-# reload ~/.tmux.conf using PREFIX r
-bind r source-file ~/.config/tmux/tmux.conf \; display "Reloaded!"
-
-# default statusbar colors
-set -g status-style bg=default,fg=yellow #yellow
-
-# default window title colors
-set -g window-status-style fg=brightblue,bg=default
-
-# active window title colors
-set -g window-status-current-style fg=black,bg=blue
-
-# pane border
-set -g pane-border-style fg=black #base02
-set -g pane-active-border-style fg=black #base01
-
-# message text
-set -g message-style bg=black,fg=brightred #orange
-
-# pane number display
-set-option -g display-panes-active-colour blue #blue
-set-option -g display-panes-colour brightred #orange
-
-# clock
-set-window-option -g clock-mode-colour green #green
-
-# vim key bindings
-setw -g mode-keys vi
-bind h select-pane -L
-bind j select-pane -D
-bind k select-pane -U
-bind l select-pane -R
-bind-key -r C-h select-window -t :-
-bind-key -r C-l select-window -t :+
-
-# resize panes using PREFIX H, J, K, L
-bind H resize-pane -L 5
-bind J resize-pane -D 5
-bind K resize-pane -U 5
-bind L resize-pane -R 5
-
-# copy and paste
-set-window-option -g automatic-rename on
-
-# toggle statusbar
-bind-key s set -g status
-
-# copying selection vim style
-# requires xsel and xclip
-bind-key Escape copy-mode			# enter copy mode; default [
-bind-key p paste-buffer				# paste; (default hotkey: ] )
-bind-key P choose-buffer 			# tmux clipboard history
-bind-key + delete-buffer \; display-message "Deleted current Tmux Clipboard History"
-
-# Send To Tmux Clipboard or System Clipboard
-bind-key < run-shell "tmux set-buffer -- \"$(xsel -o -b)\"" \; display-message "Copy To Tmux Clipboard"
-bind-key > run-shell 'tmux show-buffer | xsel -i -b' \; display-message "Copy To System Clipboard"
-
-# Note: rectangle-toggle (aka Visual Block Mode) > hit v then C-v to trigger it
-bind-key -T copy-mode-vi v send-keys -X begin-selection
-bind-key -T copy-mode-vi V send-keys -X select-line
-bind-key -T copy-mode-vi C-v send-keys -X rectangle-toggle
-bind-key -T choice-mode-vi h send-keys -X tree-collapse
-bind-key -T choice-mode-vi l send-keys -X tree-expand
-bind-key -T choice-mode-vi H send-keys -X tree-collapse-all
-bind-key -T choice-mode-vi L send-keys -X tree-expand-all
-bind-key -T copy-mode-vi MouseDragEnd1Pane send-keys -X copy-pipe "xclip -in -selection clipboard"
-bind-key -T copy-mode-vi y send-keys -X copy-pipe "xclip -in -selection clipboard"
-
-# urlscan as context and url view
-bind-key u capture-pane \; save-buffer /tmp/tmux-buffer \; \
-new-window -n "urlscan" '$SHELL -c "urlscan < /tmp/tmux-buffer"'
-
-# copy mode - emulate right click "search google for {text}" like you do in GUI web browsers. 
-bind-key -T copy-mode-vi 'o' send-keys -X copy-selection \; \
-new-window -n google \; send-keys -t google 'sr -browser=/usr/bin/w3m google "$(tmux show-buffer)" && tmux kill-window' 'Enter'
-
-# copy mode - emulate right click "search imdb for {text}" like you do in GUI web browsers. 
-bind-key -T copy-mode-vi 'i' send-keys -X copy-selection \; \
-new-window -n imdb \; send-keys -t imdb 'sr -browser=/usr/bin/w3m imdb "$(tmux show-buffer)" && tmux kill-window' 'Enter'
-
-# tmux auto rename pane 
-set-option -g status-interval 1
-set-option -g automatic-rename on
-set-option -g automatic-rename-format "#{?#{==:#{pane_current_command},zsh},#{b:pane_current_path},#{pane_current_command}}"
-
-set-option -g default-shell ${SHELL}
-#+END_SRC
-
-*** tmux tangle
-
-+ home dir
-
-#+NAME: tmux-home-dir
-#+BEGIN_SRC conf :noweb yes :tangle "~/.config/tmux/tmux.conf"
-<<tmux>>
-#+END_SRC
-
-+ current dir
-
-#+NAME: tmux-current-dir
-#+BEGIN_SRC conf :noweb yes :tangle ".config/tmux/tmux.conf"
-<<tmux>>
-#+END_SRC
-
 ** muttrc
 *** muttrc config
 
@@ -3120,925 +3449,683 @@ set my_pgp_id="3B2C8BA1"
 <<muttrc>>
 #+END_SRC
 
-** surfraw
-*** surfraw config
-**** surfraw
+** weechat
+*** weechat config 
 
-surfraw config
-
-#+NAME: surfraw
+#+NAME: weechat.conf
 #+BEGIN_SRC conf
-SURFRAW_graphical_browser=xdg-open
-SURFRAW_text_browser=w3m
-SURFRAW_graphical=yes
+# weechat -- weechat.conf
+[debug]
+
+[startup]
+command_after_plugins = ""
+command_before_plugins = ""
+display_logo = off
+display_version = on
+sys_rlimit = ""
+
+[look]
+align_end_of_lines = message
+align_multiline_words = on
+bar_more_down = "++"
+bar_more_left = "<<"
+bar_more_right = ">>"
+bar_more_up = "--"
+bare_display_exit_on_input = on
+bare_display_time_format = "%H:%M"
+buffer_auto_renumber = on
+buffer_notify_default = all
+buffer_position = end
+buffer_search_case_sensitive = off
+buffer_search_force_default = off
+buffer_search_regex = off
+buffer_search_where = prefix_message
+buffer_time_format = "[%H:%M]"
+color_basic_force_bold = off
+color_inactive_buffer = on
+color_inactive_message = on
+color_inactive_prefix = on
+color_inactive_prefix_buffer = on
+color_inactive_time = off
+color_inactive_window = on
+color_nick_offline = off
+color_pairs_auto_reset = 5
+color_real_white = off
+command_chars = ""
+command_incomplete = off
+confirm_quit = off
+confirm_upgrade = off
+day_change = on
+day_change_message_1date = "-- %a, %d %b %Y --"
+day_change_message_2dates = "-- %%a, %%d %%b %%Y (%a, %d %b %Y) --"
+eat_newline_glitch = off
+emphasized_attributes = ""
+highlight = ""
+highlight_regex = ""
+highlight_tags = ""
+hotlist_add_conditions = "${away} || ${buffer.num_displayed} == 0"
+hotlist_buffer_separator = ", "
+hotlist_count_max = 2
+hotlist_count_min_msg = 2
+hotlist_names_count = 3
+hotlist_names_length = 0
+hotlist_names_level = 12
+hotlist_names_merged_buffers = off
+hotlist_prefix = "H: "
+hotlist_remove = merged
+hotlist_short_names = on
+hotlist_sort = group_time_asc
+hotlist_suffix = ""
+hotlist_unique_numbers = on
+input_cursor_scroll = 20
+input_share = none
+input_share_overwrite = off
+input_undo_max = 32
+item_away_message = on
+item_buffer_filter = "*"
+item_buffer_zoom = "!"
+item_mouse_status = "M"
+item_time_format = "%H:%M"
+jump_current_to_previous_buffer = on
+jump_previous_buffer_when_closing = on
+jump_smart_back_to_buffer = on
+key_bind_safe = on
+key_grab_delay = 800
+mouse = off
+mouse_timer_delay = 100
+nick_color_force = ""
+nick_color_hash = djb2
+nick_color_stop_chars = "_|["
+nick_prefix = ""
+nick_suffix = ""
+paste_auto_add_newline = on
+paste_bracketed = on
+paste_bracketed_timer_delay = 10
+paste_max_lines = 1
+prefix_action = " *"
+prefix_align = none
+prefix_align_max = 15
+prefix_align_min = 0
+prefix_align_more = "+"
+prefix_align_more_after = on
+prefix_buffer_align = right
+prefix_buffer_align_max = 0
+prefix_buffer_align_more = "+"
+prefix_buffer_align_more_after = on
+prefix_error = "=!="
+prefix_join = "-->"
+prefix_network = "--"
+prefix_quit = "<--"
+prefix_same_nick = ""
+prefix_suffix = "|"
+quote_nick_prefix = "<"
+quote_nick_suffix = ">"
+quote_time_format = "%H:%M:%S"
+read_marker = line
+read_marker_always_show = off
+read_marker_string = "- "
+save_config_on_exit = on
+save_layout_on_exit = none
+scroll_amount = 3
+scroll_bottom_after_switch = off
+scroll_page_percent = 100
+search_text_not_found_alert = on
+separator_horizontal = "-"
+separator_vertical = ""
+tab_width = 1
+time_format = "%a, %d %b %Y %T"
+window_auto_zoom = off
+window_separator_horizontal = on
+window_separator_vertical = on
+window_title = "WeeChat ${info:version}"
+word_chars_highlight = "!\u00A0,-,_,|,alnum"
+word_chars_input = "!\u00A0,-,_,|,alnum"
+
+[palette]
+
+[color]
+bar_more = lightmagenta
+chat = default
+chat_bg = default
+chat_buffer = default
+chat_channel = white
+chat_day_change = cyan
+chat_delimiters = 2
+chat_highlight = default
+chat_highlight_bg = 1
+chat_host = cyan
+chat_inactive_buffer = default
+chat_inactive_window = default
+chat_nick = default
+chat_nick_colors = "cyan,magenta,green,brown,lightblue,default,lightcyan,lightmagenta,lightgreen,blue"
+chat_nick_offline = default
+chat_nick_offline_highlight = default
+chat_nick_offline_highlight_bg = blue
+chat_nick_other = cyan
+chat_nick_prefix = green
+chat_nick_self = default
+chat_nick_suffix = green
+chat_prefix_action = white
+chat_prefix_buffer = brown
+chat_prefix_buffer_inactive_buffer = default
+chat_prefix_error = yellow
+chat_prefix_join = lightgreen
+chat_prefix_more = lightmagenta
+chat_prefix_network = magenta
+chat_prefix_quit = lightred
+chat_prefix_suffix = green
+chat_read_marker = default
+chat_read_marker_bg = default
+chat_server = brown
+chat_tags = red
+chat_text_found = yellow
+chat_text_found_bg = default
+chat_time = default
+chat_time_delimiters = 2
+chat_value = cyan
+chat_value_null = blue
+emphasized = default
+emphasized_bg = default
+input_actions = lightgreen
+input_text_not_found = red
+item_away = yellow
+nicklist_away = cyan
+nicklist_group = green
+separator = darkgray
+status_count_highlight = magenta
+status_count_msg = brown
+status_count_other = default
+status_count_private = green
+status_data_highlight = default
+status_data_msg = yellow
+status_data_other = default
+status_data_private = default
+status_filter = green
+status_more = yellow
+status_mouse = green
+status_name = white
+status_name_ssl = lightgreen
+status_nicklist_count = default
+status_number = yellow
+status_time = default
+
+[completion]
+base_word_until_cursor = on
+command_inline = on
+default_template = "%(nicks)|%(irc_channels)"
+nick_add_space = on
+nick_case_sensitive = off
+nick_completer = ":"
+nick_first_only = off
+nick_ignore_chars = "[]`_-^"
+partial_completion_alert = on
+partial_completion_command = off
+partial_completion_command_arg = off
+partial_completion_count = on
+partial_completion_other = off
+
+[history]
+display_default = 5
+max_buffer_lines_minutes = 0
+max_buffer_lines_number = 4096
+max_commands = 100
+max_visited_buffers = 50
+
+[proxy]
+
+[network]
+connection_timeout = 60
+gnutls_ca_file = "/etc/ssl/certs/ca-certificates.crt"
+gnutls_handshake_timeout = 30
+proxy_curl = ""
+
+[plugin]
+autoload = "*,!tcl,!ruby,!python2,!lua,!aspell"
+debug = off
+extension = ".so,.dll"
+path = "%h/plugins"
+save_config_on_unload = on
+
+[bar]
+buflist.color_bg = default
+buflist.color_delim = default
+buflist.color_fg = default
+buflist.conditions = ""
+buflist.filling_left_right = vertical
+buflist.filling_top_bottom = columns_vertical
+buflist.hidden = off
+buflist.items = "buflist"
+buflist.position = left
+buflist.priority = 0
+buflist.separator = on
+buflist.size = 0
+buflist.size_max = 0
+buflist.type = root
+fset.color_bg = default
+fset.color_delim = cyan
+fset.color_fg = default
+fset.conditions = "${buffer.full_name} == fset.fset"
+fset.filling_left_right = vertical
+fset.filling_top_bottom = horizontal
+fset.hidden = off
+fset.items = "fset"
+fset.position = top
+fset.priority = 0
+fset.separator = on
+fset.size = 3
+fset.size_max = 3
+fset.type = window
+input.color_bg = default
+input.color_delim = cyan
+input.color_fg = default
+input.conditions = ""
+input.filling_left_right = vertical
+input.filling_top_bottom = horizontal
+input.hidden = off
+input.items = "[input_prompt]+(away),[input_search],[input_paste],input_text"
+input.position = bottom
+input.priority = 1000
+input.separator = off
+input.size = 1
+input.size_max = 0
+input.type = window
+isetbar.color_bg = default
+isetbar.color_delim = cyan
+isetbar.color_fg = default
+isetbar.conditions = ""
+isetbar.filling_left_right = vertical
+isetbar.filling_top_bottom = horizontal
+isetbar.hidden = on
+isetbar.items = "isetbar_help"
+isetbar.position = top
+isetbar.priority = 0
+isetbar.separator = on
+isetbar.size = 3
+isetbar.size_max = 3
+isetbar.type = window
+nicklist.color_bg = default
+nicklist.color_delim = cyan
+nicklist.color_fg = default
+nicklist.conditions = "${nicklist}"
+nicklist.filling_left_right = vertical
+nicklist.filling_top_bottom = columns_vertical
+nicklist.hidden = off
+nicklist.items = "buffer_nicklist"
+nicklist.position = right
+nicklist.priority = 200
+nicklist.separator = on
+nicklist.size = 0
+nicklist.size_max = 0
+nicklist.type = window
+status.color_bg = 0
+status.color_delim = cyan
+status.color_fg = default
+status.conditions = ""
+status.filling_left_right = vertical
+status.filling_top_bottom = horizontal
+status.hidden = off
+status.items = "[time],[buffer_last_number],[buffer_plugin],buffer_number+:+buffer_name+(buffer_modes)+{buffer_nicklist_count}+buffer_zoom+buffer_filter,scroll,[lag],[hotlist],completion"
+status.position = bottom
+status.priority = 500
+status.separator = off
+status.size = 1
+status.size_max = 0
+status.type = window
+title.color_bg = 0
+title.color_delim = cyan
+title.color_fg = default
+title.conditions = ""
+title.filling_left_right = vertical
+title.filling_top_bottom = horizontal
+title.hidden = off
+title.items = "buffer_title"
+title.position = top
+title.priority = 500
+title.separator = off
+title.size = 1
+title.size_max = 0
+title.type = window
+
+[layout]
+
+[notify]
+
+[filter]
+
+[key]
+ctrl-? = "/input delete_previous_char"
+ctrl-A = "/input move_beginning_of_line"
+ctrl-B = "/input move_previous_char"
+ctrl-C_ = "/input insert \x1F"
+ctrl-Cb = "/input insert \x02"
+ctrl-Cc = "/input insert \x03"
+ctrl-Ci = "/input insert \x1D"
+ctrl-Co = "/input insert \x0F"
+ctrl-Cv = "/input insert \x16"
+ctrl-D = "/input delete_next_char"
+ctrl-E = "/input move_end_of_line"
+ctrl-F = "/input move_next_char"
+ctrl-H = "/input delete_previous_char"
+ctrl-I = "/input complete_next"
+ctrl-J = "/input return"
+ctrl-K = "/input delete_end_of_line"
+ctrl-L = "/window refresh"
+ctrl-M = "/input return"
+ctrl-N = "/buffer +1"
+ctrl-P = "/buffer -1"
+ctrl-R = "/input search_text_here"
+ctrl-Sctrl-U = "/input set_unread"
+ctrl-T = "/input transpose_chars"
+ctrl-U = "/input delete_beginning_of_line"
+ctrl-W = "/input delete_previous_word"
+ctrl-X = "/input switch_active_buffer"
+ctrl-Y = "/input clipboard_paste"
+meta-meta-OP = "/bar scroll buflist * b"
+meta-meta-OQ = "/bar scroll buflist * e"
+meta-meta2-1~ = "/window scroll_top"
+meta-meta2-23~ = "/bar scroll nicklist * b"
+meta-meta2-24~ = "/bar scroll nicklist * e"
+meta-meta2-4~ = "/window scroll_bottom"
+meta-meta2-5~ = "/window scroll_up"
+meta-meta2-6~ = "/window scroll_down"
+meta-meta2-7~ = "/window scroll_top"
+meta-meta2-8~ = "/window scroll_bottom"
+meta-meta2-A = "/buffer -1"
+meta-meta2-B = "/buffer +1"
+meta-meta2-C = "/buffer +1"
+meta-meta2-D = "/buffer -1"
+meta-- = "/filter toggle @"
+meta-/ = "/input jump_last_buffer_displayed"
+meta-0 = "/buffer *10"
+meta-1 = "/buffer *1"
+meta-2 = "/buffer *2"
+meta-3 = "/buffer *3"
+meta-4 = "/buffer *4"
+meta-5 = "/buffer *5"
+meta-6 = "/buffer *6"
+meta-7 = "/buffer *7"
+meta-8 = "/buffer *8"
+meta-9 = "/buffer *9"
+meta-< = "/input jump_previously_visited_buffer"
+meta-= = "/filter toggle"
+meta-> = "/input jump_next_visited_buffer"
+meta-OA = "/input history_global_previous"
+meta-OB = "/input history_global_next"
+meta-OC = "/input move_next_word"
+meta-OD = "/input move_previous_word"
+meta-OF = "/input move_end_of_line"
+meta-OH = "/input move_beginning_of_line"
+meta-OP = "/bar scroll buflist * -100%"
+meta-OQ = "/bar scroll buflist * +100%"
+meta-Oa = "/input history_global_previous"
+meta-Ob = "/input history_global_next"
+meta-Oc = "/input move_next_word"
+meta-Od = "/input move_previous_word"
+meta2-15~ = "/buffer -1"
+meta2-17~ = "/buffer +1"
+meta2-18~ = "/window -1"
+meta2-19~ = "/window +1"
+meta2-1;3A = "/buffer -1"
+meta2-1;3B = "/buffer +1"
+meta2-1;3C = "/buffer +1"
+meta2-1;3D = "/buffer -1"
+meta2-1;3F = "/window scroll_bottom"
+meta2-1;3H = "/window scroll_top"
+meta2-1;5A = "/input history_global_previous"
+meta2-1;5B = "/input history_global_next"
+meta2-1;5C = "/input move_next_word"
+meta2-1;5D = "/input move_previous_word"
+meta2-1~ = "/input move_beginning_of_line"
+meta2-200~ = "/input paste_start"
+meta2-201~ = "/input paste_stop"
+meta2-20~ = "/bar scroll title * -30%"
+meta2-21~ = "/bar scroll title * +30%"
+meta2-23;3~ = "/bar scroll nicklist * b"
+meta2-23~ = "/bar scroll nicklist * -100%"
+meta2-24;3~ = "/bar scroll nicklist * e"
+meta2-24~ = "/bar scroll nicklist * +100%"
+meta2-3~ = "/input delete_next_char"
+meta2-4~ = "/input move_end_of_line"
+meta2-5;3~ = "/window scroll_up"
+meta2-5~ = "/window page_up"
+meta2-6;3~ = "/window scroll_down"
+meta2-6~ = "/window page_down"
+meta2-7~ = "/input move_beginning_of_line"
+meta2-8~ = "/input move_end_of_line"
+meta2-A = "/input history_previous"
+meta2-B = "/input history_next"
+meta2-C = "/input move_next_char"
+meta2-D = "/input move_previous_char"
+meta2-F = "/input move_end_of_line"
+meta2-G = "/window page_down"
+meta2-H = "/input move_beginning_of_line"
+meta2-I = "/window page_up"
+meta2-Z = "/input complete_previous"
+meta2-[E = "/buffer -1"
+meta-_ = "/input redo"
+meta-a = "/input jump_smart"
+meta-b = "/input move_previous_word"
+meta-d = "/input delete_next_word"
+meta-f = "/input move_next_word"
+meta-h = "/input hotlist_clear"
+meta-jmeta-f = "/buffer -"
+meta-jmeta-l = "/buffer +"
+meta-jmeta-r = "/server raw"
+meta-jmeta-s = "/server jump"
+meta-j01 = "/buffer *1"
+meta-j02 = "/buffer *2"
+meta-j03 = "/buffer *3"
+meta-j04 = "/buffer *4"
+meta-j05 = "/buffer *5"
+meta-j06 = "/buffer *6"
+meta-j07 = "/buffer *7"
+meta-j08 = "/buffer *8"
+meta-j09 = "/buffer *9"
+meta-j10 = "/buffer *10"
+meta-j11 = "/buffer *11"
+meta-j12 = "/buffer *12"
+meta-j13 = "/buffer *13"
+meta-j14 = "/buffer *14"
+meta-j15 = "/buffer *15"
+meta-j16 = "/buffer *16"
+meta-j17 = "/buffer *17"
+meta-j18 = "/buffer *18"
+meta-j19 = "/buffer *19"
+meta-j20 = "/buffer *20"
+meta-j21 = "/buffer *21"
+meta-j22 = "/buffer *22"
+meta-j23 = "/buffer *23"
+meta-j24 = "/buffer *24"
+meta-j25 = "/buffer *25"
+meta-j26 = "/buffer *26"
+meta-j27 = "/buffer *27"
+meta-j28 = "/buffer *28"
+meta-j29 = "/buffer *29"
+meta-j30 = "/buffer *30"
+meta-j31 = "/buffer *31"
+meta-j32 = "/buffer *32"
+meta-j33 = "/buffer *33"
+meta-j34 = "/buffer *34"
+meta-j35 = "/buffer *35"
+meta-j36 = "/buffer *36"
+meta-j37 = "/buffer *37"
+meta-j38 = "/buffer *38"
+meta-j39 = "/buffer *39"
+meta-j40 = "/buffer *40"
+meta-j41 = "/buffer *41"
+meta-j42 = "/buffer *42"
+meta-j43 = "/buffer *43"
+meta-j44 = "/buffer *44"
+meta-j45 = "/buffer *45"
+meta-j46 = "/buffer *46"
+meta-j47 = "/buffer *47"
+meta-j48 = "/buffer *48"
+meta-j49 = "/buffer *49"
+meta-j50 = "/buffer *50"
+meta-j51 = "/buffer *51"
+meta-j52 = "/buffer *52"
+meta-j53 = "/buffer *53"
+meta-j54 = "/buffer *54"
+meta-j55 = "/buffer *55"
+meta-j56 = "/buffer *56"
+meta-j57 = "/buffer *57"
+meta-j58 = "/buffer *58"
+meta-j59 = "/buffer *59"
+meta-j60 = "/buffer *60"
+meta-j61 = "/buffer *61"
+meta-j62 = "/buffer *62"
+meta-j63 = "/buffer *63"
+meta-j64 = "/buffer *64"
+meta-j65 = "/buffer *65"
+meta-j66 = "/buffer *66"
+meta-j67 = "/buffer *67"
+meta-j68 = "/buffer *68"
+meta-j69 = "/buffer *69"
+meta-j70 = "/buffer *70"
+meta-j71 = "/buffer *71"
+meta-j72 = "/buffer *72"
+meta-j73 = "/buffer *73"
+meta-j74 = "/buffer *74"
+meta-j75 = "/buffer *75"
+meta-j76 = "/buffer *76"
+meta-j77 = "/buffer *77"
+meta-j78 = "/buffer *78"
+meta-j79 = "/buffer *79"
+meta-j80 = "/buffer *80"
+meta-j81 = "/buffer *81"
+meta-j82 = "/buffer *82"
+meta-j83 = "/buffer *83"
+meta-j84 = "/buffer *84"
+meta-j85 = "/buffer *85"
+meta-j86 = "/buffer *86"
+meta-j87 = "/buffer *87"
+meta-j88 = "/buffer *88"
+meta-j89 = "/buffer *89"
+meta-j90 = "/buffer *90"
+meta-j91 = "/buffer *91"
+meta-j92 = "/buffer *92"
+meta-j93 = "/buffer *93"
+meta-j94 = "/buffer *94"
+meta-j95 = "/buffer *95"
+meta-j96 = "/buffer *96"
+meta-j97 = "/buffer *97"
+meta-j98 = "/buffer *98"
+meta-j99 = "/buffer *99"
+meta-k = "/input grab_key_command"
+meta-l = "/window bare"
+meta-m = "/mute mouse toggle"
+meta-n = "/window scroll_next_highlight"
+meta-p = "/window scroll_previous_highlight"
+meta-r = "/input delete_line"
+meta-s = "/mute aspell toggle"
+meta-u = "/window scroll_unread"
+meta-wmeta-meta2-A = "/window up"
+meta-wmeta-meta2-B = "/window down"
+meta-wmeta-meta2-C = "/window right"
+meta-wmeta-meta2-D = "/window left"
+meta-wmeta2-1;3A = "/window up"
+meta-wmeta2-1;3B = "/window down"
+meta-wmeta2-1;3C = "/window right"
+meta-wmeta2-1;3D = "/window left"
+meta-wmeta-b = "/window balance"
+meta-wmeta-s = "/window swap"
+meta-x = "/input zoom_merged_buffer"
+meta-z = "/window zoom"
+ctrl-_ = "/input undo"
+
+[key_search]
+ctrl-I = "/input search_switch_where"
+ctrl-J = "/input search_stop_here"
+ctrl-M = "/input search_stop_here"
+ctrl-Q = "/input search_stop"
+ctrl-R = "/input search_switch_regex"
+meta2-A = "/input search_previous"
+meta2-B = "/input search_next"
+meta-c = "/input search_switch_case"
+
+[key_cursor]
+ctrl-J = "/cursor stop"
+ctrl-M = "/cursor stop"
+meta-meta2-A = "/cursor move area_up"
+meta-meta2-B = "/cursor move area_down"
+meta-meta2-C = "/cursor move area_right"
+meta-meta2-D = "/cursor move area_left"
+meta2-1;3A = "/cursor move area_up"
+meta2-1;3B = "/cursor move area_down"
+meta2-1;3C = "/cursor move area_right"
+meta2-1;3D = "/cursor move area_left"
+meta2-A = "/cursor move up"
+meta2-B = "/cursor move down"
+meta2-C = "/cursor move right"
+meta2-D = "/cursor move left"
+@item(buffer_nicklist):K = "/window ${_window_number};/kickban ${nick}"
+@item(buffer_nicklist):b = "/window ${_window_number};/ban ${nick}"
+@item(buffer_nicklist):k = "/window ${_window_number};/kick ${nick}"
+@item(buffer_nicklist):q = "/window ${_window_number};/query ${nick};/cursor stop"
+@item(buffer_nicklist):w = "/window ${_window_number};/whois ${nick}"
+@chat:Q = "hsignal:chat_quote_time_prefix_message;/cursor stop"
+@chat:m = "hsignal:chat_quote_message;/cursor stop"
+@chat:q = "hsignal:chat_quote_prefix_message;/cursor stop"
+
+[key_mouse]
+@bar(buflist):ctrl-wheeldown = "hsignal:buflist_mouse"
+@bar(buflist):ctrl-wheelup = "hsignal:buflist_mouse"
+@bar(input):button2 = "/input grab_mouse_area"
+@bar(nicklist):button1-gesture-down = "/bar scroll nicklist ${_window_number} +100%"
+@bar(nicklist):button1-gesture-down-long = "/bar scroll nicklist ${_window_number} e"
+@bar(nicklist):button1-gesture-up = "/bar scroll nicklist ${_window_number} -100%"
+@bar(nicklist):button1-gesture-up-long = "/bar scroll nicklist ${_window_number} b"
+@chat(fset.fset):button1 = "/window ${_window_number};/fset -go ${_chat_line_y}"
+@chat(fset.fset):button2* = "hsignal:fset_mouse"
+@chat(fset.fset):wheeldown = "/fset -down 5"
+@chat(fset.fset):wheelup = "/fset -up 5"
+@chat(perl.iset):button1 = "hsignal:iset_mouse"
+@chat(perl.iset):button2* = "hsignal:iset_mouse"
+@chat(perl.iset):wheeldown = "/repeat 5 /iset **down"
+@chat(perl.iset):wheelup = "/repeat 5 /iset **up"
+@chat(script.scripts):button1 = "/window ${_window_number};/script go ${_chat_line_y}"
+@chat(script.scripts):button2 = "/window ${_window_number};/script go ${_chat_line_y};/script installremove -q ${script_name_with_extension}"
+@chat(script.scripts):wheeldown = "/script down 5"
+@chat(script.scripts):wheelup = "/script up 5"
+@item(buffer_nicklist):button1 = "/window ${_window_number};/query ${nick}"
+@item(buffer_nicklist):button1-gesture-left = "/window ${_window_number};/kick ${nick}"
+@item(buffer_nicklist):button1-gesture-left-long = "/window ${_window_number};/kickban ${nick}"
+@item(buffer_nicklist):button2 = "/window ${_window_number};/whois ${nick}"
+@item(buffer_nicklist):button2-gesture-left = "/window ${_window_number};/ban ${nick}"
+@item(buflist):button1* = "hsignal:buflist_mouse"
+@item(buflist):button2* = "hsignal:buflist_mouse"
+@item(buflist2):button1* = "hsignal:buflist_mouse"
+@item(buflist2):button2* = "hsignal:buflist_mouse"
+@item(buflist3):button1* = "hsignal:buflist_mouse"
+@item(buflist3):button2* = "hsignal:buflist_mouse"
+@bar:wheeldown = "/bar scroll ${_bar_name} ${_window_number} +20%"
+@bar:wheelup = "/bar scroll ${_bar_name} ${_window_number} -20%"
+@chat:button1 = "/window ${_window_number}"
+@chat:button1-gesture-left = "/window ${_window_number};/buffer -1"
+@chat:button1-gesture-left-long = "/window ${_window_number};/buffer 1"
+@chat:button1-gesture-right = "/window ${_window_number};/buffer +1"
+@chat:button1-gesture-right-long = "/window ${_window_number};/input jump_last_buffer"
+@chat:ctrl-wheeldown = "/window scroll_horiz -window ${_window_number} +10%"
+@chat:ctrl-wheelup = "/window scroll_horiz -window ${_window_number} -10%"
+@chat:wheeldown = "/window scroll_down -window ${_window_number}"
+@chat:wheelup = "/window scroll_up -window ${_window_number}"
+@*:button3 = "/cursor go ${_x},${_y}"
 #+END_SRC
 
-**** 1337x
-
-#+NAME: 1337x
-#+begin_src conf
-#!/bin/sh
-# AUTHOR: gotbletu (@gmail|twitter|youtube|github|lbry)
-#
-# DATE: Sat Feb 27, 2016
-#
-# DESC: Elvi to search 1337x
-# elvis: 1337x		-- Search 1337x for torrents (1337x.to)
-. surfraw || exit 1
-
-w3_usage_hook () {
-    cat <<EOF
-Usage: $w3_argv0 [options] [search words]...
-Description:
-  Search 1337x (1337x.to) for torrents
-EOF
-    w3_global_usage
-}
-
-w3_config
-w3_parse_args "$@"
-if test -z "$w3_args"; then
-    w3_browse_url "https://1337x.to"
-else
-    escaped_args=`w3_url_of_arg $w3_args`
-    w3_browse_url "https://1337x.to/search/${escaped_args}/1/"
-fi
-#+end_src
-
-**** archive
-
-#+NAME: archive
-#+begin_src conf
-#!/bin/sh
-# AUTHOR: gotbletu (@gmail|twitter|youtube|github|lbry)
-#
-# DATE: Sun August 09, 2015
-#
-# DESC: Elvi to search old software, games, other media
-# elvis: archive		-- Search old software, games, other media (https://archive.org)
-. surfraw || exit 1
-
-w3_usage_hook () {
-    cat <<EOF
-Usage: $w3_argv0 [options] [search words]...
-Description:
-  Search old software, games, other media (https://archive.org)
-EOF
-    w3_global_usage
-}
-
-w3_config
-w3_parse_args "$@"
-if test -z "$w3_args"; then
-    w3_browse_url "https://archive.org"
-else
-    escaped_args=`w3_url_of_arg $w3_args`
-    w3_browse_url "https://archive.org/search.php?query=${escaped_args}"
-fi
-#+end_src
-
-**** btdig
-
-#+NAME: btdig
-#+BEGIN_SRC conf
-#!/bin/sh
-# DESC: Elvi to search btdig
-# elvis: btdig		-- Search btdig (https://btdig.com)
-. surfraw || exit 1
-
-w3_usage_hook () {
-    cat <<EOF
-Usage: $w3_argv0 [options] [search words]...
-Description:
-  Search btdig (https://btdig.com)
-EOF
-    w3_global_usage
-}
-
-w3_config
-w3_parse_args "$@"
-if test -z "$w3_args"; then
-    w3_browse_url "https://btdig.com"
-else
-    escaped_args=`w3_url_of_arg $w3_args`
-    w3_browse_url "https://btdig.com/search?q=${escaped_args}"
-fi
-#+END_SRC
-
-**** dailymotion
-
-#+NAME: dailymotion
-#+BEGIN_SRC conf
-#!/bin/sh
-# DESC: Elvi to search dailymotion
-# elvis: dailymotion     -- Search dailymotion (https://dailymotion.com)
-. surfraw || exit 1
-
-w3_usage_hook () {
-    cat <<EOF
-Usage: $w3_argv0 [options] [search words]...
-Description:
-  Search dailymotion (https://dailymotion.com)
-EOF
-    w3_global_usage
-}
-
-w3_config
-w3_parse_args "$@"
-if test -z "$w3_args"; then
-    w3_browse_url "https://dailymotion.com"
-else
-    escaped_args=`w3_url_of_arg $w3_args`
-    w3_browse_url "https://dailymotion.com/search/${escaped_args}/videos"
-fi
-#+END_SRC
-
-**** ddg
-
-#+NAME: ddg
-#+BEGIN_SRC conf
-#!/bin/sh
-# elvis: ddg             -- Securely search the web using duckduckgo (duckduckgo.com)
-# coder@kyleisom.net 20110105
-# relevant: https://duckduckgo.com/params.html
-# similar to duckduckgo elvi, adds more options and defaults to SSL.
-. surfraw || exit 1
-
-w3_config_hook () {
-    def     SURFRAW_duckduckgo_results             "$SURFRAW_results"
-    def     SURFRAW_duckduckgo_base_url            "duckduckgo.com"
-    def     SURFRAW_duckduckgo_search              search
-    def     SURFRAW_duckduckgo_params              "&kg=g"
-    defyn   SURFRAW_duckduckgo_use_javascript      0
-}
-
-w3_usage_hook () {
-    cat <<EOF
-Usage: $w3_argv0 [options] [search words]...
-Description:
-  Surfraw search the web using DuckDuckGo (duckduckgo.com)
-Local options:
-    -j,-javascript              use javascript
-EOF
-    w3_global_usage
-}
-
-w3_parse_option_hook () {
-    opt="$1"
-    optarg="$2"
-    case "$opt" in
-    -j|-javascript*)    setoptyn    SURFRAW_duckduckgo_use_javascript      1 ;;
-    ,*) return 1 ;;
-    esac
-    return 0
-}
-
-w3_config
-w3_parse_args "$@"
-
-# need to send the user to the non-javascript version if using a non-graphical
-# browser
-SURFRAW_duckduckgo_base_url="https://${SURFRAW_duckduckgo_base_url}"
-if [ "$SURFRAW_duckduckgo_use_javascript" = 0 ]; then
-    SURFRAW_duckduckgo_base_url="${SURFRAW_duckduckgo_base_url}/lite"
-    SURFRAW_duckduckgo_params="${SURFRAW_duckduckgo_params}&kf=-1&kz=-1&kq=-1&kv=-1&k1=-1&kp=-2&kaf=1&kd=-1"
-fi
-
-if [ "$SURFRAW_graphical" != "yes" ] ; then
-    SURFRAW_duckduckgo_params="${SURFRAW_duckduckgo_params}&kf=-1&kz=-1&kq=-1&kv=-1"
-fi
-
-escaped_args=`w3_url_of_arg $w3_args`
-w3_browse_url "${SURFRAW_duckduckgo_base_url}/?q=${escaped_args}${SURFRAW_duckduckgo_params}"
-#+END_SRC
-
-**** eztv
-
-#+NAME: eztv
-#+BEGIN_SRC conf
-#!/bin/sh
-# DESC: Elvi to search 1337x
-# elvis: eztv		-- Search eztv for torrents (eztv.re)
-. surfraw || exit 1
-
-w3_usage_hook () {
-    cat <<EOF
-Usage: $w3_argv0 [options] [search words]...
-Description:
-  Search eztv (eztv.re) for torrents
-EOF
-    w3_global_usage
-}
-
-w3_config
-w3_parse_args "$@"
-if test -z "$w3_args"; then
-    w3_browse_url "https://eztv.re"
-else
-    escaped_args=`w3_url_of_arg $w3_args`
-    w3_browse_url "https://eztv.re/search/${escaped_args}/1/"
-fi
-#+END_SRC
-
-**** iplayer
-
-#+NAME: iplayer
-#+BEGIN_SRC conf
-#!/bin/sh
-# DESC: Elvi to search Google Video
-# elvis: iplayer         -- Search bbc iplayer (https://bbc.co.uk/iplayer)
-. surfraw || exit 1
-
-w3_usage_hook () {
-    cat <<EOF
-Usage: $w3_argv0 [options] [search words]...
-Description:
-  Search bbc iplayer (https://bbc.co.uk/iplayer)
-EOF
-    w3_global_usage
-}
-
-w3_config
-w3_parse_args "$@"
-if test -z "$w3_args"; then
-    w3_browse_url "https://bbc.co.uk/iplayer"
-else
-    escaped_args=`w3_url_of_arg $w3_args`
-    w3_browse_url "https://bbc.co.uk/iplayer/search?q=${escaped_args}"
-fi
-#+END_SRC
-
-**** limetorrents
-
-#+NAME: limetorrents
-#+BEGIN_SRC conf
-#!/bin/sh
-# AUTHOR: gotbletu (@gmail|twitter|youtube|github|lbry)
-#
-# DATE: Wed Mar 11, 2020
-#
-# DESC: Elvi to search limetorrents
-# elvis: limetorrents    -- Search limetorrents for torrents (limetorrents.info)
-. surfraw || exit 1
-
-w3_usage_hook () {
-    cat <<EOF
-Usage: $w3_argv0 [options] [search words]...
-Description:
-  Search limetorrents (limetorrents.info) for torrents
-EOF
-    w3_global_usage
-}
-
-w3_config
-w3_parse_args "$@"
-if test -z "$w3_args"; then
-    w3_browse_url "https://limetorrents.info"
-else
-    escaped_args=`w3_url_of_arg $w3_args`
-    w3_browse_url "https://www.limetorrents.info/search/all/${escaped_args}"
-fi
-#+END_SRC
-
-**** rarbg
-
-#+NAME: rarbg
-#+begin_src conf
-#!/bin/sh
-# AUTHOR: gotbletu (@gmail|twitter|youtube|github|lbry)
-#
-# DATE: Wed Mar 02, 2016
-#
-# DESC: Elvi to search rarbg
-# elvis: rarbg		-- Search rarbg for torrents (rarbg.to)
-. surfraw || exit 1
-
-w3_usage_hook () {
-    cat <<EOF
-Usage: $w3_argv0 [options] [search words]...
-Description:
-  Search rarbg (rarbg.to) for torrents
-EOF
-    w3_global_usage
-}
-
-w3_config
-w3_parse_args "$@"
-if test -z "$w3_args"; then
-    w3_browse_url "https://rarbg.to"
-else
-    escaped_args=`w3_url_of_arg $w3_args`
-    w3_browse_url "https://rarbg.to/torrents.php?search=${escaped_args}&order=seeders&by=DESC"
-fi
-#+end_src
-
-**** reddit
-
-#+NAME: reddit
-#+begin_src conf
-#!/bin/sh
-# AUTHOR: gotbletu (@gmail|twitter|youtube|github|lbry)
-#
-# DATE: April 07, 2013
-#
-# DESC: Elvi to search Reddit News
-# elvis: reddit		-- Search Reddit for user submitted news (www.reddit.com)
-. surfraw || exit 1
-
-w3_usage_hook () {
-    cat <<EOF
-Usage: $w3_argv0 [options] [search words]...
-Description:
-  Search Reddit (www.reddit.com) for user submitted news
-EOF
-    w3_global_usage
-}
-
-w3_config
-w3_parse_args "$@"
-if test -z "$w3_args"; then
-    w3_browse_url "http://www.reddit.com"
-else
-    escaped_args=`w3_url_of_arg $w3_args`
-    w3_browse_url "http://www.reddit.com/search?q=${escaped_args}"
-fi
-#+end_src
-
-**** stackexchange
-
-#+NAME: stackexchange
-#+begin_src conf
-#!/bin/sh
-# AUTHOR: gotbletu (@gmail|twitter|youtube|github|lbry)
-#
-# DATE: Sat Nov 17 2012
-#
-# DESC: Elvi to search stackexchange computer questions
-# elvis: stackexchange	-- Search StackExchange for computer questions (www.stackexchange.org)
-. surfraw || exit 1
-
-w3_usage_hook () {
-    cat <<EOF
-Usage: $w3_argv0 [options] [search words]...
-Description:
-  Search stackexchange (www.stackexchange.org) for computer questions
-EOF
-    w3_global_usage
-}
-
-w3_config
-w3_parse_args "$@"
-if test -z "$w3_args"; then
-    w3_browse_url "http://www.stackexchange.com/"
-else
-    escaped_args=`w3_url_of_arg $w3_args`
-    w3_browse_url "http://stackexchange.com/search?q=${escaped_args}"
-fi
-#+end_src
-
-**** sunxdcc
-
-#+NAME: sunxdcc
-#+begin_src conf
-#!/bin/sh
-# AUTHOR: gotbletu (@gmail|twitter|youtube|github|lbry)
-#
-# DATE: Sun Feb 14, 2016
-#
-# DESC: Elvi to search sunxdcc for irc xdcc files
-# elvis: sunxdcc		-- Search sunxdcc for irc xdcc files (http://sunxdcc.com/)
-. surfraw || exit 1
-
-w3_usage_hook () {
-    cat <<EOF
-Usage: $w3_argv0 [options] [search words]...
-Description:
-  Search sunxdcc (http://sunxdcc.com/) for irc xdcc files 
-EOF
-    w3_global_usage
-}
-
-w3_config
-w3_parse_args "$@"
-if test -z "$w3_args"; then
-    w3_browse_url "http://sunxdcc.com/"
-else
-    escaped_args=$(w3_url_of_arg $w3_args)
-    w3_browse_url "http://sunxdcc.com/?sterm=${escaped_args}%20-tar%20-rar"
-fi
-#+end_src
-
-**** thepacket
-
-#+NAME: thepacket
-#+begin_src conf
-#!/bin/sh
-# DESC: Elvi to search thepacket for irc xdcc files
-# elvis: thepacket     		-- Search thepacket for irc xdcc files (https://thepacket.info/)
-. surfraw || exit 1
-
-w3_usage_hook () {
-    cat <<EOF
-Usage: $w3_argv0 [options] [search words]...
-Description:
-  Search thepacket (https://thepacket.info/) for irc xdcc files 
-EOF
-    w3_global_usage
-}
-
-w3_config
-w3_parse_args "$@"
-if test -z "$w3_args"; then
-    w3_browse_url "https://thepacket.info"
-else
-    escaped_args=$(w3_url_of_arg $w3_args)
-    w3_browse_url "https://thepacket.info/?q=${escaped_args}"
-fi
-#+end_src
-
-**** torrentdownloads
-
-#+NAME: torrentdownloads
-#+begin_src conf
-#!/bin/sh
-# AUTHOR: gotbletu (@gmail|twitter|youtube|github|lbry)
-#
-# DATE: Wed Mar 11, 2020
-#
-# DESC: Elvi to search torrentdownloads
-# elvis: torrentdownloads -- Search torrentdownloads for torrents (torrentdownloads.pro)
-. surfraw || exit 1
-
-w3_usage_hook () {
-    cat <<EOF
-Usage: $w3_argv0 [options] [search words]...
-Description:
-  Search torrentdownloads (torrentdownloads.pro) for torrents
-EOF
-    w3_global_usage
-}
-
-w3_config
-w3_parse_args "$@"
-if test -z "$w3_args"; then
-    w3_browse_url "https://torrentdownloads.pro"
-else
-    escaped_args=`w3_url_of_arg $w3_args`
-    w3_browse_url "https://www.torrentdownloads.pro/search/?search=${escaped_args}"
-fi
-#+end_src
-
-**** torrentgalaxy
-
-#+NAME: torrentgalaxy
-#+begin_src conf
-#!/bin/sh
-# AUTHOR: gotbletu (@gmail|twitter|youtube|github|lbry)
-#
-# DATE: Wed Nov 21, 2018
-#
-# DESC: Elvi to search torrentgalaxy
-# elvis: torrentgalaxy   -- Search torrentgalaxy for torrents (torrentgalaxy.to)
-. surfraw || exit 1
-
-w3_usage_hook () {
-    cat <<EOF
-Usage: $w3_argv0 [options] [search words]...
-Description:
-  Search torrentgalaxy (torrentgalaxy.to) for torrents
-EOF
-    w3_global_usage
-}
-
-w3_config
-w3_parse_args "$@"
-if test -z "$w3_args"; then
-    w3_browse_url "https://torrentgalaxy.to"
-else
-    escaped_args=`w3_url_of_arg $w3_args`
-    w3_browse_url "https://torrentgalaxy.to/torrents.php?search=${escaped_args}"
-fi
-#+end_src
-
-**** video
-
-#+NAME: video
-#+BEGIN_SRC conf
-#!/bin/sh
-# DESC: Elvi to search Google Video
-# elvis: video		-- Search Google Video (https://www.google.com)
-. surfraw || exit 1
-
-w3_usage_hook () {
-    cat <<EOF
-Usage: $w3_argv0 [options] [search words]...
-Description:
-  Search Google Video (https://video.google.com)
-EOF
-    w3_global_usage
-}
-
-w3_config
-w3_parse_args "$@"
-if test -z "$w3_args"; then
-    w3_browse_url "https://www.video.google.com"
-else
-    escaped_args=`w3_url_of_arg $w3_args`
-    w3_browse_url "https://www.google.com/search?q=${escaped_args}&num=30&safe=off&tbo=p&tbm=vid"
-fi
-#+END_SRC
-
-**** vimeo
-
-#+NAME: vimeo
-#+BEGIN_SRC conf
-#!/bin/sh
-# DESC: Elvi to search vimeo
-# elvis: vimeo		-- Search vimeo (https://vimeo.com)
-. surfraw || exit 1
-
-w3_usage_hook () {
-    cat <<EOF
-Usage: $w3_argv0 [options] [search words]...
-Description:
-  Search vimeo (https://vimeo.com)
-EOF
-    w3_global_usage
-}
-
-w3_config
-w3_parse_args "$@"
-if test -z "$w3_args"; then
-    w3_browse_url "https://vimeo.com"
-else
-    escaped_args=`w3_url_of_arg $w3_args`
-    w3_browse_url "https://vimeo.com/search?q=${escaped_args}"
-fi
-#+END_SRC
-
-**** xdcceu
-
-#+NAME: xdcceu
-#+begin_src conf
-#!/bin/sh
-# AUTHOR: gotbletu (@gmail|twitter|youtube|github|lbry)
-#
-# DATE: Wed June 14, 2017
-#
-# DESC: Elvi to search xdcceu for irc xdcc files
-# elvis: xdcceu		-- Search xdcceu for irc xdcc files (http://xdcc.eu/)
-. surfraw || exit 1
-
-w3_usage_hook () {
-    cat <<EOF
-Usage: $w3_argv0 [options] [search words]...
-Description:
-  Search xdcceu (http://xdcc.eu/) for irc xdcc files 
-EOF
-    w3_global_usage
-}
-
-w3_config
-w3_parse_args "$@"
-if test -z "$w3_args"; then
-    w3_browse_url "http://xdcc.eu/"
-else
-    escaped_args=`w3_url_of_arg $w3_args`
-    w3_browse_url "http://www.xdcc.eu/search.php?searchkey=${escaped_args}"
-fi
-
-#+end_src
-
-*** surfraw tangle
-**** surfraw
+*** weechat tangle
 
 + home dir
 
-#+NAME: surfraw-home-dir
-#+BEGIN_SRC conf :noweb yes :tangle "~/.config/surfraw/conf"
-<<surfraw>>
+#+NAME: weechat.conf-home-dir
+#+BEGIN_SRC conf :noweb yes :tangle "~/.config/weechat/weechat.conf"
+<<weechat.conf>>
 #+END_SRC
 
 + current dir
 
-#+NAME: surfraw-current-dir
-#+BEGIN_SRC conf :noweb yes :tangle ".config/surfraw/conf"
-<<surfraw>>
-#+END_SRC
-
-**** 1337x
-
-+ home dir
-
-#+NAME: surfraw-1337x-home-dir
-#+BEGIN_SRC conf :noweb yes :tangle "~/.config/surfraw/elvi/1337x" :tangle-mode (identity #o755)
-<<1337x>>
-#+END_SRC
-
-+ current dir
-
-#+NAME: surfraw-1337x-home-dir
-#+BEGIN_SRC conf :noweb yes :tangle ".config/surfraw/elvi/1337x" :tangle-mode (identity #o755)
-<<1337x>>
-#+END_SRC
-
-**** archive
-
-+ home dir
-
-#+NAME: surfraw-archive-home-dir
-#+BEGIN_SRC conf :noweb yes :tangle "~/.config/surfraw/elvi/archive" :tangle-mode (identity #o755)
-<<archive>>
-#+END_SRC
-
-+ current dir
-
-#+NAME: surfraw-archive-home-dir
-#+BEGIN_SRC conf :noweb yes :tangle ".config/surfraw/elvi/archive" :tangle-mode (identity #o755)
-<<archive>>
-#+END_SRC
-
-**** btdig
-
-+ home dir
-
-#+NAME: surfraw-btdig-home-dir
-#+BEGIN_SRC conf :noweb yes :tangle "~/.config/surfraw/elvi/btdig" :tangle-mode (identity #o755)
-<<btdig>>
-#+END_SRC
-
-+ current dir
-
-#+NAME: surfraw-btdig-home-dir
-#+BEGIN_SRC conf :noweb yes :tangle ".config/surfraw/elvi/btdig" :tangle-mode (identity #o755)
-<<btdig>>
-#+END_SRC
-
-**** dailymotion
-
-+ home dir
-
-#+NAME: surfraw-dailymotion-home-dir
-#+BEGIN_SRC conf :noweb yes :tangle "~/.config/surfraw/elvi/dailymotion" :tangle-mode (identity #o755)
-<<dailymotion>>
-#+END_SRC
-
-+ current dir
-
-#+NAME: surfraw-dailymotion-home-dir
-#+BEGIN_SRC conf :noweb yes :tangle ".config/surfraw/elvi/dailymotion" :tangle-mode (identity #o755)
-<<dailymotion>>
-#+END_SRC
-
-**** ddg
-
-+ home dir
-
-#+NAME: surfraw-ddg-home-dir
-#+BEGIN_SRC conf :noweb yes :tangle "~/.config/surfraw/elvi/ddg" :tangle-mode (identity #o755)
-<<ddg>>
-#+END_SRC
-
-+ current dir
-
-#+NAME: surfraw-ddg-home-dir
-#+BEGIN_SRC conf :noweb yes :tangle ".config/surfraw/elvi/ddg" :tangle-mode (identity #o755)
-<<ddg>>
-#+END_SRC
-
-**** eztv
-
-+ home dir
-
-#+NAME: surfraw-eztv-home-dir
-#+BEGIN_SRC conf :noweb yes :tangle "~/.config/surfraw/elvi/eztv" :tangle-mode (identity #o755)
-<<eztv>>
-#+END_SRC
-
-+ current dir
-
-#+NAME: surfraw-eztv-home-dir
-#+BEGIN_SRC conf :noweb yes :tangle ".config/surfraw/elvi/eztv" :tangle-mode (identity #o755)
-<<eztv>>
-#+END_SRC
-
-**** iplayer
-
-+ home dir
-
-#+NAME: surfraw-iplayer-home-dir
-#+BEGIN_SRC conf :noweb yes :tangle "~/.config/surfraw/elvi/iplayer" :tangle-mode (identity #o755)
-<<iplayer>>
-#+END_SRC
-
-+ current dir
-
-#+NAME: surfraw-iplayer-home-dir
-#+BEGIN_SRC conf :noweb yes :tangle ".config/surfraw/elvi/iplayer" :tangle-mode (identity #o755)
-<<iplayer>>
-#+END_SRC
-
-**** limetorrents
-
-+ home dir
-
-#+NAME: surfraw-limetorrents-home-dir
-#+BEGIN_SRC conf :noweb yes :tangle "~/.config/surfraw/elvi/limetorrents" :tangle-mode (identity #o755)
-<<limetorrents>>
-#+END_SRC
-
-+ current dir
-
-#+NAME: surfraw-limetorrents-home-dir
-#+BEGIN_SRC conf :noweb yes :tangle ".config/surfraw/elvi/limetorrents" :tangle-mode (identity #o755)
-<<limetorrents>>
-#+END_SRC
-
-**** rarbg
-
-+ home dir
-
-#+NAME: surfraw-rarbg-home-dir
-#+BEGIN_SRC conf :noweb yes :tangle "~/.config/surfraw/elvi/rarbg" :tangle-mode (identity #o755)
-<<rarbg>>
-#+END_SRC
-
-+ current dir
-
-#+NAME: surfraw-rarbg-home-dir
-#+BEGIN_SRC conf :noweb yes :tangle ".config/surfraw/elvi/rarbg" :tangle-mode (identity #o755)
-<<rarbg>>
-#+END_SRC
-
-**** reddit
-
-+ home dir
-
-#+NAME: surfraw-reddit-home-dir
-#+BEGIN_SRC conf :noweb yes :tangle "~/.config/surfraw/elvi/reddit" :tangle-mode (identity #o755)
-<<reddit>>
-#+END_SRC
-
-+ current dir
-
-#+NAME: surfraw-reddit-home-dir
-#+BEGIN_SRC conf :noweb yes :tangle ".config/surfraw/elvi/reddit" :tangle-mode (identity #o755)
-<<reddit>>
-#+END_SRC
-
-**** stackexchange
-
-+ home dir
-
-#+NAME: surfraw-stackexchange-home-dir
-#+BEGIN_SRC conf :noweb yes :tangle "~/.config/surfraw/elvi/stackexchange" :tangle-mode (identity #o755)
-<<stackexchange>>
-#+END_SRC
-
-+ current dir
-
-#+NAME: surfraw-stackexchange-home-dir
-#+BEGIN_SRC conf :noweb yes :tangle ".config/surfraw/elvi/stackexchange" :tangle-mode (identity #o755)
-<<stackexchange>>
-#+END_SRC
-
-**** sunxdcc
-
-+ home dir
-
-#+NAME: surfraw-sunxdcc-home-dir
-#+BEGIN_SRC conf :noweb yes :tangle "~/.config/surfraw/elvi/sunxdcc" :tangle-mode (identity #o755)
-<<sunxdcc>>
-#+END_SRC
-
-+ current dir
-
-#+NAME: surfraw-sunxdcc-home-dir
-#+BEGIN_SRC conf :noweb yes :tangle ".config/surfraw/elvi/sunxdcc" :tangle-mode (identity #o755)
-<<sunxdcc>>
-#+END_SRC
-
-**** thepacket
-
-+ home dir
-
-#+NAME: surfraw-thepacket-home-dir
-#+BEGIN_SRC conf :noweb yes :tangle "~/.config/surfraw/elvi/thepacket" :tangle-mode (identity #o755)
-<<thepacket>>
-#+END_SRC
-
-+ current dir
-
-#+NAME: surfraw-thepacket-home-dir
-#+BEGIN_SRC conf :noweb yes :tangle ".config/surfraw/elvi/thepacket" :tangle-mode (identity #o755)
-<<thepacket>>
-#+END_SRC
-
-**** torrentdownloads
-
-+ home dir
-
-#+NAME: surfraw-torrentdownloads-home-dir
-#+BEGIN_SRC conf :noweb yes :tangle "~/.config/surfraw/elvi/torrentdownloads" :tangle-mode (identity #o755)
-<<torrentdownloads>>
-#+END_SRC
-
-+ current dir
-
-#+NAME: surfraw-torrentdownloads-home-dir
-#+BEGIN_SRC conf :noweb yes :tangle ".config/surfraw/elvi/torrentdownloads" :tangle-mode (identity #o755)
-<<torrentdownloads>>
-#+END_SRC
-
-**** torrentgalaxy
-
-+ home dir
-
-#+NAME: surfraw-torrentgalaxy-home-dir
-#+BEGIN_SRC conf :noweb yes :tangle "~/.config/surfraw/elvi/torrentgalaxy" :tangle-mode (identity #o755)
-<<torrentgalaxy>>
-#+END_SRC
-
-+ current dir
-
-#+NAME: surfraw-torrentgalaxy-home-dir
-#+BEGIN_SRC conf :noweb yes :tangle ".config/surfraw/elvi/torrentgalaxy" :tangle-mode (identity #o755)
-<<torrentgalaxy>>
-#+END_SRC
-
-**** video
-
-+ home dir
-
-#+NAME: surfraw-video-home-dir
-#+BEGIN_SRC conf :noweb yes :tangle "~/.config/surfraw/elvi/video" :tangle-mode (identity #o755)
-<<video>>
-#+END_SRC
-
-+ current dir
-
-#+NAME: surfraw-video-home-dir
-#+BEGIN_SRC conf :noweb yes :tangle ".config/surfraw/elvi/video" :tangle-mode (identity #o755)
-<<video>>
-#+END_SRC
-
-**** vimeo
-
-+ home dir
-
-#+NAME: surfraw-vimeo-home-dir
-#+BEGIN_SRC conf :noweb yes :tangle "~/.config/surfraw/elvi/vimeo" :tangle-mode (identity #o755)
-<<vimeo>>
-#+END_SRC
-
-+ current dir
-
-#+NAME: surfraw-vimeo-home-dir
-#+BEGIN_SRC conf :noweb yes :tangle ".config/surfraw/elvi/vimeo" :tangle-mode (identity #o755)
-<<vimeo>>
-#+END_SRC
-
-**** xdcceu
-
-+ home dir
-
-#+NAME: surfraw-xdcceu-home-dir
-#+BEGIN_SRC conf :noweb yes :tangle "~/.config/surfraw/elvi/xdcceu" :tangle-mode (identity #o755)
-<<xdcceu>>
-#+END_SRC
-
-+ current dir
-
-#+NAME: surfraw-xdcceu-home-dir
-#+BEGIN_SRC conf :noweb yes :tangle ".config/surfraw/elvi/xdcceu" :tangle-mode (identity #o755)
-<<xdcceu>>
-#+END_SRC
-
-** bat
-*** bat config
-
-#+NAME: bat
-#+BEGIN_SRC conf
-# This is `bat`s configuration file
-
-# bat theme
---theme="Solarized (dark)"
-#+END_SRC
-
-*** bat tangle
-
-+ home dir
-
-#+NAME: bat-home-dir
-#+BEGIN_SRC conf :noweb yes :tangle "~/.config/bat/config"
-<<bat>>
-#+END_SRC
-
-+ current dir
-
-#+NAME: bat-current-dir
-#+BEGIN_SRC conf :noweb yes :tangle ".config/bat/config"
-<<bat>>
+#+NAME: weechat.conf-current-dir
+#+BEGIN_SRC conf :noweb yes :tangle ".config/weechat/weechat.conf"
+<<weechat.conf>>
 #+END_SRC
 
 ** w3m
@@ -4937,984 +5024,897 @@ magnet: file:/cgi-bin/magnet.cgi?%s
 <<urimethodmap>>
 #+END_SRC
 
-** wget
-*** wget config
+** surfraw
+*** surfraw config
+**** surfraw
 
-#+NAME: wget
+surfraw config
+
+#+NAME: surfraw
 #+BEGIN_SRC conf
-hsts-file=/home/djwilcox/.cache/wget-hsts
+SURFRAW_graphical_browser=xdg-open
+SURFRAW_text_browser=w3m
+SURFRAW_graphical=yes
 #+END_SRC
 
-*** wget tangle
+**** 1337x
 
-+ home dir
-
-#+NAME: wget-home-dir
-#+BEGIN_SRC conf :noweb yes :tangle "~/.config/wget/wgetrc"
-<<wget>>
-#+END_SRC
-
-+ current dir
-
-#+NAME: wget-current-dir
-#+BEGIN_SRC conf :noweb yes :tangle ".config/wget/wgetrc"
-<<wget>>
-#+END_SRC
-
-** urlscan
-*** urlscan config
-
-#+NAME: urlscan
-#+BEGIN_SRC conf
-{
-    "palettes": {
-        "default": [
-            [
-                "header",
-                "black",
-                "dark blue",
-                "standout"
-            ],
-            [
-                "footer",
-                "white",
-                "default",
-                "standout"
-            ],
-            [
-                "search",
-                "white",
-                "default",
-                "standout"
-            ],
-            [
-                "msgtext",
-                "",
-                ""
-            ],
-            [
-                "msgtext:ellipses",
-                "light gray",
-                "default"
-            ],
-            [
-                "urlref:number:braces",
-                "light gray",
-                "default"
-            ],
-            [
-                "urlref:number",
-                "default",
-                "default",
-                "standout"
-            ],
-            [
-                "urlref:url",
-                "white",
-                "default",
-                "standout"
-            ],
-            [
-                "url:sel",
-                "default",
-                "dark blue",
-                "bold"
-            ]
-        ],
-        "bw": [
-            [
-                "header",
-                "black",
-                "light gray",
-                "standout"
-            ],
-            [
-                "footer",
-                "black",
-                "light gray",
-                "standout"
-            ],
-            [
-                "search",
-                "black",
-                "light gray",
-                "standout"
-            ],
-            [
-                "msgtext",
-                "",
-                ""
-            ],
-            [
-                "msgtext:ellipses",
-                "white",
-                "black"
-            ],
-            [
-                "urlref:number:braces",
-                "white",
-                "black"
-            ],
-            [
-                "urlref:number",
-                "white",
-                "black",
-                "standout"
-            ],
-            [
-                "urlref:url",
-                "white",
-                "black",
-                "standout"
-            ],
-            [
-                "url:sel",
-                "black",
-                "light gray",
-                "bold"
-            ]
-        ]
-    },
-    "keys": {
-        "/": "search_key",
-        "0": "digits",
-        "1": "digits",
-        "2": "digits",
-        "3": "digits",
-        "4": "digits",
-        "5": "digits",
-        "6": "digits",
-        "7": "digits",
-        "8": "digits",
-        "9": "digits",
-        "C": "clipboard",
-        "c": "context",
-        "ctrl l": "clear_screen",
-        "f1": "help_menu",
-        "G": "bottom",
-        "g": "top",
-        "j": "down",
-        "k": "up",
-        "P": "clipboard_pri",
-        "l": "link_handler",
-        "p": "palette",
-        "Q": "quit",
-        "q": "quit",
-        "S": "all_shorten",
-        "s": "shorten",
-        "u": "all_escape"
-    }
-}
-#+END_SRC
-
-*** urlscan tangle
-
-+ home dir
-
-#+NAME: urlscan-home-dir
-#+BEGIN_SRC conf :noweb yes :tangle "~/.config/urlscan/config.json"
-<<urlscan>>
-#+END_SRC
-
-+ current dir
-
-#+NAME: urlscan-current-dir
-#+BEGIN_SRC conf :noweb yes :tangle ".config/urlscan/config.json"
-<<urlscan>>
-#+END_SRC
-
-** gitconfig
-*** gitconfig config
-
-#+NAME: gitconfig
-#+BEGIN_SRC conf
-[user]
-name = Daniel J Wilcox
-email = danieljwilcox@gmail.com
-[color]
-ui = true
-#+END_SRC
-
-*** gitconfig tangle
-
-+ home dir
-
-#+NAME: gitconfig-home-dir
-#+BEGIN_SRC conf :noweb yes :tangle "~/.config/git/config"
-<<gitconfig>>
-#+END_SRC
-
-+ current dir
-
-#+NAME: gitconfig-current-dir
-#+BEGIN_SRC conf :noweb yes :tangle ".config/git/gitconfig"
-<<gitconfig>>
-#+END_SRC
-
-** weechat
-*** weechat config 
-
-#+NAME: weechat.conf
-#+BEGIN_SRC conf
-# weechat -- weechat.conf
-[debug]
-
-[startup]
-command_after_plugins = ""
-command_before_plugins = ""
-display_logo = off
-display_version = on
-sys_rlimit = ""
-
-[look]
-align_end_of_lines = message
-align_multiline_words = on
-bar_more_down = "++"
-bar_more_left = "<<"
-bar_more_right = ">>"
-bar_more_up = "--"
-bare_display_exit_on_input = on
-bare_display_time_format = "%H:%M"
-buffer_auto_renumber = on
-buffer_notify_default = all
-buffer_position = end
-buffer_search_case_sensitive = off
-buffer_search_force_default = off
-buffer_search_regex = off
-buffer_search_where = prefix_message
-buffer_time_format = "[%H:%M]"
-color_basic_force_bold = off
-color_inactive_buffer = on
-color_inactive_message = on
-color_inactive_prefix = on
-color_inactive_prefix_buffer = on
-color_inactive_time = off
-color_inactive_window = on
-color_nick_offline = off
-color_pairs_auto_reset = 5
-color_real_white = off
-command_chars = ""
-command_incomplete = off
-confirm_quit = off
-confirm_upgrade = off
-day_change = on
-day_change_message_1date = "-- %a, %d %b %Y --"
-day_change_message_2dates = "-- %%a, %%d %%b %%Y (%a, %d %b %Y) --"
-eat_newline_glitch = off
-emphasized_attributes = ""
-highlight = ""
-highlight_regex = ""
-highlight_tags = ""
-hotlist_add_conditions = "${away} || ${buffer.num_displayed} == 0"
-hotlist_buffer_separator = ", "
-hotlist_count_max = 2
-hotlist_count_min_msg = 2
-hotlist_names_count = 3
-hotlist_names_length = 0
-hotlist_names_level = 12
-hotlist_names_merged_buffers = off
-hotlist_prefix = "H: "
-hotlist_remove = merged
-hotlist_short_names = on
-hotlist_sort = group_time_asc
-hotlist_suffix = ""
-hotlist_unique_numbers = on
-input_cursor_scroll = 20
-input_share = none
-input_share_overwrite = off
-input_undo_max = 32
-item_away_message = on
-item_buffer_filter = "*"
-item_buffer_zoom = "!"
-item_mouse_status = "M"
-item_time_format = "%H:%M"
-jump_current_to_previous_buffer = on
-jump_previous_buffer_when_closing = on
-jump_smart_back_to_buffer = on
-key_bind_safe = on
-key_grab_delay = 800
-mouse = off
-mouse_timer_delay = 100
-nick_color_force = ""
-nick_color_hash = djb2
-nick_color_stop_chars = "_|["
-nick_prefix = ""
-nick_suffix = ""
-paste_auto_add_newline = on
-paste_bracketed = on
-paste_bracketed_timer_delay = 10
-paste_max_lines = 1
-prefix_action = " *"
-prefix_align = none
-prefix_align_max = 15
-prefix_align_min = 0
-prefix_align_more = "+"
-prefix_align_more_after = on
-prefix_buffer_align = right
-prefix_buffer_align_max = 0
-prefix_buffer_align_more = "+"
-prefix_buffer_align_more_after = on
-prefix_error = "=!="
-prefix_join = "-->"
-prefix_network = "--"
-prefix_quit = "<--"
-prefix_same_nick = ""
-prefix_suffix = "|"
-quote_nick_prefix = "<"
-quote_nick_suffix = ">"
-quote_time_format = "%H:%M:%S"
-read_marker = line
-read_marker_always_show = off
-read_marker_string = "- "
-save_config_on_exit = on
-save_layout_on_exit = none
-scroll_amount = 3
-scroll_bottom_after_switch = off
-scroll_page_percent = 100
-search_text_not_found_alert = on
-separator_horizontal = "-"
-separator_vertical = ""
-tab_width = 1
-time_format = "%a, %d %b %Y %T"
-window_auto_zoom = off
-window_separator_horizontal = on
-window_separator_vertical = on
-window_title = "WeeChat ${info:version}"
-word_chars_highlight = "!\u00A0,-,_,|,alnum"
-word_chars_input = "!\u00A0,-,_,|,alnum"
-
-[palette]
-
-[color]
-bar_more = lightmagenta
-chat = default
-chat_bg = default
-chat_buffer = default
-chat_channel = white
-chat_day_change = cyan
-chat_delimiters = 2
-chat_highlight = default
-chat_highlight_bg = 1
-chat_host = cyan
-chat_inactive_buffer = default
-chat_inactive_window = default
-chat_nick = default
-chat_nick_colors = "cyan,magenta,green,brown,lightblue,default,lightcyan,lightmagenta,lightgreen,blue"
-chat_nick_offline = default
-chat_nick_offline_highlight = default
-chat_nick_offline_highlight_bg = blue
-chat_nick_other = cyan
-chat_nick_prefix = green
-chat_nick_self = default
-chat_nick_suffix = green
-chat_prefix_action = white
-chat_prefix_buffer = brown
-chat_prefix_buffer_inactive_buffer = default
-chat_prefix_error = yellow
-chat_prefix_join = lightgreen
-chat_prefix_more = lightmagenta
-chat_prefix_network = magenta
-chat_prefix_quit = lightred
-chat_prefix_suffix = green
-chat_read_marker = default
-chat_read_marker_bg = default
-chat_server = brown
-chat_tags = red
-chat_text_found = yellow
-chat_text_found_bg = default
-chat_time = default
-chat_time_delimiters = 2
-chat_value = cyan
-chat_value_null = blue
-emphasized = default
-emphasized_bg = default
-input_actions = lightgreen
-input_text_not_found = red
-item_away = yellow
-nicklist_away = cyan
-nicklist_group = green
-separator = darkgray
-status_count_highlight = magenta
-status_count_msg = brown
-status_count_other = default
-status_count_private = green
-status_data_highlight = default
-status_data_msg = yellow
-status_data_other = default
-status_data_private = default
-status_filter = green
-status_more = yellow
-status_mouse = green
-status_name = white
-status_name_ssl = lightgreen
-status_nicklist_count = default
-status_number = yellow
-status_time = default
-
-[completion]
-base_word_until_cursor = on
-command_inline = on
-default_template = "%(nicks)|%(irc_channels)"
-nick_add_space = on
-nick_case_sensitive = off
-nick_completer = ":"
-nick_first_only = off
-nick_ignore_chars = "[]`_-^"
-partial_completion_alert = on
-partial_completion_command = off
-partial_completion_command_arg = off
-partial_completion_count = on
-partial_completion_other = off
-
-[history]
-display_default = 5
-max_buffer_lines_minutes = 0
-max_buffer_lines_number = 4096
-max_commands = 100
-max_visited_buffers = 50
-
-[proxy]
-
-[network]
-connection_timeout = 60
-gnutls_ca_file = "/etc/ssl/certs/ca-certificates.crt"
-gnutls_handshake_timeout = 30
-proxy_curl = ""
-
-[plugin]
-autoload = "*,!tcl,!ruby,!python2,!lua,!aspell"
-debug = off
-extension = ".so,.dll"
-path = "%h/plugins"
-save_config_on_unload = on
-
-[bar]
-buflist.color_bg = default
-buflist.color_delim = default
-buflist.color_fg = default
-buflist.conditions = ""
-buflist.filling_left_right = vertical
-buflist.filling_top_bottom = columns_vertical
-buflist.hidden = off
-buflist.items = "buflist"
-buflist.position = left
-buflist.priority = 0
-buflist.separator = on
-buflist.size = 0
-buflist.size_max = 0
-buflist.type = root
-fset.color_bg = default
-fset.color_delim = cyan
-fset.color_fg = default
-fset.conditions = "${buffer.full_name} == fset.fset"
-fset.filling_left_right = vertical
-fset.filling_top_bottom = horizontal
-fset.hidden = off
-fset.items = "fset"
-fset.position = top
-fset.priority = 0
-fset.separator = on
-fset.size = 3
-fset.size_max = 3
-fset.type = window
-input.color_bg = default
-input.color_delim = cyan
-input.color_fg = default
-input.conditions = ""
-input.filling_left_right = vertical
-input.filling_top_bottom = horizontal
-input.hidden = off
-input.items = "[input_prompt]+(away),[input_search],[input_paste],input_text"
-input.position = bottom
-input.priority = 1000
-input.separator = off
-input.size = 1
-input.size_max = 0
-input.type = window
-isetbar.color_bg = default
-isetbar.color_delim = cyan
-isetbar.color_fg = default
-isetbar.conditions = ""
-isetbar.filling_left_right = vertical
-isetbar.filling_top_bottom = horizontal
-isetbar.hidden = on
-isetbar.items = "isetbar_help"
-isetbar.position = top
-isetbar.priority = 0
-isetbar.separator = on
-isetbar.size = 3
-isetbar.size_max = 3
-isetbar.type = window
-nicklist.color_bg = default
-nicklist.color_delim = cyan
-nicklist.color_fg = default
-nicklist.conditions = "${nicklist}"
-nicklist.filling_left_right = vertical
-nicklist.filling_top_bottom = columns_vertical
-nicklist.hidden = off
-nicklist.items = "buffer_nicklist"
-nicklist.position = right
-nicklist.priority = 200
-nicklist.separator = on
-nicklist.size = 0
-nicklist.size_max = 0
-nicklist.type = window
-status.color_bg = 0
-status.color_delim = cyan
-status.color_fg = default
-status.conditions = ""
-status.filling_left_right = vertical
-status.filling_top_bottom = horizontal
-status.hidden = off
-status.items = "[time],[buffer_last_number],[buffer_plugin],buffer_number+:+buffer_name+(buffer_modes)+{buffer_nicklist_count}+buffer_zoom+buffer_filter,scroll,[lag],[hotlist],completion"
-status.position = bottom
-status.priority = 500
-status.separator = off
-status.size = 1
-status.size_max = 0
-status.type = window
-title.color_bg = 0
-title.color_delim = cyan
-title.color_fg = default
-title.conditions = ""
-title.filling_left_right = vertical
-title.filling_top_bottom = horizontal
-title.hidden = off
-title.items = "buffer_title"
-title.position = top
-title.priority = 500
-title.separator = off
-title.size = 1
-title.size_max = 0
-title.type = window
-
-[layout]
-
-[notify]
-
-[filter]
-
-[key]
-ctrl-? = "/input delete_previous_char"
-ctrl-A = "/input move_beginning_of_line"
-ctrl-B = "/input move_previous_char"
-ctrl-C_ = "/input insert \x1F"
-ctrl-Cb = "/input insert \x02"
-ctrl-Cc = "/input insert \x03"
-ctrl-Ci = "/input insert \x1D"
-ctrl-Co = "/input insert \x0F"
-ctrl-Cv = "/input insert \x16"
-ctrl-D = "/input delete_next_char"
-ctrl-E = "/input move_end_of_line"
-ctrl-F = "/input move_next_char"
-ctrl-H = "/input delete_previous_char"
-ctrl-I = "/input complete_next"
-ctrl-J = "/input return"
-ctrl-K = "/input delete_end_of_line"
-ctrl-L = "/window refresh"
-ctrl-M = "/input return"
-ctrl-N = "/buffer +1"
-ctrl-P = "/buffer -1"
-ctrl-R = "/input search_text_here"
-ctrl-Sctrl-U = "/input set_unread"
-ctrl-T = "/input transpose_chars"
-ctrl-U = "/input delete_beginning_of_line"
-ctrl-W = "/input delete_previous_word"
-ctrl-X = "/input switch_active_buffer"
-ctrl-Y = "/input clipboard_paste"
-meta-meta-OP = "/bar scroll buflist * b"
-meta-meta-OQ = "/bar scroll buflist * e"
-meta-meta2-1~ = "/window scroll_top"
-meta-meta2-23~ = "/bar scroll nicklist * b"
-meta-meta2-24~ = "/bar scroll nicklist * e"
-meta-meta2-4~ = "/window scroll_bottom"
-meta-meta2-5~ = "/window scroll_up"
-meta-meta2-6~ = "/window scroll_down"
-meta-meta2-7~ = "/window scroll_top"
-meta-meta2-8~ = "/window scroll_bottom"
-meta-meta2-A = "/buffer -1"
-meta-meta2-B = "/buffer +1"
-meta-meta2-C = "/buffer +1"
-meta-meta2-D = "/buffer -1"
-meta-- = "/filter toggle @"
-meta-/ = "/input jump_last_buffer_displayed"
-meta-0 = "/buffer *10"
-meta-1 = "/buffer *1"
-meta-2 = "/buffer *2"
-meta-3 = "/buffer *3"
-meta-4 = "/buffer *4"
-meta-5 = "/buffer *5"
-meta-6 = "/buffer *6"
-meta-7 = "/buffer *7"
-meta-8 = "/buffer *8"
-meta-9 = "/buffer *9"
-meta-< = "/input jump_previously_visited_buffer"
-meta-= = "/filter toggle"
-meta-> = "/input jump_next_visited_buffer"
-meta-OA = "/input history_global_previous"
-meta-OB = "/input history_global_next"
-meta-OC = "/input move_next_word"
-meta-OD = "/input move_previous_word"
-meta-OF = "/input move_end_of_line"
-meta-OH = "/input move_beginning_of_line"
-meta-OP = "/bar scroll buflist * -100%"
-meta-OQ = "/bar scroll buflist * +100%"
-meta-Oa = "/input history_global_previous"
-meta-Ob = "/input history_global_next"
-meta-Oc = "/input move_next_word"
-meta-Od = "/input move_previous_word"
-meta2-15~ = "/buffer -1"
-meta2-17~ = "/buffer +1"
-meta2-18~ = "/window -1"
-meta2-19~ = "/window +1"
-meta2-1;3A = "/buffer -1"
-meta2-1;3B = "/buffer +1"
-meta2-1;3C = "/buffer +1"
-meta2-1;3D = "/buffer -1"
-meta2-1;3F = "/window scroll_bottom"
-meta2-1;3H = "/window scroll_top"
-meta2-1;5A = "/input history_global_previous"
-meta2-1;5B = "/input history_global_next"
-meta2-1;5C = "/input move_next_word"
-meta2-1;5D = "/input move_previous_word"
-meta2-1~ = "/input move_beginning_of_line"
-meta2-200~ = "/input paste_start"
-meta2-201~ = "/input paste_stop"
-meta2-20~ = "/bar scroll title * -30%"
-meta2-21~ = "/bar scroll title * +30%"
-meta2-23;3~ = "/bar scroll nicklist * b"
-meta2-23~ = "/bar scroll nicklist * -100%"
-meta2-24;3~ = "/bar scroll nicklist * e"
-meta2-24~ = "/bar scroll nicklist * +100%"
-meta2-3~ = "/input delete_next_char"
-meta2-4~ = "/input move_end_of_line"
-meta2-5;3~ = "/window scroll_up"
-meta2-5~ = "/window page_up"
-meta2-6;3~ = "/window scroll_down"
-meta2-6~ = "/window page_down"
-meta2-7~ = "/input move_beginning_of_line"
-meta2-8~ = "/input move_end_of_line"
-meta2-A = "/input history_previous"
-meta2-B = "/input history_next"
-meta2-C = "/input move_next_char"
-meta2-D = "/input move_previous_char"
-meta2-F = "/input move_end_of_line"
-meta2-G = "/window page_down"
-meta2-H = "/input move_beginning_of_line"
-meta2-I = "/window page_up"
-meta2-Z = "/input complete_previous"
-meta2-[E = "/buffer -1"
-meta-_ = "/input redo"
-meta-a = "/input jump_smart"
-meta-b = "/input move_previous_word"
-meta-d = "/input delete_next_word"
-meta-f = "/input move_next_word"
-meta-h = "/input hotlist_clear"
-meta-jmeta-f = "/buffer -"
-meta-jmeta-l = "/buffer +"
-meta-jmeta-r = "/server raw"
-meta-jmeta-s = "/server jump"
-meta-j01 = "/buffer *1"
-meta-j02 = "/buffer *2"
-meta-j03 = "/buffer *3"
-meta-j04 = "/buffer *4"
-meta-j05 = "/buffer *5"
-meta-j06 = "/buffer *6"
-meta-j07 = "/buffer *7"
-meta-j08 = "/buffer *8"
-meta-j09 = "/buffer *9"
-meta-j10 = "/buffer *10"
-meta-j11 = "/buffer *11"
-meta-j12 = "/buffer *12"
-meta-j13 = "/buffer *13"
-meta-j14 = "/buffer *14"
-meta-j15 = "/buffer *15"
-meta-j16 = "/buffer *16"
-meta-j17 = "/buffer *17"
-meta-j18 = "/buffer *18"
-meta-j19 = "/buffer *19"
-meta-j20 = "/buffer *20"
-meta-j21 = "/buffer *21"
-meta-j22 = "/buffer *22"
-meta-j23 = "/buffer *23"
-meta-j24 = "/buffer *24"
-meta-j25 = "/buffer *25"
-meta-j26 = "/buffer *26"
-meta-j27 = "/buffer *27"
-meta-j28 = "/buffer *28"
-meta-j29 = "/buffer *29"
-meta-j30 = "/buffer *30"
-meta-j31 = "/buffer *31"
-meta-j32 = "/buffer *32"
-meta-j33 = "/buffer *33"
-meta-j34 = "/buffer *34"
-meta-j35 = "/buffer *35"
-meta-j36 = "/buffer *36"
-meta-j37 = "/buffer *37"
-meta-j38 = "/buffer *38"
-meta-j39 = "/buffer *39"
-meta-j40 = "/buffer *40"
-meta-j41 = "/buffer *41"
-meta-j42 = "/buffer *42"
-meta-j43 = "/buffer *43"
-meta-j44 = "/buffer *44"
-meta-j45 = "/buffer *45"
-meta-j46 = "/buffer *46"
-meta-j47 = "/buffer *47"
-meta-j48 = "/buffer *48"
-meta-j49 = "/buffer *49"
-meta-j50 = "/buffer *50"
-meta-j51 = "/buffer *51"
-meta-j52 = "/buffer *52"
-meta-j53 = "/buffer *53"
-meta-j54 = "/buffer *54"
-meta-j55 = "/buffer *55"
-meta-j56 = "/buffer *56"
-meta-j57 = "/buffer *57"
-meta-j58 = "/buffer *58"
-meta-j59 = "/buffer *59"
-meta-j60 = "/buffer *60"
-meta-j61 = "/buffer *61"
-meta-j62 = "/buffer *62"
-meta-j63 = "/buffer *63"
-meta-j64 = "/buffer *64"
-meta-j65 = "/buffer *65"
-meta-j66 = "/buffer *66"
-meta-j67 = "/buffer *67"
-meta-j68 = "/buffer *68"
-meta-j69 = "/buffer *69"
-meta-j70 = "/buffer *70"
-meta-j71 = "/buffer *71"
-meta-j72 = "/buffer *72"
-meta-j73 = "/buffer *73"
-meta-j74 = "/buffer *74"
-meta-j75 = "/buffer *75"
-meta-j76 = "/buffer *76"
-meta-j77 = "/buffer *77"
-meta-j78 = "/buffer *78"
-meta-j79 = "/buffer *79"
-meta-j80 = "/buffer *80"
-meta-j81 = "/buffer *81"
-meta-j82 = "/buffer *82"
-meta-j83 = "/buffer *83"
-meta-j84 = "/buffer *84"
-meta-j85 = "/buffer *85"
-meta-j86 = "/buffer *86"
-meta-j87 = "/buffer *87"
-meta-j88 = "/buffer *88"
-meta-j89 = "/buffer *89"
-meta-j90 = "/buffer *90"
-meta-j91 = "/buffer *91"
-meta-j92 = "/buffer *92"
-meta-j93 = "/buffer *93"
-meta-j94 = "/buffer *94"
-meta-j95 = "/buffer *95"
-meta-j96 = "/buffer *96"
-meta-j97 = "/buffer *97"
-meta-j98 = "/buffer *98"
-meta-j99 = "/buffer *99"
-meta-k = "/input grab_key_command"
-meta-l = "/window bare"
-meta-m = "/mute mouse toggle"
-meta-n = "/window scroll_next_highlight"
-meta-p = "/window scroll_previous_highlight"
-meta-r = "/input delete_line"
-meta-s = "/mute aspell toggle"
-meta-u = "/window scroll_unread"
-meta-wmeta-meta2-A = "/window up"
-meta-wmeta-meta2-B = "/window down"
-meta-wmeta-meta2-C = "/window right"
-meta-wmeta-meta2-D = "/window left"
-meta-wmeta2-1;3A = "/window up"
-meta-wmeta2-1;3B = "/window down"
-meta-wmeta2-1;3C = "/window right"
-meta-wmeta2-1;3D = "/window left"
-meta-wmeta-b = "/window balance"
-meta-wmeta-s = "/window swap"
-meta-x = "/input zoom_merged_buffer"
-meta-z = "/window zoom"
-ctrl-_ = "/input undo"
-
-[key_search]
-ctrl-I = "/input search_switch_where"
-ctrl-J = "/input search_stop_here"
-ctrl-M = "/input search_stop_here"
-ctrl-Q = "/input search_stop"
-ctrl-R = "/input search_switch_regex"
-meta2-A = "/input search_previous"
-meta2-B = "/input search_next"
-meta-c = "/input search_switch_case"
-
-[key_cursor]
-ctrl-J = "/cursor stop"
-ctrl-M = "/cursor stop"
-meta-meta2-A = "/cursor move area_up"
-meta-meta2-B = "/cursor move area_down"
-meta-meta2-C = "/cursor move area_right"
-meta-meta2-D = "/cursor move area_left"
-meta2-1;3A = "/cursor move area_up"
-meta2-1;3B = "/cursor move area_down"
-meta2-1;3C = "/cursor move area_right"
-meta2-1;3D = "/cursor move area_left"
-meta2-A = "/cursor move up"
-meta2-B = "/cursor move down"
-meta2-C = "/cursor move right"
-meta2-D = "/cursor move left"
-@item(buffer_nicklist):K = "/window ${_window_number};/kickban ${nick}"
-@item(buffer_nicklist):b = "/window ${_window_number};/ban ${nick}"
-@item(buffer_nicklist):k = "/window ${_window_number};/kick ${nick}"
-@item(buffer_nicklist):q = "/window ${_window_number};/query ${nick};/cursor stop"
-@item(buffer_nicklist):w = "/window ${_window_number};/whois ${nick}"
-@chat:Q = "hsignal:chat_quote_time_prefix_message;/cursor stop"
-@chat:m = "hsignal:chat_quote_message;/cursor stop"
-@chat:q = "hsignal:chat_quote_prefix_message;/cursor stop"
-
-[key_mouse]
-@bar(buflist):ctrl-wheeldown = "hsignal:buflist_mouse"
-@bar(buflist):ctrl-wheelup = "hsignal:buflist_mouse"
-@bar(input):button2 = "/input grab_mouse_area"
-@bar(nicklist):button1-gesture-down = "/bar scroll nicklist ${_window_number} +100%"
-@bar(nicklist):button1-gesture-down-long = "/bar scroll nicklist ${_window_number} e"
-@bar(nicklist):button1-gesture-up = "/bar scroll nicklist ${_window_number} -100%"
-@bar(nicklist):button1-gesture-up-long = "/bar scroll nicklist ${_window_number} b"
-@chat(fset.fset):button1 = "/window ${_window_number};/fset -go ${_chat_line_y}"
-@chat(fset.fset):button2* = "hsignal:fset_mouse"
-@chat(fset.fset):wheeldown = "/fset -down 5"
-@chat(fset.fset):wheelup = "/fset -up 5"
-@chat(perl.iset):button1 = "hsignal:iset_mouse"
-@chat(perl.iset):button2* = "hsignal:iset_mouse"
-@chat(perl.iset):wheeldown = "/repeat 5 /iset **down"
-@chat(perl.iset):wheelup = "/repeat 5 /iset **up"
-@chat(script.scripts):button1 = "/window ${_window_number};/script go ${_chat_line_y}"
-@chat(script.scripts):button2 = "/window ${_window_number};/script go ${_chat_line_y};/script installremove -q ${script_name_with_extension}"
-@chat(script.scripts):wheeldown = "/script down 5"
-@chat(script.scripts):wheelup = "/script up 5"
-@item(buffer_nicklist):button1 = "/window ${_window_number};/query ${nick}"
-@item(buffer_nicklist):button1-gesture-left = "/window ${_window_number};/kick ${nick}"
-@item(buffer_nicklist):button1-gesture-left-long = "/window ${_window_number};/kickban ${nick}"
-@item(buffer_nicklist):button2 = "/window ${_window_number};/whois ${nick}"
-@item(buffer_nicklist):button2-gesture-left = "/window ${_window_number};/ban ${nick}"
-@item(buflist):button1* = "hsignal:buflist_mouse"
-@item(buflist):button2* = "hsignal:buflist_mouse"
-@item(buflist2):button1* = "hsignal:buflist_mouse"
-@item(buflist2):button2* = "hsignal:buflist_mouse"
-@item(buflist3):button1* = "hsignal:buflist_mouse"
-@item(buflist3):button2* = "hsignal:buflist_mouse"
-@bar:wheeldown = "/bar scroll ${_bar_name} ${_window_number} +20%"
-@bar:wheelup = "/bar scroll ${_bar_name} ${_window_number} -20%"
-@chat:button1 = "/window ${_window_number}"
-@chat:button1-gesture-left = "/window ${_window_number};/buffer -1"
-@chat:button1-gesture-left-long = "/window ${_window_number};/buffer 1"
-@chat:button1-gesture-right = "/window ${_window_number};/buffer +1"
-@chat:button1-gesture-right-long = "/window ${_window_number};/input jump_last_buffer"
-@chat:ctrl-wheeldown = "/window scroll_horiz -window ${_window_number} +10%"
-@chat:ctrl-wheelup = "/window scroll_horiz -window ${_window_number} -10%"
-@chat:wheeldown = "/window scroll_down -window ${_window_number}"
-@chat:wheelup = "/window scroll_up -window ${_window_number}"
-@*:button3 = "/cursor go ${_x},${_y}"
-#+END_SRC
-
-*** weechat tangle
-
-+ home dir
-
-#+NAME: weechat.conf-home-dir
-#+BEGIN_SRC conf :noweb yes :tangle "~/.config/weechat/weechat.conf"
-<<weechat.conf>>
-#+END_SRC
-
-+ current dir
-
-#+NAME: weechat.conf-current-dir
-#+BEGIN_SRC conf :noweb yes :tangle ".config/weechat/weechat.conf"
-<<weechat.conf>>
-#+END_SRC
-
-** zathura
-*** zathura config
-
-#+NAME: zathura
-#+BEGIN_SRC conf
-set selection-clipboard clipboard
-#+END_SRC
-
-*** zathura tangle
-
-+ home dir
-  
-#+NAME: zathura-home-dir
-#+BEGIN_SRC conf :noweb yes :tangle "~/.config/zathura/zathurarc"
-<<zathura>>
-#+END_SRC
-  
-+ current dir
-
-#+NAME: zathura-current-dir
-#+BEGIN_SRC conf :noweb yes :tangle ".config/zathura/zathurarc"
-<<zathura>>
-#+END_SRC
-
-** desktop files
-*** desktop files config
-**** transmission config
-
-#+NAME: transmission-desktop
+#+NAME: 1337x
 #+begin_src conf
-[Desktop Entry]
-Name=Transmission
-Exec=/home/djwilcox/bin/magnet-add %u
-Icon=utilities-terminal
-Type=Application
-Terminal=false
-MimeType=application/x-bittorrent;x-scheme-handler/magnet;
+#!/bin/sh
+# AUTHOR: gotbletu (@gmail|twitter|youtube|github|lbry)
+#
+# DATE: Sat Feb 27, 2016
+#
+# DESC: Elvi to search 1337x
+# elvis: 1337x		-- Search 1337x for torrents (1337x.to)
+. surfraw || exit 1
+
+w3_usage_hook () {
+    cat <<EOF
+Usage: $w3_argv0 [options] [search words]...
+Description:
+  Search 1337x (1337x.to) for torrents
+EOF
+    w3_global_usage
+}
+
+w3_config
+w3_parse_args "$@"
+if test -z "$w3_args"; then
+    w3_browse_url "https://1337x.to"
+else
+    escaped_args=`w3_url_of_arg $w3_args`
+    w3_browse_url "https://1337x.to/search/${escaped_args}/1/"
+fi
 #+end_src
 
-*** desktop files tangle
-**** transmission tangle
+**** archive
 
-+ home dir
-  
-#+NAME: transmission-desktop-home-dir
-#+BEGIN_SRC conf :noweb yes :tangle "~/.local/share/applications/transmission.desktop"
-<<transmission-desktop>>
-#+END_SRC
-  
-+ current dir
+#+NAME: archive
+#+begin_src conf
+#!/bin/sh
+# AUTHOR: gotbletu (@gmail|twitter|youtube|github|lbry)
+#
+# DATE: Sun August 09, 2015
+#
+# DESC: Elvi to search old software, games, other media
+# elvis: archive		-- Search old software, games, other media (https://archive.org)
+. surfraw || exit 1
 
-#+NAME: transmission-desktop-current-dir
-#+BEGIN_SRC conf :noweb yes :tangle ".local/share/applications/transmission.desktop"
-<<transmission-desktop>>
-#+END_SRC
+w3_usage_hook () {
+    cat <<EOF
+Usage: $w3_argv0 [options] [search words]...
+Description:
+  Search old software, games, other media (https://archive.org)
+EOF
+    w3_global_usage
+}
 
-** autostart
-*** autostart config
-**** nognome_notications config
+w3_config
+w3_parse_args "$@"
+if test -z "$w3_args"; then
+    w3_browse_url "https://archive.org"
+else
+    escaped_args=`w3_url_of_arg $w3_args`
+    w3_browse_url "https://archive.org/search.php?query=${escaped_args}"
+fi
+#+end_src
 
-#+NAME: nognome_notications
+**** btdig
+
+#+NAME: btdig
 #+BEGIN_SRC conf
-[Desktop Entry]
-Type=Application
-Exec=/home/djwilcox/bin/nognome_notifications
-Hidden=True
-NoDisplay=True
-X-GNOME-Autostart-enabled=true
-Name=nognome_notifications
-Comment=nognome_notifications
+#!/bin/sh
+# DESC: Elvi to search btdig
+# elvis: btdig		-- Search btdig (https://btdig.com)
+. surfraw || exit 1
+
+w3_usage_hook () {
+    cat <<EOF
+Usage: $w3_argv0 [options] [search words]...
+Description:
+  Search btdig (https://btdig.com)
+EOF
+    w3_global_usage
+}
+
+w3_config
+w3_parse_args "$@"
+if test -z "$w3_args"; then
+    w3_browse_url "https://btdig.com"
+else
+    escaped_args=`w3_url_of_arg $w3_args`
+    w3_browse_url "https://btdig.com/search?q=${escaped_args}"
+fi
 #+END_SRC
 
-*** autostart tangle
-**** nognome_notications tangle
+**** dailymotion
+
+#+NAME: dailymotion
+#+BEGIN_SRC conf
+#!/bin/sh
+# DESC: Elvi to search dailymotion
+# elvis: dailymotion     -- Search dailymotion (https://dailymotion.com)
+. surfraw || exit 1
+
+w3_usage_hook () {
+    cat <<EOF
+Usage: $w3_argv0 [options] [search words]...
+Description:
+  Search dailymotion (https://dailymotion.com)
+EOF
+    w3_global_usage
+}
+
+w3_config
+w3_parse_args "$@"
+if test -z "$w3_args"; then
+    w3_browse_url "https://dailymotion.com"
+else
+    escaped_args=`w3_url_of_arg $w3_args`
+    w3_browse_url "https://dailymotion.com/search/${escaped_args}/videos"
+fi
+#+END_SRC
+
+**** ddg
+
+#+NAME: ddg
+#+BEGIN_SRC conf
+#!/bin/sh
+# elvis: ddg             -- Securely search the web using duckduckgo (duckduckgo.com)
+# coder@kyleisom.net 20110105
+# relevant: https://duckduckgo.com/params.html
+# similar to duckduckgo elvi, adds more options and defaults to SSL.
+. surfraw || exit 1
+
+w3_config_hook () {
+    def     SURFRAW_duckduckgo_results             "$SURFRAW_results"
+    def     SURFRAW_duckduckgo_base_url            "duckduckgo.com"
+    def     SURFRAW_duckduckgo_search              search
+    def     SURFRAW_duckduckgo_params              "&kg=g"
+    defyn   SURFRAW_duckduckgo_use_javascript      0
+}
+
+w3_usage_hook () {
+    cat <<EOF
+Usage: $w3_argv0 [options] [search words]...
+Description:
+  Surfraw search the web using DuckDuckGo (duckduckgo.com)
+Local options:
+    -j,-javascript              use javascript
+EOF
+    w3_global_usage
+}
+
+w3_parse_option_hook () {
+    opt="$1"
+    optarg="$2"
+    case "$opt" in
+    -j|-javascript*)    setoptyn    SURFRAW_duckduckgo_use_javascript      1 ;;
+    ,*) return 1 ;;
+    esac
+    return 0
+}
+
+w3_config
+w3_parse_args "$@"
+
+# need to send the user to the non-javascript version if using a non-graphical
+# browser
+SURFRAW_duckduckgo_base_url="https://${SURFRAW_duckduckgo_base_url}"
+if [ "$SURFRAW_duckduckgo_use_javascript" = 0 ]; then
+    SURFRAW_duckduckgo_base_url="${SURFRAW_duckduckgo_base_url}/lite"
+    SURFRAW_duckduckgo_params="${SURFRAW_duckduckgo_params}&kf=-1&kz=-1&kq=-1&kv=-1&k1=-1&kp=-2&kaf=1&kd=-1"
+fi
+
+if [ "$SURFRAW_graphical" != "yes" ] ; then
+    SURFRAW_duckduckgo_params="${SURFRAW_duckduckgo_params}&kf=-1&kz=-1&kq=-1&kv=-1"
+fi
+
+escaped_args=`w3_url_of_arg $w3_args`
+w3_browse_url "${SURFRAW_duckduckgo_base_url}/?q=${escaped_args}${SURFRAW_duckduckgo_params}"
+#+END_SRC
+
+**** eztv
+
+#+NAME: eztv
+#+BEGIN_SRC conf
+#!/bin/sh
+# DESC: Elvi to search 1337x
+# elvis: eztv		-- Search eztv for torrents (eztv.re)
+. surfraw || exit 1
+
+w3_usage_hook () {
+    cat <<EOF
+Usage: $w3_argv0 [options] [search words]...
+Description:
+  Search eztv (eztv.re) for torrents
+EOF
+    w3_global_usage
+}
+
+w3_config
+w3_parse_args "$@"
+if test -z "$w3_args"; then
+    w3_browse_url "https://eztv.re"
+else
+    escaped_args=`w3_url_of_arg $w3_args`
+    w3_browse_url "https://eztv.re/search/${escaped_args}/1/"
+fi
+#+END_SRC
+
+**** iplayer
+
+#+NAME: iplayer
+#+BEGIN_SRC conf
+#!/bin/sh
+# DESC: Elvi to search Google Video
+# elvis: iplayer         -- Search bbc iplayer (https://bbc.co.uk/iplayer)
+. surfraw || exit 1
+
+w3_usage_hook () {
+    cat <<EOF
+Usage: $w3_argv0 [options] [search words]...
+Description:
+  Search bbc iplayer (https://bbc.co.uk/iplayer)
+EOF
+    w3_global_usage
+}
+
+w3_config
+w3_parse_args "$@"
+if test -z "$w3_args"; then
+    w3_browse_url "https://bbc.co.uk/iplayer"
+else
+    escaped_args=`w3_url_of_arg $w3_args`
+    w3_browse_url "https://bbc.co.uk/iplayer/search?q=${escaped_args}"
+fi
+#+END_SRC
+
+**** limetorrents
+
+#+NAME: limetorrents
+#+BEGIN_SRC conf
+#!/bin/sh
+# AUTHOR: gotbletu (@gmail|twitter|youtube|github|lbry)
+#
+# DATE: Wed Mar 11, 2020
+#
+# DESC: Elvi to search limetorrents
+# elvis: limetorrents    -- Search limetorrents for torrents (limetorrents.info)
+. surfraw || exit 1
+
+w3_usage_hook () {
+    cat <<EOF
+Usage: $w3_argv0 [options] [search words]...
+Description:
+  Search limetorrents (limetorrents.info) for torrents
+EOF
+    w3_global_usage
+}
+
+w3_config
+w3_parse_args "$@"
+if test -z "$w3_args"; then
+    w3_browse_url "https://limetorrents.info"
+else
+    escaped_args=`w3_url_of_arg $w3_args`
+    w3_browse_url "https://www.limetorrents.info/search/all/${escaped_args}"
+fi
+#+END_SRC
+
+**** rarbg
+
+#+NAME: rarbg
+#+begin_src conf
+#!/bin/sh
+# AUTHOR: gotbletu (@gmail|twitter|youtube|github|lbry)
+#
+# DATE: Wed Mar 02, 2016
+#
+# DESC: Elvi to search rarbg
+# elvis: rarbg		-- Search rarbg for torrents (rarbg.to)
+. surfraw || exit 1
+
+w3_usage_hook () {
+    cat <<EOF
+Usage: $w3_argv0 [options] [search words]...
+Description:
+  Search rarbg (rarbg.to) for torrents
+EOF
+    w3_global_usage
+}
+
+w3_config
+w3_parse_args "$@"
+if test -z "$w3_args"; then
+    w3_browse_url "https://rarbg.to"
+else
+    escaped_args=`w3_url_of_arg $w3_args`
+    w3_browse_url "https://rarbg.to/torrents.php?search=${escaped_args}&order=seeders&by=DESC"
+fi
+#+end_src
+
+**** reddit
+
+#+NAME: reddit
+#+begin_src conf
+#!/bin/sh
+# AUTHOR: gotbletu (@gmail|twitter|youtube|github|lbry)
+#
+# DATE: April 07, 2013
+#
+# DESC: Elvi to search Reddit News
+# elvis: reddit		-- Search Reddit for user submitted news (www.reddit.com)
+. surfraw || exit 1
+
+w3_usage_hook () {
+    cat <<EOF
+Usage: $w3_argv0 [options] [search words]...
+Description:
+  Search Reddit (www.reddit.com) for user submitted news
+EOF
+    w3_global_usage
+}
+
+w3_config
+w3_parse_args "$@"
+if test -z "$w3_args"; then
+    w3_browse_url "http://www.reddit.com"
+else
+    escaped_args=`w3_url_of_arg $w3_args`
+    w3_browse_url "http://www.reddit.com/search?q=${escaped_args}"
+fi
+#+end_src
+
+**** stackexchange
+
+#+NAME: stackexchange
+#+begin_src conf
+#!/bin/sh
+# AUTHOR: gotbletu (@gmail|twitter|youtube|github|lbry)
+#
+# DATE: Sat Nov 17 2012
+#
+# DESC: Elvi to search stackexchange computer questions
+# elvis: stackexchange	-- Search StackExchange for computer questions (www.stackexchange.org)
+. surfraw || exit 1
+
+w3_usage_hook () {
+    cat <<EOF
+Usage: $w3_argv0 [options] [search words]...
+Description:
+  Search stackexchange (www.stackexchange.org) for computer questions
+EOF
+    w3_global_usage
+}
+
+w3_config
+w3_parse_args "$@"
+if test -z "$w3_args"; then
+    w3_browse_url "http://www.stackexchange.com/"
+else
+    escaped_args=`w3_url_of_arg $w3_args`
+    w3_browse_url "http://stackexchange.com/search?q=${escaped_args}"
+fi
+#+end_src
+
+**** sunxdcc
+
+#+NAME: sunxdcc
+#+begin_src conf
+#!/bin/sh
+# AUTHOR: gotbletu (@gmail|twitter|youtube|github|lbry)
+#
+# DATE: Sun Feb 14, 2016
+#
+# DESC: Elvi to search sunxdcc for irc xdcc files
+# elvis: sunxdcc		-- Search sunxdcc for irc xdcc files (http://sunxdcc.com/)
+. surfraw || exit 1
+
+w3_usage_hook () {
+    cat <<EOF
+Usage: $w3_argv0 [options] [search words]...
+Description:
+  Search sunxdcc (http://sunxdcc.com/) for irc xdcc files 
+EOF
+    w3_global_usage
+}
+
+w3_config
+w3_parse_args "$@"
+if test -z "$w3_args"; then
+    w3_browse_url "http://sunxdcc.com/"
+else
+    escaped_args=$(w3_url_of_arg $w3_args)
+    w3_browse_url "http://sunxdcc.com/?sterm=${escaped_args}%20-tar%20-rar"
+fi
+#+end_src
+
+**** thepacket
+
+#+NAME: thepacket
+#+begin_src conf
+#!/bin/sh
+# DESC: Elvi to search thepacket for irc xdcc files
+# elvis: thepacket     		-- Search thepacket for irc xdcc files (https://thepacket.info/)
+. surfraw || exit 1
+
+w3_usage_hook () {
+    cat <<EOF
+Usage: $w3_argv0 [options] [search words]...
+Description:
+  Search thepacket (https://thepacket.info/) for irc xdcc files 
+EOF
+    w3_global_usage
+}
+
+w3_config
+w3_parse_args "$@"
+if test -z "$w3_args"; then
+    w3_browse_url "https://thepacket.info"
+else
+    escaped_args=$(w3_url_of_arg $w3_args)
+    w3_browse_url "https://thepacket.info/?q=${escaped_args}"
+fi
+#+end_src
+
+**** torrentdownloads
+
+#+NAME: torrentdownloads
+#+begin_src conf
+#!/bin/sh
+# AUTHOR: gotbletu (@gmail|twitter|youtube|github|lbry)
+#
+# DATE: Wed Mar 11, 2020
+#
+# DESC: Elvi to search torrentdownloads
+# elvis: torrentdownloads -- Search torrentdownloads for torrents (torrentdownloads.pro)
+. surfraw || exit 1
+
+w3_usage_hook () {
+    cat <<EOF
+Usage: $w3_argv0 [options] [search words]...
+Description:
+  Search torrentdownloads (torrentdownloads.pro) for torrents
+EOF
+    w3_global_usage
+}
+
+w3_config
+w3_parse_args "$@"
+if test -z "$w3_args"; then
+    w3_browse_url "https://torrentdownloads.pro"
+else
+    escaped_args=`w3_url_of_arg $w3_args`
+    w3_browse_url "https://www.torrentdownloads.pro/search/?search=${escaped_args}"
+fi
+#+end_src
+
+**** torrentgalaxy
+
+#+NAME: torrentgalaxy
+#+begin_src conf
+#!/bin/sh
+# AUTHOR: gotbletu (@gmail|twitter|youtube|github|lbry)
+#
+# DATE: Wed Nov 21, 2018
+#
+# DESC: Elvi to search torrentgalaxy
+# elvis: torrentgalaxy   -- Search torrentgalaxy for torrents (torrentgalaxy.to)
+. surfraw || exit 1
+
+w3_usage_hook () {
+    cat <<EOF
+Usage: $w3_argv0 [options] [search words]...
+Description:
+  Search torrentgalaxy (torrentgalaxy.to) for torrents
+EOF
+    w3_global_usage
+}
+
+w3_config
+w3_parse_args "$@"
+if test -z "$w3_args"; then
+    w3_browse_url "https://torrentgalaxy.to"
+else
+    escaped_args=`w3_url_of_arg $w3_args`
+    w3_browse_url "https://torrentgalaxy.to/torrents.php?search=${escaped_args}"
+fi
+#+end_src
+
+**** video
+
+#+NAME: video
+#+BEGIN_SRC conf
+#!/bin/sh
+# DESC: Elvi to search Google Video
+# elvis: video		-- Search Google Video (https://www.google.com)
+. surfraw || exit 1
+
+w3_usage_hook () {
+    cat <<EOF
+Usage: $w3_argv0 [options] [search words]...
+Description:
+  Search Google Video (https://video.google.com)
+EOF
+    w3_global_usage
+}
+
+w3_config
+w3_parse_args "$@"
+if test -z "$w3_args"; then
+    w3_browse_url "https://www.video.google.com"
+else
+    escaped_args=`w3_url_of_arg $w3_args`
+    w3_browse_url "https://www.google.com/search?q=${escaped_args}&num=30&safe=off&tbo=p&tbm=vid"
+fi
+#+END_SRC
+
+**** vimeo
+
+#+NAME: vimeo
+#+BEGIN_SRC conf
+#!/bin/sh
+# DESC: Elvi to search vimeo
+# elvis: vimeo		-- Search vimeo (https://vimeo.com)
+. surfraw || exit 1
+
+w3_usage_hook () {
+    cat <<EOF
+Usage: $w3_argv0 [options] [search words]...
+Description:
+  Search vimeo (https://vimeo.com)
+EOF
+    w3_global_usage
+}
+
+w3_config
+w3_parse_args "$@"
+if test -z "$w3_args"; then
+    w3_browse_url "https://vimeo.com"
+else
+    escaped_args=`w3_url_of_arg $w3_args`
+    w3_browse_url "https://vimeo.com/search?q=${escaped_args}"
+fi
+#+END_SRC
+
+**** xdcceu
+
+#+NAME: xdcceu
+#+begin_src conf
+#!/bin/sh
+# AUTHOR: gotbletu (@gmail|twitter|youtube|github|lbry)
+#
+# DATE: Wed June 14, 2017
+#
+# DESC: Elvi to search xdcceu for irc xdcc files
+# elvis: xdcceu		-- Search xdcceu for irc xdcc files (http://xdcc.eu/)
+. surfraw || exit 1
+
+w3_usage_hook () {
+    cat <<EOF
+Usage: $w3_argv0 [options] [search words]...
+Description:
+  Search xdcceu (http://xdcc.eu/) for irc xdcc files 
+EOF
+    w3_global_usage
+}
+
+w3_config
+w3_parse_args "$@"
+if test -z "$w3_args"; then
+    w3_browse_url "http://xdcc.eu/"
+else
+    escaped_args=`w3_url_of_arg $w3_args`
+    w3_browse_url "http://www.xdcc.eu/search.php?searchkey=${escaped_args}"
+fi
+
+#+end_src
+
+*** surfraw tangle
+**** surfraw
 
 + home dir
 
-#+NAME: nognome_notications-autostart-home-dir
-#+BEGIN_SRC conf :noweb yes :tangle "~/.config/autostart/nognome_notications.desktop"
-<<nognome_notications>>
+#+NAME: surfraw-home-dir
+#+BEGIN_SRC conf :noweb yes :tangle "~/.config/surfraw/conf"
+<<surfraw>>
 #+END_SRC
 
 + current dir
 
-#+NAME: nognome_notications-autostart-current-dir
-#+BEGIN_SRC conf :noweb yes :tangle ".config/autostart/nognome_notications.desktop"
-<<nognome_notications>>
+#+NAME: surfraw-current-dir
+#+BEGIN_SRC conf :noweb yes :tangle ".config/surfraw/conf"
+<<surfraw>>
 #+END_SRC
+
+**** 1337x
+
++ home dir
+
+#+NAME: surfraw-1337x-home-dir
+#+BEGIN_SRC conf :noweb yes :tangle "~/.config/surfraw/elvi/1337x" :tangle-mode (identity #o755)
+<<1337x>>
+#+END_SRC
+
++ current dir
+
+#+NAME: surfraw-1337x-home-dir
+#+BEGIN_SRC conf :noweb yes :tangle ".config/surfraw/elvi/1337x" :tangle-mode (identity #o755)
+<<1337x>>
+#+END_SRC
+
+**** archive
+
++ home dir
+
+#+NAME: surfraw-archive-home-dir
+#+BEGIN_SRC conf :noweb yes :tangle "~/.config/surfraw/elvi/archive" :tangle-mode (identity #o755)
+<<archive>>
+#+END_SRC
+
++ current dir
+
+#+NAME: surfraw-archive-home-dir
+#+BEGIN_SRC conf :noweb yes :tangle ".config/surfraw/elvi/archive" :tangle-mode (identity #o755)
+<<archive>>
+#+END_SRC
+
+**** btdig
+
++ home dir
+
+#+NAME: surfraw-btdig-home-dir
+#+BEGIN_SRC conf :noweb yes :tangle "~/.config/surfraw/elvi/btdig" :tangle-mode (identity #o755)
+<<btdig>>
+#+END_SRC
+
++ current dir
+
+#+NAME: surfraw-btdig-home-dir
+#+BEGIN_SRC conf :noweb yes :tangle ".config/surfraw/elvi/btdig" :tangle-mode (identity #o755)
+<<btdig>>
+#+END_SRC
+
+**** dailymotion
+
++ home dir
+
+#+NAME: surfraw-dailymotion-home-dir
+#+BEGIN_SRC conf :noweb yes :tangle "~/.config/surfraw/elvi/dailymotion" :tangle-mode (identity #o755)
+<<dailymotion>>
+#+END_SRC
+
++ current dir
+
+#+NAME: surfraw-dailymotion-home-dir
+#+BEGIN_SRC conf :noweb yes :tangle ".config/surfraw/elvi/dailymotion" :tangle-mode (identity #o755)
+<<dailymotion>>
+#+END_SRC
+
+**** ddg
+
++ home dir
+
+#+NAME: surfraw-ddg-home-dir
+#+BEGIN_SRC conf :noweb yes :tangle "~/.config/surfraw/elvi/ddg" :tangle-mode (identity #o755)
+<<ddg>>
+#+END_SRC
+
++ current dir
+
+#+NAME: surfraw-ddg-home-dir
+#+BEGIN_SRC conf :noweb yes :tangle ".config/surfraw/elvi/ddg" :tangle-mode (identity #o755)
+<<ddg>>
+#+END_SRC
+
+**** eztv
+
++ home dir
+
+#+NAME: surfraw-eztv-home-dir
+#+BEGIN_SRC conf :noweb yes :tangle "~/.config/surfraw/elvi/eztv" :tangle-mode (identity #o755)
+<<eztv>>
+#+END_SRC
+
++ current dir
+
+#+NAME: surfraw-eztv-home-dir
+#+BEGIN_SRC conf :noweb yes :tangle ".config/surfraw/elvi/eztv" :tangle-mode (identity #o755)
+<<eztv>>
+#+END_SRC
+
+**** iplayer
+
++ home dir
+
+#+NAME: surfraw-iplayer-home-dir
+#+BEGIN_SRC conf :noweb yes :tangle "~/.config/surfraw/elvi/iplayer" :tangle-mode (identity #o755)
+<<iplayer>>
+#+END_SRC
+
++ current dir
+
+#+NAME: surfraw-iplayer-home-dir
+#+BEGIN_SRC conf :noweb yes :tangle ".config/surfraw/elvi/iplayer" :tangle-mode (identity #o755)
+<<iplayer>>
+#+END_SRC
+
+**** limetorrents
+
++ home dir
+
+#+NAME: surfraw-limetorrents-home-dir
+#+BEGIN_SRC conf :noweb yes :tangle "~/.config/surfraw/elvi/limetorrents" :tangle-mode (identity #o755)
+<<limetorrents>>
+#+END_SRC
+
++ current dir
+
+#+NAME: surfraw-limetorrents-home-dir
+#+BEGIN_SRC conf :noweb yes :tangle ".config/surfraw/elvi/limetorrents" :tangle-mode (identity #o755)
+<<limetorrents>>
+#+END_SRC
+
+**** rarbg
+
++ home dir
+
+#+NAME: surfraw-rarbg-home-dir
+#+BEGIN_SRC conf :noweb yes :tangle "~/.config/surfraw/elvi/rarbg" :tangle-mode (identity #o755)
+<<rarbg>>
+#+END_SRC
+
++ current dir
+
+#+NAME: surfraw-rarbg-home-dir
+#+BEGIN_SRC conf :noweb yes :tangle ".config/surfraw/elvi/rarbg" :tangle-mode (identity #o755)
+<<rarbg>>
+#+END_SRC
+
+**** reddit
+
++ home dir
+
+#+NAME: surfraw-reddit-home-dir
+#+BEGIN_SRC conf :noweb yes :tangle "~/.config/surfraw/elvi/reddit" :tangle-mode (identity #o755)
+<<reddit>>
+#+END_SRC
+
++ current dir
+
+#+NAME: surfraw-reddit-home-dir
+#+BEGIN_SRC conf :noweb yes :tangle ".config/surfraw/elvi/reddit" :tangle-mode (identity #o755)
+<<reddit>>
+#+END_SRC
+
+**** stackexchange
+
++ home dir
+
+#+NAME: surfraw-stackexchange-home-dir
+#+BEGIN_SRC conf :noweb yes :tangle "~/.config/surfraw/elvi/stackexchange" :tangle-mode (identity #o755)
+<<stackexchange>>
+#+END_SRC
+
++ current dir
+
+#+NAME: surfraw-stackexchange-home-dir
+#+BEGIN_SRC conf :noweb yes :tangle ".config/surfraw/elvi/stackexchange" :tangle-mode (identity #o755)
+<<stackexchange>>
+#+END_SRC
+
+**** sunxdcc
+
++ home dir
+
+#+NAME: surfraw-sunxdcc-home-dir
+#+BEGIN_SRC conf :noweb yes :tangle "~/.config/surfraw/elvi/sunxdcc" :tangle-mode (identity #o755)
+<<sunxdcc>>
+#+END_SRC
+
++ current dir
+
+#+NAME: surfraw-sunxdcc-home-dir
+#+BEGIN_SRC conf :noweb yes :tangle ".config/surfraw/elvi/sunxdcc" :tangle-mode (identity #o755)
+<<sunxdcc>>
+#+END_SRC
+
+**** thepacket
+
++ home dir
+
+#+NAME: surfraw-thepacket-home-dir
+#+BEGIN_SRC conf :noweb yes :tangle "~/.config/surfraw/elvi/thepacket" :tangle-mode (identity #o755)
+<<thepacket>>
+#+END_SRC
+
++ current dir
+
+#+NAME: surfraw-thepacket-home-dir
+#+BEGIN_SRC conf :noweb yes :tangle ".config/surfraw/elvi/thepacket" :tangle-mode (identity #o755)
+<<thepacket>>
+#+END_SRC
+
+**** torrentdownloads
+
++ home dir
+
+#+NAME: surfraw-torrentdownloads-home-dir
+#+BEGIN_SRC conf :noweb yes :tangle "~/.config/surfraw/elvi/torrentdownloads" :tangle-mode (identity #o755)
+<<torrentdownloads>>
+#+END_SRC
+
++ current dir
+
+#+NAME: surfraw-torrentdownloads-home-dir
+#+BEGIN_SRC conf :noweb yes :tangle ".config/surfraw/elvi/torrentdownloads" :tangle-mode (identity #o755)
+<<torrentdownloads>>
+#+END_SRC
+
+**** torrentgalaxy
+
++ home dir
+
+#+NAME: surfraw-torrentgalaxy-home-dir
+#+BEGIN_SRC conf :noweb yes :tangle "~/.config/surfraw/elvi/torrentgalaxy" :tangle-mode (identity #o755)
+<<torrentgalaxy>>
+#+END_SRC
+
++ current dir
+
+#+NAME: surfraw-torrentgalaxy-home-dir
+#+BEGIN_SRC conf :noweb yes :tangle ".config/surfraw/elvi/torrentgalaxy" :tangle-mode (identity #o755)
+<<torrentgalaxy>>
+#+END_SRC
+
+**** video
+
++ home dir
+
+#+NAME: surfraw-video-home-dir
+#+BEGIN_SRC conf :noweb yes :tangle "~/.config/surfraw/elvi/video" :tangle-mode (identity #o755)
+<<video>>
+#+END_SRC
+
++ current dir
+
+#+NAME: surfraw-video-home-dir
+#+BEGIN_SRC conf :noweb yes :tangle ".config/surfraw/elvi/video" :tangle-mode (identity #o755)
+<<video>>
+#+END_SRC
+
+**** vimeo
+
++ home dir
+
+#+NAME: surfraw-vimeo-home-dir
+#+BEGIN_SRC conf :noweb yes :tangle "~/.config/surfraw/elvi/vimeo" :tangle-mode (identity #o755)
+<<vimeo>>
+#+END_SRC
+
++ current dir
+
+#+NAME: surfraw-vimeo-home-dir
+#+BEGIN_SRC conf :noweb yes :tangle ".config/surfraw/elvi/vimeo" :tangle-mode (identity #o755)
+<<vimeo>>
+#+END_SRC
+
+**** xdcceu
+
++ home dir
+
+#+NAME: surfraw-xdcceu-home-dir
+#+BEGIN_SRC conf :noweb yes :tangle "~/.config/surfraw/elvi/xdcceu" :tangle-mode (identity #o755)
+<<xdcceu>>
+#+END_SRC
+
++ current dir
+
+#+NAME: surfraw-xdcceu-home-dir
+#+BEGIN_SRC conf :noweb yes :tangle ".config/surfraw/elvi/xdcceu" :tangle-mode (identity #o755)
+<<xdcceu>>
+#+END_SRC
+
