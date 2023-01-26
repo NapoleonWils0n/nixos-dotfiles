@@ -92,6 +92,7 @@ in {
 
   home.packages = with pkgs;[
     abook
+    alacritty
     apg
     aria
     bat
