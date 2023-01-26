@@ -2598,243 +2598,6 @@ set-option -g default-shell ${SHELL}
 <<tmux>>
 #+END_SRC
 
-** bat
-*** bat config
-
-#+NAME: bat
-#+BEGIN_SRC conf
-# This is `bat`s configuration file
-
-# bat theme
---theme="Solarized (dark)"
-#+END_SRC
-
-*** bat tangle
-
-+ home dir
-
-#+NAME: bat-home-dir
-#+BEGIN_SRC conf :noweb yes :tangle "~/.config/bat/config"
-<<bat>>
-#+END_SRC
-
-+ current dir
-
-#+NAME: bat-current-dir
-#+BEGIN_SRC conf :noweb yes :tangle ".config/bat/config"
-<<bat>>
-#+END_SRC
-
-** wget
-*** wget config
-
-#+NAME: wget
-#+BEGIN_SRC conf
-hsts-file=/home/djwilcox/.cache/wget-hsts
-#+END_SRC
-
-*** wget tangle
-
-+ home dir
-
-#+NAME: wget-home-dir
-#+BEGIN_SRC conf :noweb yes :tangle "~/.config/wget/wgetrc"
-<<wget>>
-#+END_SRC
-
-+ current dir
-
-#+NAME: wget-current-dir
-#+BEGIN_SRC conf :noweb yes :tangle ".config/wget/wgetrc"
-<<wget>>
-#+END_SRC
-
-** urlscan
-*** urlscan config
-
-#+NAME: urlscan
-#+BEGIN_SRC conf
-{
-    "palettes": {
-        "default": [
-            [
-                "header",
-                "black",
-                "dark blue",
-                "standout"
-            ],
-            [
-                "footer",
-                "white",
-                "default",
-                "standout"
-            ],
-            [
-                "search",
-                "white",
-                "default",
-                "standout"
-            ],
-            [
-                "msgtext",
-                "",
-                ""
-            ],
-            [
-                "msgtext:ellipses",
-                "light gray",
-                "default"
-            ],
-            [
-                "urlref:number:braces",
-                "light gray",
-                "default"
-            ],
-            [
-                "urlref:number",
-                "default",
-                "default",
-                "standout"
-            ],
-            [
-                "urlref:url",
-                "white",
-                "default",
-                "standout"
-            ],
-            [
-                "url:sel",
-                "default",
-                "dark blue",
-                "bold"
-            ]
-        ],
-        "bw": [
-            [
-                "header",
-                "black",
-                "light gray",
-                "standout"
-            ],
-            [
-                "footer",
-                "black",
-                "light gray",
-                "standout"
-            ],
-            [
-                "search",
-                "black",
-                "light gray",
-                "standout"
-            ],
-            [
-                "msgtext",
-                "",
-                ""
-            ],
-            [
-                "msgtext:ellipses",
-                "white",
-                "black"
-            ],
-            [
-                "urlref:number:braces",
-                "white",
-                "black"
-            ],
-            [
-                "urlref:number",
-                "white",
-                "black",
-                "standout"
-            ],
-            [
-                "urlref:url",
-                "white",
-                "black",
-                "standout"
-            ],
-            [
-                "url:sel",
-                "black",
-                "light gray",
-                "bold"
-            ]
-        ]
-    },
-    "keys": {
-        "/": "search_key",
-        "0": "digits",
-        "1": "digits",
-        "2": "digits",
-        "3": "digits",
-        "4": "digits",
-        "5": "digits",
-        "6": "digits",
-        "7": "digits",
-        "8": "digits",
-        "9": "digits",
-        "C": "clipboard",
-        "c": "context",
-        "ctrl l": "clear_screen",
-        "f1": "help_menu",
-        "G": "bottom",
-        "g": "top",
-        "j": "down",
-        "k": "up",
-        "P": "clipboard_pri",
-        "l": "link_handler",
-        "p": "palette",
-        "Q": "quit",
-        "q": "quit",
-        "S": "all_shorten",
-        "s": "shorten",
-        "u": "all_escape"
-    }
-}
-#+END_SRC
-
-*** urlscan tangle
-
-+ home dir
-
-#+NAME: urlscan-home-dir
-#+BEGIN_SRC conf :noweb yes :tangle "~/.config/urlscan/config.json"
-<<urlscan>>
-#+END_SRC
-
-+ current dir
-
-#+NAME: urlscan-current-dir
-#+BEGIN_SRC conf :noweb yes :tangle ".config/urlscan/config.json"
-<<urlscan>>
-#+END_SRC
-
-** zathura
-*** zathura config
-
-#+NAME: zathura
-#+BEGIN_SRC conf
-set selection-clipboard clipboard
-#+END_SRC
-
-*** zathura tangle
-
-+ home dir
-  
-#+NAME: zathura-home-dir
-#+BEGIN_SRC conf :noweb yes :tangle "~/.config/zathura/zathurarc"
-<<zathura>>
-#+END_SRC
-  
-+ current dir
-
-#+NAME: zathura-current-dir
-#+BEGIN_SRC conf :noweb yes :tangle ".config/zathura/zathurarc"
-<<zathura>>
-#+END_SRC
-
 ** desktop files
 *** desktop files config
 **** transmission config
@@ -2925,6 +2688,81 @@ ui = true
 #+NAME: gitconfig-current-dir
 #+BEGIN_SRC conf :noweb yes :tangle ".config/git/gitconfig"
 <<gitconfig>>
+#+END_SRC
+
+** bat
+*** bat config
+
+#+NAME: bat
+#+BEGIN_SRC conf
+# This is `bat`s configuration file
+
+# bat theme
+--theme="Solarized (dark)"
+#+END_SRC
+
+*** bat tangle
+
++ home dir
+
+#+NAME: bat-home-dir
+#+BEGIN_SRC conf :noweb yes :tangle "~/.config/bat/config"
+<<bat>>
+#+END_SRC
+
++ current dir
+
+#+NAME: bat-current-dir
+#+BEGIN_SRC conf :noweb yes :tangle ".config/bat/config"
+<<bat>>
+#+END_SRC
+
+** wget
+*** wget config
+
+#+NAME: wget
+#+BEGIN_SRC conf
+hsts-file=/home/djwilcox/.cache/wget-hsts
+#+END_SRC
+
+*** wget tangle
+
++ home dir
+
+#+NAME: wget-home-dir
+#+BEGIN_SRC conf :noweb yes :tangle "~/.config/wget/wgetrc"
+<<wget>>
+#+END_SRC
+
++ current dir
+
+#+NAME: wget-current-dir
+#+BEGIN_SRC conf :noweb yes :tangle ".config/wget/wgetrc"
+<<wget>>
+#+END_SRC
+
+** zathura
+*** zathura config
+
+#+NAME: zathura
+#+BEGIN_SRC conf
+set selection-clipboard clipboard
+#+END_SRC
+
+*** zathura tangle
+
++ home dir
+  
+#+NAME: zathura-home-dir
+#+BEGIN_SRC conf :noweb yes :tangle "~/.config/zathura/zathurarc"
+<<zathura>>
+#+END_SRC
+  
++ current dir
+
+#+NAME: zathura-current-dir
+#+BEGIN_SRC conf :noweb yes :tangle ".config/zathura/zathurarc"
+<<zathura>>
 #+END_SRC
 
 ** newsboat
@@ -5022,6 +4860,168 @@ magnet: file:/cgi-bin/magnet.cgi?%s
 #+NAME: w3m-urimethodmap-current-dir
 #+BEGIN_SRC conf :noweb yes :tangle ".w3m/urimethodmap"
 <<urimethodmap>>
+#+END_SRC
+
+** urlscan
+*** urlscan config
+
+#+NAME: urlscan
+#+BEGIN_SRC conf
+{
+    "palettes": {
+        "default": [
+            [
+                "header",
+                "black",
+                "dark blue",
+                "standout"
+            ],
+            [
+                "footer",
+                "white",
+                "default",
+                "standout"
+            ],
+            [
+                "search",
+                "white",
+                "default",
+                "standout"
+            ],
+            [
+                "msgtext",
+                "",
+                ""
+            ],
+            [
+                "msgtext:ellipses",
+                "light gray",
+                "default"
+            ],
+            [
+                "urlref:number:braces",
+                "light gray",
+                "default"
+            ],
+            [
+                "urlref:number",
+                "default",
+                "default",
+                "standout"
+            ],
+            [
+                "urlref:url",
+                "white",
+                "default",
+                "standout"
+            ],
+            [
+                "url:sel",
+                "default",
+                "dark blue",
+                "bold"
+            ]
+        ],
+        "bw": [
+            [
+                "header",
+                "black",
+                "light gray",
+                "standout"
+            ],
+            [
+                "footer",
+                "black",
+                "light gray",
+                "standout"
+            ],
+            [
+                "search",
+                "black",
+                "light gray",
+                "standout"
+            ],
+            [
+                "msgtext",
+                "",
+                ""
+            ],
+            [
+                "msgtext:ellipses",
+                "white",
+                "black"
+            ],
+            [
+                "urlref:number:braces",
+                "white",
+                "black"
+            ],
+            [
+                "urlref:number",
+                "white",
+                "black",
+                "standout"
+            ],
+            [
+                "urlref:url",
+                "white",
+                "black",
+                "standout"
+            ],
+            [
+                "url:sel",
+                "black",
+                "light gray",
+                "bold"
+            ]
+        ]
+    },
+    "keys": {
+        "/": "search_key",
+        "0": "digits",
+        "1": "digits",
+        "2": "digits",
+        "3": "digits",
+        "4": "digits",
+        "5": "digits",
+        "6": "digits",
+        "7": "digits",
+        "8": "digits",
+        "9": "digits",
+        "C": "clipboard",
+        "c": "context",
+        "ctrl l": "clear_screen",
+        "f1": "help_menu",
+        "G": "bottom",
+        "g": "top",
+        "j": "down",
+        "k": "up",
+        "P": "clipboard_pri",
+        "l": "link_handler",
+        "p": "palette",
+        "Q": "quit",
+        "q": "quit",
+        "S": "all_shorten",
+        "s": "shorten",
+        "u": "all_escape"
+    }
+}
+#+END_SRC
+
+*** urlscan tangle
+
++ home dir
+
+#+NAME: urlscan-home-dir
+#+BEGIN_SRC conf :noweb yes :tangle "~/.config/urlscan/config.json"
+<<urlscan>>
+#+END_SRC
+
++ current dir
+
+#+NAME: urlscan-current-dir
+#+BEGIN_SRC conf :noweb yes :tangle ".config/urlscan/config.json"
+<<urlscan>>
 #+END_SRC
 
 ** surfraw
