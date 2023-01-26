@@ -1948,28 +1948,6 @@ function zle-line-init zle-keymap-select {
 zle -N zle-line-init
 zle -N zle-keymap-select
 
-# vterm
-vterm_printf(){
-    if [ -n "$TMUX" ] && ([ "${TERM%%-*}" = "tmux" ] || [ "${TERM%%-*}" = "screen" ] ); then
-        # Tell tmux to pass the escape sequences through
-        printf "\ePtmux;\e\e]%s\007\e\\" "$1"
-    elif [ "${TERM%%-*}" = "screen" ]; then
-        # GNU screen (screen, screen-256color, screen-256color-bce)
-        printf "\eP\e]%s\007\e\\" "$1"
-    else
-        printf "\e]%s\e\\" "$1"
-    fi
-}
-
-# vterm clear scroll back
-if [[ "$INSIDE_EMACS" = 'vterm' ]]; then
-    alias clear='vterm_printf "51;Evterm-clear-scrollback";tput clear'
-fi
-
-# vterm directory tracking
-autoload -U add-zsh-hook
-add-zsh-hook -Uz chpwd (){ print -Pn "\e]2;%m:%2~\a" }
-
 # set terminal window title to program name
 case $TERM in
   (*xterm* | rxvt | rxvt-unicode-256color)
@@ -1990,14 +1968,6 @@ if [ -z "$XDG_RUNTIME_DIR" ]; then
         chmod 0700 "$XDG_RUNTIME_DIR"
     fi
 fi
-
-# enable color support of ls and also add handy aliases
-#if [ -x /usr/bin/dircolors ]; then
-#    test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
-#    alias grep='grep --color=auto'
-#    alias fgrep='fgrep --color=auto'
-#    alias egrep='egrep --color=auto'
-#fi
 
 # Fix bugs when switching modes
 bindkey -v # vi mode
@@ -2068,7 +2038,6 @@ zstyle ':completion:*:options' list-colors '=(#b) #(-[a-zA-Z0-9,]#)*(-- *)=36=37
 zstyle ':completion:*' rehash true
 
 # highlighting
-#source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 ZSH_HIGHLIGHT_STYLES[suffix-alias]=fg=cyan,underline
 ZSH_HIGHLIGHT_STYLES[precommand]=fg=cyan,underline
 ZSH_HIGHLIGHT_STYLES[arg0]=fg=cyan
@@ -2077,9 +2046,6 @@ ZSH_HIGHLIGHT_PATTERNS=('rm -rf *' 'fg=white,bold,bg=red')
 
 # namespace autocomplete
 compdef _precommand namespace
-
-# ytfzf autocomplete
-compdef _gnu_generic ytfzf
 
 # transmission autocomplete
 compdef _gnu_generic transmission-daemon
@@ -2370,225 +2336,46 @@ cache=auto
 
 #+NAME: aria2c
 #+begin_src conf
-#
-## aria2 config
-#
-# man page  = http://aria2.sourceforge.net/manual/en/html/aria2c.html
-# file path = $HOME/.aria2/aria2.conf
-
-# Download Directory: specify the directory all files will be downloaded to.
-# When this directive is commented out, aria2 will download the files to the
-# current directory where you execute the aria2 binary.
-#dir=/usr/home/djwilcox/downloads
-
-
-# Bit Torrent: If the speed of the incoming data (download) from other peers is
-# greater then the peer-speed-limit, then do not allow any more connections
-# than max-peers. The idea is to limit the amount of clients our system will
-# connect with to reduce our overall load when we are already saturating our
-# incoming bandwidth.  Make sure to set the the peer-speed-limit to your
-# preferred incoming (download) speed. Speeds must be whole numbers so 5.5M is
-# illegal, but 5500K is valid.  For unlimited connections set
-# request-peer-speed-limit something high like 10000M (10gig).
+# aria2 config
  bt-max-peers=0
  bt-request-peer-speed-limit=0
-
-
-# Bit Torrent: the max upload speed for all torrents combined. Again, only
-# whole numbers are valid. We find a global upload limit is more flexible then
-# an upload limit per torrent. Zero(0) is unrestricted upload spreeds.
  max-overall-upload-limit=128k
-
-
-# Bit Torrent: When downloading a torrent remove ALL trackers from the listing.
-# This is a good way to only use distributed hash table (DHT) and Peer eXchange
-# (PeX) for connections. We find start up of the torrent takes a little longer
-# with all trackers disabled, but helps reduce the load on trackers.
-# bt-exclude-tracker="*"
  bt-external-ip=127.0.0.1
-
-
-# Bit Torrent: ports and protocols used for bit torrent TCP and UDP
-# connections. Make sure DHT is enabled in order to connect to UDP trackers as
-# well as negotiating with DHT and PEX peers. 
  dht-listen-port=6882
  enable-dht=true
  enable-peer-exchange=true
  listen-port=6881
-
-
-# When running aria2 on FreeBSD with ZFS, disable disk-cache due to ZFS's use
-# of Adaptive Replacement Cache (ARC). ZFS can also take advantage of the
-# "sparse files" format which is significantly faster then pre allocation of
-# file space. For other file systems like EXT4 and XFS you can test
-# file-allocation with "prealloc" and "falloc" to see which file-allocation
-# allows arai2 to start quicker and use less disk I/O.
-# disk-cache=0
-# file-allocation=none
-
-
-# Bit Torrent: fully encrypt the negotiation as well and the payload of all bit
-# torrent traffic. With this configuration, encryption is required and all old,
-# non-encrypted clients are ignored (dropped). This may help avoid some ISPs
-# rate limiting P2P clients, but will also reduce the amount of clients aria2
-# will talk to.
  bt-force-encryption=true
  bt-min-crypto-level=arc4
  bt-require-crypto=true
-
-
-# Bit Torrent: Download the torrent file into memory (RAM) if there is no need
-# to save the .torrent file itself. This option works with both magnet and
-# torrent URL links.
  follow-torrent=mem
-
-
-# Bit Torrent: The amount of time and the upload-to-download ratio you wish to
-# seed to. If either the seed time limit ( minutes ) or the seed ratio is
-# reached, torrent seeding will stop. You can set seed-time to zero(0) to
-# disable seeding completely.
  seed-ratio=100
  seed-time=0
-
-
-# Bit Torrent: timeout values for servers and clients.
-#bt-tracker-connect-timeout=10
-#bt-tracker-interval=900
-#bt-tracker-timeout=10
-
-
-# Bit Torrent: scripts or commands to execute before, during or after a
-# download finishes.
-# on-bt-download-complete=/path/to/script.sh
-# on-download-complete=/path/to/script.pl
-# on-download-error=/path/to/script
-# on-download-pause=/path/to/script.sh
-# on-download-start=/path/to/script.pl
-# on-download-stop=/path/to/script
-
-
-# Network: maximum socket receive buffer in bytes. 1M can sustain 1Gbit/sec.
-# Default: 0 which is disabled.
  socket-recv-buffer-size=1M
-
-
-# Event Multiplexing: set polling to the OS type you are using. For FreeBSD,
-# OpenBSD and NetBSD set to "kqueue". For Linux set to "epoll".
  event-poll=epoll
-
-
-# Certificate Authority PEM : specify the full path to the OS certificate
-# authority pem file to verify the peers. On FreeBSD with OpenSSL the following
-# file path is valid. Without a valid pem file aria2 will print out the error,
-# "[ERROR] Failed to load trusted CA certificates from no. Cause:
-# error:02001002:system library:fopen:No such file or directory"
-# ca-certificate=/usr/local/openssl/cert.pem
-
-
-# Data Integrity: check the MD5 / SHA256 hash of metalink downloads as well as
-# the hash of bit torrent chunks as our client receives them. CPU time is
-# reasonably low for the high value of real time verified data. Note:
-# check-integrity set as true will show "ERROR - Checksum error detected" for
-# magnet links which can be ignored.
-#check-integrity=true
  realtime-chunk-checksum=true
-
-
-# File Names: Resume file downloads if we have a partial copy. Do not rename
-# the file or make another copy if the same file is downloaded a second time.
  allow-overwrite=true
  always-resume=true
  auto-file-renaming=false
  continue=true
  remote-time=true
-
-
-# User Agent: Disable the identification string of our client. If you connect
-# to a server which requires a certain id string you can always add one here.
-# Trackers should never use client id strings as security authentication or
-# access control.
  peer-id-prefix=""
  user-agent=""
-
-
-# Status Summery messages are disabled since the status of the download is
-# updated in real time on the CLI anyways.
  summary-interval=0
-
-
-# FTP: use passive ftp which is firewall friendly and reuse the ftp data
-# connection when asking for multiple resources from the same server for
-# efficiency.
  ftp-pasv=true
  ftp-reuse-connection=true
-
-
-# Metalink: Set the country code to prefer mirrors closest to you. Prefer more
-# secure https mirrors over http and ftp servers.
  metalink-language=en-US
  metalink-location=us
  metalink-preferred-protocol=https
-
-
-# Disconnect from https, http or ftp servers who do not upload data to us
-# faster then the specified value. Aria2 will then find another mirror in the
-# metalink file which might be quicker. If there are no more mirrors left then
-# the current slow mirror is still used. This value is NOT used for bit torrent
-# connections though. NOTE: we hope to convince the developer to add a
-# lower-speed value or even a minimal client U/D ratio to bit torrent some day
-# to kick off leachers too.
  lowest-speed-limit=50K
-
-
-# Concurrent downloads: Set the number of different servers to download from
-# concurrently; i.e. in parallel. If we are downloading a single file then
-# split that file into the same amount of streams. Make sure to keep in mind
-# that if the amount of parallel downloads times the lowest-speed-limit is
-# greater then your total download bandwidth then you will drop servers
-# incorrectly. For example, we have ten(10) connections at a minimum of
-# 50KiB/sec which equals 500KiB/sec. If our total download bandwidth is not at
-# least 500KiB/sec then arai2 will think the mirrors are too slow and drop
-# connection slowing down the whole download. Do not set the
-# max-connection-per-server greater then three(3) as to avoid abusing a single
-# server.
  max-concurrent-downloads=10
  max-connection-per-server=3
  min-split-size=5M
  split=10
-
-
-# RPC Interface: To access aria2 through XML-RPC API, like using webui-aria2.
-#enable-rpc
-#rpc-listen-all
-#rpc-user=username
-#rpc-passwd=passwd
-
-
-# Daemon Mode: To run aria2 in the background as a daemon. Use daemon mode to
-# start aria2 on reboot or when using an RPC interface like webui-aria2.
-#daemon
-
-
-#
-#
-# Reference: the following options arethe developers defaults. We kept them
-# here for reference.
-
-# bt-max-open-files=100
-# bt-save-metadata=false
-# bt-stop-timeout=0
-# bt-tracker="udp://tracker.openbittorrent.com:80/announce"
  check-certificate=true
  conditional-get=true
-# dht-entry-point="dht.transmissionbt.com:6881"
-# dht-file-path=$HOME/.aria2/dht.dat
-# dht-message-timeout=10
  disable-ipv6=true
  http-accept-gzip=true
-# log=$HOME/.aria2/aria2.log
-# log-level=debug
-
-### EOF ###
 #+end_src
 
 *** aria2c tangle
@@ -2670,14 +2457,6 @@ color article            default default
 highlight article "^(Feed|Title|Link|Date|Author):.*$" color12 color8
 highlight article "https?://[^ ]+" color4 color8 protect
 
-# styling
-#highlight feedlist "[║│]" default default bold
-#highlight feedlist "╠═.*" default default bold
-#feedlist-format "%?T?║%4i %n %8u %t (%T) &╠#%-8t════════════════════════════════════════?"
-
-# notify
-#notify-program "/usr/bin/notify-send"
-
 # kill files ignore articles marked #shorts to filter out youtube shorts
 ignore-article "*" "title =~ \"#shorts$\""
 #+END_SRC
@@ -2738,14 +2517,6 @@ color article            default default
 # highlights
 highlight article "^(Feed|Title|Link|Date|Author):.*$" color12 color8
 highlight article "https?://[^ ]+" color4 color8 protect
-
-# styling
-#highlight feedlist "[║│]" default default bold
-#highlight feedlist "╠═.*" default default bold
-#feedlist-format "%?T?║%4i %n %8u %t (%T) &╠#%-8t════════════════════════════════════════?"
-
-# notify
-#notify-program "/usr/bin/notify-send"
 #+END_SRC
 
 **** config-torrents
@@ -2799,14 +2570,6 @@ color article            default default
 # highlights
 highlight article "^(Feed|Title|Link|Date|Author):.*$" color12 color8
 highlight article "https?://[^ ]+" color4 color8 protect
-
-# styling
-#highlight feedlist "[║│]" default default bold
-#highlight feedlist "╠═.*" default default bold
-#feedlist-format "%?T?║%4i %n %8u %t (%T) &╠#%-15t═════════════════════════════════?"
-
-# notify
-#notify-program "/usr/bin/notify-send"
 #+END_SRC
 
 **** urls
@@ -3178,171 +2941,29 @@ https://www.dnoid.to/rss/4.xml comics demonoid "~comics"
 
 #+NAME: ncmpc
 #+BEGIN_SRC conf
-##
 ## Configuration file for ncmpc (~/.ncmpc/config)
-##
-
-############## Connection ###################
-## Connect to mpd running on a specified host
-#host = "localhost"
-#host = "127.0.0.1"
 host = "/run/user/1000/mpd/socket"
-
-## Connect to mpd on the specified port.
-#port = 6600
-
-## Connect to mpd using the specified password.
-#password = "mpd"
-
-############## Interface ####################
-## Enable mouse support (if enabled at compile time).
-#enable-mouse = no
-
-## A list of screens to cycle through when using
-## the previous/next screen commands (tab and shift+tab).
-## names: playlist browse help artist search song keydef lyrics outputs
 screen-list = playlist browse
-
-## Default search mode for the search screen. The mode is an
-## integer index, with  0  for title, 1 for artist, 2 for album,
-## 3 for filename, and 4 for artist+title.
-#search-mode = 0
-
-## Auto center (center the playing track in the playlist)
-#auto-center = no
-
-## Show the most recent query when using find.
-#find-show-last = no
-
-## Wrapped find mode.
-#find-wrap = yes
-
-## Wrapped cursor movement.
 wrap-around = yes
-
-## Ring bell when find wraps around.
-#bell-on-wrap = yes
-
-## Sound audible bell on alerts.
-#audible-bell = yes
-
-## Enable visible bell on alerts.
-#visible-bell = no
-
-## Default crossfade time in seconds.
-#crossfade-time = 10
-
-## Seek forward/backward by NUM seconds.
 seek-time = 30
-
-############## Display ######################
-## Show a list of the screens in the top line on startup.
-#welcome-screen-list = yes
-
-## Make the cursor as wide as the screen.
-#wide-cursor = yes
-
-## Use the terminal's hardware cursor instead of inverse colors
-#hardware-cursor = yes
-
-## Hide playlist cursor after x seconds (0 disables this feature).
-#hide-cursor = 5
-
-## Scroll the title if it is too long for the screen.
-#scroll = yes
-
-## The separator to show at the end of the scrolling title.
-#scroll-sep = " *** "
-
-## list-format
-## The format used to display songs in the main window.
 list-format = "%name%|[%artist% - ]%title%|%file%"
-
-## The format used to display songs on the status line.
 status-format = "[%artist% - ]%title%|%shortfile%"
-
-## The time, in seconds, for which status messages will be displayed.
-#status-message-time = 3
-
-## Display the time in the status bar when idle.
-#display-time = yes
-
-## Sets whether to display remaining or elapsed time in
-## the status window. Default is elapsed.
-#timedisplay-type = elapsed
-
-## Show the bitrate in the status bar when playing a stream.
 visible-bitrate = yes
-
-## Change the XTerm title (ncmpc will not restore the title).
-#set-xterm-title = no
-
-## The format used to for the xterm title when ncmpc is playing.
-#xterm-title-format = "ncmpc: [ %name%|[%artist% - ]%title%|%file%]"
-
-## Automatically save the lyrics after receiving them.
-#lyrics-autosave = no
-
-## Display song length in second column
-#second-column = yes
-
-############## Colors #######################
-## colors: none, black, red, green, yellow, blue, magenta, cyan, white
-## attributes: standout, underline, reverse, blink, dim, bold
-##
-## Colors can also be given as an integer representing a terminal specific
-## color code. The special color, none, represents the terminals default color.
-
-## Enable/disable colors.
-#enable-colors = yes
 enable-colors = no
-
-## Set the background color.
 color background = none
-
-## Set the text color for the title row.
 color title = none,black
-
-## Set the text color for the title row (the bold part).
 color title-bold = blue,bold
-
-## Set the color of the line on the second row.
 color line = black
-
-## Set the text color used to indicate mpd flags on the second row.
 color line-flags = black,bold
-
-## Set the text color in the main area of ncmpc.
 color list = none
-
-## Set the bold text color in the main area of ncmpc.
 color list-bold = none,bold
-
-## Sets the text color of directories in the browser
 color browser-directory = none
-
-## Sets the text color of playlists in the browser
 color browser-playlist = none
-
-## Set the color of the progress indicator.
 color progressbar = black
-
-## Set the text color used to display mpd status in the status window.
 color status-state = black,bold
-
-## Set the text color used to display song names in the status window.
 color status-song  = black
-
-## Set the text color used to display time the status window.
 color status-time  = black
-
-## Text color used to display alerts in the status window.
 color alert = black,bold
-
-## Redefine any of the base colors.
-## The RGB values must be an integer value between 0 and 1000.
-## Note: Only some terminals allow redefinitions of colors!
-#colordef yellow = 255, 140, 0
 #+END_SRC
 
 *** ncmpc tangle
@@ -3367,9 +2988,6 @@ color alert = black,bold
 #+NAME: tmux
 #+BEGIN_SRC conf
 # .tmux.conf
-
-# default shell
-#set -g default-command /usr/bin/zsh
 
 # vi mode
 set-window-option -g mode-keys vi
@@ -3529,26 +3147,6 @@ set-option -g default-shell ${SHELL}
 #+BEGIN_SRC conf
 set from = "danieljwilcox@gmail.com"
 set realname = "Daniel J Wilcox"
-
-# mutt colours
-#color normal default default
-#color hdrdefault black green
-#color quoted default default
-#color signature default default
-#color attachment default default
-#color message default default
-#color error default default
-#color indicator black green
-#color status black green
-#color tree default default
-#color normal default default
-#color markers default default
-#color search default default
-#color tilde default default
-#color index default default ~F
-#color index default default "~N|~O"
-
-# mutt colours
 color normal default default
 color hdrdefault black blue
 color quoted default default
@@ -3556,7 +3154,6 @@ color signature default default
 color attachment default default
 color message default default
 color error default default
-#color indicator black blue
 color status black blue
 color tree default default
 color normal default default
@@ -3565,53 +3162,37 @@ color search default default
 color tilde default default
 color index default default ~F
 color index default default "~N|~O"
-
-
 set imap_user = "danieljwilcox@gmail.com"
 set smtp_url = "smtps://danieljwilcox@smtp.gmail.com:465/"
 source "gpg -d ~/.config/mutt/mutt-passwords.gpg |"
-
 set folder = "imaps://imap.gmail.com:993"
 set spoolfile = "+Inbox"
 set postponed = "+Drafts"
-#set trash = "imaps://imap.gmail.com/Trash"
 set record = "+Sent Mail"
-
 set header_cache = ~/.config/mutt/cache/headers
 set message_cachedir = ~/.config/mutt/cache/bodies
 set certificate_file = ~/.config/mutt/certificates
 set mailcap_path = ~/.config/mutt/mailcap       
-
 set sort=threads
 set sort_browser=reverse-date
 set sort_aux=reverse-last-date-received
-
 set move = "no" 
 set imap_idle = "yes"
 set mail_check = "60"
 set imap_keepalive = "900"
 set editor = "emacsclient"
-#set pager = "emacsclient"
 set beep_new
-
 # Ctrl-R to mark all as read
 macro index \Cr "T~U<enter><tag-prefix><clear-flag>N<untag-pattern>.<enter>" "mark all messages as read"
-
-#set query_command="goobook query '%s'"
-#macro index,pager a "<pipe-message>goobook add<return>" "add sender to google contacts"
-
 set query_command = "abook --mutt-query '%s'"
 macro generic,index,pager \ca "<shell-escape>abook<return>" "launch abook"
 macro index,pager A "<pipe-message>abook --add-email<return>" "add the sender address to abook"
 bind editor <Tab> complete-query
-
 bind index "^" imap-fetch-mail
 bind compose p pgp-menu
 macro compose Y pfy "send mail without GPG"
-
 bind index gg first-entry
 bind index G  last-entry
-
 bind pager k  previous-line
 bind pager j  next-line
 bind pager gg top
@@ -3620,11 +3201,6 @@ bind pager G  bottom
 # View URLs inside Mutt with urlscan, ctrl b
 macro index \cb "|urlscan\n"
 macro pager \cb "|urlscan\n"
-
-
-# Note that we explicitly set the comment armor header since GnuPG, when used
-# in some localiaztion environments, generates 8bit data in that header, thereby
-# breaking PGP/MIME.
 
 # decode application/pgp
 set pgp_decode_command="gpg --status-fd=2 --no-verbose --quiet --batch --output - %f"
@@ -3636,19 +3212,15 @@ set pgp_verify_command="gpg --status-fd=2 --no-verbose --quiet --batch --output 
 set pgp_decrypt_command="gpg --status-fd=2 --no-verbose --quiet --batch --output - %f"
 
 # create a pgp/mime signed attachment
-# set pgp_sign_command="gpg-2comp --comment '' --no-verbose --batch --output - %?p?--passphrase-fd 0? --armor --detach-sign --textmode %?a?-u %a? %f"
 set pgp_sign_command="gpg --no-verbose --batch --quiet --output - --armor --detach-sign --textmode %?a?-u %a? %f"
 
 # create a application/pgp signed (old-style) message
-# set pgp_clearsign_command="gpg-2comp --comment '' --no-verbose --batch --output - %?p?--passphrase-fd 0? --armor --textmode --clearsign %?a?-u %a? %f"
 set pgp_clearsign_command="gpg --no-verbose --batch --quiet --output - %?p?--passphrase-fd 0? --armor --textmode --clearsign %?a?-u %a? %f"
 
 # create a pgp/mime encrypted attachment
-# set pgp_encrypt_only_command="pgpewrap gpg-2comp -v --batch --output - --encrypt --textmode --armor --always-trust -- -r %r -- %f"
 set pgp_encrypt_only_command="/usr/bin/pgpewrap gpg --batch --quiet --no-verbose --output - --encrypt --textmode --armor --always-trust -- -r %r -- %f"
 
 # create a pgp/mime encrypted and signed attachment
-# set pgp_encrypt_sign_command="pgpewrap gpg-2comp %?p?--passphrase-fd 0? -v --batch --output - --encrypt --sign %?a?-u %a? --armor --always-trust -- -r %r -- %f"
 set pgp_encrypt_sign_command="/usr/bin/pgpewrap gpg --batch --quiet --no-verbose --textmode --output - --encrypt --sign %?a?-u %a? --armor --always-trust -- -r %r -- %f"
 
 # import a key into the public key ring
@@ -3665,18 +3237,6 @@ set pgp_list_pubring_command="gpg --no-verbose --batch --quiet --with-colons --l
 
 # read in the secret key ring
 set pgp_list_secring_command="gpg --no-verbose --batch --quiet --with-colons --list-secret-keys %r" 
-
-# fetch keys
-# set pgp_getkeys_command="pkspxycwrap %r"
-# This will work when #172960 will be fixed upstream
-# set pgp_getkeys_command="gpg --recv-keys %r"
-
-# pattern for good signature - may need to be adapted to locale!
-
-# set pgp_good_sign="^gpgv?: Good signature from "
-
-# OK, here's a version which uses gnupg's message catalog:
-# set pgp_good_sign="`gettext -d gnupg -s 'Good signature from "' | tr -d '"'`"
 
 # This version uses --status-fd messages
 set pgp_good_sign="^\\[GNUPG:\\] GOODSIG"
@@ -5738,17 +5298,7 @@ ui = true
 
 #+NAME: weechat.conf
 #+BEGIN_SRC conf
-#
 # weechat -- weechat.conf
-#
-# WARNING: It is NOT recommended to edit this file by hand,
-# especially if WeeChat is running.
-#
-# Use /set or similar command to change settings in WeeChat.
-#
-# For more info, see: https://weechat.org/doc/quickstart
-#
-
 [debug]
 
 [startup]
