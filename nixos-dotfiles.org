@@ -1872,6 +1872,90 @@ When ARG is non-nil, ignore NoDisplay property in *.desktop files."
 <<app-launcher>>
 #+END_SRC
 
+** alacritty
+*** alacritty config
+
+#+NAME: alacritty
+#+BEGIN_SRC yaml
+# alacritty
+env:
+  TERM: xterm-256color
+
+window:
+  padding:
+    x: 4
+    y: 4
+
+# Font configuration
+font:
+  normal:
+    family: monospace
+    style: Regular
+
+  # Bold font face
+  bold:
+    family: monospace
+    style: Bold
+
+  # Italic font face
+  italic:
+    family: monospace
+    style: Italic
+
+  # Bold italic font face
+  bold_italic:
+    family: monospace
+    style: Bold Italic
+
+  # Point size
+  size: 16.0
+
+# Colors (Solarized Dark)
+colors:
+  # Default colors
+  primary:
+    background: '0x002b36'
+    foreground: '0x839496'
+
+  # Normal colors
+  normal:
+    black:   '0x073642'
+    red:     '0xdc322f'
+    green:   '0x859900'
+    yellow:  '0xb58900'
+    blue:    '0x268bd2'
+    magenta: '0xd33682'
+    cyan:    '0x2aa198'
+    white:   '0xeee8d5'
+
+  # Bright colors
+  bright:
+    black:   '0x002b36'
+    red:     '0xcb4b16'
+    green:   '0x586e75'
+    yellow:  '0x657b83'
+    blue:    '0x839496'
+    magenta: '0x6c71c4'
+    cyan:    '0x93a1a1'
+    white:   '0xfdf6e3'
+#+END_SRC
+
+*** alacritty tangle
+
++ home dir
+
+#+NAME: alacritty-home-dir
+#+BEGIN_SRC conf :noweb yes :tangle "~/.config/alacritty/alacritty.yml"
+<<alacritty>>
+#+END_SRC
+
++ current dir
+
+#+NAME: alacritty-current-dir
+#+BEGIN_SRC conf :noweb yes :tangle ".config/alacritty/alacritty.yml"
+<<alacritty>>
+#+END_SRC
+
 ** zsh
 *** zsh config
 **** zshrc
@@ -1885,21 +1969,6 @@ When ARG is non-nil, ignore NoDisplay property in *.desktop files."
 
 # Keep 1000 lines of history within the shell and save it to ~/.zsh_history:
 HISTSIZE=1000
-
-# git-sh-prompt
-#if [ -f /usr/lib/git-core/git-sh-prompt ]; then
-#   source /usr/lib/git-core/git-sh-prompt
-#fi
-
-# git prompt variables
-#setopt prompt_subst
-#GIT_PS1_SHOWDIRTYSTATE=true
-#GIT_PS1_SHOWUNTRACKEDFILES=true
-#GIT_PS1_SHOWUPSTREAM="auto verbose name git"
-
-# right prompt git status
-#PROMPT=$'[%n@%M %~]'
-#RPROMPT='%F{cyan}$(__git_ps1 "%s")%f'
 
 # variables for PS3 prompt
 newline=$'\n'

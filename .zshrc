@@ -6,21 +6,6 @@
 # Keep 1000 lines of history within the shell and save it to ~/.zsh_history:
 HISTSIZE=1000
 
-# git-sh-prompt
-#if [ -f /usr/lib/git-core/git-sh-prompt ]; then
-#   source /usr/lib/git-core/git-sh-prompt
-#fi
-
-# git prompt variables
-#setopt prompt_subst
-#GIT_PS1_SHOWDIRTYSTATE=true
-#GIT_PS1_SHOWUNTRACKEDFILES=true
-#GIT_PS1_SHOWUPSTREAM="auto verbose name git"
-
-# right prompt git status
-#PROMPT=$'[%n@%M %~]'
-#RPROMPT='%F{cyan}$(__git_ps1 "%s")%f'
-
 # variables for PS3 prompt
 newline=$'\n'
 yesmaster='Yes Master ? '
