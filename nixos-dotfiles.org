@@ -2425,8 +2425,8 @@ color alert = black,bold
 set-window-option -g mode-keys vi
 
 # Some tweaks to the status line
-set -g status-right ""
-#set -g window-status-current-style "underscore"
+set -g status-right "%H:%M"
+set -g status-right-style fg=color245
 
 # If running inside tmux ($TMUX is set), then change the status line to red
 %if #{TMUX}
@@ -2452,10 +2452,7 @@ bind C-a send-prefix
 
 # Turn the mouse on, but without copy mode dragging
 set -g mouse on
-#unbind -n MouseDrag1Pane
-#unbind -Tcopy-mode MouseDrag1Pane
 
-# A key to toggle between smallest and largest sizes if a window is visible in
 # multiple places
 bind F set -w window-size
 
@@ -2542,18 +2539,16 @@ new-window -n "urlscan" '$SHELL -c "urlscan < /tmp/tmux-buffer"'
 
 # copy mode - emulate right click "search google for {text}" like you do in GUI web browsers. 
 bind-key -T copy-mode-vi 'o' send-keys -X copy-selection \; \
-new-window -n google \; send-keys -t google 'sr -browser=/usr/bin/w3m google "$(tmux show-buffer)" && tmux kill-window' 'Enter'
+new-window -n google \; send-keys -t google 'sr -browser=w3m google "$(tmux show-buffer)" && tmux kill-window' 'Enter'
 
 # copy mode - emulate right click "search imdb for {text}" like you do in GUI web browsers. 
 bind-key -T copy-mode-vi 'i' send-keys -X copy-selection \; \
-new-window -n imdb \; send-keys -t imdb 'sr -browser=/usr/bin/w3m imdb "$(tmux show-buffer)" && tmux kill-window' 'Enter'
+new-window -n imdb \; send-keys -t imdb 'sr -browser=w3m imdb "$(tmux show-buffer)" && tmux kill-window' 'Enter'
 
 # tmux auto rename pane 
 set-option -g status-interval 1
 set-option -g automatic-rename on
 set-option -g automatic-rename-format "#{?#{==:#{pane_current_command},zsh},#{b:pane_current_path},#{pane_current_command}}"
-
-set-option -g default-shell ${SHELL}
 #+END_SRC
 
 *** tmux tangle
