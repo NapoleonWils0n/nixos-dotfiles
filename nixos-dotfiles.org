@@ -111,6 +111,16 @@ in {
       };
     };
 
+    # xdg directories
+    xdg = {
+      userDirs = {
+        enable = true;
+        createDirectories = true;
+        publicShare = null;
+        templates = null;
+      };.
+    };
+
   # mpv mpris 
   nixpkgs.overlays = [
     (self: super: {
