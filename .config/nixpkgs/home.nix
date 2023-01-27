@@ -87,7 +87,7 @@ in {
         createDirectories = true;
         publicShare = null;
         templates = null;
-      };.
+      };
     };
 
   # mpv mpris 
