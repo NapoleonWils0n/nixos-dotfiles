@@ -1908,181 +1908,42 @@ colors:
 <<alacritty>>
 #+END_SRC
 
-** zsh
-*** zsh config
-**** zshrc
+** bash
+*** bash config
+**** bashrc
 
-#+NAME: zshrc
-#+BEGIN_SRC conf
-# ~/.zshrc
+#+NAME: bashrc
+#+BEGIN_SRC bash
+# ~/.bashrc: executed by bash(1) for non-login shells.
+# see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
+# for examples
 
-# ssh zsh fix
-[[ $TERM == "dumb" ]] && unsetopt zle && PS1='$ ' && return
-
-# Keep 1000 lines of history within the shell and save it to ~/.zsh_history:
-HISTSIZE=1000
-
-# variables for PS3 prompt
-newline=$'\n'
-yesmaster='Yes Master ? '
-
-# PS3 prompt function
-function zle-line-init zle-keymap-select {
-    PS1="[%n@%M %~]${newline}${yesmaster}"
-    zle reset-prompt
-}
-
-# run PS3 prompt function
-zle -N zle-line-init
-zle -N zle-keymap-select
-
-# set terminal window title to program name
-case $TERM in
-  (*xterm* | rxvt | rxvt-unicode-256color)
-    function precmd {
-      print -Pn "\e]0;%(1j,%j job%(2j|s|); ,)%~\a"
-    }
-    function preexec {
-      printf "\033]0;%s\a" "$1"
-    }
-  ;;
+# If not running interactively, don't do anything
+case $- in
+    ,*i*) ;;
+      ,*) return;;
 esac
 
-# XDG_RUNTIME_DIR for mpv hardware accleration
-if [ -z "$XDG_RUNTIME_DIR" ]; then
-    export XDG_RUNTIME_DIR=/tmp
-    if [ ! -d  "$XDG_RUNTIME_DIR" ]; then
-        mkdir "$XDG_RUNTIME_DIR"
-        chmod 0700 "$XDG_RUNTIME_DIR"
-    fi
-fi
+# don't put duplicate lines or lines starting with space in the history.
+# See bash(1) for more options
+HISTCONTROL=ignoreboth
 
-# Fix bugs when switching modes
-bindkey -v # vi mode
-bindkey "^?" backward-delete-char
-bindkey "^u" backward-kill-line
-bindkey "^a" beginning-of-line
-bindkey "^e" end-of-line
-bindkey "^k" kill-line
+# append to the history file, don't overwrite it
+shopt -s histappend
 
-# Use modern completion system
-autoload -Uz compinit
-compinit
+# for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
+HISTSIZE=1000
+HISTFILESIZE=2000
 
-# Set/unset  shell options
-setopt notify globdots pushdtohome cdablevars autolist
-setopt recexact longlistjobs
-setopt autoresume histignoredups pushdsilent noclobber
-setopt autopushd pushdminus extendedglob rcquotes mailwarning
-setopt histignorealldups sharehistory
-#setopt auto_cd
-cdpath=($HOME)
-unsetopt bgnice autoparamslash
+# check the window size after each command and, if necessary,
+# update the values of LINES and COLUMNS.
+shopt -s checkwinsize
 
-# Completion Styles
-
-# list of completers to use
-zstyle ':completion:*::::' completer _expand _complete _ignored _approximate
-
-# allow one error for every three characters typed in approximate completer
-zstyle -e ':completion:*:approximate:*' max-errors \
-    'reply=( $(( ($#PREFIX+$#SUFFIX)/3 )) numeric )'
-    
-# insert all expansions for expand completer
-zstyle ':completion:*:expand:*' tag-order all-expansions
-
-# formatting and messages
-zstyle ':completion:*' verbose yes
-zstyle ':completion:*:descriptions' format '%B%d%b'
-zstyle ':completion:*:messages' format '%d'
-zstyle ':completion:*:warnings' format 'No matches for: %d'
-zstyle ':completion:*:corrections' format '%B%d (errors: %e)%b'
-zstyle ':completion:*' group-name ''
-
-#eval "$(dircolors -b)"
-zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
-zstyle ':completion:*' list-colors ''
-
-# match uppercase from lowercase
-zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
-
-# offer indexes before parameters in subscripts
-zstyle ':completion:*:*:-subscript-:*' tag-order indexes parameters
-
-# Filename suffixes to ignore during completion (except after rm command)
-zstyle ':completion:*:*:(^rm):*:*files' ignored-patterns '*?.o' '*?.c~' \
-    '*?.old' '*?.pro' '.hidden'
-
-# ignore completion functions (until the _ignored completer)
-zstyle ':completion:*:functions' ignored-patterns '_*'
-
-# kill - red, green, blue
-zstyle ':completion:*:*:kill:*' list-colors '=(#b) #([0-9]#)*( *[a-z])*=22=31=34'
-
-# list optiones colour, white + cyan
-zstyle ':completion:*:options' list-colors '=(#b) #(-[a-zA-Z0-9,]#)*(-- *)=36=37'
-
-# rehash commands
-zstyle ':completion:*' rehash true
-
-# highlighting
-ZSH_HIGHLIGHT_STYLES[suffix-alias]=fg=cyan,underline
-ZSH_HIGHLIGHT_STYLES[precommand]=fg=cyan,underline
-ZSH_HIGHLIGHT_STYLES[arg0]=fg=cyan
-ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets pattern)
-ZSH_HIGHLIGHT_PATTERNS=('rm -rf *' 'fg=white,bold,bg=red')
-
-# namespace autocomplete
-compdef _precommand namespace
-
-# transmission autocomplete
-compdef _gnu_generic transmission-daemon
-compdef _gnu_generic transmission-remote
-compdef _gnu_generic transmission-show
-compdef _gnu_generic transmission-cli
-compdef _gnu_generic transmission-create
-compdef _gnu_generic transmission-edit
-compdef _gnu_generic transmission-pwgen
-
-# exa
-compdef _gnu_generic exa
-
-# nixpks completion
-compdef _gnu_generic nix-env
-
-# aliases
+# cdpath
+CDPATH=".:~"
 
 # mpc host and socket
 alias mpc='mpc --host="/run/user/1000/mpd/socket"'
-
-# transmission
-
-# start torrent <id> or all
-trd-start() {
-    transmission-remote -t"${1-all}" --start;
-    }
-
-# pause torrent <id> or all
-trd-pause() {
-    transmission-remote -t"${1-all}" --stop;
-    }
-
-# watch torrent list with viddy
-trd-watch() {
-    viddy -t transmission-remote --list;
-    }
-#+END_SRC
-
-**** zshenv
-
-#+NAME: zshenv
-#+begin_src conf
-# ~/.zshenv
-
-# Path
-typeset -U PATH path
-path=("$HOME/bin" "$HOME/.local/bin" "$path[@]")
-export PATH
 
 # xdg directories
 export XDG_CONFIG_HOME="$HOME/.config"
@@ -2099,19 +1960,10 @@ export WGETRC="$XDG_CONFIG_HOME/wget/wgetrc"
 # libdvdcss
 export DVDCSS_CACHE="${XDG_DATA_HOME}/dvdcss"
 
-# awscli
-export AWS_SHARED_CREDENTIALS_FILE="${XDG_CONFIG_HOME}/aws/credentials"
-export AWS_CONFIG_FILE="${XDG_CONFIG_HOME}/aws/config"
-
 # set emacsclient as editor
 export ALTERNATE_EDITOR=""
 export EDITOR="emacsclient -r -a emacs"
 export VISUAL="emacsclient -r -c -a emacs"
-
-
-# tell ls to be colourfull
-export LSCOLORS=ExFxCxDxBxegedabagacad
-export CLICOLOR=1
 
 # qt5
 export QT_QPA_PLATFORMTHEME=qt5ct
@@ -2126,9 +1978,6 @@ export MPD_HOST="/run/user/1000/mpd/socket"
 # git pager bat with colour
 export GIT_PAGER="bat --color=always -p -l rs"
 
-# export fix for nixpkgs
-# export LC_ALL=C
-
 # nix os xdg directories
 export XDG_DATA_DIRS="$HOME/.nix-profile/share:$XDG_DATA_DIRS"
 
@@ -2141,40 +1990,125 @@ if [ -f "$HOME/.nix-profile/etc/profile.d/hm-session-vars.sh" ];
 fi
 
 # nixpkgs
-if [ -e /home/djwilcox/.nix-profile/etc/profile.d/nix.sh ]; then . /home/djwilcox/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer
+if [ -e /home/djwilcox/.nix-profile/etc/profile.d/nix.sh ];
+    then . /home/djwilcox/.nix-profile/etc/profile.d/nix.sh;
+fi # added by Nix installer
+#+END_SRC
+
+**** profile
+
+#+NAME: profile
+#+begin_src bash
+# bash profile
+
+# if running bash
+if [ -n "$BASH_VERSION" ]; then
+    # include .bashrc if it exists
+    if [ -f "$HOME/.bashrc" ]; then
+	. "$HOME/.bashrc"
+    fi
+fi
+
+# set PATH so it includes user's private bin if it exists
+if [ -d "$HOME/bin" ] ; then
+    PATH="$HOME/bin:$PATH"
+fi
 #+end_src
 
-*** zsh tangle
-**** zshrc tangle
+**** inputrc
+
+#+NAME: inputrc
+#+begin_src bash
+# inputrc borrowed from CentOS (RHEL).
+
+set bell-style none
+set completion-ignore-case on 
+set show-all-if-ambiguous on  
+TAB: menu-complete			  
+"\e[Z": alias-expand-line	  
+
+set meta-flag on
+set input-meta on
+set convert-meta off
+set output-meta on
+set colored-stats on
+
+#set mark-symlinked-directories on
+
+$if mode=emacs
+
+# for linux console and RH/Debian xterm
+"\e[1~": beginning-of-line
+"\e[4~": end-of-line
+"\e[5~": beginning-of-history
+"\e[6~": end-of-history
+"\e[3~": delete-char
+"\e[2~": quoted-insert
+"\e[5C": forward-word
+"\e[5D": backward-word
+"\e[1;5C": forward-word
+"\e[1;5D": backward-word
+
+# for rxvt
+"\e[8~": end-of-line
+
+# for non RH/Debian xterm, can't hurt for RH/DEbian xterm
+"\eOH": beginning-of-line
+"\eOF": end-of-line
+
+# for freebsd console
+"\e[H": beginning-of-line
+"\e[F": end-of-line
+$endif
+#+end_src
+
+*** bash tangle
+**** bashrc tangle
 
 + home dir
 
-#+NAME: zshrc-home-dir
-#+BEGIN_SRC conf :noweb yes :tangle "~/.zshrc"
-<<zshrc>>
+#+NAME: bashrc-home-dir
+#+BEGIN_SRC conf :noweb yes :tangle "~/.bashrc"
+<<bashrc>>
 #+END_SRC
 
 + current dir
 
-#+NAME: zshrc-current-dir
-#+BEGIN_SRC conf :noweb yes :tangle ".zshrc"
-<<zshrc>>
+#+NAME: bashrc-current-dir
+#+BEGIN_SRC conf :noweb yes :tangle ".bashrc"
+<<bashrc>>
 #+END_SRC
 
-**** zshenv tangle
+**** profile tangle
 
 + home dir
 
-#+NAME: zshenv-home-dir
-#+BEGIN_SRC conf :noweb yes :tangle "~/.zshenv"
-<<zshenv>>
+#+NAME: profile-home-dir
+#+BEGIN_SRC conf :noweb yes :tangle "~/.profile"
+<<profile>>
 #+END_SRC
 
 + current dir
 
-#+NAME: zshenv-current-dir
-#+BEGIN_SRC conf :noweb yes :tangle ".zshenv"
-<<zshenv>>
+#+NAME: profile-current-dir
+#+BEGIN_SRC conf :noweb yes :tangle ".profile"
+<<profile>>
+#+END_SRC
+
+**** inputrc tangle
+
++ home dir
+
+#+NAME: inputrc-home-dir
+#+BEGIN_SRC conf :noweb yes :tangle "~/.inputrc"
+<<inputrc>>
+#+END_SRC
+
++ current dir
+
+#+NAME: inputrc-current-dir
+#+BEGIN_SRC conf :noweb yes :tangle ".inputrc"
+<<inputrc>>
 #+END_SRC
 
 ** mpv

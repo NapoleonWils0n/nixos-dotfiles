@@ -1,9 +1,33 @@
-# ~/.zshenv
+# ~/.bashrc: executed by bash(1) for non-login shells.
+# see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
+# for examples
 
-# Path
-typeset -U PATH path
-path=("$HOME/bin" "$HOME/.local/bin" "$path[@]")
-export PATH
+# If not running interactively, don't do anything
+case $- in
+    *i*) ;;
+      *) return;;
+esac
+
+# don't put duplicate lines or lines starting with space in the history.
+# See bash(1) for more options
+HISTCONTROL=ignoreboth
+
+# append to the history file, don't overwrite it
+shopt -s histappend
+
+# for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
+HISTSIZE=1000
+HISTFILESIZE=2000
+
+# check the window size after each command and, if necessary,
+# update the values of LINES and COLUMNS.
+shopt -s checkwinsize
+
+# cdpath
+CDPATH=".:~"
+
+# mpc host and socket
+alias mpc='mpc --host="/run/user/1000/mpd/socket"'
 
 # xdg directories
 export XDG_CONFIG_HOME="$HOME/.config"
@@ -20,19 +44,10 @@ export WGETRC="$XDG_CONFIG_HOME/wget/wgetrc"
 # libdvdcss
 export DVDCSS_CACHE="${XDG_DATA_HOME}/dvdcss"
 
-# awscli
-export AWS_SHARED_CREDENTIALS_FILE="${XDG_CONFIG_HOME}/aws/credentials"
-export AWS_CONFIG_FILE="${XDG_CONFIG_HOME}/aws/config"
-
 # set emacsclient as editor
 export ALTERNATE_EDITOR=""
 export EDITOR="emacsclient -r -a emacs"
 export VISUAL="emacsclient -r -c -a emacs"
-
-
-# tell ls to be colourfull
-export LSCOLORS=ExFxCxDxBxegedabagacad
-export CLICOLOR=1
 
 # qt5
 export QT_QPA_PLATFORMTHEME=qt5ct
@@ -47,9 +62,6 @@ export MPD_HOST="/run/user/1000/mpd/socket"
 # git pager bat with colour
 export GIT_PAGER="bat --color=always -p -l rs"
 
-# export fix for nixpkgs
-# export LC_ALL=C
-
 # nix os xdg directories
 export XDG_DATA_DIRS="$HOME/.nix-profile/share:$XDG_DATA_DIRS"
 
@@ -62,4 +74,6 @@ if [ -f "$HOME/.nix-profile/etc/profile.d/hm-session-vars.sh" ];
 fi
 
 # nixpkgs
-if [ -e /home/djwilcox/.nix-profile/etc/profile.d/nix.sh ]; then . /home/djwilcox/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer
+if [ -e /home/djwilcox/.nix-profile/etc/profile.d/nix.sh ];
+    then . /home/djwilcox/.nix-profile/etc/profile.d/nix.sh;
+fi # added by Nix installer
