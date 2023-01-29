@@ -68,6 +68,10 @@ in {
       WAYLAND_DISPLAY = "wayland-0";
     };
 
+    # home sessions variables
+    home.sessionVariables = {
+      XCURSOR_THEME = "Adwaita";
+    };
 
     # gtk
     gtk = {
