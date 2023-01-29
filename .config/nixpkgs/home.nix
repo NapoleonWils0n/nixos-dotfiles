@@ -121,6 +121,7 @@ in {
     ffmpeg
     fira-code
     git
+    html-xml-utils
     imagemagick
     jq
     lynx
