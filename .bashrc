@@ -23,6 +23,9 @@ HISTFILESIZE=2000
 # update the values of LINES and COLUMNS.
 shopt -s checkwinsize
 
+# PS1
+PS1='[\u@\h \W]\nYes Master ? '
+
 # cdpath
 CDPATH=".:~"
 
