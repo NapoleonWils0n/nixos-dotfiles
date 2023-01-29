@@ -101,8 +101,6 @@
           user_pref("experiments.activeExperiment", false);
           user_pref("experiments.enabled", false);
           user_pref("experiments.supported", false);
-          // hide unified extensions button
-          user_pref("extensions.unifiedExtensions.enabled", false);
           // pocket show on home screen = false
           user_pref("extensions.pocket.enabled", false);
           user_pref("extensions.pocket.showHome", false);
