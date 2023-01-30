@@ -633,865 +633,828 @@ with lib.hm.gvariant;
 
 #+NAME: init.el
 #+BEGIN_SRC emacs-lisp
-;; ----------------------------------------------------------------------------------
-;; emacs init.el - also using early-init.el
-;; ----------------------------------------------------------------------------------
-
-;; Use a hook so the message doesn't get clobbered by other messages.
-(add-hook 'emacs-startup-hook
-          (lambda ()
-            (message "Emacs ready in %s with %d garbage collections."
-                     (format "%.2f seconds"
-                             (float-time
-                              (time-subtract after-init-time before-init-time)))
-                     gcs-done)))
-
-
-;; ----------------------------------------------------------------------------------
-;; melpa packages
-;; ----------------------------------------------------------------------------------
-
-;; package-selected-packages
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(auth-source-save-behavior nil)
- '(custom-safe-themes
-   '("636b135e4b7c86ac41375da39ade929e2bd6439de8901f53f88fde7dd5ac3561" default))
- '(package-selected-packages
-   '(evil-collection ob-nix nix-mode 0blayout all-the-icons annalist company csv-mode doom-themes doom-modeline ednc emmet-mode epl evil-leader evil-surround fd-dired flycheck git-commit git-auto-commit-mode haskell-mode hydra iedit magit-section mpv ob-async openwith orderless ox-pandoc pkg-info rg s shrink-path undo-tree vertico wgrep which-key yaml-mode))
- '(warning-suppress-types '((comp))))
+  ;; ----------------------------------------------------------------------------------
+  ;; emacs init.el - also using early-init.el
+  ;; ----------------------------------------------------------------------------------
+
+  ;; Use a hook so the message doesn't get clobbered by other messages.
+  (add-hook 'emacs-startup-hook
+            (lambda ()
+              (message "Emacs ready in %s with %d garbage collections."
+                       (format "%.2f seconds"
+                               (float-time
+                                (time-subtract after-init-time before-init-time)))
+                       gcs-done)))
+
+
+  ;; ----------------------------------------------------------------------------------
+  ;; melpa packages
+  ;; ----------------------------------------------------------------------------------
+
+  ;; package-selected-packages
+  (custom-set-variables
+   ;; custom-set-variables was added by Custom.
+   ;; If you edit it by hand, you could mess it up, so be careful.
+   ;; Your init file should contain only one such instance.
+   ;; If there is more than one, they won't work right.
+   '(auth-source-save-behavior nil)
+   '(custom-safe-themes
+     '("636b135e4b7c86ac41375da39ade929e2bd6439de8901f53f88fde7dd5ac3561" default))
+   '(package-selected-packages
+     '(evil-collection ob-nix nix-mode 0blayout all-the-icons annalist csv-mode doom-themes doom-modeline ednc emmet-mode epl evil-leader evil-surround fd-dired flycheck git-commit git-auto-commit-mode haskell-mode hydra iedit magit-section mpv ob-async openwith pkg-info rg s shrink-path undo-tree vertico wgrep which-key yaml-mode))
+   '(warning-suppress-types '((comp))))
 
-;; require package
-(require 'package)
+  ;; require package
+  (require 'package)
 
-;; package archive
-(setq package-archives '(("melpa" . "https://melpa.org/packages/")
-                         ("elpa" . "https://elpa.gnu.org/packages/")))
+  ;; package archive
+  (setq package-archives '(("melpa" . "https://melpa.org/packages/")
+                           ("elpa" . "https://elpa.gnu.org/packages/")))
 
-;; package initialize
-(package-initialize)
-(unless package-archive-contents
-  (package-refresh-contents))
-(package-install-selected-packages)
+  ;; package initialize
+  (package-initialize)
+  (unless package-archive-contents
+    (package-refresh-contents))
+  (package-install-selected-packages)
 
 
-;; ----------------------------------------------------------------------------------
-;; general settings
-;; ----------------------------------------------------------------------------------
+  ;; ----------------------------------------------------------------------------------
+  ;; general settings
+  ;; ----------------------------------------------------------------------------------
 
-;; Save all tempfiles in $TMPDIR/emacs$UID/                                                        
-(defconst emacs-tmp-dir (expand-file-name (format "emacs%d" (user-uid)) temporary-file-directory))
-(setq backup-directory-alist
-    `((".*" . ,emacs-tmp-dir)))
-(setq auto-save-file-name-transforms
-    `((".*" ,emacs-tmp-dir t)))
-(setq auto-save-list-file-prefix
-    emacs-tmp-dir)
+  ;; Save all tempfiles in $TMPDIR/emacs$UID/                                                        
+  (defconst emacs-tmp-dir (expand-file-name (format "emacs%d" (user-uid)) temporary-file-directory))
+  (setq backup-directory-alist
+      `((".*" . ,emacs-tmp-dir)))
+  (setq auto-save-file-name-transforms
+      `((".*" ,emacs-tmp-dir t)))
+  (setq auto-save-list-file-prefix
+      emacs-tmp-dir)
 
 
-;; dont backup files opened by sudo or doas
-(setq backup-enable-predicate
-      (lambda (name)
-        (and (normal-backup-enable-predicate name)
-             (not
-              (let ((method (file-remote-p name 'method)))
-                (when (stringp method)
-                  (member method '("su" "sudo" "doas"))))))))
+  ;; dont backup files opened by sudo or doas
+  (setq backup-enable-predicate
+        (lambda (name)
+          (and (normal-backup-enable-predicate name)
+               (not
+                (let ((method (file-remote-p name 'method)))
+                  (when (stringp method)
+                    (member method '("su" "sudo" "doas"))))))))
 
 
-;; save
-(save-place-mode 1)         ;; save cursor position
-(desktop-save-mode 1)       ;; Save the desktop session
-(savehist-mode 1)           ;; save history
-(global-auto-revert-mode 1) ;; revert buffers when the underlying file has changed
+  ;; save
+  (save-place-mode 1)         ;; save cursor position
+  (desktop-save-mode 1)       ;; Save the desktop session
+  (savehist-mode 1)           ;; save history
+  (global-auto-revert-mode 1) ;; revert buffers when the underlying file has changed
 
-;; scrolling
-(pixel-scroll-precision-mode 1)
+  ;; scrolling
+  (pixel-scroll-precision-mode 1)
+
+
+  ;; ----------------------------------------------------------------------------------
+  ;; fonts
+  ;; ----------------------------------------------------------------------------------
+
+  (defvar efs/default-font-size 180)
+  (defvar efs/default-variable-font-size 180)
+
 
+  ;; ----------------------------------------------------------------------------------
+  ;; set-face-attribute
+  ;; ----------------------------------------------------------------------------------
 
-;; ----------------------------------------------------------------------------------
-;; fonts
-;; ----------------------------------------------------------------------------------
+  ;; Set the default pitch face
+  (set-face-attribute 'default nil :font "Fira Code" :height efs/default-font-size)
+
+  ;; Set the fixed pitch face
+  (set-face-attribute 'fixed-pitch nil :font "Fira Code" :height efs/default-font-size)
+
+  ;; Set the variable pitch face
+  (set-face-attribute 'variable-pitch nil :font "Cantarell" :height efs/default-variable-font-size :weight 'regular)
+
+  ;; tab bar background
+  (set-face-attribute 'tab-bar nil
+                      :foreground "#93a1a1")
 
-(defvar efs/default-font-size 180)
-(defvar efs/default-variable-font-size 180)
-
-
-;; ----------------------------------------------------------------------------------
-;; set-face-attribute
-;; ----------------------------------------------------------------------------------
-
-;; Set the default pitch face
-(set-face-attribute 'default nil :font "Fira Code" :height efs/default-font-size)
+  ;; active tab
+  (set-face-attribute 'tab-bar-tab nil
+                      :foreground "#51AFEF")
 
-;; Set the fixed pitch face
-(set-face-attribute 'fixed-pitch nil :font "Fira Code" :height efs/default-font-size)
+  ;; inactive tab
+  (set-face-attribute 'tab-bar-tab-inactive nil
+                      :foreground "grey50")
 
-;; Set the variable pitch face
-(set-face-attribute 'variable-pitch nil :font "Cantarell" :height efs/default-variable-font-size :weight 'regular)
 
-;; tab bar background
-(set-face-attribute 'tab-bar nil
-                    :foreground "#93a1a1")
+  ;; ----------------------------------------------------------------------------------
+  ;; doom-modeline 
+  ;; ----------------------------------------------------------------------------------
 
-;; active tab
-(set-face-attribute 'tab-bar-tab nil
-                    :foreground "#51AFEF")
+  (require 'doom-modeline)
+  (doom-modeline-mode 1)
 
-;; inactive tab
-(set-face-attribute 'tab-bar-tab-inactive nil
-                    :foreground "grey50")
+  ;; doom modeline truncate text
+  (setq doom-modeline-buffer-file-name-style 'truncate-except-project)
 
+  ;; hide the time icon
+  (setq doom-modeline-time-icon nil)
+
+  ;; dont display the buffer encoding.
+  (setq doom-modeline-buffer-encoding nil)
 
-;; ----------------------------------------------------------------------------------
-;; doom-modeline 
-;; ----------------------------------------------------------------------------------
+
+  ;; ----------------------------------------------------------------------------------
+  ;; evil
+  ;; ----------------------------------------------------------------------------------
+
+  ;; evil
+  (setq evil-want-keybinding nil)
 
-(require 'doom-modeline)
-(doom-modeline-mode 1)
+  ;; fix tab in evil for org mode
+  (setq evil-want-C-i-jump nil)
 
-;; doom modeline truncate text
-(setq doom-modeline-buffer-file-name-style 'truncate-except-project)
+  ;; evil
+  (require 'evil)
+  (evil-collection-init)
+  (evil-mode 1)
 
-;; hide the time icon
-(setq doom-modeline-time-icon nil)
+  ;; dired use h and l
+  (evil-collection-define-key 'normal 'dired-mode-map
+      "e" 'dired-find-file
+      "h" 'dired-up-directory
+      "l" 'dired-find-file)
 
-;; dont display the buffer encoding.
-(setq doom-modeline-buffer-encoding nil)
 
+  ;; ----------------------------------------------------------------------------------
+  ;; require
+  ;; ----------------------------------------------------------------------------------
 
-;; ----------------------------------------------------------------------------------
-;; evil
-;; ----------------------------------------------------------------------------------
-
-;; evil
-(setq evil-want-keybinding nil)
+  ;; ob-async
+  (require 'ob-async)
 
-;; fix tab in evil for org mode
-(setq evil-want-C-i-jump nil)
+  ;; which key
+  (require 'which-key)
+  (which-key-mode)
 
-;; evil
-(require 'evil)
-(evil-collection-init)
-(evil-mode 1)
+  ;; undo tree
+  (require 'undo-tree)
+  (global-undo-tree-mode 1)
+  (setq undo-tree-visualizer-timestamps t)
+  (setq undo-tree-visualizer-diff t)
 
-;; dired use h and l
-(evil-collection-define-key 'normal 'dired-mode-map
-    "e" 'dired-find-file
-    "h" 'dired-up-directory
-    "l" 'dired-find-file)
+  (require 'openwith)
+  (setq openwith-associations
+        (list
+         (list (openwith-make-extension-regexp
+                '("mpg" "mpeg" "mp3" "mp4" "m4v"
+                  "avi" "wmv" "wav" "mov" "flv"
+                  "ogm" "ogg" "mkv" "webm"))
+               "mpv"
+               '(file))
+         (list (openwith-make-extension-regexp
+                '("pdf"))
+               "zathura"
+               '(file))))
 
+  (openwith-mode 1)
 
-;; ----------------------------------------------------------------------------------
-;; require
-;; ----------------------------------------------------------------------------------
 
-;; app-launcher
-(require 'app-launcher)
+  ;; ----------------------------------------------------------------------------------
+  ;; TAB bar mode 
+  ;; ----------------------------------------------------------------------------------
 
-;; ob-async
-(require 'ob-async)
+  (setq tab-bar-show 1)                     ;; hide bar if <= 1 tabs open
+  (setq tab-bar-close-button-show nil)      ;; hide close tab button
+  (setq tab-bar-new-button-show nil)        ;; hide new tab button
+  (setq tab-bar-new-tab-choice "*scratch*") ;; default tab scratch
+  (setq tab-bar-close-last-tab-choice 'tab-bar-mode-disable) 
+  (setq tab-bar-close-tab-select 'recent)
+  (setq tab-bar-new-tab-to 'right)
+  (setq tab-bar-tab-hints nil)
+  (setq tab-bar-separator " ")
 
-;; which key
-(require 'which-key)
-(which-key-mode)
+  ;; Customize the tab bar format to add the global mode line string
+  (setq tab-bar-format '(tab-bar-format-tabs tab-bar-separator tab-bar-format-align-right tab-bar-format-global))
 
-;; undo tree
-(require 'undo-tree)
-(global-undo-tree-mode 1)
-(setq undo-tree-visualizer-timestamps t)
-(setq undo-tree-visualizer-diff t)
+  ;; menubar in tab bar
+  (add-to-list 'tab-bar-format #'tab-bar-format-menu-bar)
 
-;; openwth
-(require 'mm-util)
-(add-to-list 'mm-inhibit-file-name-handlers 'openwith-file-handler)
+  ;; Turn on tab bar mode after startup
+  (tab-bar-mode 1)
 
-(require 'openwith)
-(setq openwith-associations
-      (list
-       (list (openwith-make-extension-regexp
-              '("mpg" "mpeg" "mp3" "mp4" "m4v"
-                "avi" "wmv" "wav" "mov" "flv"
-                "ogm" "ogg" "mkv" "webm"))
-             "mpv"
-             '(file))
-       (list (openwith-make-extension-regexp
-              '("pdf"))
-             "zathura"
-             '(file))))
+  ;; tab bar menu bar button
+  (setq tab-bar-menu-bar-button "👾")
 
-(openwith-mode 1)
 
+  ;; ----------------------------------------------------------------------------------
+  ;; setq
+  ;; ----------------------------------------------------------------------------------
 
-;; ----------------------------------------------------------------------------------
-;; TAB bar mode 
-;; ----------------------------------------------------------------------------------
+  ;; general
+  (setq version-control t)
+  (setq vc-make-backup-files t)
+  (setq backup-by-copying t)
+  (setq delete-old-versions t)
+  (setq kept-new-versions 6)
+  (setq kept-old-versions 2)
+  (setq create-lockfiles nil)
+  (setq undo-tree-auto-save-history nil)
 
-(setq tab-bar-show 1)                     ;; hide bar if <= 1 tabs open
-(setq tab-bar-close-button-show nil)      ;; hide close tab button
-(setq tab-bar-new-button-show nil)        ;; hide new tab button
-(setq tab-bar-new-tab-choice "*scratch*") ;; default tab scratch
-(setq tab-bar-close-last-tab-choice 'tab-bar-mode-disable) 
-(setq tab-bar-close-tab-select 'recent)
-(setq tab-bar-new-tab-to 'right)
-(setq tab-bar-tab-hints nil)
-(setq tab-bar-separator " ")
+  ;; pinentry
+  (defvar epa-pinentry-mode)
+  (setq epa-pinentry-mode 'loopback)
 
-;; Customize the tab bar format to add the global mode line string
-(setq tab-bar-format '(tab-bar-format-tabs tab-bar-separator tab-bar-format-align-right tab-bar-format-global))
+  ;; display time in mode line, hide load average
+  (setq display-time-format "%H:%M")
+  (setq display-time-default-load-average nil)
+  (display-time-mode 1)       ;; display time
 
-;; menubar in tab bar
-(add-to-list 'tab-bar-format #'tab-bar-format-menu-bar)
+  ;; change prompt from yes or no, to y or n
+  (setq use-short-answers t)
 
-;; Turn on tab bar mode after startup
-(tab-bar-mode 1)
+  ;; turn off blinking cursor
+  (setq blink-cursor-mode nil)
 
-;; tab bar menu bar button
-(setq tab-bar-menu-bar-button "👾")
+  ;; suppress large file prompt
+  (setq large-file-warning-threshold nil)
 
+  ;; always follow symlinks
+  (setq vc-follow-symlinks t)
 
-;; ----------------------------------------------------------------------------------
-;; setq
-;; ----------------------------------------------------------------------------------
+  ;; case insensitive search
+  (setq read-file-name-completion-ignore-case t)
+  (setq completion-ignore-case t)
 
-;; general
-(setq version-control t)
-(setq vc-make-backup-files t)
-(setq backup-by-copying t)
-(setq delete-old-versions t)
-(setq kept-new-versions 6)
-(setq kept-old-versions 2)
-(setq create-lockfiles nil)
-(setq undo-tree-auto-save-history nil)
+  ;; M-n, M-p recall previous mini buffer commands
+  (setq history-length 25)
 
-;; pinentry
-(defvar epa-pinentry-mode)
-(setq epa-pinentry-mode 'loopback)
+  ;; Use spaces instead of tabs
+  (setq-default indent-tabs-mode nil)
 
-;; display time in mode line, hide load average
-(setq display-time-format "%H:%M")
-(setq display-time-default-load-average nil)
-(display-time-mode 1)       ;; display time
+  ;; Use spaces instead of tabs
+  (setq-default indent-tabs-mode nil)
 
-;; change prompt from yes or no, to y or n
-(setq use-short-answers t)
+  ;; revert dired and other buffers
+  (setq global-auto-revert-non-file-buffers t)
 
-;; turn off blinking cursor
-(setq blink-cursor-mode nil)
+  ;; eww browser text width
+  (setq shr-width 80)
 
-;; suppress large file prompt
-(setq large-file-warning-threshold nil)
+  ;; emacs 28 - dictionary server
+  (setq dictionary-server "dict.org")
 
-;; always follow symlinks
-(setq vc-follow-symlinks t)
+  ;; company auto complete
+  (setq company-idle-delay 0)
+  (setq company-minimum-prefix-length 3)
 
-;; case insensitive search
-(setq read-file-name-completion-ignore-case t)
-(setq completion-ignore-case t)
+  ;; ediff
+  (setq ediff-window-setup-function 'ediff-setup-windows-plain)
+  (setq ediff-split-window-function 'split-window-horizontally)
 
-;; M-n, M-p recall previous mini buffer commands
-(setq history-length 25)
 
-;; Use spaces instead of tabs
-(setq-default indent-tabs-mode nil)
+  ;; ----------------------------------------------------------------------------------
+  ;; completion
+  ;; ----------------------------------------------------------------------------------
 
-;; Use spaces instead of tabs
-(setq-default indent-tabs-mode nil)
+  ;; Vertico
+  (require 'vertico)
+  (require 'vertico-directory)
 
-;; revert dired and other buffers
-(setq global-auto-revert-non-file-buffers t)
+  (with-eval-after-load 'evil
+    (define-key vertico-map (kbd "C-j") 'vertico-next)
+    (define-key vertico-map (kbd "C-k") 'vertico-previous)
+    (define-key vertico-map (kbd "M-h") 'vertico-directory-up))
 
-;; eww browser text width
-(setq shr-width 80)
+  ;; Cycle back to top/bottom result when the edge is reached
+  (customize-set-variable 'vertico-cycle t)
 
-;; emacs 28 - dictionary server
-(setq dictionary-server "dict.org")
+  ;; Start Vertico
+  (vertico-mode 1)
 
-;; company auto complete
-(setq company-idle-delay 0)
-(setq company-minimum-prefix-length 3)
+  ;;; Marginalia
+  (require 'marginalia)
+  (customize-set-variable 'marginalia-annotators '(marginalia-annotators-heavy marginalia-annotators-light nil))
+  (marginalia-mode 1)
 
-;; ediff
-(setq ediff-window-setup-function 'ediff-setup-windows-plain)
-(setq ediff-split-window-function 'split-window-horizontally)
 
+  ;; consult
+  (global-set-key (kbd "C-s") 'consult-line)
+  (define-key minibuffer-local-map (kbd "C-r") 'consult-history)
 
-;; ----------------------------------------------------------------------------------
-;; completion
-;; ----------------------------------------------------------------------------------
+  ;; remap switch-to-buffer "C-x b" to consult-buffer
+  (global-set-key [remap switch-to-buffer] 'consult-buffer)
 
-;; Vertico
-(require 'vertico)
-(require 'vertico-directory)
+  (setq completion-in-region-function #'consult-completion-in-region)
 
-(with-eval-after-load 'evil
-  (define-key vertico-map (kbd "C-j") 'vertico-next)
-  (define-key vertico-map (kbd "C-k") 'vertico-previous)
-  (define-key vertico-map (kbd "M-h") 'vertico-directory-up))
 
-;; Cycle back to top/bottom result when the edge is reached
-(customize-set-variable 'vertico-cycle t)
+  ;;; Orderless
 
-;; Start Vertico
-(vertico-mode 1)
+  ;; Set up Orderless for better fuzzy matching
+  (require 'orderless)
+  (customize-set-variable 'completion-styles '(orderless basic))
+  (customize-set-variable 'completion-category-overrides '((file (styles . (partial-completion)))))
 
-;;; Marginalia
-(require 'marginalia)
-(customize-set-variable 'marginalia-annotators '(marginalia-annotators-heavy marginalia-annotators-light nil))
-(marginalia-mode 1)
 
+  ;;; Embark
+  (require 'embark)
+  (require 'embark-consult)
 
-;; consult
-(global-set-key (kbd "C-s") 'consult-line)
-(define-key minibuffer-local-map (kbd "C-r") 'consult-history)
+  (global-set-key [remap describe-bindings] #'embark-bindings)
+  (global-set-key (kbd "C-,") 'embark-act)
 
-;; remap switch-to-buffer "C-x b" to consult-buffer
-(global-set-key [remap switch-to-buffer] 'consult-buffer)
+  ;; Use Embark to show bindings in a key prefix with `C-h`
+  (setq prefix-help-command #'embark-prefix-help-command)
 
-(setq completion-in-region-function #'consult-completion-in-region)
+  (with-eval-after-load 'embark-consult
+    (add-hook 'embark-collect-mode-hook #'consult-preview-at-point-mode))
 
 
-;;; Orderless
+  ;; ----------------------------------------------------------------------------------
+  ;; keymap-global-set
+  ;; ----------------------------------------------------------------------------------
 
-;; Set up Orderless for better fuzzy matching
-(require 'orderless)
-(customize-set-variable 'completion-styles '(orderless basic))
-(customize-set-variable 'completion-category-overrides '((file (styles . (partial-completion)))))
+  ;; magit
+  (keymap-global-set "C-x g" 'magit-status)
 
+  ;; org-capture
+  (keymap-global-set "C-c c" 'org-capture)
 
-;;; Embark
-(require 'embark)
-(require 'embark-consult)
+  ;; press M-/ and invoke hippie-expand
+  (keymap-global-set "M-/" 'hippie-expand)
 
-(global-set-key [remap describe-bindings] #'embark-bindings)
-(global-set-key (kbd "C-,") 'embark-act)
+  ;; open dired side window
+  (keymap-global-set "C-x w w" 'my/window-dired-vc-root-left)
+  (keymap-global-set "C-x w w" 'my/window-dired-vc-root-left)
 
-;; Use Embark to show bindings in a key prefix with `C-h`
-(setq prefix-help-command #'embark-prefix-help-command)
 
-(with-eval-after-load 'embark-consult
-  (add-hook 'embark-collect-mode-hook #'consult-preview-at-point-mode))
+  ;; ----------------------------------------------------------------------------------
+  ;; keymap-set
+  ;; ----------------------------------------------------------------------------------
 
+  (keymap-set global-map "C-c o" 'iedit-mode)
+  (keymap-set global-map "C-c l" 'org-store-link)
+  (keymap-set global-map "C-c a" 'org-agenda)
 
-;; ----------------------------------------------------------------------------------
-;; keymap-global-set
-;; ----------------------------------------------------------------------------------
 
-;; magit
-(keymap-global-set "C-x g" 'magit-status)
+  ;; ----------------------------------------------------------------------------------
+  ;; magit
+  ;; ----------------------------------------------------------------------------------
 
-;; org-capture
-(keymap-global-set "C-c c" 'org-capture)
+  ;; delete magit buffers
+  (defun kill-magit-diff-buffer-in-current-repo (&rest _)
+        "Delete the magit-diff buffer related to the current repo"
+        (let ((magit-diff-buffer-in-current-repo (magit-mode-get-buffer 'magit-diff-mode)))
+          (kill-buffer magit-diff-buffer-in-current-repo)))
+      ;;
+      ;; When 'C-c C-c' or 'C-c C-l' are pressed in the magit commit message buffer,
+      ;; delete the magit-diff buffer related to the current repo.
+      ;;    
+      (add-hook 'git-commit-setup-hook
+                (lambda ()
+                  (add-hook 'with-editor-post-finish-hook #'kill-magit-diff-buffer-in-current-repo
+                            nil t)
+                  (add-hook 'with-editor-post-cancel-hook #'kill-magit-diff-buffer-in-current-repo
+                            nil t)))
 
-;; press M-/ and invoke hippie-expand
-(keymap-global-set "M-/" 'hippie-expand)
 
-;; open dired side window
-(keymap-global-set "C-x w w" 'my/window-dired-vc-root-left)
-(keymap-global-set "C-x w w" 'my/window-dired-vc-root-left)
+  ;; ----------------------------------------------------------------------------------
+  ;; dired 
+  ;; ----------------------------------------------------------------------------------
 
+  ;; Toggle Hidden Files in Emacs dired with C-x M-o
+  (require 'dired-x)
 
-;; ----------------------------------------------------------------------------------
-;; keymap-set
-;; ----------------------------------------------------------------------------------
+  ;; kill the current buffer when selecting a new directory to display
+  (setq dired-kill-when-opening-new-dired-buffer t)
 
-(keymap-set global-map "C-c o" 'iedit-mode)
-(keymap-set global-map "C-c l" 'org-store-link)
-(keymap-set global-map "C-c a" 'org-agenda)
+  ;; dired directory listing options for ls
+  (setq dired-listing-switches "-ahlv")
 
-;; app-launcher
-(keymap-set global-map "C-c d" 'app-launcher-run-app)
+  ;; hide dotfiles
+  (setq dired-omit-files
+        (concat dired-omit-files "\\|^\\..+$"))
 
+  ;; recursive delete and copy
+  (setq dired-recursive-copies 'always)
+  (setq dired-recursive-deletes 'always)
 
-;; ----------------------------------------------------------------------------------
-;; magit
-;; ----------------------------------------------------------------------------------
+  ;; dired hide free space
+  (setq dired-free-space nil)
 
-;; delete magit buffers
-(defun kill-magit-diff-buffer-in-current-repo (&rest _)
-      "Delete the magit-diff buffer related to the current repo"
-      (let ((magit-diff-buffer-in-current-repo (magit-mode-get-buffer 'magit-diff-mode)))
-        (kill-buffer magit-diff-buffer-in-current-repo)))
-    ;;
-    ;; When 'C-c C-c' or 'C-c C-l' are pressed in the magit commit message buffer,
-    ;; delete the magit-diff buffer related to the current repo.
-    ;;    
-    (add-hook 'git-commit-setup-hook
-              (lambda ()
-                (add-hook 'with-editor-post-finish-hook #'kill-magit-diff-buffer-in-current-repo
-                          nil t)
-                (add-hook 'with-editor-post-cancel-hook #'kill-magit-diff-buffer-in-current-repo
-                          nil t)))
+  ;; dired dwim
+  (setq dired-dwim-target t)
 
+  ;; dired hide long listing by default
+  (defun my-dired-mode-setup ()
+    "show less information in dired buffers"
+    (dired-hide-details-mode 1))
+  (add-hook 'dired-mode-hook 'my-dired-mode-setup)
 
-;; ----------------------------------------------------------------------------------
-;; dired 
-;; ----------------------------------------------------------------------------------
+  ;; dired omit
+  (add-hook 'dired-mode-hook (lambda () (dired-omit-mode 1)))
 
-;; Toggle Hidden Files in Emacs dired with C-x M-o
-(require 'dired-x)
+  ;; dired hide aync output buffer
+  (add-to-list 'display-buffer-alist (cons "\\*Async Shell Command\\*.*" (cons #'display-buffer-no-window nil)))
 
-;; kill the current buffer when selecting a new directory to display
-(setq dired-kill-when-opening-new-dired-buffer t)
 
-;; dired directory listing options for ls
-(setq dired-listing-switches "-ahlv")
+  ;; ----------------------------------------------------------------------------------
+  ;; dired-fd
+  ;; ----------------------------------------------------------------------------------
 
-;; hide dotfiles
-(setq dired-omit-files
-      (concat dired-omit-files "\\|^\\..+$"))
+  ;; switch to buffer results automatically
 
-;; recursive delete and copy
-(setq dired-recursive-copies 'always)
-(setq dired-recursive-deletes 'always)
+  (defcustom fd-dired-display-in-current-window nil
+    "Whether display result"
+    :type 'boolean
+    :safe #'booleanp
+    :group 'fd-dired)
 
-;; dired hide free space
-(setq dired-free-space nil)
 
-;; dired dwim
-(setq dired-dwim-target t)
+  ;; ----------------------------------------------------------------------------------
+  ;; rip-grep
+  ;; ----------------------------------------------------------------------------------
 
-;; dired hide long listing by default
-(defun my-dired-mode-setup ()
-  "show less information in dired buffers"
-  (dired-hide-details-mode 1))
-(add-hook 'dired-mode-hook 'my-dired-mode-setup)
+  ;; rip-grep automatically switch to results buffer
+  ;; https://github.com/dajva/rg.el/issues/142
 
-;; dired omit
-(add-hook 'dired-mode-hook (lambda () (dired-omit-mode 1)))
+  (with-eval-after-load 'rg
+    (advice-add 'rg-run :after
+                #'(lambda (_pattern _files _dir &optional _literal _confirm _flags) (pop-to-buffer (rg-buffer-name)))))
 
-;; dired hide aync output buffer
-(add-to-list 'display-buffer-alist (cons "\\*Async Shell Command\\*.*" (cons #'display-buffer-no-window nil)))
 
+  ;; ----------------------------------------------------------------------------------
+  ;; tramp
+  ;; ----------------------------------------------------------------------------------
 
-;; ----------------------------------------------------------------------------------
-;; dired-fd
-;; ----------------------------------------------------------------------------------
+  ;; tramp
+  (require 'tramp)
 
-;; switch to buffer results automatically
+  ;; tramp setq
+  (setq tramp-default-method "ssh")
 
-(defcustom fd-dired-display-in-current-window nil
-  "Whether display result"
-  :type 'boolean
-  :safe #'booleanp
-  :group 'fd-dired)
+  ;; tramp ssh
+  (tramp-set-completion-function "ssh"
+                                 '((tramp-parse-sconfig "/etc/ssh_config")
+                                   (tramp-parse-sconfig "~/.ssh/config")))
 
+  ;; set tramp shell to sh to avoid zsh problems
+  (with-eval-after-load 'tramp '(setenv "SHELL" "/usr/bin/sh"))
 
-;; ----------------------------------------------------------------------------------
-;; rip-grep
-;; ----------------------------------------------------------------------------------
+  ;; tramp backup directory
+  (add-to-list 'backup-directory-alist (cons tramp-file-name-regexp nil))
 
-;; rip-grep automatically switch to results buffer
-;; https://github.com/dajva/rg.el/issues/142
 
-(with-eval-after-load 'rg
-  (advice-add 'rg-run :after
-	      #'(lambda (_pattern _files _dir &optional _literal _confirm _flags) (pop-to-buffer (rg-buffer-name)))))
+  ;; ----------------------------------------------------------------------------------
+  ;; org mode
+  ;; ----------------------------------------------------------------------------------
 
+  ;; org mode
+  (require 'org)
+  (require 'org-tempo)
+  (require 'org-protocol)
+  (require 'org-capture)
+  (setq org-agenda-files '("~/git/personal/org/"))
 
-;; ----------------------------------------------------------------------------------
-;; tramp
-;; ----------------------------------------------------------------------------------
+  ;; org babel supress do you want to execute code message
+  (setq org-confirm-babel-evaluate nil
+        org-src-fontify-natively t
+        org-src-tab-acts-natively t)
 
-;; tramp
-(require 'tramp)
+  ;; org hide markup
+  (setq org-hide-emphasis-markers t)
 
-;; tramp setq
-(setq tramp-default-method "ssh")
+  ;; org column spacing for tags
+  (setq org-tags-column 0)
 
-;; tramp ssh
-(tramp-set-completion-function "ssh"
-                               '((tramp-parse-sconfig "/etc/ssh_config")
-                                 (tramp-parse-sconfig "~/.ssh/config")))
+  ;; dont indent src block for export
+  (setq org-src-preserve-indentation t)
 
-;; set tramp shell to sh to avoid zsh problems
-(with-eval-after-load 'tramp '(setenv "SHELL" "/usr/bin/sh"))
+  ;; org src to use the current window
+  (setq org-src-window-setup 'current-window)
 
-;; tramp backup directory
-(add-to-list 'backup-directory-alist (cons tramp-file-name-regexp nil))
+  ;; dont show images full size
+  (setq org-image-actual-width nil)
 
+  ;; prevent demoting heading also shifting text inside sections
+  (setq org-adapt-indentation nil)
 
-;; ----------------------------------------------------------------------------------
-;; org mode
-;; ----------------------------------------------------------------------------------
+  ;; asynchronous tangle
+  (setq org-export-async-debug t)
 
-;; org mode
-(require 'org)
-(require 'org-tempo)
-(require 'org-protocol)
-(require 'org-capture)
-(setq org-agenda-files '("~/git/personal/org/"))
+  (setq org-capture-templates
+      '(("t" "todo" entry
+        (file+headline "~/git/personal/org/todo.org" "Tasks")
+        (file "~/git/personal/org/templates/tpl-todo.txt")
+        :empty-lines-before 1)
+        ("w" "web site" entry
+        (file+olp "~/git/personal/org/web.org" "sites")
+        (file "~/git/personal/org/templates/tpl-web.txt")
+         :empty-lines-before 1)))
 
-;; org babel supress do you want to execute code message
-(setq org-confirm-babel-evaluate nil
-      org-src-fontify-natively t
-      org-src-tab-acts-natively t)
+  ;; refile
+  (setq org-refile-targets '((nil :maxlevel . 2)
+                                  (org-agenda-files :maxlevel . 2)))
+  (setq org-outline-path-complete-in-steps nil)         ; Refile in a single go
+  (setq org-refile-use-outline-path t)                  ; Show full paths for refiling
 
-;; org hide markup
-(setq org-hide-emphasis-markers t)
+  ;; ox-pandoc export
+  (setq org-pandoc-options-for-latex-pdf '((latex-engine . "xelatex")))
 
-;; org column spacing for tags
-(setq org-tags-column 0)
+  ;; Prepare stuff for org-export-backends
+  (setq org-export-backends '(org md html latex icalendar odt ascii))
 
-;; dont indent src block for export
-(setq org-src-preserve-indentation t)
+  ;; todo keywords
+  (setq org-todo-keywords
+        '((sequence "TODO(t@/!)" "IN-PROGRESS(p/!)" "WAITING(w@/!)" "|" "DONE(d@)")))
+  (setq org-log-done t)
 
-;; org src to use the current window
-(setq org-src-window-setup 'current-window)
+  ;; Fast Todo Selection - Changing a task state is done with C-c C-t KEY
+  (setq org-use-fast-todo-selection t)
 
-;; dont show images full size
-(setq org-image-actual-width nil)
+  ;; org todo logbook
+  (setq org-log-into-drawer t)
 
-;; prevent demoting heading also shifting text inside sections
-(setq org-adapt-indentation nil)
+  ;; minted
+  (setq org-latex-minted-options
+      '(("frame" "lines") ("linenos=true")) )
+  ;;(setq org-latex-listings 'minted)
+  (setq org-latex-listings 'minted
+      org-latex-packages-alist '(("" "minted"))
+      org-latex-pdf-process
+      '("pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"
+      "pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"))
 
-;; asynchronous tangle
-(setq org-export-async-debug t)
+  (setq org-latex-minted-options
+      '(("frame" "lines") ("linenos=true")) )
 
-(setq org-capture-templates
-    '(("t" "todo" entry
-      (file+headline "~/git/personal/org/todo.org" "Tasks")
-      (file "~/git/personal/org/templates/tpl-todo.txt")
-      :empty-lines-before 1)
-      ("w" "web site" entry
-      (file+olp "~/git/personal/org/web.org" "sites")
-      (file "~/git/personal/org/templates/tpl-web.txt")
-       :empty-lines-before 1)))
+  ;; org open files
+  (setq org-file-apps
+       (quote
+       ((auto-mode . emacs)
+       ("\\.mm\\'" . default)
+       ("\\.x?html?\\'" . default)
+       ("\\.mkv\\'" . "mpv %s")
+       ("\\.mp4\\'" . "mpv %s")
+       ("\\.mov\\'" . "mpv %s")
+       ("\\.png\\'" . "nsxiv %s")
+       ("\\.jpg\\'" . "nsxiv %s")
+       ("\\.jpeg\\'" . "nsxiv %s")
+       ("\\.pdf\\'" . default))))
 
-;; refile
-(setq org-refile-targets '((nil :maxlevel . 2)
-                                (org-agenda-files :maxlevel . 2)))
-(setq org-outline-path-complete-in-steps nil)         ; Refile in a single go
-(setq org-refile-use-outline-path t)                  ; Show full paths for refiling
+  (custom-set-faces
+   ;; custom-set-faces was added by Custom.
+   ;; If you edit it by hand, you could mess it up, so be careful.
+   ;; Your init file should contain only one such instance.
+   ;; If there is more than one, they won't work right.
+   '(org-link ((t (:inherit link :underline nil)))))
 
-;; ox-pandoc export
-(setq org-pandoc-options-for-latex-pdf '((latex-engine . "xelatex")))
+  (defadvice org-capture
+      (after make-full-window-frame activate)
+    "Advise capture to be the only window when used as a popup"
+    (if (equal "emacs-capture" (frame-parameter nil 'name))
+        (delete-other-windows)))
 
-;; Prepare stuff for org-export-backends
-(setq org-export-backends '(org md html latex icalendar odt ascii))
+  (defadvice org-capture-finalize
+      (after delete-capture-frame activate)
+    "Advise capture-finalize to close the frame"
+    (if (equal "emacs-capture" (frame-parameter nil 'name))
+        (delete-frame)))
 
-;; todo keywords
-(setq org-todo-keywords
-      '((sequence "TODO(t@/!)" "IN-PROGRESS(p/!)" "WAITING(w@/!)" "|" "DONE(d@)")))
-(setq org-log-done t)
+  ; org-babel shell script
+  (org-babel-do-load-languages
+  'org-babel-load-languages
+  '((nix . t)
+  (shell . t))) 
 
-;; Fast Todo Selection - Changing a task state is done with C-c C-t KEY
-(setq org-use-fast-todo-selection t)
 
-;; org todo logbook
-(setq org-log-into-drawer t)
+  ;; ----------------------------------------------------------------------------------
+  ;; mutt
+  ;; ----------------------------------------------------------------------------------
 
-;; minted
-(setq org-latex-minted-options
-    '(("frame" "lines") ("linenos=true")) )
-;;(setq org-latex-listings 'minted)
-(setq org-latex-listings 'minted
-    org-latex-packages-alist '(("" "minted"))
-    org-latex-pdf-process
-    '("pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"
-    "pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"))
+  (add-to-list 'auto-mode-alist '("/mutt" . mail-mode))
 
-(setq org-latex-minted-options
-    '(("frame" "lines") ("linenos=true")) )
 
-;; org open files
-(setq org-file-apps
-     (quote
-     ((auto-mode . emacs)
-     ("\\.mm\\'" . default)
-     ("\\.x?html?\\'" . default)
-     ("\\.mkv\\'" . "mpv %s")
-     ("\\.mp4\\'" . "mpv %s")
-     ("\\.mov\\'" . "mpv %s")
-     ("\\.png\\'" . "nsxiv %s")
-     ("\\.jpg\\'" . "nsxiv %s")
-     ("\\.jpeg\\'" . "nsxiv %s")
-     ("\\.pdf\\'" . default))))
+  ;; ----------------------------------------------------------------------------------
+  ;; add-hook
+  ;; ----------------------------------------------------------------------------------
 
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(org-link ((t (:inherit link :underline nil)))))
+  ;; Make shebang (#!) file executable when saved
+  (add-hook 'after-save-hook 'executable-make-buffer-file-executable-if-script-p)
 
-(defadvice org-capture
-    (after make-full-window-frame activate)
-  "Advise capture to be the only window when used as a popup"
-  (if (equal "emacs-capture" (frame-parameter nil 'name))
-      (delete-other-windows)))
+  ;; global company mode
+  (add-hook 'after-init-hook 'global-company-mode)
 
-(defadvice org-capture-finalize
-    (after delete-capture-frame activate)
-  "Advise capture-finalize to close the frame"
-  (if (equal "emacs-capture" (frame-parameter nil 'name))
-      (delete-frame)))
+  ;; visual line mode
+  (add-hook 'text-mode-hook 'visual-line-mode)
 
-; org-babel shell script
-(org-babel-do-load-languages
-'org-babel-load-languages
-'((nix . t)
-(shell . t))) 
+  ;; h1 line mode
+  (add-hook 'prog-mode-hook #'hl-line-mode)
+  (add-hook 'text-mode-hook #'hl-line-mode)
 
+  ;; flycheck syntax linting
+  (add-hook 'sh-mode-hook 'flycheck-mode)
 
-;; ----------------------------------------------------------------------------------
-;; mutt
-;; ----------------------------------------------------------------------------------
 
-(add-to-list 'auto-mode-alist '("/mutt" . mail-mode))
+  ;; ----------------------------------------------------------------------------------
+  ;; mpv.el
+  ;; ----------------------------------------------------------------------------------
 
+  (org-link-set-parameters "mpv" :follow #'mpv-play)
+  (defun org-mpv-complete-link (&optional arg)
+    (replace-regexp-in-string
+     "file:" "mpv:"
+     (org-link-complete-file arg)
+     t t))
 
-;; ----------------------------------------------------------------------------------
-;; add-hook
-;; ----------------------------------------------------------------------------------
+  ;; M-RET will insert a new item with the timestamp of the current playback position
+  (defun my:mpv/org-metareturn-insert-playback-position ()
+    (when-let ((item-beg (org-in-item-p)))
+      (when (and (not org-timer-start-time)
+                 (mpv-live-p)
+                 (save-excursion
+                   (goto-char item-beg)
+                   (and (not (org-invisible-p)) (org-at-item-timer-p))))
+        (my/mpv-insert-playback-position t))))
+  (add-hook 'org-metareturn-hook #'my:mpv/org-metareturn-insert-playback-position)
 
-;; Make shebang (#!) file executable when saved
-(add-hook 'after-save-hook 'executable-make-buffer-file-executable-if-script-p)
+  ;; mpv insert playback position
+  (with-eval-after-load 'mpv
+    (defun my/mpv-insert-playback-position (&optional arg)
+      "Insert the current playback position at point.
 
-;; global company mode
-(add-hook 'after-init-hook 'global-company-mode)
+    When called with a non-nil ARG, insert a timer list item like `org-timer-item'."
+      (interactive "P")
+      (let ((time (mpv-get-playback-position)))
+        (funcall
+         (if arg #'mpv--position-insert-as-org-item #'insert)
+         (my/org-timer-secs-to-hms (float time))))))
 
-;; visual line mode
-(add-hook 'text-mode-hook 'visual-line-mode)
 
-;; h1 line mode
-(add-hook 'prog-mode-hook #'hl-line-mode)
-(add-hook 'text-mode-hook #'hl-line-mode)
+  ;; seek to position
+  (with-eval-after-load 'mpv
+    (defun my/mpv-seek-to-position-at-point ()
+      "Jump to playback position as inserted by `mpv-insert-playback-position'.
 
-;; flycheck syntax linting
-(add-hook 'sh-mode-hook 'flycheck-mode)
+    This can be used with the `org-open-at-point-functions' hook."
+      (interactive)
+      (save-excursion
+        (skip-chars-backward ":[:digit:]" (point-at-bol))
+        (when (looking-at "[0-9]+:[0-9]\\{2\\}:[0-9]\\{2\\}\\([.]?[0-9]\\{0,3\\}\\)"))
+          (let ((secs (my/org-timer-hms-to-secs (match-string 0))))
+            (when (>= secs 0)
+              (mpv-seek secs))))))
 
+  ;; mpv seek to position at point
+  (keymap-set global-map "C-x ," 'my/mpv-seek-to-position-at-point)
 
-;; ----------------------------------------------------------------------------------
-;; mpv.el
-;; ----------------------------------------------------------------------------------
 
-(org-link-set-parameters "mpv" :follow #'mpv-play)
-(defun org-mpv-complete-link (&optional arg)
-  (replace-regexp-in-string
-   "file:" "mpv:"
-   (org-link-complete-file arg)
-   t t))
+  ;; ----------------------------------------------------------------------------------
+  ;; org-timer milliseconds for mpv
+  ;; ----------------------------------------------------------------------------------
 
-;; M-RET will insert a new item with the timestamp of the current playback position
-(defun my:mpv/org-metareturn-insert-playback-position ()
-  (when-let ((item-beg (org-in-item-p)))
-    (when (and (not org-timer-start-time)
-               (mpv-live-p)
-               (save-excursion
-                 (goto-char item-beg)
-                 (and (not (org-invisible-p)) (org-at-item-timer-p))))
-      (my/mpv-insert-playback-position t))))
-(add-hook 'org-metareturn-hook #'my:mpv/org-metareturn-insert-playback-position)
+  ;; org-timer covert seconds and milliseconds to hours, minutes, seconds, milliseconds
+  (with-eval-after-load 'org-timer
+    (defun my/org-timer-secs-to-hms (s)
+      "Convert integer S into hh:mm:ss.m
+    If the integer is negative, the string will start with \"-\"."
+      (let (sign m h)
+        (setq x (number-to-string s)
+              seconds (car (split-string x "[.]"))
+              milliseconds (cadr (split-string x "[.]"))
+              sec (string-to-number seconds)
+              ms (string-to-number milliseconds))
+        (setq sign (if (< sec 0) "-" "")
+            sec (abs sec)
+            m (/ sec 60) sec (- sec (* 60 m))
+            h (/ m 60) m (- m (* 60 h)))
+        (format "%s%02d:%02d:%02d.%02d" sign h m sec ms))))
 
-;; mpv insert playback position
-(with-eval-after-load 'mpv
-  (defun my/mpv-insert-playback-position (&optional arg)
-    "Insert the current playback position at point.
+  ;; org-timer covert hours, minutes, seconds, milliseconds to seconds, milliseconds
+  (with-eval-after-load 'org-timer
+    (defun my/org-timer-hms-to-secs (hms)
+      "Convert h:mm:ss string to an integer time.
+    If the string starts with a minus sign, the integer will be negative."
+      (if (not (string-match
+              "\\([-+]?[0-9]+\\):\\([0-9]\\{2\\}\\):\\([0-9]\\{2\\}\\)\\([.]?[0-9]\\{0,3\\}\\)"
+              hms))
+          0
+        (let* ((h (string-to-number (match-string 1 hms)))
+             (m (string-to-number (match-string 2 hms)))
+             (s (string-to-number (match-string 3 hms)))
+             (ms (string-to-number (match-string 4 hms)))
+             (sign (equal (substring (match-string 1 hms) 0 1) "-")))
+          (setq h (abs h))
+          (* (if sign -1 1) (+ s (+ ms (* 60 (+ m (* 60 h))))))))))
 
-  When called with a non-nil ARG, insert a timer list item like `org-timer-item'."
-    (interactive "P")
-    (let ((time (mpv-get-playback-position)))
-      (funcall
-       (if arg #'mpv--position-insert-as-org-item #'insert)
-       (my/org-timer-secs-to-hms (float time))))))
 
+  ;; ----------------------------------------------------------------------------------
+  ;; mpv commands
+  ;; ----------------------------------------------------------------------------------
 
-;; seek to position
-(with-eval-after-load 'mpv
-  (defun my/mpv-seek-to-position-at-point ()
-    "Jump to playback position as inserted by `mpv-insert-playback-position'.
+  ;; frame step forward
+  (with-eval-after-load 'mpv
+    (defun mpv-frame-step ()
+      "Step one frame forward."
+      (interactive)
+      (mpv--enqueue '("frame-step") #'ignore)))
 
-  This can be used with the `org-open-at-point-functions' hook."
+
+  ;; frame step backward
+  (with-eval-after-load 'mpv
+    (defun mpv-frame-back-step ()
+      "Step one frame backward."
+      (interactive)
+      (mpv--enqueue '("frame-back-step") #'ignore)))
+
+
+  ;; mpv take a screenshot
+  (with-eval-after-load 'mpv
+    (defun mpv-screenshot ()
+      "Take a screenshot"
+      (interactive)
+      (mpv--enqueue '("screenshot") #'ignore)))
+
+
+  ;; mpv show osd
+  (with-eval-after-load 'mpv
+    (defun mpv-osd ()
+      "Show the osd"
+      (interactive)
+      (mpv--enqueue '("set_property" "osd-level" "3") #'ignore)))
+
+
+  ;; add a newline in the current document
+  (defun end-of-line-and-indented-new-line ()
     (interactive)
-    (save-excursion
-      (skip-chars-backward ":[:digit:]" (point-at-bol))
-      (when (looking-at "[0-9]+:[0-9]\\{2\\}:[0-9]\\{2\\}\\([.]?[0-9]\\{0,3\\}\\)"))
-        (let ((secs (my/org-timer-hms-to-secs (match-string 0))))
-          (when (>= secs 0)
-            (mpv-seek secs))))))
-
-;; mpv seek to position at point
-(keymap-set global-map "C-x ," 'my/mpv-seek-to-position-at-point)
+    (end-of-line)
+    (newline-and-indent))
 
 
-;; ----------------------------------------------------------------------------------
-;; org-timer milliseconds for mpv
-;; ----------------------------------------------------------------------------------
+  ;; ----------------------------------------------------------------------------------
+  ;; hydra
+  ;; ----------------------------------------------------------------------------------
 
-;; org-timer covert seconds and milliseconds to hours, minutes, seconds, milliseconds
-(with-eval-after-load 'org-timer
-  (defun my/org-timer-secs-to-hms (s)
-    "Convert integer S into hh:mm:ss.m
-  If the integer is negative, the string will start with \"-\"."
-    (let (sign m h)
-      (setq x (number-to-string s)
-            seconds (car (split-string x "[.]"))
-            milliseconds (cadr (split-string x "[.]"))
-            sec (string-to-number seconds)
-            ms (string-to-number milliseconds))
-      (setq sign (if (< sec 0) "-" "")
-          sec (abs sec)
-          m (/ sec 60) sec (- sec (* 60 m))
-          h (/ m 60) m (- m (* 60 h)))
-      (format "%s%02d:%02d:%02d.%02d" sign h m sec ms))))
+  (defhydra hydra-mpv (global-map "<f2>")
+    "
+    ^Seek^                    ^Actions^                ^General^
+    ^^^^^^^^---------------------------------------------------------------------------
+    _h_: seek back -5         _,_: back frame          _i_: insert playback position
+    _j_: seek back -60        _._: forward frame       _n_: insert a newline
+    _k_: seek forward 60      _SPC_: pause             _s_: take a screenshot
+    _l_: seek forward 5       _q_: quit mpv            _o_: show the osd
+    ^
+    "
+    ("h" mpv-seek-backward "-5")
+    ("j" mpv-seek-backward "-60")
+    ("k" mpv-seek-forward "60")
+    ("l" mpv-seek-forward "5")
+    ("," mpv-frame-back-step)
+    ("." mpv-frame-step)
+    ("SPC" mpv-pause)
+    ("q" mpv-kill)
+    ("s" mpv-screenshot)
+    ("i" my/mpv-insert-playback-position)
+    ("o" mpv-osd)
+    ("n" end-of-line-and-indented-new-line))
 
-;; org-timer covert hours, minutes, seconds, milliseconds to seconds, milliseconds
-(with-eval-after-load 'org-timer
-  (defun my/org-timer-hms-to-secs (hms)
-    "Convert h:mm:ss string to an integer time.
-  If the string starts with a minus sign, the integer will be negative."
-    (if (not (string-match
-            "\\([-+]?[0-9]+\\):\\([0-9]\\{2\\}\\):\\([0-9]\\{2\\}\\)\\([.]?[0-9]\\{0,3\\}\\)"
-            hms))
-        0
-      (let* ((h (string-to-number (match-string 1 hms)))
-           (m (string-to-number (match-string 2 hms)))
-           (s (string-to-number (match-string 3 hms)))
-           (ms (string-to-number (match-string 4 hms)))
-           (sign (equal (substring (match-string 1 hms) 0 1) "-")))
-        (setq h (abs h))
-        (* (if sign -1 1) (+ s (+ ms (* 60 (+ m (* 60 h))))))))))
+  ;; ----------------------------------------------------------------------------------
+  ;; emacs desktop notification center
+  ;; ----------------------------------------------------------------------------------
 
+  ;; start ednc-mode
+  (ednc-mode 1)
 
-;; ----------------------------------------------------------------------------------
-;; mpv commands
-;; ----------------------------------------------------------------------------------
-
-;; frame step forward
-(with-eval-after-load 'mpv
-  (defun mpv-frame-step ()
-    "Step one frame forward."
-    (interactive)
-    (mpv--enqueue '("frame-step") #'ignore)))
+  ;; open notications
+  (defun show-notification-in-buffer (old new)
+    (let ((name (format "Notification %d" (ednc-notification-id (or old new)))))
+      (with-current-buffer (get-buffer-create name)
+        (if new (let ((inhibit-read-only t))
+                  (if old (erase-buffer) (ednc-view-mode))
+                  (insert (ednc-format-notification new t))
+                  (pop-to-buffer (current-buffer)))
+          (kill-buffer)))))
 
 
-;; frame step backward
-(with-eval-after-load 'mpv
-  (defun mpv-frame-back-step ()
-    "Step one frame backward."
-    (interactive)
-    (mpv--enqueue '("frame-back-step") #'ignore)))
+  ;; notifications hook
+  (add-hook 'ednc-notification-presentation-functions
+            #'show-notification-in-buffer)
 
 
-;; mpv take a screenshot
-(with-eval-after-load 'mpv
-  (defun mpv-screenshot ()
-    "Take a screenshot"
-    (interactive)
-    (mpv--enqueue '("screenshot") #'ignore)))
+  ;; ednc evil - normal mode
+  (defun noevil ()
+    (evil-define-key 'normal ednc-view-mode-map "d" 'ednc-dismiss-notification)
+    (evil-define-key 'normal ednc-view-mode-map (kbd "RET") 'ednc-invoke-action)
+  )
+
+  (add-hook 'ednc-view-mode-hook 'noevil)
 
 
-;; mpv show osd
-(with-eval-after-load 'mpv
-  (defun mpv-osd ()
-    "Show the osd"
-    (interactive)
-    (mpv--enqueue '("set_property" "osd-level" "3") #'ignore)))
+  ;; ----------------------------------------------------------------------------------
+  ;; garbage collection
+  ;; ----------------------------------------------------------------------------------
 
-
-;; add a newline in the current document
-(defun end-of-line-and-indented-new-line ()
-  (interactive)
-  (end-of-line)
-  (newline-and-indent))
-
-
-;; ----------------------------------------------------------------------------------
-;; hydra
-;; ----------------------------------------------------------------------------------
-
-(defhydra hydra-mpv (global-map "<f2>")
-  "
-  ^Seek^                    ^Actions^                ^General^
-  ^^^^^^^^---------------------------------------------------------------------------
-  _h_: seek back -5         _,_: back frame          _i_: insert playback position
-  _j_: seek back -60        _._: forward frame       _n_: insert a newline
-  _k_: seek forward 60      _SPC_: pause             _s_: take a screenshot
-  _l_: seek forward 5       _q_: quit mpv            _o_: show the osd
-  ^
-  "
-  ("h" mpv-seek-backward "-5")
-  ("j" mpv-seek-backward "-60")
-  ("k" mpv-seek-forward "60")
-  ("l" mpv-seek-forward "5")
-  ("," mpv-frame-back-step)
-  ("." mpv-frame-step)
-  ("SPC" mpv-pause)
-  ("q" mpv-kill)
-  ("s" mpv-screenshot)
-  ("i" my/mpv-insert-playback-position)
-  ("o" mpv-osd)
-  ("n" end-of-line-and-indented-new-line))
-
-
-;; ----------------------------------------------------------------------------------
-;; side-windows
-;; ----------------------------------------------------------------------------------
-
-;; https://protesilaos.com/emacs/dotemacs
-
-;; M-x window-toggle-side-windows
-;; C-x w s
-
-;; dired-find-file-other-window 
-;; bound to <S-return>, g O, <normal-state> <S-return>, <normal-state> g O
-
-;; dired side window
-(defun my/window-dired-vc-root-left ()
-  (interactive)
-  (let ((dir (if (eq (vc-root-dir) nil)
-                 (dired-noselect default-directory)
-               (dired-noselect (vc-root-dir)))))
-    (display-buffer-in-side-window
-     dir `((side . left)
-           (slot . 0)
-           (window-width . 0.20)
-           (window-parameters . ((no-delete-other-windows . t)
-                                 (mode-line-format . (""))))))))
-
-
-;; ----------------------------------------------------------------------------------
-;; emacs desktop notification center
-;; ----------------------------------------------------------------------------------
-
-;; start ednc-mode
-(ednc-mode 1)
-
-;; open notications
-(defun show-notification-in-buffer (old new)
-  (let ((name (format "Notification %d" (ednc-notification-id (or old new)))))
-    (with-current-buffer (get-buffer-create name)
-      (if new (let ((inhibit-read-only t))
-                (if old (erase-buffer) (ednc-view-mode))
-                (insert (ednc-format-notification new t))
-                (pop-to-buffer (current-buffer)))
-        (kill-buffer)))))
-
-
-;; notifications hook
-(add-hook 'ednc-notification-presentation-functions
-          #'show-notification-in-buffer)
-
-
-;; ednc evil - normal mode
-(defun noevil ()
-  (evil-define-key 'normal ednc-view-mode-map "d" 'ednc-dismiss-notification)
-  (evil-define-key 'normal ednc-view-mode-map (kbd "RET") 'ednc-invoke-action)
-)
-
-(add-hook 'ednc-view-mode-hook 'noevil)
-
-
-;; ----------------------------------------------------------------------------------
-;; garbage collection
-;; ----------------------------------------------------------------------------------
-
-;; Make gc pauses faster by decreasing the threshold.
-(setq gc-cons-threshold (* 2 1000 1000))
+  ;; Make gc pauses faster by decreasing the threshold.
+  (setq gc-cons-threshold (* 2 1000 1000))
 #+END_SRC
 
 **** early-init.el
@@ -1622,181 +1585,6 @@ with lib.hm.gvariant;
 )
 #+END_SRC
 
-**** lisp
-***** app-launcher
-
-#+NAME: app-launcher
-#+begin_src emacs-lisp
-;;; app-launcher.el --- Launch applications from Emacs -*- lexical-binding: t -*-
-
-;; Author: Sebastien Waegeneire
-;; Created: 2020
-;; License: GPL-3.0-or-later
-;; Version: 0.1
-;; Package-Requires: ((emacs "27.1"))
-;; Homepage: https://github.com/sebastienwae/app-launcher
-
-(require 'xdg)
-(require 'cl-seq)
-
-(defcustom app-launcher-apps-directories
-  (mapcar (lambda (dir) (expand-file-name "applications" dir))
-	  (cons (xdg-data-home)
-		(xdg-data-dirs)))
-  "Directories in which to search for applications (.desktop files)."
-  :type '(repeat directory))
-
-(defcustom app-launcher--annotation-function #'app-launcher--annotation-function-default
-  "Define the function that genereate the annotation for each completion choices."
-  :type 'function)
-
-(defcustom app-launcher--action-function #'app-launcher--action-function-default
-  "Define the function that is used to run the selected application."
-  :type 'function)
-
-(defvar app-launcher--cache nil
-  "Cache of desktop files data.")
-
-(defvar app-launcher--cache-timestamp nil
-  "Time when we last updated the cached application list.")
-
-(defvar app-launcher--cached-files nil
-  "List of cached desktop files.")
-
-(defun app-launcher-list-desktop-files ()
-  "Return an alist of all Linux applications.
-Each list entry is a pair of (desktop-name . desktop-file).
-This function always returns its elements in a stable order."
-  (let ((hash (make-hash-table :test #'equal))
-	result)
-    (dolist (dir app-launcher-apps-directories)
-      (when (file-exists-p dir)
-	(let ((dir (file-name-as-directory dir)))
-	  (dolist (file (directory-files-recursively dir ".*\\.desktop$"))
-	    (let ((id (subst-char-in-string ?/ ?- (file-relative-name file dir))))
-	      (when (and (not (gethash id hash)) (file-readable-p file))
-		(push (cons id file) result)
-		(puthash id file hash)))))))
-    result))
-
-(defun app-launcher-parse-files (files)
-  "Parse the .desktop files to return usable informations."
-  (let ((hash (make-hash-table :test #'equal)))
-    (dolist (entry files hash)
-      (let ((file (cdr entry)))
-	(with-temp-buffer
-	  (insert-file-contents file)
-	  (goto-char (point-min))
-	  (let ((start (re-search-forward "^\\[Desktop Entry\\] *$" nil t))
-		(end (re-search-forward "^\\[" nil t))
-		(visible t)
-		name comment exec)
-	    (catch 'break
-	      (unless start
-		(message "Warning: File %s has no [Desktop Entry] group" file)
-		(throw 'break nil))
-
-	      (goto-char start)
-	      (when (re-search-forward "^\\(Hidden\\|NoDisplay\\) *= *\\(1\\|true\\) *$" end t)
-		(setq visible nil))
-	      (setq name (match-string 1))
-
-	      (goto-char start)
-	      (unless (re-search-forward "^Type *= *Application *$" end t)
-		(throw 'break nil))
-	      (setq name (match-string 1))
-
-	      (goto-char start)
-	      (unless (re-search-forward "^Name *= *\\(.+\\)$" end t)
-		(push file counsel-linux-apps-faulty)
-		(message "Warning: File %s has no Name" file)
-		(throw 'break nil))
-	      (setq name (match-string 1))
-
-	      (goto-char start)
-	      (when (re-search-forward "^Comment *= *\\(.+\\)$" end t)
-		(setq comment (match-string 1)))
-
-	      (goto-char start)
-	      (unless (re-search-forward "^Exec *= *\\(.+\\)$" end t)
-		;; Don't warn because this can technically be a valid desktop file.
-		(throw 'break nil))
-	      (setq exec (match-string 1))
-
-	      (goto-char start)
-	      (when (re-search-forward "^TryExec *= *\\(.+\\)$" end t)
-		(let ((try-exec (match-string 1)))
-		  (unless (locate-file try-exec exec-path nil #'file-executable-p)
-		    (throw 'break nil))))
-
-	      (puthash name
-		       (list (cons 'file file)
-			     (cons 'exec exec)
-			     (cons 'comment comment)
-			     (cons 'visible visible))
-		       hash))))))))
-
-(defun app-launcher-list-apps ()
-  "Return list of all Linux .desktop applications."
-  (let* ((new-desktop-alist (app-launcher-list-desktop-files))
-	 (new-files (mapcar 'cdr new-desktop-alist)))
-    (unless (and (equal new-files app-launcher--cached-files)
-		 (null (cl-find-if
-			(lambda (file)
-			  (time-less-p
-			   app-launcher--cache-timestamp
-			   (nth 5 (file-attributes file))))
-			new-files)))
-      (setq app-launcher--cache (app-launcher-parse-files new-desktop-alist))
-      (setq app-launcher--cache-timestamp (current-time))
-      (setq app-launcher--cached-files new-files)))
-  app-launcher--cache)
-
-(defun app-launcher--annotation-function-default (choice)
-  "Default function to annotate the completion choices."
-  (let ((str (cdr (assq 'comment (gethash choice app-launcher--cache)))))
-    (when str (concat " - " (propertize str 'face 'completions-annotations)))))
-
-(defun app-launcher--action-function-default (selected)
-  "Default function used to run the selected application."
-  (let* ((exec (cdr (assq 'exec (gethash selected app-launcher--cache))))
-	 (command (let (result)
-		    (dolist (chunk (split-string exec " ") result)
-		      (unless (or (equal chunk "%U")
-				  (equal chunk "%F")
-				  (equal chunk "%u")
-				  (equal chunk "%f"))
-			(setq result (concat result chunk " ")))))))
-    (call-process-shell-command command nil 0 nil)))
-
-;;;###autoload
-(defun app-launcher-run-app (&optional arg)
-  "Launch an application installed on your machine.
-When ARG is non-nil, ignore NoDisplay property in *.desktop files."
-  (interactive)
-  (let* ((candidates (app-launcher-list-apps))
-	 (result (completing-read
-		  "Run app: "
-		  (lambda (str pred flag)
-		    (if (eq flag 'metadata)
-			'(metadata
-			  (annotation-function . (lambda (choice)
-						   (funcall
-						    app-launcher--annotation-function
-						    choice))))
-		      (complete-with-action flag candidates str pred)))
-		  (lambda (x y)
-		    (if arg
-			t
-		      (cdr (assq 'visible y))))
-		  t nil 'app-launcher nil nil)))
-    (funcall app-launcher--action-function result)))
-
-;; Provide the app-launcher feature
-(provide 'app-launcher)
-
-#+end_src
-
 *** emacs.d tangle
 **** bookmark tangle
 
@@ -1812,22 +1600,6 @@ When ARG is non-nil, ignore NoDisplay property in *.desktop files."
 #+NAME: emacs-bookmarks-current-dir
 #+BEGIN_SRC conf :noweb yes :tangle ".config/emacs/bookmarks"
 <<emacs-bookmarks>>
-#+END_SRC
-
-**** app-launcher tangle
-
-+ home dir
-
-#+NAME: app-launcher-home-dir
-#+BEGIN_SRC conf :noweb yes :tangle "~/.config/emacs/lisp/app-launcher.el"
-<<app-launcher>>
-#+END_SRC
-
-+ current dir
-
-#+NAME: app-launcher-current-dir
-#+BEGIN_SRC conf :noweb yes :tangle ".config/emacs/lisp/app-launcher.el"
-<<app-launcher>>
 #+END_SRC
 
 ** alacritty

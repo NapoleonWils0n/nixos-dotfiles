@@ -26,7 +26,7 @@
  '(custom-safe-themes
    '("636b135e4b7c86ac41375da39ade929e2bd6439de8901f53f88fde7dd5ac3561" default))
  '(package-selected-packages
-   '(evil-collection ob-nix nix-mode 0blayout all-the-icons annalist company csv-mode doom-themes doom-modeline ednc emmet-mode epl evil-leader evil-surround fd-dired flycheck git-commit git-auto-commit-mode haskell-mode hydra iedit magit-section mpv ob-async openwith orderless ox-pandoc pkg-info rg s shrink-path undo-tree vertico wgrep which-key yaml-mode))
+   '(evil-collection ob-nix nix-mode 0blayout all-the-icons annalist csv-mode doom-themes doom-modeline ednc emmet-mode epl evil-leader evil-surround fd-dired flycheck git-commit git-auto-commit-mode haskell-mode hydra iedit magit-section mpv ob-async openwith pkg-info rg s shrink-path undo-tree vertico wgrep which-key yaml-mode))
  '(warning-suppress-types '((comp))))
 
 ;; require package
@@ -154,9 +154,6 @@
 ;; require
 ;; ----------------------------------------------------------------------------------
 
-;; app-launcher
-(require 'app-launcher)
-
 ;; ob-async
 (require 'ob-async)
 
@@ -169,10 +166,6 @@
 (global-undo-tree-mode 1)
 (setq undo-tree-visualizer-timestamps t)
 (setq undo-tree-visualizer-diff t)
-
-;; openwth
-(require 'mm-util)
-(add-to-list 'mm-inhibit-file-name-handlers 'openwith-file-handler)
 
 (require 'openwith)
 (setq openwith-associations
@@ -367,9 +360,6 @@
 (keymap-set global-map "C-c l" 'org-store-link)
 (keymap-set global-map "C-c a" 'org-agenda)
 
-;; app-launcher
-(keymap-set global-map "C-c d" 'app-launcher-run-app)
-
 
 ;; ----------------------------------------------------------------------------------
 ;; magit
@@ -454,7 +444,7 @@
 
 (with-eval-after-load 'rg
   (advice-add 'rg-run :after
-	      #'(lambda (_pattern _files _dir &optional _literal _confirm _flags) (pop-to-buffer (rg-buffer-name)))))
+              #'(lambda (_pattern _files _dir &optional _literal _confirm _flags) (pop-to-buffer (rg-buffer-name)))))
 
 
 ;; ----------------------------------------------------------------------------------
@@ -791,33 +781,6 @@
   ("i" my/mpv-insert-playback-position)
   ("o" mpv-osd)
   ("n" end-of-line-and-indented-new-line))
-
-
-;; ----------------------------------------------------------------------------------
-;; side-windows
-;; ----------------------------------------------------------------------------------
-
-;; https://protesilaos.com/emacs/dotemacs
-
-;; M-x window-toggle-side-windows
-;; C-x w s
-
-;; dired-find-file-other-window 
-;; bound to <S-return>, g O, <normal-state> <S-return>, <normal-state> g O
-
-;; dired side window
-(defun my/window-dired-vc-root-left ()
-  (interactive)
-  (let ((dir (if (eq (vc-root-dir) nil)
-                 (dired-noselect default-directory)
-               (dired-noselect (vc-root-dir)))))
-    (display-buffer-in-side-window
-     dir `((side . left)
-           (slot . 0)
-           (window-width . 0.20)
-           (window-parameters . ((no-delete-other-windows . t)
-                                 (mode-line-format . (""))))))))
-
 
 ;; ----------------------------------------------------------------------------------
 ;; emacs desktop notification center
