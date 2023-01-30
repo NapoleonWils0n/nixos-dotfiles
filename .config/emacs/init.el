@@ -26,7 +26,7 @@
  '(custom-safe-themes
    '("636b135e4b7c86ac41375da39ade929e2bd6439de8901f53f88fde7dd5ac3561" default))
  '(package-selected-packages
-   '(evil-collection ob-nix nix-mode 0blayout all-the-icons annalist csv-mode doom-themes doom-modeline ednc emmet-mode epl evil-leader evil-surround fd-dired flycheck git-commit git-auto-commit-mode haskell-mode hydra iedit magit-section mpv ob-async openwith pkg-info rg s shrink-path undo-tree vertico wgrep which-key yaml-mode))
+   '())
  '(warning-suppress-types '((comp))))
 
 ;; require package
@@ -129,6 +129,33 @@
 
 
 ;; ----------------------------------------------------------------------------------
+;; TAB bar mode 
+;; ----------------------------------------------------------------------------------
+
+(setq tab-bar-show 1)                     ;; hide bar if <= 1 tabs open
+(setq tab-bar-close-button-show nil)      ;; hide close tab button
+(setq tab-bar-new-button-show nil)        ;; hide new tab button
+(setq tab-bar-new-tab-choice "*scratch*") ;; default tab scratch
+(setq tab-bar-close-last-tab-choice 'tab-bar-mode-disable) 
+(setq tab-bar-close-tab-select 'recent)
+(setq tab-bar-new-tab-to 'right)
+(setq tab-bar-tab-hints nil)
+(setq tab-bar-separator " ")
+
+;; Customize the tab bar format to add the global mode line string
+(setq tab-bar-format '(tab-bar-format-tabs tab-bar-separator tab-bar-format-align-right tab-bar-format-global))
+
+;; menubar in tab bar
+(add-to-list 'tab-bar-format #'tab-bar-format-menu-bar)
+
+;; Turn on tab bar mode after startup
+(tab-bar-mode 1)
+
+;; tab bar menu bar button
+(setq tab-bar-menu-bar-button "👾")
+
+
+;; ----------------------------------------------------------------------------------
 ;; evil
 ;; ----------------------------------------------------------------------------------
 
@@ -153,6 +180,10 @@
 ;; ----------------------------------------------------------------------------------
 ;; require
 ;; ----------------------------------------------------------------------------------
+
+;; nix-mode
+(require 'nix-mode)
+(add-to-list 'auto-mode-alist '("\\.nix\\'" . nix-mode))
 
 ;; ob-async
 (require 'ob-async)
@@ -182,33 +213,6 @@
              '(file))))
 
 (openwith-mode 1)
-
-
-;; ----------------------------------------------------------------------------------
-;; TAB bar mode 
-;; ----------------------------------------------------------------------------------
-
-(setq tab-bar-show 1)                     ;; hide bar if <= 1 tabs open
-(setq tab-bar-close-button-show nil)      ;; hide close tab button
-(setq tab-bar-new-button-show nil)        ;; hide new tab button
-(setq tab-bar-new-tab-choice "*scratch*") ;; default tab scratch
-(setq tab-bar-close-last-tab-choice 'tab-bar-mode-disable) 
-(setq tab-bar-close-tab-select 'recent)
-(setq tab-bar-new-tab-to 'right)
-(setq tab-bar-tab-hints nil)
-(setq tab-bar-separator " ")
-
-;; Customize the tab bar format to add the global mode line string
-(setq tab-bar-format '(tab-bar-format-tabs tab-bar-separator tab-bar-format-align-right tab-bar-format-global))
-
-;; menubar in tab bar
-(add-to-list 'tab-bar-format #'tab-bar-format-menu-bar)
-
-;; Turn on tab bar mode after startup
-(tab-bar-mode 1)
-
-;; tab bar menu bar button
-(setq tab-bar-menu-bar-button "👾")
 
 
 ;; ----------------------------------------------------------------------------------
@@ -347,10 +351,6 @@
 ;; press M-/ and invoke hippie-expand
 (keymap-global-set "M-/" 'hippie-expand)
 
-;; open dired side window
-(keymap-global-set "C-x w w" 'my/window-dired-vc-root-left)
-(keymap-global-set "C-x w w" 'my/window-dired-vc-root-left)
-
 
 ;; ----------------------------------------------------------------------------------
 ;; keymap-set
@@ -387,7 +387,6 @@
 ;; ----------------------------------------------------------------------------------
 
 ;; Toggle Hidden Files in Emacs dired with C-x M-o
-(require 'dired-x)
 
 ;; kill the current buffer when selecting a new directory to display
 (setq dired-kill-when-opening-new-dired-buffer t)
@@ -396,8 +395,7 @@
 (setq dired-listing-switches "-ahlv")
 
 ;; hide dotfiles
-(setq dired-omit-files
-      (concat dired-omit-files "\\|^\\..+$"))
+(setq dired-omit-mode t)
 
 ;; recursive delete and copy
 (setq dired-recursive-copies 'always)
@@ -410,13 +408,7 @@
 (setq dired-dwim-target t)
 
 ;; dired hide long listing by default
-(defun my-dired-mode-setup ()
-  "show less information in dired buffers"
-  (dired-hide-details-mode 1))
-(add-hook 'dired-mode-hook 'my-dired-mode-setup)
-
-;; dired omit
-(add-hook 'dired-mode-hook (lambda () (dired-omit-mode 1)))
+(setq dired-hide-details-mode 1)
 
 ;; dired hide aync output buffer
 (add-to-list 'display-buffer-alist (cons "\\*Async Shell Command\\*.*" (cons #'display-buffer-no-window nil)))
@@ -463,7 +455,7 @@
                                  (tramp-parse-sconfig "~/.ssh/config")))
 
 ;; set tramp shell to sh to avoid zsh problems
-(with-eval-after-load 'tramp '(setenv "SHELL" "/usr/bin/sh"))
+(with-eval-after-load 'tramp '(setenv "SHELL" "/bin/sh"))
 
 ;; tramp backup directory
 (add-to-list 'backup-directory-alist (cons tramp-file-name-regexp nil))
@@ -539,19 +531,6 @@
 ;; org todo logbook
 (setq org-log-into-drawer t)
 
-;; minted
-(setq org-latex-minted-options
-    '(("frame" "lines") ("linenos=true")) )
-;;(setq org-latex-listings 'minted)
-(setq org-latex-listings 'minted
-    org-latex-packages-alist '(("" "minted"))
-    org-latex-pdf-process
-    '("pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"
-    "pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"))
-
-(setq org-latex-minted-options
-    '(("frame" "lines") ("linenos=true")) )
-
 ;; org open files
 (setq org-file-apps
      (quote
@@ -567,10 +546,6 @@
      ("\\.pdf\\'" . default))))
 
 (custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
  '(org-link ((t (:inherit link :underline nil)))))
 
 (defadvice org-capture
@@ -588,8 +563,7 @@
 ; org-babel shell script
 (org-babel-do-load-languages
 'org-babel-load-languages
-'((nix . t)
-(shell . t))) 
+'((shell . t))) 
 
 
 ;; ----------------------------------------------------------------------------------
@@ -607,7 +581,7 @@
 (add-hook 'after-save-hook 'executable-make-buffer-file-executable-if-script-p)
 
 ;; global company mode
-(add-hook 'after-init-hook 'global-company-mode)
+;;(add-hook 'after-init-hook 'global-company-mode)
 
 ;; visual line mode
 (add-hook 'text-mode-hook 'visual-line-mode)
@@ -812,6 +786,7 @@
 )
 
 (add-hook 'ednc-view-mode-hook 'noevil)
+
 
 
 ;; ----------------------------------------------------------------------------------

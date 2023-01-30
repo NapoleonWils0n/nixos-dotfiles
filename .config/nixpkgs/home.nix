@@ -18,6 +18,39 @@ in {
         enable = true;
         package = unstable.emacsPgtk;
         extraPackages = epkgs: with epkgs; [
+          all-the-icons
+          consult
+          doom-themes
+          doom-modeline
+          ednc
+          embark
+          embark-consult
+          emmet-mode
+          evil-collection
+          evil-leader
+          evil-surround
+          fd-dired
+          flycheck
+          git-commit
+          git-auto-commit-mode
+          hydra
+          iedit
+          magit
+          magit-section
+          marginalia
+          mpv
+          nix-mode
+          ob-async
+          openwith
+          orderless
+          rg
+          s
+          shrink-path
+          undo-tree
+          vertico
+          wgrep
+          which-key
+          yaml-mode
         ];
       };
       gpg = {
