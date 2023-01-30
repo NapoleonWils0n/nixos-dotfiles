@@ -158,6 +158,7 @@ in {
     yt-dlp
     w3m
     weechat
+    wget
     widevine-cdm
     xclip
     zathura
