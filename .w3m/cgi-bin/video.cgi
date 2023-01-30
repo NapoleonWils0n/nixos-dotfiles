@@ -11,8 +11,8 @@ url="${W3M_CURRENT_LINK}"
 if [ ! -z "${url}" ]; then
    result=$(echo "${url}" | \
             grep -oP '(?<=google.com\/url\?q=)[^&]*(?=&)' \
-            | python3 -c "import sys; from urllib.parse import unquote; print(unquote(sys.stdin.read()));")
-   [ ! -z "${result}" ] && url="${result}" || url="${url}"
+            | sed -e "s/%\([0-9A-F][0-9A-F]\)/\\\\\x\1/g" | xargs -0 echo -e)
+   [ ! -z "${result}" ] && url="${result}"
 else
     url="${W3M_URL}"
 fi
@@ -21,7 +21,7 @@ fi
 #tsp mpv --no-terminal "${url}"
 
 # queue the video with taskpooler and play the url with mpv full screen on the second display
-ts mpv --fs --screen=1 "${url}"
+ts mpv --fs "${url}"
 
 # remove http prefix for notify-send to fix issue with (U) in the notification title
 #title=$(echo "${url}" | sed -e 's#https\?://\([www.]*\)##g')
