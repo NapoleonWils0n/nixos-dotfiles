@@ -387,6 +387,7 @@
 ;; ----------------------------------------------------------------------------------
 
 ;; Toggle Hidden Files in Emacs dired with C-x M-o
+(require 'dired-x)
 
 ;; kill the current buffer when selecting a new directory to display
 (setq dired-kill-when-opening-new-dired-buffer t)
@@ -407,8 +408,19 @@
 ;; dired dwim
 (setq dired-dwim-target t)
 
+;; hide dotfiles
+(setq dired-omit-files
+      (concat dired-omit-files "\\|^\\..+$"))
+
+
 ;; dired hide long listing by default
-(setq dired-hide-details-mode 1)
+(defun my-dired-mode-setup ()
+  "show less information in dired buffers"
+  (dired-hide-details-mode 1))
+(add-hook 'dired-mode-hook 'my-dired-mode-setup)
+
+;; dired omit
+(add-hook 'dired-mode-hook (lambda () (dired-omit-mode 1)))
 
 ;; dired hide aync output buffer
 (add-to-list 'display-buffer-alist (cons "\\*Async Shell Command\\*.*" (cons #'display-buffer-no-window nil)))
