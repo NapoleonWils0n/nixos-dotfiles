@@ -2626,8 +2626,7 @@ confirm-mark-feed-read no
 wrap-scroll yes
 
 # transmission remote as externel browser
-#browser "transmission-remote --add '%u'"
-browser "[ -d /etc/netns/vpn ] && doas namespace transmission-remote --add '%u' || transmission-remote --add '%u'"
+browser "transmission-remote --add %u 1>/dev/null &" 
 
 # urlscan
 external-url-viewer "urlscan"
