@@ -150,9 +150,10 @@ in {
     exiftool
     exa
     fd
-    fzf
-    ffmpeg
+    file
     fira-code
+    ffmpeg
+    fzf
     git
     html-xml-utils
     imagemagick
