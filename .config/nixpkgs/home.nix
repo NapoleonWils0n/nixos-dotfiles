@@ -152,7 +152,7 @@ in {
     fd
     file
     fira-code
-    ffmpeg
+    ffmpeg_5-full
     fzf
     git
     html-xml-utils
@@ -161,6 +161,7 @@ in {
     lynx
     libxslt
     libnotify
+    libwebp
     mediainfo
     mpc_cli
     mpd
