@@ -143,6 +143,7 @@ in {
     aria
     bat
     bc
+    bento4
     curl
     csvkit
     gnome.dconf-editor
