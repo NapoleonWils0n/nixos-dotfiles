@@ -156,6 +156,7 @@ in {
     ffmpeg_5-full
     fzf
     git
+    gnumake
     html-xml-utils
     imagemagick
     jq
