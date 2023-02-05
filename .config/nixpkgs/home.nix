@@ -56,11 +56,6 @@ in {
       gpg = {
         enable = true;
       };
-      zsh = {
-        enable = true;
-        enableCompletion = true;
-        enableSyntaxHighlighting = true;
-      };
     };
 
     imports = [
