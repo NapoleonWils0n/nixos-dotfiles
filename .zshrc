@@ -106,9 +106,6 @@ zstyle ':completion:*:*:kill:*' list-colors '=(#b) #([0-9]#)*( *[a-z])*=22=31=34
 # list optiones colour, white + cyan
 zstyle ':completion:*:options' list-colors '=(#b) #(-[a-zA-Z0-9,]#)*(-- *)=36=37'
 
-# nixos zsh autocompletion for sudo and doas
-zstyle ":completion:*:(sudo|su|doas):*" command-path /run/wrappers/bin /run/current-system/sw/bin /home/djwilcox/bin
-
 # rehash commands
 zstyle ':completion:*' rehash true
 
