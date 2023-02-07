@@ -10,6 +10,9 @@ HISTSIZE=1000
 newline=$'\n'
 yesmaster='Yes Master ? '
 
+# turn off nixos default prompt before setting PS1
+prompt off
+
 # PS3 prompt function
 function zle-line-init zle-keymap-select {
     PS1="[%n@%M %~]${newline}${yesmaster}"
