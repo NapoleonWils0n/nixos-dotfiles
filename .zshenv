@@ -47,9 +47,6 @@ export MPD_HOST="/run/user/1000/mpd/socket"
 # git pager bat with colour
 export GIT_PAGER="bat --color=always -p -l rs"
 
-# export fix for nixpkgs
-# export LC_ALL=C
-
 # nix os xdg directories
 export XDG_DATA_DIRS="$HOME/.nix-profile/share:$XDG_DATA_DIRS"
 
@@ -60,6 +57,3 @@ export NIX_PATH=$HOME/.nix-defexpr/channels:/nix/var/nix/profiles/per-user/root/
 if [ -f "$HOME/.nix-profile/etc/profile.d/hm-session-vars.sh" ];
     then . "$HOME/.nix-profile/etc/profile.d/hm-session-vars.sh";
 fi
-
-# nixpkgs
-if [ -e /home/djwilcox/.nix-profile/etc/profile.d/nix.sh ]; then . /home/djwilcox/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer
