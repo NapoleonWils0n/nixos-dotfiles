@@ -2387,6 +2387,36 @@ color alert = black,bold
 
 ** desktop files
 *** desktop files config
+**** firefox vpn config
+
+#+NAME: firefox-vpn-desktop
+#+begin_src conf
+[Desktop Entry]
+Actions=new-private-window;new-window;profile-manager-window
+Categories=Network;WebBrowser
+Exec=/run/wrappers/bin/doas /home/djwilcox/bin/namespace firefox %U
+GenericName=Web Browser
+Icon=firefox
+MimeType=text/html;text/xml;application/xhtml+xml;application/vnd.mozilla.xul+xml;x-scheme-handler/http;x-scheme-handler/https
+Name=Firefox-VPN
+StartupNotify=true
+Terminal=false
+Type=Application
+Version=1.4
+
+[Desktop Action new-private-window]
+Exec=/run/wrappers/bin/doas /home/djwilcox/bin/namespace firefox --private-window %U
+Name=New Private Window
+
+[Desktop Action new-window]
+Exec=/run/wrappers/bin/doas /home/djwilcox/bin/namespace firefox --new-window %U
+Name=New Window
+
+[Desktop Action profile-manager-window]
+Exec=/run/wrappers/bin/doas /home/djwilcox/bin/namespace firefox --ProfileManager
+Name=Profile Manager
+#+end_src
+
 **** transmission config
 
 #+NAME: transmission-desktop
@@ -2401,6 +2431,22 @@ MimeType=application/x-bittorrent;x-scheme-handler/magnet;
 #+end_src
 
 *** desktop files tangle
+**** firefox-vpn tangle
+
++ home dir
+  
+#+NAME: firefox-vpn-desktop-home-dir
+#+BEGIN_SRC conf :noweb yes :tangle "~/.local/share/applications/firefox_vpn.desktop"
+<<firefox-vpn-desktop>>
+#+END_SRC
+  
++ current dir
+
+#+NAME: firefox-vpn-desktop-current-dir
+#+BEGIN_SRC conf :noweb yes :tangle ".local/share/applications/firefox_vpn.desktop"
+<<firefox-vpn-desktop>>
+#+END_SRC
+
 **** transmission tangle
 
 + home dir
