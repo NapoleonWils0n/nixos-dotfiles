@@ -1863,24 +1863,6 @@ compdef _gnu_generic nix-env
 
 # mpc host and socket
 alias mpc='mpc --host="/run/user/1000/mpd/socket"'
-
-# transmission
-
-# start torrent <id> or all
-trd-start() {
-    transmission-remote -t"${1-all}" --start;
-    }
-
-# pause torrent <id> or all
-trd-pause() {
-    transmission-remote -t"${1-all}" --stop;
-    }
-
-# watch torrent list with viddy
-trd-watch() {
-    viddy -t transmission-remote --list;
-    }
-
 #+END_SRC
 
 **** zshenv
