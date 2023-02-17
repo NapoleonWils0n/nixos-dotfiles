@@ -185,7 +185,9 @@ in {
     sox
     shellcheck
     surfraw
+    tcpdump
     tmux
+    traceroute
     transmission
     ts
     unzip
