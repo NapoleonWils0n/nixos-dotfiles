@@ -184,6 +184,7 @@ in {
     socat
     sox
     shellcheck
+    streamlink
     surfraw
     tcpdump
     tmux
