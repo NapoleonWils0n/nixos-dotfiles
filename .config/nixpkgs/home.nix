@@ -201,6 +201,7 @@ in {
     wget
     widevine-cdm
     xclip
+    vlc
     zathura
     zip
   ];
