@@ -21,7 +21,7 @@ fi
 #tsp mpv --no-terminal "${url}"
 
 # queue the video with taskpooler and play the url with mpv full screen on the second display
-ts mpv --fs "${url}"
+mpv --fs "${url}"
 
 # remove http prefix for notify-send to fix issue with (U) in the notification title
 #title=$(echo "${url}" | sed -e 's#https\?://\([www.]*\)##g')
