@@ -77,7 +77,7 @@ menu=$(printf "%s\n" \
 	      "${open_ts}" \
 	      "${audio_ts}" \
 	      "${sponsorblock_ts}" \
-	      | fzf-tmux -d 20% --delimiter='\n' --prompt='Pipe links to: ' --info=inline --layout=reverse --no-multi)
+	      | fzf-tmux -d 22% --delimiter='\n' --prompt='Pipe links to: ' --info=inline --layout=reverse --no-multi)
 
 # case statement to run function based on fzf prompt output
 case "${menu}" in
