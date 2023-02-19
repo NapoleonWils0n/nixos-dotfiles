@@ -17,8 +17,6 @@ C-u C-c C-v t
 emacs --batch -l org --eval '(org-babel-tangle-file "~/git/ubuntu-dotfiles/ubuntu-dotfiles.org")'
 #+end_src
 
-#+RESULTS:
-
 * nixos dotfiles
 :PROPERTIES:
 :VISIBILITY: children
