@@ -599,14 +599,14 @@ with lib.hm.gvariant;
 + home dir
 
 #+NAME: home.nix-home-dir
-#+BEGIN_SRC conf :noweb yes :tangle "~/.config/nixpkgs/home.nix"
+#+BEGIN_SRC nix :noweb yes :tangle "~/.config/nixpkgs/home.nix"
 <<home.nix>>
 #+END_SRC
   
 + current dir
 
 #+NAME: home.nix-current-dir
-#+BEGIN_SRC conf :noweb yes :tangle ".config/nixpkgs/home.nix"
+#+BEGIN_SRC nix :noweb yes :tangle ".config/nixpkgs/home.nix"
 <<home.nix>>
 #+END_SRC
 
@@ -618,14 +618,14 @@ with lib.hm.gvariant;
 + home dir
 
 #+NAME: config.nix-home-dir
-#+BEGIN_SRC conf :noweb yes :tangle "~/.config/nixpkgs/config.nix"
+#+BEGIN_SRC nix :noweb yes :tangle "~/.config/nixpkgs/config.nix"
 <<config.nix>>
 #+END_SRC
   
 + current dir
 
 #+NAME: config.nix-current-dir
-#+BEGIN_SRC conf :noweb yes :tangle ".config/nixpkgs/config.nix"
+#+BEGIN_SRC nix :noweb yes :tangle ".config/nixpkgs/config.nix"
 <<config.nix>>
 #+END_SRC
 
@@ -637,14 +637,14 @@ with lib.hm.gvariant;
 + home dir
 
 #+NAME: firefox.nix-home-dir
-#+BEGIN_SRC conf :noweb yes :tangle "~/.config/nixpkgs/programs/firefox/firefox.nix"
+#+BEGIN_SRC nix :noweb yes :tangle "~/.config/nixpkgs/programs/firefox/firefox.nix"
 <<firefox.nix>>
 #+END_SRC
   
 + current dir
 
 #+NAME: firefox.nix-current-dir
-#+BEGIN_SRC conf :noweb yes :tangle ".config/nixpkgs/programs/firefox/firefox.nix"
+#+BEGIN_SRC nix :noweb yes :tangle ".config/nixpkgs/programs/firefox/firefox.nix"
 <<firefox.nix>>
 #+END_SRC
 
@@ -656,14 +656,14 @@ with lib.hm.gvariant;
 + home dir
 
 #+NAME: dconf.nix-home-dir
-#+BEGIN_SRC conf :noweb yes :tangle "~/.config/nixpkgs/programs/dconf/dconf.nix"
+#+BEGIN_SRC nix :noweb yes :tangle "~/.config/nixpkgs/programs/dconf/dconf.nix"
 <<dconf.nix>>
 #+END_SRC
   
 + current dir
 
 #+NAME: dconf.nix-current-dir
-#+BEGIN_SRC conf :noweb yes :tangle ".config/nixpkgs/programs/dconf/dconf.nix"
+#+BEGIN_SRC nix :noweb yes :tangle ".config/nixpkgs/programs/dconf/dconf.nix"
 <<dconf.nix>>
 #+END_SRC
 
@@ -1530,14 +1530,14 @@ with lib.hm.gvariant;
 + home dir
 
 #+NAME: emacs-init.el-home-dir
-#+BEGIN_SRC conf :noweb yes :tangle "~/.config/emacs/init.el"
+#+BEGIN_SRC emacs-lisp :noweb yes :tangle "~/.config/emacs/init.el"
 <<init.el>>
 #+END_SRC
 
 + current dir
 
 #+NAME: emacs-init.el-current-dir
-#+BEGIN_SRC conf :noweb yes :tangle ".config/emacs/init.el"
+#+BEGIN_SRC emacs-lisp :noweb yes :tangle ".config/emacs/init.el"
 <<init.el>>
 #+END_SRC
 
@@ -1546,14 +1546,14 @@ with lib.hm.gvariant;
 + home dir
 
 #+NAME: emacs-early-init.el-home-dir
-#+BEGIN_SRC conf :noweb yes :tangle "~/.config/emacs/early-init.el"
+#+BEGIN_SRC emacs-lisp :noweb yes :tangle "~/.config/emacs/early-init.el"
 <<early-init.el>>
 #+END_SRC
 
 + current dir
 
 #+NAME: emacs-early-init.el-current-dir
-#+BEGIN_SRC conf :noweb yes :tangle ".config/emacs/early-init.el"
+#+BEGIN_SRC emacs-lisp :noweb yes :tangle ".config/emacs/early-init.el"
 <<early-init.el>>
 #+END_SRC
 
@@ -1618,14 +1618,14 @@ with lib.hm.gvariant;
 + home dir
 
 #+NAME: emacs-bookmarks-home-dir
-#+BEGIN_SRC conf :noweb yes :tangle "~/.config/emacs/bookmarks"
+#+BEGIN_SRC emacs-lisp :noweb yes :tangle "~/.config/emacs/bookmarks"
 <<emacs-bookmarks>>
 #+END_SRC
 
 + current dir
 
 #+NAME: emacs-bookmarks-current-dir
-#+BEGIN_SRC conf :noweb yes :tangle ".config/emacs/bookmarks"
+#+BEGIN_SRC emacs-lisp :noweb yes :tangle ".config/emacs/bookmarks"
 <<emacs-bookmarks>>
 #+END_SRC
 
@@ -1704,22 +1704,23 @@ colors:
 + home dir
 
 #+NAME: alacritty-home-dir
-#+BEGIN_SRC conf :noweb yes :tangle "~/.config/alacritty/alacritty.yml"
+#+BEGIN_SRC yaml :noweb yes :tangle "~/.config/alacritty/alacritty.yml"
 <<alacritty>>
 #+END_SRC
 
 + current dir
 
 #+NAME: alacritty-current-dir
-#+BEGIN_SRC conf :noweb yes :tangle ".config/alacritty/alacritty.yml"
+#+BEGIN_SRC yaml :noweb yes :tangle ".config/alacritty/alacritty.yml"
 <<alacritty>>
 #+END_SRC
+
 ** zsh
 *** zsh config
 **** zshrc
 
 #+NAME: zshrc
-#+BEGIN_SRC conf
+#+BEGIN_SRC sh
 # ~/.zshrc
 
 # ssh zsh fix
@@ -1871,7 +1872,7 @@ alias mpc='mpc --host="/run/user/1000/mpd/socket"'
 **** zshenv
 
 #+NAME: zshenv
-#+begin_src conf
+#+begin_src sh
 # ~/.zshenv
 
 # Path
@@ -1939,14 +1940,14 @@ fi
 + home dir
 
 #+NAME: zshrc-home-dir
-#+BEGIN_SRC conf :noweb yes :tangle "~/.zshrc"
+#+BEGIN_SRC sh :noweb yes :tangle "~/.zshrc"
 <<zshrc>>
 #+END_SRC
 
 + current dir
 
 #+NAME: zshrc-current-dir
-#+BEGIN_SRC conf :noweb yes :tangle ".zshrc"
+#+BEGIN_SRC sh :noweb yes :tangle ".zshrc"
 <<zshrc>>
 #+END_SRC
 
@@ -1955,14 +1956,14 @@ fi
 + home dir
 
 #+NAME: zshenv-home-dir
-#+BEGIN_SRC conf :noweb yes :tangle "~/.zshenv"
+#+BEGIN_SRC sh :noweb yes :tangle "~/.zshenv"
 <<zshenv>>
 #+END_SRC
 
 + current dir
 
 #+NAME: zshenv-current-dir
-#+BEGIN_SRC conf :noweb yes :tangle ".zshenv"
+#+BEGIN_SRC sh :noweb yes :tangle ".zshenv"
 <<zshenv>>
 #+END_SRC
 
@@ -3814,7 +3815,7 @@ meta2-D = "/cursor move left"
 **** bookmark.html
 
 #+NAME: w3m-bookmark.html
-#+BEGIN_SRC conf
+#+BEGIN_SRC html
 <html><head><title>Bookmarks</title></head>
 <META http-equiv='Content-Type' content='text/html; charset=UTF-8'>
 <body>
@@ -4000,7 +4001,7 @@ simple_preserve_space 0
 ***** functions-w3m
 
 #+NAME: functions-w3m
-#+BEGIN_SRC conf
+#+BEGIN_SRC sh
 #!/bin/sh
 
 # fzf prompt to specify function to run from readme.func
@@ -4044,7 +4045,7 @@ esac
 ***** fzf-surfraw
 
 #+NAME: fzf-surfraw
-#+BEGIN_SRC conf
+#+BEGIN_SRC sh
 #!/bin/sh
 
 # w3m and surfraw
@@ -4056,20 +4057,20 @@ printf "\033c"
 prefix=$(surfraw -elvi | grep -v 'LOCAL\|GLOBAL'| fzf -e --prompt='Search with: ' --info=inline --layout=reverse | awk '{print $1}')
 
 # exit script if no elvi is selected (e.g hit ESC)
-if [ "$prefix" = "" ]; then exit; fi
+if [ "${prefix}" = "" ]; then exit; fi
 
 # get user input using echo and fzf with the prompt set to the elvi name
 input=$(echo | fzf --print-query --prompt="${prefix}: " --info=inline --layout=reverse)
 
 # dont quote the input variable and copy the url to primary clipboard
-surfraw -p "$prefix" $input | xsel -p
+surfraw -p "${prefix}" "${input}" | xsel -p
 
 #+END_SRC
 
 ***** google-redirector
 
 #+NAME: google-redirector
-#+BEGIN_SRC conf
+#+BEGIN_SRC sh
 #!/bin/sh
 
 # current link under cursor in w3m
@@ -4078,11 +4079,11 @@ url="${W3M_CURRENT_LINK}"
 # if the current link contains a url pipe it into grep,
 # remove the google redirect and decode the url
 #if the current link is empty set the url to the page url
-if [ ! -z "${url}" ]; then
+if [ -n "${url}" ]; then
    result=$(echo "${url}" | \
             grep -oP '(?<=google.com\/url\?q=)[^&]*(?=&)' \
             | sed -e "s/%\([0-9A-F][0-9A-F]\)/\\\\\x\1/g" | xargs -0 echo -e)
-   [ ! -z "${result}" ] && url="${result}"
+   [ -n "${result}" ] && url="${result}"
 else
     url="${W3M_URL}"
 fi
@@ -4091,8 +4092,8 @@ fi
 ***** goto-clipboard-primary
 
 #+NAME: goto-clipboard-primary
-#+BEGIN_SRC conf
-#!/usr/bin/env sh
+#+BEGIN_SRC sh
+#!/bin/sh
 # AUTHOR: gotbletu (@gmail|twitter|youtube|github|lbry)
 #         https://www.youtube.com/user/gotbletu
 # DESC:   paste and go feature for w3m web browser using primary clipboard (aka shift+insert)
@@ -4133,7 +4134,7 @@ printf "%s\r\n" "W3m-control: SET_OPTION default_url=1";
 ***** magnet-cgi
 
 #+NAME: magnet-cgi
-#+BEGIN_SRC conf
+#+BEGIN_SRC sh
 #!/bin/sh
 # AUTHOR: gotbletu (@gmail|twitter|youtube|github|lbry)
 #         https://www.youtube.com/user/gotbletu
@@ -4154,7 +4155,7 @@ printf "%s\r\n" "W3m-control: BACK"
 ***** run-command
 
 #+NAME: run-command
-#+BEGIN_SRC conf
+#+BEGIN_SRC sh
 #!/bin/sh
 
 # run w3m command from clipboard
@@ -4164,7 +4165,7 @@ printf "%s\r\n" "W3m-control: $(xsel -opsb)";
 ***** sauron-w3m
 
 #+NAME: sauron-w3m
-#+BEGIN_SRC conf
+#+BEGIN_SRC sh
 #!/bin/sh
 
 # sauron - w3m
@@ -4172,11 +4173,11 @@ printf "%s\r\n" "W3m-control: $(xsel -opsb)";
 # current link under cursor in w3m
 url="${W3M_CURRENT_LINK}"   
 
-if [ ! -z "${url}" ]; then
+if [ -n "${url}" ]; then
    result=$(echo "${url}" | \
             grep -oP '(?<=google.com\/url\?q=)[^&]*(?=&)' \
             | sed -e "s/%\([0-9A-F][0-9A-F]\)/\\\\\x\1/g" | xargs -0 echo -e)
-   [ ! -z "${result}" ] && url="${result}"
+   [ -n "${result}" ] && url="${result}"
 else
     url="${W3M_URL}"
 fi
@@ -4184,6 +4185,10 @@ fi
 # mpd and taskspooler
 audio() {
       ts pinch -i "${url}" 1>/dev/null 
+}
+
+copy() {
+    printf "%s\n" "${url}" | xclip -i -selection clipboard 1>/dev/null
 }
 
 open_link() {
@@ -4203,7 +4208,7 @@ download() {
 
 # mpv fullscreen on second display and taskspooler
 fullscreen() {
-      ts mpv --fs "${url}" 1>/dev/null 
+      ts mpv --no-terminal --fs "${url}" 1>/dev/null 
 }
 
 # mpv and taskspooler
@@ -4213,16 +4218,18 @@ video() {
 
 # fzf prompt variables spaces to line up menu options
 audio_ts='audio      - mpd play audio'
-open_ts='open       - open link with your browser'
 download_ts='download   - youtube-dl download links'
+copy_ts='copy       - copy url'
+open_ts='open       - open link with your browser'
 fullscreen_ts='fullscreen - mpv play fullscreen on second display'
 video_ts='video      - mpv play video on current display'
 
 # fzf prompt to specify function to run on links from ytfzf
 menu=$(printf "%s\n" \
 	      "${audio_ts}" \
-	      "${open_ts}" \
+	      "${copy_ts}" \
 	      "${download_ts}" \
+	      "${open_ts}" \
 	      "${fullscreen_ts}" \
 	      "${video_ts}" \
 	      | fzf-tmux -d 15% --delimiter='\n' --prompt='Pipe links to: ' --info=inline --layout=reverse --no-multi)
@@ -4230,8 +4237,9 @@ menu=$(printf "%s\n" \
 # case statement to run function based on fzf prompt output
 case "${menu}" in
    audio*) audio;;
-   open*) open_link;;
+   copy*) copy;;
    download*) download;;
+   open*) open_link;;
    fullscreen*) fullscreen;;
    video*) video;;
    ,*) exit;;
@@ -4241,7 +4249,7 @@ esac
 ***** video-cgi
 
 #+NAME: video-cgi
-#+BEGIN_SRC conf
+#+BEGIN_SRC sh
 #!/bin/sh
 
 # video.cgi
@@ -4252,11 +4260,11 @@ url="${W3M_CURRENT_LINK}"
 # if the current link contains a url pipe it into grep,
 # remove the google redirect and decode the url
 # if the current link is empty set the url to the page url
-if [ ! -z "${url}" ]; then
+if [ -n "${url}" ]; then
    result=$(echo "${url}" | \
             grep -oP '(?<=google.com\/url\?q=)[^&]*(?=&)' \
             | sed -e "s/%\([0-9A-F][0-9A-F]\)/\\\\\x\1/g" | xargs -0 echo -e)
-   [ ! -z "${result}" ] && url="${result}"
+   [ -n "${result}" ] && url="${result}"
 else
     url="${W3M_URL}"
 fi
@@ -4278,7 +4286,7 @@ printf "%s\r\n" "W3m-control: BACK";
 ***** bbc-search
 
 #+NAME: bbc-search
-#+BEGIN_SRC conf
+#+BEGIN_SRC sh
 #!/bin/sh
 
 # bbc search
@@ -4318,22 +4326,13 @@ printf "\033c"
 ***** bbc-episodes
 
 #+NAME: bbc-episodes
-#+BEGIN_SRC conf
+#+BEGIN_SRC sh
 #!/bin/sh
 
 # bbc episodes
 
 # current link under cursor in w3m
 url="${W3M_CURRENT_LINK}"   
-
-# if the current link contains a url pipe it into grep,
-# remove the google redirect and decode the url
-#if the current link is empty set the url to the page url
-if [ ! -z "${url}" ]; then
-   url="${url}"
-else
-    url="${W3M_URL}"
-fi
 
 # css selector
 css='div.tleo-list'
@@ -4364,7 +4363,7 @@ printf "\033c"
 **** keymap
 
 #+NAME: w3m-keymap
-#+BEGIN_SRC conf
+#+BEGIN_SRC fundamental
 # surfraw prompt
 keymap xs COMMAND  "READ_SHELL ~/.w3m/cgi-bin/fzf_surfraw.cgi ; GOTO file:/cgi-bin/goto_clipboard_primary.cgi"
 
@@ -4387,14 +4386,14 @@ keymap .-, COMMAND "READ_SHELL ~/.w3m/cgi-bin/functions.cgi ; BACK ; GOTO file:/
 **** mailcap
 
 #+NAME: w3m-mailcap
-#+BEGIN_SRC conf
+#+BEGIN_SRC fundamental
 image/*; nsxiv %s
 #+END_SRC
 
 **** siteconf
 
 #+NAME: w3m-siteconf
-#+BEGIN_SRC conf
+#+BEGIN_SRC fundamental
 # google set user agent to lynx
 url m@^https?://(.*\.)google\.com/@
 user_agent "Lynx/2.9.0dev.5 libwww-FM/2.14 SSL-MM/1.4.1 GNUTLS/3.6.1"
@@ -4424,7 +4423,7 @@ substitute_url "file:/cgi-bin/bbc-episodes.cgi?"
 **** urimethodmap
 
 #+NAME: urimethodmap
-#+begin_src conf
+#+begin_src fundamental
 magnet: file:/cgi-bin/magnet.cgi?%s
 #+end_src
 
@@ -4434,14 +4433,14 @@ magnet: file:/cgi-bin/magnet.cgi?%s
 + home dir
 
 #+NAME: w3m-bookmark.html-home-dir
-#+BEGIN_SRC conf :noweb yes :tangle "~/.w3m/bookmark.html"
+#+BEGIN_SRC html :noweb yes :tangle "~/.w3m/bookmark.html"
 <<w3m-bookmark.html>>
 #+END_SRC
 
 + current dir
   
 #+NAME: w3m-bookmark.html-current-dir
-#+BEGIN_SRC conf :noweb yes :tangle ".w3m/bookmark.html"
+#+BEGIN_SRC html :noweb yes :tangle ".w3m/bookmark.html"
 <<w3m-bookmark.html>>
 #+END_SRC
 
@@ -4627,14 +4626,14 @@ magnet: file:/cgi-bin/magnet.cgi?%s
 + home dir
 
 #+NAME: w3m-keymap-home-dir
-#+BEGIN_SRC conf :noweb yes :tangle "~/.w3m/keymap"
+#+BEGIN_SRC fundamental :noweb yes :tangle "~/.w3m/keymap"
 <<w3m-keymap>>
 #+END_SRC
 
 + current dir
 
 #+NAME: w3m-keymap-current-dir
-#+BEGIN_SRC conf :noweb yes :tangle ".w3m/keymap"
+#+BEGIN_SRC fundamental :noweb yes :tangle ".w3m/keymap"
 <<w3m-keymap>>
 #+END_SRC
 
@@ -4643,14 +4642,14 @@ magnet: file:/cgi-bin/magnet.cgi?%s
 + home dir
 
 #+NAME: w3m-mailcap-home-dir
-#+BEGIN_SRC conf :noweb yes :tangle "~/.w3m/mailcap"
+#+BEGIN_SRC fundamental :noweb yes :tangle "~/.w3m/mailcap"
 <<w3m-mailcap>>
 #+END_SRC
 
 + current dir
 
 #+NAME: w3m-mailcap-current-dir
-#+BEGIN_SRC conf :noweb yes :tangle ".w3m/mailcap"
+#+BEGIN_SRC fundamental :noweb yes :tangle ".w3m/mailcap"
 <<w3m-mailcap>>
 #+END_SRC
 
@@ -4659,14 +4658,14 @@ magnet: file:/cgi-bin/magnet.cgi?%s
 + home dir
 
 #+NAME: w3m-siteconf-home-dir
-#+BEGIN_SRC conf :noweb yes :tangle "~/.w3m/siteconf"
+#+BEGIN_SRC fundamental :noweb yes :tangle "~/.w3m/siteconf"
 <<w3m-siteconf>>
 #+END_SRC
 
 + current dir
 
 #+NAME: w3m-siteconf-current-dir
-#+BEGIN_SRC conf :noweb yes :tangle ".w3m/siteconf"
+#+BEGIN_SRC fundamental :noweb yes :tangle ".w3m/siteconf"
 <<w3m-siteconf>>
 #+END_SRC
 
@@ -4675,14 +4674,14 @@ magnet: file:/cgi-bin/magnet.cgi?%s
 + home dir
 
 #+NAME: w3m-urimethodmap-home-dir
-#+BEGIN_SRC conf :noweb yes :tangle "~/.w3m/urimethodmap"
+#+BEGIN_SRC fundamental :noweb yes :tangle "~/.w3m/urimethodmap"
 <<urimethodmap>>
 #+END_SRC
 
 + current dir
 
 #+NAME: w3m-urimethodmap-current-dir
-#+BEGIN_SRC conf :noweb yes :tangle ".w3m/urimethodmap"
+#+BEGIN_SRC fundamental :noweb yes :tangle ".w3m/urimethodmap"
 <<urimethodmap>>
 #+END_SRC
 
@@ -4690,7 +4689,7 @@ magnet: file:/cgi-bin/magnet.cgi?%s
 *** urlscan config
 
 #+NAME: urlscan
-#+BEGIN_SRC conf
+#+BEGIN_SRC json
 {
     "palettes": {
         "default": [
@@ -4837,14 +4836,14 @@ magnet: file:/cgi-bin/magnet.cgi?%s
 + home dir
 
 #+NAME: urlscan-home-dir
-#+BEGIN_SRC conf :noweb yes :tangle "~/.config/urlscan/config.json"
+#+BEGIN_SRC json :noweb yes :tangle "~/.config/urlscan/config.json"
 <<urlscan>>
 #+END_SRC
 
 + current dir
 
 #+NAME: urlscan-current-dir
-#+BEGIN_SRC conf :noweb yes :tangle ".config/urlscan/config.json"
+#+BEGIN_SRC json :noweb yes :tangle ".config/urlscan/config.json"
 <<urlscan>>
 #+END_SRC
 
@@ -4864,7 +4863,7 @@ SURFRAW_graphical=yes
 **** 1337x
 
 #+NAME: 1337x
-#+begin_src conf
+#+begin_src sh
 #!/bin/sh
 # AUTHOR: gotbletu (@gmail|twitter|youtube|github|lbry)
 #
@@ -4896,7 +4895,7 @@ fi
 **** archive
 
 #+NAME: archive
-#+begin_src conf
+#+begin_src sh
 #!/bin/sh
 # AUTHOR: gotbletu (@gmail|twitter|youtube|github|lbry)
 #
@@ -4928,7 +4927,7 @@ fi
 **** btdig
 
 #+NAME: btdig
-#+BEGIN_SRC conf
+#+BEGIN_SRC sh
 #!/bin/sh
 # DESC: Elvi to search btdig
 # elvis: btdig		-- Search btdig (https://btdig.com)
@@ -4956,7 +4955,7 @@ fi
 **** dailymotion
 
 #+NAME: dailymotion
-#+BEGIN_SRC conf
+#+BEGIN_SRC sh
 #!/bin/sh
 # DESC: Elvi to search dailymotion
 # elvis: dailymotion     -- Search dailymotion (https://dailymotion.com)
@@ -4984,7 +4983,7 @@ fi
 **** ddg
 
 #+NAME: ddg
-#+BEGIN_SRC conf
+#+BEGIN_SRC sh
 #!/bin/sh
 # elvis: ddg             -- Securely search the web using duckduckgo (duckduckgo.com)
 # coder@kyleisom.net 20110105
@@ -5043,7 +5042,7 @@ w3_browse_url "${SURFRAW_duckduckgo_base_url}/?q=${escaped_args}${SURFRAW_duckdu
 **** eztv
 
 #+NAME: eztv
-#+BEGIN_SRC conf
+#+BEGIN_SRC sh
 #!/bin/sh
 # DESC: Elvi to search 1337x
 # elvis: eztv		-- Search eztv for torrents (eztv.re)
@@ -5071,7 +5070,7 @@ fi
 **** iplayer
 
 #+NAME: iplayer
-#+BEGIN_SRC conf
+#+BEGIN_SRC sh
 #!/bin/sh
 # DESC: Elvi to search Google Video
 # elvis: iplayer         -- Search bbc iplayer (https://bbc.co.uk/iplayer)
@@ -5099,7 +5098,7 @@ fi
 **** limetorrents
 
 #+NAME: limetorrents
-#+BEGIN_SRC conf
+#+BEGIN_SRC sh
 #!/bin/sh
 # AUTHOR: gotbletu (@gmail|twitter|youtube|github|lbry)
 #
@@ -5131,7 +5130,7 @@ fi
 **** rarbg
 
 #+NAME: rarbg
-#+begin_src conf
+#+begin_src sh
 #!/bin/sh
 # AUTHOR: gotbletu (@gmail|twitter|youtube|github|lbry)
 #
@@ -5163,7 +5162,7 @@ fi
 **** reddit
 
 #+NAME: reddit
-#+begin_src conf
+#+begin_src sh
 #!/bin/sh
 # AUTHOR: gotbletu (@gmail|twitter|youtube|github|lbry)
 #
@@ -5195,7 +5194,7 @@ fi
 **** stackexchange
 
 #+NAME: stackexchange
-#+begin_src conf
+#+begin_src sh
 #!/bin/sh
 # AUTHOR: gotbletu (@gmail|twitter|youtube|github|lbry)
 #
@@ -5227,7 +5226,7 @@ fi
 **** sunxdcc
 
 #+NAME: sunxdcc
-#+begin_src conf
+#+begin_src sh
 #!/bin/sh
 # AUTHOR: gotbletu (@gmail|twitter|youtube|github|lbry)
 #
@@ -5259,7 +5258,7 @@ fi
 **** thepacket
 
 #+NAME: thepacket
-#+begin_src conf
+#+begin_src sh
 #!/bin/sh
 # DESC: Elvi to search thepacket for irc xdcc files
 # elvis: thepacket     		-- Search thepacket for irc xdcc files (https://thepacket.info/)
@@ -5287,7 +5286,7 @@ fi
 **** torrentdownloads
 
 #+NAME: torrentdownloads
-#+begin_src conf
+#+begin_src sh
 #!/bin/sh
 # AUTHOR: gotbletu (@gmail|twitter|youtube|github|lbry)
 #
@@ -5319,7 +5318,7 @@ fi
 **** torrentgalaxy
 
 #+NAME: torrentgalaxy
-#+begin_src conf
+#+begin_src sh
 #!/bin/sh
 # AUTHOR: gotbletu (@gmail|twitter|youtube|github|lbry)
 #
@@ -5351,7 +5350,7 @@ fi
 **** video
 
 #+NAME: video
-#+BEGIN_SRC conf
+#+BEGIN_SRC sh
 #!/bin/sh
 # DESC: Elvi to search Google Video
 # elvis: video		-- Search Google Video (https://www.google.com)
@@ -5379,7 +5378,7 @@ fi
 **** vimeo
 
 #+NAME: vimeo
-#+BEGIN_SRC conf
+#+BEGIN_SRC sh
 #!/bin/sh
 # DESC: Elvi to search vimeo
 # elvis: vimeo		-- Search vimeo (https://vimeo.com)
@@ -5407,7 +5406,7 @@ fi
 **** xdcceu
 
 #+NAME: xdcceu
-#+begin_src conf
+#+begin_src sh
 #!/bin/sh
 # AUTHOR: gotbletu (@gmail|twitter|youtube|github|lbry)
 #
@@ -5459,14 +5458,14 @@ fi
 + home dir
 
 #+NAME: surfraw-1337x-home-dir
-#+BEGIN_SRC conf :noweb yes :tangle "~/.config/surfraw/elvi/1337x" :tangle-mode (identity #o755)
+#+BEGIN_SRC sh :noweb yes :tangle "~/.config/surfraw/elvi/1337x" :tangle-mode (identity #o755)
 <<1337x>>
 #+END_SRC
 
 + current dir
 
 #+NAME: surfraw-1337x-home-dir
-#+BEGIN_SRC conf :noweb yes :tangle ".config/surfraw/elvi/1337x" :tangle-mode (identity #o755)
+#+BEGIN_SRC sh :noweb yes :tangle ".config/surfraw/elvi/1337x" :tangle-mode (identity #o755)
 <<1337x>>
 #+END_SRC
 
@@ -5475,14 +5474,14 @@ fi
 + home dir
 
 #+NAME: surfraw-archive-home-dir
-#+BEGIN_SRC conf :noweb yes :tangle "~/.config/surfraw/elvi/archive" :tangle-mode (identity #o755)
+#+BEGIN_SRC sh :noweb yes :tangle "~/.config/surfraw/elvi/archive" :tangle-mode (identity #o755)
 <<archive>>
 #+END_SRC
 
 + current dir
 
 #+NAME: surfraw-archive-home-dir
-#+BEGIN_SRC conf :noweb yes :tangle ".config/surfraw/elvi/archive" :tangle-mode (identity #o755)
+#+BEGIN_SRC sh :noweb yes :tangle ".config/surfraw/elvi/archive" :tangle-mode (identity #o755)
 <<archive>>
 #+END_SRC
 
@@ -5491,14 +5490,14 @@ fi
 + home dir
 
 #+NAME: surfraw-btdig-home-dir
-#+BEGIN_SRC conf :noweb yes :tangle "~/.config/surfraw/elvi/btdig" :tangle-mode (identity #o755)
+#+BEGIN_SRC sh :noweb yes :tangle "~/.config/surfraw/elvi/btdig" :tangle-mode (identity #o755)
 <<btdig>>
 #+END_SRC
 
 + current dir
 
 #+NAME: surfraw-btdig-home-dir
-#+BEGIN_SRC conf :noweb yes :tangle ".config/surfraw/elvi/btdig" :tangle-mode (identity #o755)
+#+BEGIN_SRC sh :noweb yes :tangle ".config/surfraw/elvi/btdig" :tangle-mode (identity #o755)
 <<btdig>>
 #+END_SRC
 
@@ -5507,14 +5506,14 @@ fi
 + home dir
 
 #+NAME: surfraw-dailymotion-home-dir
-#+BEGIN_SRC conf :noweb yes :tangle "~/.config/surfraw/elvi/dailymotion" :tangle-mode (identity #o755)
+#+BEGIN_SRC sh :noweb yes :tangle "~/.config/surfraw/elvi/dailymotion" :tangle-mode (identity #o755)
 <<dailymotion>>
 #+END_SRC
 
 + current dir
 
 #+NAME: surfraw-dailymotion-home-dir
-#+BEGIN_SRC conf :noweb yes :tangle ".config/surfraw/elvi/dailymotion" :tangle-mode (identity #o755)
+#+BEGIN_SRC sh :noweb yes :tangle ".config/surfraw/elvi/dailymotion" :tangle-mode (identity #o755)
 <<dailymotion>>
 #+END_SRC
 
@@ -5523,14 +5522,14 @@ fi
 + home dir
 
 #+NAME: surfraw-ddg-home-dir
-#+BEGIN_SRC conf :noweb yes :tangle "~/.config/surfraw/elvi/ddg" :tangle-mode (identity #o755)
+#+BEGIN_SRC sh :noweb yes :tangle "~/.config/surfraw/elvi/ddg" :tangle-mode (identity #o755)
 <<ddg>>
 #+END_SRC
 
 + current dir
 
 #+NAME: surfraw-ddg-home-dir
-#+BEGIN_SRC conf :noweb yes :tangle ".config/surfraw/elvi/ddg" :tangle-mode (identity #o755)
+#+BEGIN_SRC sh :noweb yes :tangle ".config/surfraw/elvi/ddg" :tangle-mode (identity #o755)
 <<ddg>>
 #+END_SRC
 
@@ -5539,14 +5538,14 @@ fi
 + home dir
 
 #+NAME: surfraw-eztv-home-dir
-#+BEGIN_SRC conf :noweb yes :tangle "~/.config/surfraw/elvi/eztv" :tangle-mode (identity #o755)
+#+BEGIN_SRC sh :noweb yes :tangle "~/.config/surfraw/elvi/eztv" :tangle-mode (identity #o755)
 <<eztv>>
 #+END_SRC
 
 + current dir
 
 #+NAME: surfraw-eztv-home-dir
-#+BEGIN_SRC conf :noweb yes :tangle ".config/surfraw/elvi/eztv" :tangle-mode (identity #o755)
+#+BEGIN_SRC sh :noweb yes :tangle ".config/surfraw/elvi/eztv" :tangle-mode (identity #o755)
 <<eztv>>
 #+END_SRC
 
@@ -5555,14 +5554,14 @@ fi
 + home dir
 
 #+NAME: surfraw-iplayer-home-dir
-#+BEGIN_SRC conf :noweb yes :tangle "~/.config/surfraw/elvi/iplayer" :tangle-mode (identity #o755)
+#+BEGIN_SRC sh :noweb yes :tangle "~/.config/surfraw/elvi/iplayer" :tangle-mode (identity #o755)
 <<iplayer>>
 #+END_SRC
 
 + current dir
 
 #+NAME: surfraw-iplayer-home-dir
-#+BEGIN_SRC conf :noweb yes :tangle ".config/surfraw/elvi/iplayer" :tangle-mode (identity #o755)
+#+BEGIN_SRC sh :noweb yes :tangle ".config/surfraw/elvi/iplayer" :tangle-mode (identity #o755)
 <<iplayer>>
 #+END_SRC
 
@@ -5571,14 +5570,14 @@ fi
 + home dir
 
 #+NAME: surfraw-limetorrents-home-dir
-#+BEGIN_SRC conf :noweb yes :tangle "~/.config/surfraw/elvi/limetorrents" :tangle-mode (identity #o755)
+#+BEGIN_SRC sh :noweb yes :tangle "~/.config/surfraw/elvi/limetorrents" :tangle-mode (identity #o755)
 <<limetorrents>>
 #+END_SRC
 
 + current dir
 
 #+NAME: surfraw-limetorrents-home-dir
-#+BEGIN_SRC conf :noweb yes :tangle ".config/surfraw/elvi/limetorrents" :tangle-mode (identity #o755)
+#+BEGIN_SRC sh :noweb yes :tangle ".config/surfraw/elvi/limetorrents" :tangle-mode (identity #o755)
 <<limetorrents>>
 #+END_SRC
 
@@ -5587,14 +5586,14 @@ fi
 + home dir
 
 #+NAME: surfraw-rarbg-home-dir
-#+BEGIN_SRC conf :noweb yes :tangle "~/.config/surfraw/elvi/rarbg" :tangle-mode (identity #o755)
+#+BEGIN_SRC sh :noweb yes :tangle "~/.config/surfraw/elvi/rarbg" :tangle-mode (identity #o755)
 <<rarbg>>
 #+END_SRC
 
 + current dir
 
 #+NAME: surfraw-rarbg-home-dir
-#+BEGIN_SRC conf :noweb yes :tangle ".config/surfraw/elvi/rarbg" :tangle-mode (identity #o755)
+#+BEGIN_SRC sh :noweb yes :tangle ".config/surfraw/elvi/rarbg" :tangle-mode (identity #o755)
 <<rarbg>>
 #+END_SRC
 
@@ -5603,14 +5602,14 @@ fi
 + home dir
 
 #+NAME: surfraw-reddit-home-dir
-#+BEGIN_SRC conf :noweb yes :tangle "~/.config/surfraw/elvi/reddit" :tangle-mode (identity #o755)
+#+BEGIN_SRC sh :noweb yes :tangle "~/.config/surfraw/elvi/reddit" :tangle-mode (identity #o755)
 <<reddit>>
 #+END_SRC
 
 + current dir
 
 #+NAME: surfraw-reddit-home-dir
-#+BEGIN_SRC conf :noweb yes :tangle ".config/surfraw/elvi/reddit" :tangle-mode (identity #o755)
+#+BEGIN_SRC sh :noweb yes :tangle ".config/surfraw/elvi/reddit" :tangle-mode (identity #o755)
 <<reddit>>
 #+END_SRC
 
@@ -5619,14 +5618,14 @@ fi
 + home dir
 
 #+NAME: surfraw-stackexchange-home-dir
-#+BEGIN_SRC conf :noweb yes :tangle "~/.config/surfraw/elvi/stackexchange" :tangle-mode (identity #o755)
+#+BEGIN_SRC sh :noweb yes :tangle "~/.config/surfraw/elvi/stackexchange" :tangle-mode (identity #o755)
 <<stackexchange>>
 #+END_SRC
 
 + current dir
 
 #+NAME: surfraw-stackexchange-home-dir
-#+BEGIN_SRC conf :noweb yes :tangle ".config/surfraw/elvi/stackexchange" :tangle-mode (identity #o755)
+#+BEGIN_SRC sh :noweb yes :tangle ".config/surfraw/elvi/stackexchange" :tangle-mode (identity #o755)
 <<stackexchange>>
 #+END_SRC
 
@@ -5635,14 +5634,14 @@ fi
 + home dir
 
 #+NAME: surfraw-sunxdcc-home-dir
-#+BEGIN_SRC conf :noweb yes :tangle "~/.config/surfraw/elvi/sunxdcc" :tangle-mode (identity #o755)
+#+BEGIN_SRC sh :noweb yes :tangle "~/.config/surfraw/elvi/sunxdcc" :tangle-mode (identity #o755)
 <<sunxdcc>>
 #+END_SRC
 
 + current dir
 
 #+NAME: surfraw-sunxdcc-home-dir
-#+BEGIN_SRC conf :noweb yes :tangle ".config/surfraw/elvi/sunxdcc" :tangle-mode (identity #o755)
+#+BEGIN_SRC sh :noweb yes :tangle ".config/surfraw/elvi/sunxdcc" :tangle-mode (identity #o755)
 <<sunxdcc>>
 #+END_SRC
 
@@ -5651,14 +5650,14 @@ fi
 + home dir
 
 #+NAME: surfraw-thepacket-home-dir
-#+BEGIN_SRC conf :noweb yes :tangle "~/.config/surfraw/elvi/thepacket" :tangle-mode (identity #o755)
+#+BEGIN_SRC sh :noweb yes :tangle "~/.config/surfraw/elvi/thepacket" :tangle-mode (identity #o755)
 <<thepacket>>
 #+END_SRC
 
 + current dir
 
 #+NAME: surfraw-thepacket-home-dir
-#+BEGIN_SRC conf :noweb yes :tangle ".config/surfraw/elvi/thepacket" :tangle-mode (identity #o755)
+#+BEGIN_SRC sh :noweb yes :tangle ".config/surfraw/elvi/thepacket" :tangle-mode (identity #o755)
 <<thepacket>>
 #+END_SRC
 
@@ -5667,14 +5666,14 @@ fi
 + home dir
 
 #+NAME: surfraw-torrentdownloads-home-dir
-#+BEGIN_SRC conf :noweb yes :tangle "~/.config/surfraw/elvi/torrentdownloads" :tangle-mode (identity #o755)
+#+BEGIN_SRC sh :noweb yes :tangle "~/.config/surfraw/elvi/torrentdownloads" :tangle-mode (identity #o755)
 <<torrentdownloads>>
 #+END_SRC
 
 + current dir
 
 #+NAME: surfraw-torrentdownloads-home-dir
-#+BEGIN_SRC conf :noweb yes :tangle ".config/surfraw/elvi/torrentdownloads" :tangle-mode (identity #o755)
+#+BEGIN_SRC sh :noweb yes :tangle ".config/surfraw/elvi/torrentdownloads" :tangle-mode (identity #o755)
 <<torrentdownloads>>
 #+END_SRC
 
@@ -5683,14 +5682,14 @@ fi
 + home dir
 
 #+NAME: surfraw-torrentgalaxy-home-dir
-#+BEGIN_SRC conf :noweb yes :tangle "~/.config/surfraw/elvi/torrentgalaxy" :tangle-mode (identity #o755)
+#+BEGIN_SRC sh :noweb yes :tangle "~/.config/surfraw/elvi/torrentgalaxy" :tangle-mode (identity #o755)
 <<torrentgalaxy>>
 #+END_SRC
 
 + current dir
 
 #+NAME: surfraw-torrentgalaxy-home-dir
-#+BEGIN_SRC conf :noweb yes :tangle ".config/surfraw/elvi/torrentgalaxy" :tangle-mode (identity #o755)
+#+BEGIN_SRC sh :noweb yes :tangle ".config/surfraw/elvi/torrentgalaxy" :tangle-mode (identity #o755)
 <<torrentgalaxy>>
 #+END_SRC
 
@@ -5699,14 +5698,14 @@ fi
 + home dir
 
 #+NAME: surfraw-video-home-dir
-#+BEGIN_SRC conf :noweb yes :tangle "~/.config/surfraw/elvi/video" :tangle-mode (identity #o755)
+#+BEGIN_SRC sh :noweb yes :tangle "~/.config/surfraw/elvi/video" :tangle-mode (identity #o755)
 <<video>>
 #+END_SRC
 
 + current dir
 
 #+NAME: surfraw-video-home-dir
-#+BEGIN_SRC conf :noweb yes :tangle ".config/surfraw/elvi/video" :tangle-mode (identity #o755)
+#+BEGIN_SRC sh :noweb yes :tangle ".config/surfraw/elvi/video" :tangle-mode (identity #o755)
 <<video>>
 #+END_SRC
 
@@ -5715,14 +5714,14 @@ fi
 + home dir
 
 #+NAME: surfraw-vimeo-home-dir
-#+BEGIN_SRC conf :noweb yes :tangle "~/.config/surfraw/elvi/vimeo" :tangle-mode (identity #o755)
+#+BEGIN_SRC sh :noweb yes :tangle "~/.config/surfraw/elvi/vimeo" :tangle-mode (identity #o755)
 <<vimeo>>
 #+END_SRC
 
 + current dir
 
 #+NAME: surfraw-vimeo-home-dir
-#+BEGIN_SRC conf :noweb yes :tangle ".config/surfraw/elvi/vimeo" :tangle-mode (identity #o755)
+#+BEGIN_SRC sh :noweb yes :tangle ".config/surfraw/elvi/vimeo" :tangle-mode (identity #o755)
 <<vimeo>>
 #+END_SRC
 
@@ -5731,14 +5730,14 @@ fi
 + home dir
 
 #+NAME: surfraw-xdcceu-home-dir
-#+BEGIN_SRC conf :noweb yes :tangle "~/.config/surfraw/elvi/xdcceu" :tangle-mode (identity #o755)
+#+BEGIN_SRC sh :noweb yes :tangle "~/.config/surfraw/elvi/xdcceu" :tangle-mode (identity #o755)
 <<xdcceu>>
 #+END_SRC
 
 + current dir
 
 #+NAME: surfraw-xdcceu-home-dir
-#+BEGIN_SRC conf :noweb yes :tangle ".config/surfraw/elvi/xdcceu" :tangle-mode (identity #o755)
+#+BEGIN_SRC sh :noweb yes :tangle ".config/surfraw/elvi/xdcceu" :tangle-mode (identity #o755)
 <<xdcceu>>
 #+END_SRC
 
