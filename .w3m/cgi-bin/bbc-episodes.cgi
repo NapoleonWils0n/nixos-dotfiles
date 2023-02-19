@@ -5,15 +5,6 @@
 # current link under cursor in w3m
 url="${W3M_CURRENT_LINK}"   
 
-# if the current link contains a url pipe it into grep,
-# remove the google redirect and decode the url
-#if the current link is empty set the url to the page url
-if [ ! -z "${url}" ]; then
-   url="${url}"
-else
-    url="${W3M_URL}"
-fi
-
 # css selector
 css='div.tleo-list'
 

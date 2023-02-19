@@ -1,4 +1,4 @@
-#!/usr/bin/env sh
+#!/bin/sh
 # AUTHOR: gotbletu (@gmail|twitter|youtube|github|lbry)
 #         https://www.youtube.com/user/gotbletu
 # DESC:   paste and go feature for w3m web browser using primary clipboard (aka shift+insert)
