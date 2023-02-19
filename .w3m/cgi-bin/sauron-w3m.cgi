@@ -43,6 +43,17 @@ fullscreen() {
       ts mpv --no-terminal --fs "${url}" 1>/dev/null 
 }
 
+# download with yt-dlp with sponsorblock to remove sponsor
+sponsorblock_download() {
+      ts \
+      yt-dlp \
+      --no-playlist \
+      --sponsorblock-remove all \
+      -f 'bestvideo[height<=1080][vcodec!=?vp9]+bestaudio[acodec!=?opus]' \
+      -o "$HOME/Downloads/%(title)s.%(ext)s" \
+      "${url}" 1>/dev/null
+}
+
 # mpv and taskspooler
 video() {
       ts mpv --no-terminal "${url}" 1>/dev/null
@@ -54,17 +65,19 @@ download_ts='download   - youtube-dl download links'
 copy_ts='copy       - copy url'
 open_ts='open       - open link with your browser'
 fullscreen_ts='fullscreen - mpv play fullscreen on second display'
+sponsorblock_ts='sponsorblock - sponsorblock yt-dlp'
 video_ts='video      - mpv play video on current display'
 
 # fzf prompt to specify function to run on links from ytfzf
 menu=$(printf "%s\n" \
-	      "${audio_ts}" \
-	      "${copy_ts}" \
-	      "${download_ts}" \
-	      "${open_ts}" \
-	      "${fullscreen_ts}" \
 	      "${video_ts}" \
-	      | fzf-tmux -d 15% --delimiter='\n' --prompt='Pipe links to: ' --info=inline --layout=reverse --no-multi)
+	      "${fullscreen_ts}" \
+	      "${download_ts}" \
+	      "${copy_ts}" \
+	      "${open_ts}" \
+	      "${audio_ts}" \
+	      "${sponsorblock_ts}" \
+	      | fzf-tmux -d 20% --delimiter='\n' --prompt='Pipe links to: ' --info=inline --layout=reverse --no-multi)
 
 # case statement to run function based on fzf prompt output
 case "${menu}" in
@@ -73,6 +86,7 @@ case "${menu}" in
    download*) download;;
    open*) open_link;;
    fullscreen*) fullscreen;;
+   sponsor*)sponsorblock_download ;;
    video*) video;;
    *) exit;;
 esac
