@@ -141,11 +141,14 @@ in {
     alacritty
     apg
     aria
+    aspell
+    aspellDicts.en
     bat
     bc
     bento4
     curl
     csvkit
+    dict
     gnome.dconf-editor
     gnome.gnome-tweaks
     exiftool
