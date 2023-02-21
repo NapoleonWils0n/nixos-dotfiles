@@ -1568,13 +1568,7 @@ with lib.hm.gvariant;
 ;;; This format is meant to be slightly human-readable;
 ;;; nevertheless, you probably don't want to edit it.
 ;;; -*- End Of Bookmark File Format Version Stamp -*-
-(("dotfiles"
- (filename . "~/git/nixos/nixos-dotfiles/nixos-dotfiles.org")
- (front-context-string . "* nixos dotfiles")
- (rear-context-string . "rc\n\n#+RESULTS:\n\n")
- (position . 385)
- (last-modified 25545 15873 954235 994000))
-("org-refile-last-stored"
+(("org-refile-last-stored"
  (filename . "~/git/personal/org/web.org")
  (front-context-string . "** [[https://its")
  (rear-context-string . "lview\" program.\n")
