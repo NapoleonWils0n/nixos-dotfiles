@@ -192,6 +192,7 @@ in {
     tcpdump
     tmux
     traceroute
+    translate-shell
     transmission
     ts
     unzip
