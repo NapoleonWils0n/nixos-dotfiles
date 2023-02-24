@@ -2,7 +2,13 @@
 ;;; This format is meant to be slightly human-readable;
 ;;; nevertheless, you probably don't want to edit it.
 ;;; -*- End Of Bookmark File Format Version Stamp -*-
-(("org-refile-last-stored"
+(("dotfiles"
+ (filename . "~/git/nixos/nixos-dotfiles/nixos-dotfiles.org")
+ (front-context-string . "* nixos dotfiles")
+ (rear-context-string . "g\")'\n#+end_src\n\n")
+ (position . 373)
+ (last-modified 25593 18293 191372 213000))
+("org-refile-last-stored"
  (filename . "~/git/personal/org/web.org")
  (front-context-string . "** [[https://its")
  (rear-context-string . "lview\" program.\n")

@@ -33,6 +33,7 @@ in {
           flycheck
           git-commit
           git-auto-commit-mode
+          google-translate
           hydra
           iedit
           magit
