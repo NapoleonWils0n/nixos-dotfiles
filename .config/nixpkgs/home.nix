@@ -149,6 +149,7 @@ in {
     bento4
     curl
     csvkit
+    davinci-resolve
     dict
     gnome.dconf-editor
     gnome.gnome-tweaks
