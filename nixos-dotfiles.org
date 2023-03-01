@@ -3857,12 +3857,11 @@ meta2-D = "/cursor move left"
 <body>
 <h1>Bookmarks</h1>
 <ul>
-<li><a href="https://duckduckgo.com/">DuckDuckgo</a></li>
-<li><a href="https://google.com/">Google</a></li>
-<li><a href="https://www.bbc.co.uk/iplayer">BBC iPlayer</a>
-<li><a href="https://www.itv.com">ITV Player</a>
-<li><a href="https://ixirc.com/">ixirc</a></li>
-<li><a href="http://www.xdcc.eu/">xdcc</a></li>
+<li><a href="https://archive.org/download/t.-j.-hooker-s-01">tj hooker series 1</a></li>
+<li><a href="https://archive.org/download/t.-j.-hooker-s-02">tj hooker series 2</a></li>
+<li><a href="https://archive.org/download/t.-j.-hooker-s-03">tj hooker series 3</a></li>
+<li><a href="https://archive.org/download/t.-j.-hooker-s-04">tj hooker series 4</a></li>
+<li><a href="https://archive.org/download/t.-j.-hooker-s-05">tj hooker series 5</a></li>
 </ul>
 <!--End of section (do not delete this comment)-->
 </ul>
@@ -4034,6 +4033,36 @@ simple_preserve_space 0
 #+END_SRC
 
 **** cgi-bin
+***** archive.org
+
+#+NAME: archive
+#+BEGIN_SRC sh
+#!/bin/sh
+
+# archive.org downloads page
+
+# current link under cursor in w3m
+url="${W3M_CURRENT_LINK}"   
+
+# css selector
+css='div.download-directory-listing'
+
+# output
+wget_output='/tmp/wget-w3m.html'
+output='/tmp/archive.html'
+
+# wget download page and convert links to absolute url
+wget -k "${url}" -O "${wget_output}" 2> /dev/null
+
+# hxnormalize the page
+hxnormalize -x "${wget_output}" | hxselect -s '\n' -c "${css}" > "${output}"
+
+# W3m-control
+printf "%s\r\n" "W3m-control: GOTO ${output}";
+# delete previous buffer
+printf "%s\r\n" "W3m-control: DELETE_PREVBUF";
+#+END_SRC
+
 ***** functions-w3m
 
 #+NAME: functions-w3m
@@ -4517,6 +4546,22 @@ magnet: file:/cgi-bin/magnet.cgi?%s
 #+END_SRC
 
 **** cgi-bin
+***** archive.org
+
++ home dir
+
+#+NAME: archive-home-dir 
+#+BEGIN_SRC sh :noweb yes :tangle "~/.w3m/cgi-bin/archive.cgi" :tangle-mode (identity #o755)
+<<archive>>
+#+END_SRC
+
++ current dir
+
+#+NAME: archive-current-dir
+#+BEGIN_SRC sh :noweb yes :tangle ".w3m/cgi-bin/archive.cgi" :tangle-mode (identity #o755)
+<<archive>>
+#+END_SRC
+
 ***** functions-w3m
 
 + home dir
