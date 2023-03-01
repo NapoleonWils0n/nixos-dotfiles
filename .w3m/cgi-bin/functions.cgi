@@ -9,19 +9,19 @@ browser='xdg-open'
 
 # default function
 default() {
-echo "${selection}" | xsel -ipsb
+echo "${selection}" | xclip -i -selection primary 1>/dev/null
 }
 
 # open current page with external browser
 extern() {
 EXTERN="EXTERN ${browser}"
-echo "${EXTERN}" | xsel -ipsb
+echo "${EXTERN}" | xclip -i -selection primary 1>/dev/null
 }
 
 # open link with external browser
 extern_link() {
 EXTERN="EXTERN_LINK ${browser}"
-echo "${EXTERN_LINK}" | xsel -ipsb
+echo "${EXTERN_LINK}" | xclip -i -selection primary 1>/dev/null
 }
 
 # quit w3m and w3mimgdisplay with pkill -15
