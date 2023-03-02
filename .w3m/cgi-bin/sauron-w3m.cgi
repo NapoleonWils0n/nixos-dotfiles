@@ -40,7 +40,7 @@ download() {
 
 # mpv fullscreen on second display and taskspooler
 fullscreen() {
-      ts mpv --no-terminal --fs "${url}" 1>/dev/null 
+      ts mpv --no-terminal --fs --fs-screen=1 "${url}" 1>/dev/null 
 }
 
 # download with yt-dlp with sponsorblock to remove sponsor
