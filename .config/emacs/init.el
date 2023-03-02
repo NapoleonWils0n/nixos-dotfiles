@@ -205,7 +205,7 @@
               '("mpg" "mpeg" "mp3" "mp4" "m4v"
                 "avi" "wmv" "wav" "mov" "flv"
                 "ogm" "ogg" "mkv" "webm"))
-             "mpv"
+             "mpv --fs --fs-screen=1"
              '(file))
        (list (openwith-make-extension-regexp
               '("pdf"))
