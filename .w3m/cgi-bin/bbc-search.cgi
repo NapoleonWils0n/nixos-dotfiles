@@ -37,6 +37,3 @@ bbc_search
 printf "%s\r\n" "W3m-control: GOTO ${output}";
 # delete previous buffer
 printf "%s\r\n" "W3m-control: DELETE_PREVBUF";
-
-# clear screen
-printf "\033c"
