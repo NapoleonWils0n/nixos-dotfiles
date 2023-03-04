@@ -15,4 +15,4 @@ if [ "${prefix}" = "" ]; then exit; fi
 input=$(echo | fzf --print-query --prompt="${prefix}: " --info=inline --layout=reverse)
 
 # dont quote the input variable and copy the url to primary clipboard
-surfraw -p "${prefix}" "${input}" | xsel -p
+surfraw -p "${prefix}" "${input}" | xclip -i 1>/dev/null
