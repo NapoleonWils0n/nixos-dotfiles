@@ -31,7 +31,7 @@ copy() {
 }
 
 # open link in browser
-open_link() {
+open() {
       xdg-open "${url}"
 }
 
