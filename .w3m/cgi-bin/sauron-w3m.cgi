@@ -119,7 +119,7 @@ menu=$(printf "%s\n" \
 	      "${audio_ts}" \
 	      "${sponsorblock_ts}" \
 	      "${streamlink_ts}" \
-	      | fzf -d 30% --delimiter='\n' --prompt='Pipe links to: ' --info=inline --layout=reverse --no-multi)
+	      | fzf-tmux -d 30% --delimiter='\n' --prompt='Pipe links to: ' --info=inline --layout=reverse --no-multi)
 
 case "${menu}" in
    audio*) audio;;
