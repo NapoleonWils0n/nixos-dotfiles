@@ -49,6 +49,7 @@ in {
           shrink-path
           undo-tree
           vertico
+          websocket
           wgrep
           which-key
           yaml-mode
