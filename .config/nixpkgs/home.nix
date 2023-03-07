@@ -147,7 +147,7 @@ in {
     bat
     bc
     bento4
-    curl
+    curlFull
     csvkit
     davinci-resolve
     dict
