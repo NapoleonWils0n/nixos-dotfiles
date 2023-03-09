@@ -25,6 +25,10 @@ video() {
       ts mpv --no-terminal "${url}" 1>/dev/null
 }
 
+dash () {
+      dash-ffmpeg -i "${url}"
+}
+
 # copy url to the clipboard
 copy() {
     printf "%s\n" "${url}" | xclip -i -selection clipboard 1>/dev/null
@@ -98,6 +102,7 @@ streamlink() {
 # fzf prompt variables spaces to line up menu options
 audio_ts='audio        - mpd play audio'
 copy='copy         - copy url'
+dash='dash         - combine dash streams and pipe into mpv'
 ytdlp_ts='yt-dlp       - yt-dlp download links'
 aria2c_ts='aria2c       - aria2c download links'
 ffmpeg_ts='ffmpeg       - ffmpeg download links'
@@ -111,6 +116,7 @@ streamlink_ts='streamlink   - streamlink'
 menu=$(printf "%s\n" \
 	      "${fullscreen_ts}" \
 	      "${video_ts}" \
+	      "${dash}" \
 	      "${ytdlp_ts}" \
 	      "${aria2c_ts}" \
 	      "${ffmpeg_ts}" \
@@ -125,6 +131,7 @@ case "${menu}" in
    audio*) audio;;
    aria2c*) aria2c;;
    copy*) copy;;
+   dash*) dash;;
    open*) open;;
    sponsor*)sponsorblock_download ;;
    ffmpeg*) ffmpeg;;
