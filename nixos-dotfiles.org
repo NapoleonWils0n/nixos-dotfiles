@@ -1479,6 +1479,13 @@ with lib.hm.gvariant;
 (add-hook 'ednc-view-mode-hook 'noevil)
 
 
+;; ----------------------------------------------------------------------------------
+;; man pages
+;; ----------------------------------------------------------------------------------
+
+;; bully -- make the manpage the current buffer and only window 
+(setq Man-notify-method 'bully)
+
 
 ;; ----------------------------------------------------------------------------------
 ;; garbage collection
