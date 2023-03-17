@@ -4416,6 +4416,10 @@ streamlink() {
       ts streamlink -o "${HOME}/Downloads/{title}-{time}.mkv" "${url}" 1080p,720p 1>/dev/null
 }
 
+transmission () {
+    transmission-remote --add "${url}"
+}
+
 # fzf prompt variables spaces to line up menu options
 audio_ts='audio        - mpd play audio'
 copy='copy         - copy url'
@@ -4428,6 +4432,7 @@ sponsorblock_ts='sponsorblock - sponsorblock yt-dlp'
 fullscreen_ts='fullscreen   - mpv play fullscreen on second display'
 video_ts='video        - mpv play video on current display'
 streamlink_ts='streamlink   - streamlink'
+transmission_remote='transmission - add torrent or magnet link'
 
 # fzf prompt to specify function to run on links from ytfzf
 menu=$(printf "%s\n" \
@@ -4440,9 +4445,10 @@ menu=$(printf "%s\n" \
 	      "${copy}" \
 	      "${open}" \
 	      "${audio_ts}" \
+	      "${transmission_remote}" \
 	      "${sponsorblock_ts}" \
 	      "${streamlink_ts}" \
-	      | fzf-tmux -d 30% --delimiter='\n' --prompt='Pipe links to: ' --info=inline --layout=reverse --no-multi)
+	      | fzf-tmux -d 32% --delimiter='\n' --prompt='Pipe links to: ' --info=inline --layout=reverse --no-multi)
 
 case "${menu}" in
    audio*) audio;;
@@ -4454,6 +4460,7 @@ case "${menu}" in
    ffmpeg*) ffmpeg;;
    fullscreen*) fullscreen;;
    streamlink*) streamlink;;
+   transmission*) transmission;;
    video*) video;;
    yt-dlp*) ytdlp;;
    ,*) exit;;
