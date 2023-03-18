@@ -209,7 +209,7 @@
              '(file))
        (list (openwith-make-extension-regexp
               '("pdf"))
-             "zathura"
+             "evince"
              '(file))))
 
 (openwith-mode 1)
