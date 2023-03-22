@@ -163,6 +163,7 @@ in {
     git
     gnumake
     html-xml-utils
+    handbrake
     imagemagick
     jq
     lynx
