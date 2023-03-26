@@ -858,7 +858,9 @@ VID-URL gets used later for browsing video at specific timestamp."
       (setq-local video-url vid-url)
       (youtube-sub-extractor-subtitles-mode +1)
       (read-only-mode +1))
-    (switch-to-buffer-other-window buf)
+      ;; (switch-to-buffer-other-window buf)
+      ;; open buffer fullsize in the same buffer
+      (pop-to-buffer-same-window buf)
     (unless (or (eq youtube-sub-extractor-timestamps 'left-side-text)
                 (null youtube-sub-extractor-timestamps))
       (set-window-margins
