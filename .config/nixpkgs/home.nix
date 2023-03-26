@@ -52,6 +52,7 @@ in {
           wgrep
           which-key
           yaml-mode
+          youtube-sub-extractor
         ];
       };
       gpg = {
