@@ -1489,6 +1489,65 @@ with lib.hm.gvariant;
 
 
 ;; ----------------------------------------------------------------------------------
+;; youtube-sub-extractor.el
+;; ----------------------------------------------------------------------------------
+
+(require 'youtube-sub-extractor)
+
+;; display timestamps on the left so we can use them with mpv.el
+(setq youtube-sub-extractor-timestamps 'left-side-text)
+
+;; show the full timestamp for mpv
+(defun youtube-sub-extractor--create-subs-buffer (subs-file vid-url)
+  "Read SUBS-FILE and insert the content in a buffer.
+VID-URL gets used later for browsing video at specific timestamp."
+  (let* ((raw (with-temp-buffer
+                (insert-file-contents subs-file)
+                (buffer-string)))
+         (subs-lst (youtube-sub-extractor--process-subs raw))
+         (buf (generate-new-buffer (file-name-base subs-file)))
+         ;; if the vid shorter than hour, no need to show hours - timestamps would be s:ms
+         (mins-only? (zerop (nth 2 (parse-time-string (cl-first (cl-first (last subs-lst))))))))
+    (with-current-buffer buf
+      (insert (format "%s\n\n" (file-name-base subs-file)))
+      (dolist (el subs-lst)
+        (let* ((full-ts (nth 0 el))
+               ;;(ts (substring full-ts (if mins-only? 3 0) 8))
+               ;; show full timestamp for mpv
+               (ts (substring full-ts (if mins-only? 0 0) 8))
+               (sub-text (nth 1 el))
+               (pos (point))
+               (_ (progn
+                    (when (eq youtube-sub-extractor-timestamps 'left-side-text)
+                      (insert (format "%s\t" ts)))
+                    (insert (format "%s" (string-join sub-text " ")))
+                    (save-excursion
+                      (add-text-properties
+                       (line-beginning-position)
+                       (line-end-position)
+                       `(help-echo ,ts timestamp ,full-ts)))
+                    (insert "\n")))
+               (ovrl (make-overlay (1+ pos) (point) nil t))
+               (ovrl-txt (or ts ""))
+               (margin (if (eq youtube-sub-extractor-timestamps 'right-margin)
+                           'right-margin 'left-margin)))
+          (overlay-put
+           ovrl 'before-string
+           (propertize ovrl-txt 'display `((margin ,margin) ,ovrl-txt)))))
+      (goto-char (point-min))
+      (setq-local video-url vid-url)
+      (youtube-sub-extractor-subtitles-mode +1)
+      (read-only-mode +1))
+    (switch-to-buffer-other-window buf)
+    (unless (or (eq youtube-sub-extractor-timestamps 'left-side-text)
+                (null youtube-sub-extractor-timestamps))
+      (set-window-margins
+       nil
+       (when (eq youtube-sub-extractor-timestamps 'left-margin) 9)
+       (when (eq youtube-sub-extractor-timestamps 'right-margin) 9)))))
+
+
+;; ----------------------------------------------------------------------------------
 ;; garbage collection
 ;; ----------------------------------------------------------------------------------
 
