@@ -190,6 +190,8 @@ in {
     ripgrep
     socat
     sox
+    spice spice-gtk
+    spice-protocol
     shellcheck
     streamlink
     surfraw
@@ -201,6 +203,8 @@ in {
     ts
     unzip
     viddy
+    virt-manager
+    virt-viewer
     urlscan
     urlview
     yt-dlp
@@ -208,6 +212,8 @@ in {
     weechat
     wget
     widevine-cdm
+    win-virtio
+    win-spice
     xclip
     zathura
     zip
