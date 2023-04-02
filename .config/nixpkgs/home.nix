@@ -152,6 +152,7 @@ in {
     csvkit
     davinci-resolve
     dict
+    dmg2img
     gnome.dconf-editor
     gnome.gnome-tweaks
     exiftool
