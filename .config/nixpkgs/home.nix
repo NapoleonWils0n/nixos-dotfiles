@@ -186,6 +186,7 @@ in {
     pandoc
     pinentry-curses
     playerctl
+    python3
     p7zip
     ripgrep
     socat
