@@ -196,6 +196,7 @@ in {
     spice-protocol
     shellcheck
     streamlink
+    swtpm
     surfraw
     tcpdump
     tmux
