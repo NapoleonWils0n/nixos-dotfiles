@@ -160,7 +160,7 @@ in {
     fd
     file
     fira-code
-    ffmpeg_5-full
+    ffmpeg_6-full
     fzf
     git
     gnumake
