@@ -2742,7 +2742,7 @@ style = "Regular"
 [window]
 decorations = "full"
 decorations_theme_variant = "Dark"
-startup_mode = "Windowed"
+startup_mode = "Maximized"
 
 [window.class]
 general = "Alacritty"
@@ -2761,14 +2761,14 @@ hide_when_typing = false
 + home dir
 
 #+NAME: alacritty-home-dir
-#+BEGIN_SRC toml :noweb yes :tangle "~/.config/alacritty/alacritty.yml"
+#+BEGIN_SRC toml :noweb yes :tangle "~/.config/alacritty/alacritty.toml"
 <<alacritty>>
 #+END_SRC
 
 + current dir
 
 #+NAME: alacritty-current-dir
-#+BEGIN_SRC toml :noweb yes :tangle ".config/alacritty/alacritty.yml"
+#+BEGIN_SRC toml :noweb yes :tangle ".config/alacritty/alacritty.toml"
 <<alacritty>>
 #+END_SRC
 
