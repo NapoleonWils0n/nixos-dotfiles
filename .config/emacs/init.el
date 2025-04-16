@@ -1587,7 +1587,7 @@ minibuffer with something like `exit-minibuffer'."
 ;; ----------------------------------------------------------------------------------
 
 ;; ssh auth sock
-(setenv "SSH_AUTH_SOCK" "/run/current-system/sw/bin/ssh-agent")
+(setenv "SSH_AUTH_SOCK" "/run/user/1000/keyring/ssh")
 
 
 ;; ----------------------------------------------------------------------------------
