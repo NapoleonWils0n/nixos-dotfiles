@@ -1,0 +1,191 @@
+{ config, pkgs, ... }:
+
+{
+  # Home Manager needs a bit of information about you and the paths it should
+  # manage.
+  home.username = "djwilcox";
+  home.homeDirectory = "/home/djwilcox";
+
+  # This value determines the Home Manager release that your configuration is
+  # compatible with. This helps avoid breakage when a new Home Manager release
+  # introduces backwards incompatible changes.
+  #
+  # You should not change this value, even if you update Home Manager. If you do
+  # want to update the value, then make sure to first check the Home Manager
+  # release notes.
+  home.stateVersion = "24.11"; # Please read the comment before changing.
+
+  imports = [
+    ./programs/dconf/dconf.nix
+    ./programs/firefox/firefox.nix
+  ];
+ 
+  # xdg directories
+  xdg = {
+    userDirs = {
+      enable = true;
+      createDirectories = true;
+      publicShare = null;
+      templates = null;
+    };
+  };
+
+  nixpkgs.config.allowUnfree = true;
+  
+  programs.emacs = {
+    enable = true;
+    package = pkgs.emacs-pgtk;
+  };
+
+  # The home.packages option allows you to install Nix packages into your
+  # environment.
+  home.packages = with pkgs; [
+    abook
+    apg
+    alacritty
+    aria2
+    aspell
+    aspellDicts.en
+    bc
+    chromium
+    curl
+    dict
+    dconf-editor
+    fd
+    ffmpeg-full
+    file
+    fira-code
+    git
+    gnome-tweaks
+    handbrake
+    imagemagick
+    iosevka
+    libnotify
+    libwebp
+    kodi-wayland
+    mpc
+    mpd
+    mpv
+    ncdu
+    ncmpc
+    fira-code-nerdfont
+    noto-fonts-emoji
+    oath-toolkit
+    obs-studio
+    openvpn
+    pandoc
+    pinentry-curses
+    playerctl
+    ripgrep
+    tmux
+    translate-shell
+    ts
+    unzip
+    yt-dlp
+    wget
+    widevine-cdm
+    wl-clipboard
+    zathura
+    zip
+  ];
+
+  # home sessions variables
+  home.sessionVariables = {
+    XCURSOR_THEME = "Adwaita";
+    XCURSOR_SIZE = "24";
+  };
+
+services = {
+  emacs = {
+    enable = true;
+    package = pkgs.emacs-pgtk;
+  };
+  gnome-keyring = {
+    enable = true;
+  };
+  gpg-agent = {
+    enable = true;
+    extraConfig = ''
+      allow-emacs-pinentry
+      allow-loopback-pinentry
+    '';
+  };
+  mpd = {
+    enable = true;
+    musicDirectory = "~/Music";
+    network = {
+      startWhenNeeded = true;
+    };
+    extraConfig = ''
+      audio_output {
+        type "pipewire"
+        name "My PipeWire Output"
+      }
+    '';
+  };
+};
+
+# systemd
+systemd.user.sessionVariables = {
+  SSH_AUTH_SOCK = "/run/user/1000/keyring/ssh";
+  WAYLAND_DISPLAY = "wayland-0";
+};
+
+# gtk
+gtk = {
+  enable = true;
+  gtk3.extraConfig = {
+    gtk-application-prefer-dark-theme = true;
+  };
+  gtk4.extraConfig = {
+    gtk-application-prefer-dark-theme = true;
+  };
+};
+
+# mpv mpris 
+nixpkgs.overlays = [
+  (self: super: {
+    mpv = super.mpv.override {
+      scripts = [ self.mpvScripts.mpris ];
+    };
+  })
+];
+
+  # Home Manager is pretty good at managing dotfiles. The primary way to manage
+  # plain files is through 'home.file'.
+  home.file = {
+    # # Building this configuration will create a copy of 'dotfiles/screenrc' in
+    # # the Nix store. Activating the configuration will then make '~/.screenrc' a
+    # # symlink to the Nix store copy.
+    # ".screenrc".source = dotfiles/screenrc;
+
+    # # You can also set the file content immediately.
+    # ".gradle/gradle.properties".text = ''
+    #   org.gradle.console=verbose
+    #   org.gradle.daemon.idletimeout=3600000
+    # '';
+  };
+
+  # Home Manager can also manage your environment variables through
+  # 'home.sessionVariables'. These will be explicitly sourced when using a
+  # shell provided by Home Manager. If you don't want to manage your shell
+  # through Home Manager then you have to manually source 'hm-session-vars.sh'
+  # located at either
+  #
+  #  ~/.nix-profile/etc/profile.d/hm-session-vars.sh
+  #
+  # or
+  #
+  #  ~/.local/state/nix/profiles/profile/etc/profile.d/hm-session-vars.sh
+  #
+  # or
+  #
+  #  /etc/profiles/per-user/djwilcox/etc/profile.d/hm-session-vars.sh
+  #
+  home.sessionVariables = {
+    # EDITOR = "emacs";
+  };
+
+  # Let Home Manager install and manage itself.
+  programs.home-manager.enable = true;
+}

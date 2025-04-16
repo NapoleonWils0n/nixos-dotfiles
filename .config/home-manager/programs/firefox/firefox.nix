@@ -1,6 +1,7 @@
 { pkgs, ... }:
 
 {
+
   programs.firefox = {
     enable = true;
     package = pkgs.wrapFirefox pkgs.firefox-unwrapped {
@@ -15,12 +16,6 @@
       PasswordManagerEnabled = false;
       };
     };
-    extensions = with pkgs.nur.repos.rycee.firefox-addons; [
-      multi-account-containers
-      ublock-origin
-      vimium
-      violentmonkey
-    ];
       profiles = {
         default = {
           isDefault = true;
@@ -140,6 +135,22 @@
           user_pref("privacy.donottrackheader.value", "1");
           user_pref("privacy.firstparty.isolate", true);
           user_pref("signon.rememberSignons", false);
+          // disable firefox vpn ad
+          user_pref("browser.vpn_promo.enabled", false);
+          // custom google search
+          user_pref("browser.urlbar.update2.engineAliasRefresh", true);
+          // disable privacy-preserving attribution 
+          user_pref("dom.private-attribution.submission.enabled", false);
+          // desktop notifications
+          user_pref("alerts.useSystemBackend", true);
+          // sidebar - off
+          user_pref("sidebar.revamp", false);
+          // sidebar visibility
+          user_pref("sidebar.visibility", "hide-sidebar");
+          // sidebar tools
+          user_pref("sidebar.main.tools", "history");
+          // vertical tabs - off
+          user_pref("sidebar.verticalTabs", false);
           // css stylesheets = true
           user_pref("toolkit.legacyUserProfileCustomizations.stylesheets", true);
           // theme
@@ -149,32 +160,11 @@
           /* userChrome.css */
           
           @namespace url("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"); /* only needed once */
-          
           /* hide close, minimize window buttons */
           .titlebar-min {display:none!important;}
           .titlebar-max {display:none!important;}
           .titlebar-restore {display:none!important;}
           .titlebar-close {display:none!important;}
-          
-          /* Adjust tab corner shape, optionally remove space below tabs */
-          #tabbrowser-tabs {
-              --user-tab-rounding: 6px;
-          }
-          
-          @media (-moz-proton) {
-              .tab-background {
-                  border-radius: var(--user-tab-rounding) var(--user-tab-rounding) 0px 0px !important;
-                  margin-block: 1px 0 !important;
-              }
-              #scrollbutton-up, #scrollbutton-down { /* 6/10/2021 */
-                  border-top-width: 1px !important;
-                  border-bottom-width: 0 !important;
-              }
-              /* Container color bar visibility */
-              .tabbrowser-tab[usercontextid] > .tab-stack > .tab-background > .tab-context-line {
-                  margin: 0px max(calc(var(--user-tab-rounding) - 3px), 0px) !important;
-              }
-          }
           
           /* remove the bookmark star in the url bar */
           #star-button-box {display: none !important}
@@ -183,7 +173,6 @@
           #context-sendimage, /* email */
           #context-bookmarklink, /* bookmark link */
           /* #context-savelink, save link */
-          #context-copyimage-contents, /* copy image */
           #context-take-screenshot, /* take screenshot */
           /* #context-openlinkintab, open link in tab */
           /* #context-openlink, open link in new window */
@@ -206,13 +195,19 @@
           #context-undo, /* undo */
           #context-redo, /* redo */
           #context-cut, /* cut */
-          #context-copy, /* copy */
-          #context-paste, /* paste */
           #context-delete, /* delete */
           #context-keywordfield, /* add a keyword for this search */
-          #context-selectall /* select all */
+          #context-selectall, /* select all */
+          #alltabs-button 
           {display: none !important;}
           '';
+          settings = {
+            "media.gmp-widevinecdm.enabled" = true;
+            "media.gmp-widevinecdm.providerName" = "Widevine Content Decryption Module";
+            "media.gmp-widevinecdm.binaryURL" = ""; # Leave empty to force use of system copy
+            "media.gmp-widevinecdm.version" = "${pkgs.widevine-cdm.version}";
+            "media.eme.enabled" = true;
+          };
          };
         };
       };

@@ -8,6 +8,7 @@ with lib.hm.gvariant;
      color-scheme = "prefer-dark";
     };
     "org/gnome/desktop/input-sources" = {
+      xkb-options = [ "ctrl:swap_lalt_lctl,custom:swap_sterling_numbersign,caps:none" ];
       per-window = false;
       show-all-sources = true;
     };
@@ -23,6 +24,7 @@ with lib.hm.gvariant;
     };
     "org/gnome/desktop/wm/keybindings" = {
       close = ["<Shift><Super>c"];
+      minimize = [""];
       move-to-monitor-left = ["<Shift><Super>h"];
       move-to-monitor-right = ["<Shift><Super>l"];
       move-to-workspace-1 = ["<Shift><Super>exclam"];
@@ -47,7 +49,7 @@ with lib.hm.gvariant;
       center-new-windows = true;
       dynamic-workspaces = true;
       focus-change-on-pointer-rest = false;
-      overlay-key = "Super_R";
+      overlay-key = "Super_L";
       workspaces-only-on-primary = true;
     };
     "org/gnome/settings-daemon/plugins/media-keys" = {

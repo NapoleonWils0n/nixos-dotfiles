@@ -10,9 +10,6 @@ HISTSIZE=1000
 newline=$'\n'
 yesmaster='Yes Master ? '
 
-# turn off nixos default prompt before setting PS1
-prompt off
-
 # PS3 prompt function
 function zle-line-init zle-keymap-select {
     PS1="[%n@%M %~]${newline}${yesmaster}"
@@ -25,7 +22,7 @@ zle -N zle-keymap-select
 
 # set terminal window title to program name
 case $TERM in
-  (*xterm* | rxvt | rxvt-unicode-256color)
+  (*xterm* | xterm-256color)
     function precmd {
       print -Pn "\e]0;%(1j,%j job%(2j|s|); ,)%~\a"
     }
@@ -34,15 +31,6 @@ case $TERM in
     }
   ;;
 esac
-
-# XDG_RUNTIME_DIR for mpv hardware accleration
-if [ -z "$XDG_RUNTIME_DIR" ]; then
-    export XDG_RUNTIME_DIR=/tmp
-    if [ ! -d  "$XDG_RUNTIME_DIR" ]; then
-        mkdir "$XDG_RUNTIME_DIR"
-        chmod 0700 "$XDG_RUNTIME_DIR"
-    fi
-fi
 
 # Fix bugs when switching modes
 bindkey -v # vi mode
@@ -109,38 +97,16 @@ zstyle ':completion:*:*:kill:*' list-colors '=(#b) #([0-9]#)*( *[a-z])*=22=31=34
 # list optiones colour, white + cyan
 zstyle ':completion:*:options' list-colors '=(#b) #(-[a-zA-Z0-9,]#)*(-- *)=36=37'
 
-# nixos zsh autocompletion for sudo and doas
-zstyle ":completion:*:(sudo|su|doas):*" command-path /run/wrappers/bin /run/current-system/sw/bin /home/djwilcox/bin
+# zsh autocompletion for sudo and doas
+#zstyle ":completion:*:(sudo|su|doas):*" command-path /usr/local/bin /usr/sbin /home/djwilcox/bin
 
 # rehash commands
 zstyle ':completion:*' rehash true
 
 # highlighting
+#source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 ZSH_HIGHLIGHT_STYLES[suffix-alias]=fg=cyan,underline
 ZSH_HIGHLIGHT_STYLES[precommand]=fg=cyan,underline
 ZSH_HIGHLIGHT_STYLES[arg0]=fg=cyan
 ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets pattern)
 ZSH_HIGHLIGHT_PATTERNS=('rm -rf *' 'fg=white,bold,bg=red')
-
-# namespace autocomplete
-compdef _precommand namespace
-
-# transmission autocomplete
-compdef _gnu_generic transmission-daemon
-compdef _gnu_generic transmission-remote
-compdef _gnu_generic transmission-show
-compdef _gnu_generic transmission-cli
-compdef _gnu_generic transmission-create
-compdef _gnu_generic transmission-edit
-compdef _gnu_generic transmission-pwgen
-
-# exa
-compdef _gnu_generic exa
-
-# nixpks completion
-compdef _gnu_generic nix-env
-
-# aliases
-
-# mpc host and socket
-alias mpc='mpc --host="/run/user/1000/mpd/socket"'
