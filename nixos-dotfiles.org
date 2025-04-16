@@ -2958,6 +2958,154 @@ fi
 <<zshenv>>
 #+END_SRC
 
+** tmux
+*** tmux config
+
+#+NAME: tmux
+#+BEGIN_SRC conf
+# .tmux.conf
+
+# vi mode
+#set-option -g default-shell "/usr/local/bin/zsh"
+#set-option -g default-command "/usr/local/bin/zsh"
+#set -g default-command "${SHELL}"
+set-window-option -g mode-keys vi
+
+# Some tweaks to the status line
+set -g status-right "%H:%M"
+set -g status-right-style fg=color245
+
+# If running inside tmux ($TMUX is set), then change the status line to red
+%if #{TMUX}
+set -g status-bg red
+%endif
+
+# Enable RGB colour if running in xterm(1)
+set-option -sa terminal-overrides ",xterm*:Tc"
+
+# Change the default $TERM to screen
+set -g default-terminal "xterm-256color"
+
+# No bells at all
+set -g bell-action none
+
+# close panes after command has finished
+set -g remain-on-exit off
+
+# Change the prefix key to C-a
+set -g prefix C-a
+unbind C-b
+bind C-a send-prefix
+
+# Turn the mouse on, but without copy mode dragging
+set -g mouse on
+
+# multiple places
+bind F set -w window-size
+
+# Keys to toggle monitoring activity in a window and the synchronize-panes option
+bind m set monitor-activity
+bind y set synchronize-panes\; display 'synchronize-panes #{?synchronize-panes,on,off}'
+
+# Start windows and panes at 1, not 0
+set -g base-index 1
+setw -g pane-base-index 1
+
+# reload ~/.tmux.conf using PREFIX r
+bind r source-file ~/.config/tmux/tmux.conf \; display "Reloaded!"
+
+# default statusbar colors
+set -g status-style bg=default,fg=yellow #yellow
+
+# default window title colors
+set -g window-status-style fg=brightblue,bg=default
+
+# active window title colors
+set -g window-status-current-style fg=black,bg=blue
+
+# pane border
+set -g pane-border-style fg=black #base02
+set -g pane-active-border-style fg=black #base01
+
+# message text
+set -g message-style bg=black,fg=brightred #orange
+
+# pane number display
+set-option -g display-panes-active-colour blue #blue
+set-option -g display-panes-colour brightred #orange
+
+# clock
+set-window-option -g clock-mode-colour green #green
+
+# vim key bindings
+setw -g mode-keys vi
+bind h select-pane -L
+bind j select-pane -D
+bind k select-pane -U
+bind l select-pane -R
+bind-key -r C-h select-window -t :-
+bind-key -r C-l select-window -t :+
+
+# resize panes using PREFIX H, J, K, L
+bind H resize-pane -L 5
+bind J resize-pane -D 5
+bind K resize-pane -U 5
+bind L resize-pane -R 5
+
+# copy and paste
+set-window-option -g automatic-rename on
+
+# toggle statusbar
+bind-key s set -g status
+
+# copying selection vim style
+bind-key Escape copy-mode			# enter copy mode; default [
+bind-key p paste-buffer				# paste; (default hotkey: ] )
+bind-key P choose-buffer 			# tmux clipboard history
+bind-key + delete-buffer \; display-message "Deleted current Tmux Clipboard History"
+
+# Note: rectangle-toggle (aka Visual Block Mode) > hit v then C-v to trigger it
+bind-key -T copy-mode-vi v send-keys -X begin-selection
+bind-key -T copy-mode-vi V send-keys -X select-line
+bind-key -T copy-mode-vi C-v send-keys -X rectangle-toggle
+bind-key -T choice-mode-vi h send-keys -X tree-collapse
+bind-key -T choice-mode-vi l send-keys -X tree-expand
+bind-key -T choice-mode-vi H send-keys -X tree-collapse-all
+bind-key -T choice-mode-vi L send-keys -X tree-expand-all
+bind-key -T copy-mode-vi y send-keys -X copy-pipe-and-cancel "wl-copy && wl-paste -n | wl-copy -p"
+bind-key p run "wl-paste -n | tmux load-buffer - ; tmux paste-buffer"
+
+# urlview as context and url view
+bind-key u capture-pane \; save-buffer /tmp/tmux-buffer \; \
+new-window -n "urlview" '$SHELL -c "urlview < /tmp/tmux-buffer"'
+
+# tmux auto rename pane 
+set-option -g status-interval 1
+set-option -g allow-rename on
+set-option -g automatic-rename on
+set-option -g automatic-rename-format "#{?#{==:#{pane_current_command},zsh},#{b:pane_title},#{pane_current_command}}"
+
+# tmux title program name
+set-option -g set-titles on
+set-option -g set-titles-string "#W"
+#+END_SRC
+
+*** tmux tangle
+
++ home dir
+
+#+NAME: tmux-home-dir
+#+BEGIN_SRC conf :noweb yes :tangle "~/.config/tmux/tmux.conf"
+<<tmux>>
+#+END_SRC
+
++ current dir
+
+#+NAME: tmux-current-dir
+#+BEGIN_SRC conf :noweb yes :tangle ".config/tmux/tmux.conf"
+<<tmux>>
+#+END_SRC
+
 ** mpv
 *** mpv config
 **** input.conf
@@ -3595,152 +3743,148 @@ color alert = black,bold
 <<ncmpc>>
 #+END_SRC
 
-** tmux
-*** tmux config
+** xkb
+*** rules
+**** evdev
+***** evdev config
 
-#+NAME: tmux
+#+NAME: evdev
 #+BEGIN_SRC conf
-# .tmux.conf
+! option = symbols
+  custom:swap_sterling_numbersign = +custom(swap_sterling_numbersign)
 
-# vi mode
-#set-option -g default-shell "/usr/local/bin/zsh"
-#set-option -g default-command "/usr/local/bin/zsh"
-#set -g default-command "${SHELL}"
-set-window-option -g mode-keys vi
-
-# Some tweaks to the status line
-set -g status-right "%H:%M"
-set -g status-right-style fg=color245
-
-# If running inside tmux ($TMUX is set), then change the status line to red
-%if #{TMUX}
-set -g status-bg red
-%endif
-
-# Enable RGB colour if running in xterm(1)
-set-option -sa terminal-overrides ",xterm*:Tc"
-
-# Change the default $TERM to screen
-set -g default-terminal "xterm-256color"
-
-# No bells at all
-set -g bell-action none
-
-# close panes after command has finished
-set -g remain-on-exit off
-
-# Change the prefix key to C-a
-set -g prefix C-a
-unbind C-b
-bind C-a send-prefix
-
-# Turn the mouse on, but without copy mode dragging
-set -g mouse on
-
-# multiple places
-bind F set -w window-size
-
-# Keys to toggle monitoring activity in a window and the synchronize-panes option
-bind m set monitor-activity
-bind y set synchronize-panes\; display 'synchronize-panes #{?synchronize-panes,on,off}'
-
-# Start windows and panes at 1, not 0
-set -g base-index 1
-setw -g pane-base-index 1
-
-# reload ~/.tmux.conf using PREFIX r
-bind r source-file ~/.config/tmux/tmux.conf \; display "Reloaded!"
-
-# default statusbar colors
-set -g status-style bg=default,fg=yellow #yellow
-
-# default window title colors
-set -g window-status-style fg=brightblue,bg=default
-
-# active window title colors
-set -g window-status-current-style fg=black,bg=blue
-
-# pane border
-set -g pane-border-style fg=black #base02
-set -g pane-active-border-style fg=black #base01
-
-# message text
-set -g message-style bg=black,fg=brightred #orange
-
-# pane number display
-set-option -g display-panes-active-colour blue #blue
-set-option -g display-panes-colour brightred #orange
-
-# clock
-set-window-option -g clock-mode-colour green #green
-
-# vim key bindings
-setw -g mode-keys vi
-bind h select-pane -L
-bind j select-pane -D
-bind k select-pane -U
-bind l select-pane -R
-bind-key -r C-h select-window -t :-
-bind-key -r C-l select-window -t :+
-
-# resize panes using PREFIX H, J, K, L
-bind H resize-pane -L 5
-bind J resize-pane -D 5
-bind K resize-pane -U 5
-bind L resize-pane -R 5
-
-# copy and paste
-set-window-option -g automatic-rename on
-
-# toggle statusbar
-bind-key s set -g status
-
-# copying selection vim style
-bind-key Escape copy-mode			# enter copy mode; default [
-bind-key p paste-buffer				# paste; (default hotkey: ] )
-bind-key P choose-buffer 			# tmux clipboard history
-bind-key + delete-buffer \; display-message "Deleted current Tmux Clipboard History"
-
-# Note: rectangle-toggle (aka Visual Block Mode) > hit v then C-v to trigger it
-bind-key -T copy-mode-vi v send-keys -X begin-selection
-bind-key -T copy-mode-vi V send-keys -X select-line
-bind-key -T copy-mode-vi C-v send-keys -X rectangle-toggle
-bind-key -T choice-mode-vi h send-keys -X tree-collapse
-bind-key -T choice-mode-vi l send-keys -X tree-expand
-bind-key -T choice-mode-vi H send-keys -X tree-collapse-all
-bind-key -T choice-mode-vi L send-keys -X tree-expand-all
-bind-key -T copy-mode-vi y send-keys -X copy-pipe-and-cancel "wl-copy && wl-paste -n | wl-copy -p"
-bind-key p run "wl-paste -n | tmux load-buffer - ; tmux paste-buffer"
-
-# urlview as context and url view
-bind-key u capture-pane \; save-buffer /tmp/tmux-buffer \; \
-new-window -n "urlview" '$SHELL -c "urlview < /tmp/tmux-buffer"'
-
-# tmux auto rename pane 
-set-option -g status-interval 1
-set-option -g allow-rename on
-set-option -g automatic-rename on
-set-option -g automatic-rename-format "#{?#{==:#{pane_current_command},zsh},#{b:pane_title},#{pane_current_command}}"
-
-# tmux title program name
-set-option -g set-titles on
-set-option -g set-titles-string "#W"
+! include %S/evdev
 #+END_SRC
 
-*** tmux tangle
+***** evdev tangle
 
 + home dir
 
-#+NAME: tmux-home-dir
-#+BEGIN_SRC conf :noweb yes :tangle "~/.config/tmux/tmux.conf"
-<<tmux>>
+#+NAME: evdev-home-dir
+#+BEGIN_SRC conf :noweb yes :tangle "~/.config/xkb/rules/evdev"
+<<evdev>>
 #+END_SRC
 
 + current dir
 
-#+NAME: tmux-current-dir
-#+BEGIN_SRC conf :noweb yes :tangle ".config/tmux/tmux.conf"
-<<tmux>>
+#+NAME: evdev-current-dir
+#+BEGIN_SRC conf :noweb yes :tangle ".config/xkb/rules/evdev"
+<<evdev>>
+#+END_SRC
+
+**** evdev.xml
+***** evdev.xml config
+
+#+NAME: evdev.xml
+#+BEGIN_SRC conf
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE xkbConfigRegistry SYSTEM "xkb.dtd">
+<xkbConfigRegistry version="1.1">
+  <layoutList>
+    <layout>
+      <configItem>
+        <name>gb</name>
+      </configItem>
+      <variantList>
+        <variant>
+          <configItem>
+            <name>swap_sterling_numbersign</name>
+            <shortDescription>swap_sterling_numbersign</shortDescription>
+            <description>GB(swap_sterling_numbersign)</description>
+          </configItem>
+        </variant>
+      </variantList>
+    </layout>
+  </layoutList>
+  <optionList>
+    <group allowMultipleSelection="true">
+      <configItem>
+        <name>custom</name>
+        <description>custom options</description>
+      </configItem>
+      <option>
+        <configItem>
+          <name>custom:swap_sterling_numbersign</name>
+          <description>swap sterling and numbersign</description>
+        </configItem>
+      </option>
+    </group>
+  </optionList>
+</xkbConfigRegistry>
+#+END_SRC
+
+***** evdev.xml tangle
+
++ home dir
+
+#+NAME: evdev.xml-home-dir
+#+BEGIN_SRC conf :noweb yes :tangle "~/.config/xkb/rules/evdev.xml"
+<<evdev.xml>>
+#+END_SRC
+
++ current dir
+
+#+NAME: evdev.xml-current-dir
+#+BEGIN_SRC conf :noweb yes :tangle ".config/xkb/rules/evdev.xml"
+<<evdev.xml>>
+#+END_SRC
+
+*** symbols
+**** custom
+***** custom config
+
+#+NAME: custom
+#+BEGIN_SRC conf
+// swap sterling and numbersign
+partial modifier_keys
+xkb_symbols "swap_sterling_numbersign" {
+    key <AE03> { [ 3, numbersign, sterling ] };
+};
+#+END_SRC
+
+***** custom tangle
+
++ home dir
+
+#+NAME: custom-home-dir
+#+BEGIN_SRC conf :noweb yes :tangle "~/.config/xkb/symbols/custom"
+<<custom>>
+#+END_SRC
+
++ current dir
+
+#+NAME: custom-current-dir
+#+BEGIN_SRC conf :noweb yes :tangle ".config/xkb/symbols/custom"
+<<custom>>
+#+END_SRC
+
+**** gb
+***** gb config
+
+#+NAME: gb
+#+BEGIN_SRC conf
+// swap sterling and numbersign
+default partial alphanumeric_keys 
+xkb_symbols "swap_sterling_numbersign" {
+    name[Group1]= "swap_sterling_numbersign - Mac";
+    key <AE03> { [ 3, numbersign, sterling ] };
+};
+#+END_SRC
+
+***** gb tangle
+
++ home dir
+
+#+NAME: gb-home-dir
+#+BEGIN_SRC conf :noweb yes :tangle "~/.config/xkb/symbols/gb"
+<<gb>>
+#+END_SRC
+
++ current dir
+
+#+NAME: gb-current-dir
+#+BEGIN_SRC conf :noweb yes :tangle ".config/xkb/symbols/gb"
+<<gb>>
 #+END_SRC
 
 ** desktop files
