@@ -77,6 +77,7 @@
     pinentry-curses
     playerctl
     ripgrep
+    sox
     tmux
     translate-shell
     ts

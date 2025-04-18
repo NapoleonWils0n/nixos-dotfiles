@@ -106,6 +106,7 @@ emacs --batch -l org --eval '(org-babel-tangle-file "~/git/ubuntu-dotfiles/ubunt
     pinentry-curses
     playerctl
     ripgrep
+    sox
     tmux
     translate-shell
     ts
