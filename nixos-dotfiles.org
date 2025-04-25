@@ -529,7 +529,7 @@ with lib.hm.gvariant;
     "org/gnome/desktop/wm/preferences" = {
       audible-bell = false;
       auto-raise = true;
-      focus-mode = "click";
+      focus-mode = "sloppy";
     };
   };
 }
