@@ -25,13 +25,13 @@
  '(auth-source-save-behavior nil)
  '(custom-safe-themes '("" default))
  '(package-selected-packages
-   '(async consult doom-modeline doom-modeline-now-playing doom-themes
-           ednc elfeed elfeed-org elfeed-tube elfeed-tube-mpv embark
-           embark-consult emmet-mode evil evil-collection evil-leader
-           fd-dired git-auto-commit-mode google-translate hydra iedit
-           magit marginalia mpv nerd-icons nix-mode ob-async orderless
-           org-tree-slide rg s shrink-path undo-tree vertico wgrep
-           which-key yaml-mode))
+   '(async consult csv-mode doom-modeline doom-modeline-now-playing
+           doom-themes ednc elfeed elfeed-org elfeed-tube
+           elfeed-tube-mpv embark embark-consult emmet-mode evil
+           evil-collection evil-leader fd-dired git-auto-commit-mode
+           google-translate hydra iedit magit marginalia mpv
+           nerd-icons nix-mode ob-async orderless org-tree-slide rg s
+           shrink-path undo-tree vertico wgrep which-key yaml-mode))
  '(warning-suppress-types '((comp))))
 
 ;; require package
