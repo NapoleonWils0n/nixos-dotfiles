@@ -80,6 +80,7 @@
     sox
     tmux
     translate-shell
+    transmission_4-gtk
     ts
     unzip
     yt-dlp
