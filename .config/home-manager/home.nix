@@ -76,6 +76,7 @@
     pandoc
     pinentry-curses
     playerctl
+    realesrgan-ncnn-vulkan
     ripgrep
     sox
     tmux
