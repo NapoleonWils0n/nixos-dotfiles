@@ -1589,6 +1589,48 @@ minibuffer with something like `exit-minibuffer'."
 ;; ssh auth sock
 (setenv "SSH_AUTH_SOCK" "/run/user/1000/keyring/ssh")
 
+;; ----------------------------------------------------------------------------------
+;; gptel
+;; ----------------------------------------------------------------------------------
+
+(require 'gptel)
+(require 'gptel-curl)
+(require 'gptel-transient)
+
+;; gptel config
+(setq gptel-default-mode 'org-mode
+              gptel-post-response-functions #'gptel-end-of-response
+              gptel-expert-commands t)
+
+
+;; ----------------------------------------------------------------------------------
+;; olama
+;; ----------------------------------------------------------------------------------
+
+(setq gptel-model 'deepseek-r1:7b)
+(setq gptel-backend (gptel-make-ollama "Ollama"
+                      :host "localhost:11434"
+                      :stream t
+                      :models '(deepseek-r1:7b)))
+                                
+
+;; display the Ollama buffer in same window
+(add-to-list 'display-buffer-alist
+   '("^*Ollama*" display-buffer-same-window))
+
+
+;; ----------------------------------------------------------------------------------
+;; gptel set org source blocks to use sh and not bash
+;; ----------------------------------------------------------------------------------
+
+(defun my/gptel-fix-src-header (beg end)
+  (save-excursion
+    (goto-char beg)
+    (while (re-search-forward "^#\\+begin_src bash" end t)
+      (replace-match "#+begin_src sh"))))
+
+(add-hook 'gptel-post-response-functions #'my/gptel-fix-src-header)
+
 
 ;; ----------------------------------------------------------------------------------
 ;; garbage collection
