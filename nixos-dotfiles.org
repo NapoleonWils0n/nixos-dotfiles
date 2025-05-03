@@ -101,6 +101,7 @@ emacs --batch -l org --eval '(org-babel-tangle-file "~/git/ubuntu-dotfiles/ubunt
     noto-fonts-emoji
     oath-toolkit
     obs-studio
+    ollama-cuda
     openvpn
     pandoc
     pinentry-curses
