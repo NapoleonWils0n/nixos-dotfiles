@@ -2236,6 +2236,15 @@ minibuffer with something like `exit-minibuffer'."
 ;; ssh auth sock
 (setenv "SSH_AUTH_SOCK" "/run/user/1000/keyring/ssh")
 
+
+;; ----------------------------------------------------------------------------------
+;; auth-source
+;; ----------------------------------------------------------------------------------
+
+(require 'auth-source)
+(add-to-list 'auth-sources (expand-file-name ".authinfo" user-emacs-directory))
+
+
 ;; ----------------------------------------------------------------------------------
 ;; gptel
 ;; ----------------------------------------------------------------------------------
@@ -2248,6 +2257,20 @@ minibuffer with something like `exit-minibuffer'."
 (setq gptel-default-mode 'org-mode
               gptel-post-response-functions #'gptel-end-of-response
               gptel-expert-commands t)
+
+
+;; ----------------------------------------------------------------------------------
+;; gemini
+;; ----------------------------------------------------------------------------------
+
+(setq gptel-model 'gemini-2.0-flash
+      gptel-backend (gptel-make-gemini "Gemini"
+                              :key (gptel-api-key-from-auth-source "generativelanguage.googleapis.com")
+                              :stream t))
+
+;; display the Gemini buffer in same window
+(add-to-list 'display-buffer-alist
+   '("^*Gemini*" display-buffer-same-window))
 
 
 ;; ----------------------------------------------------------------------------------
