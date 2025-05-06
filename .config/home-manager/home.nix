@@ -56,6 +56,7 @@
     file
     fira-code
     git
+    git-lfs
     gnome-tweaks
     handbrake
     imagemagick
