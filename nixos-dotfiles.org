@@ -596,6 +596,33 @@ with lib.hm.gvariant;
 <<dconf.nix>>
 #+END_SRC
 
+** nixpkgs
+*** config.nix
+**** config.nix config
+
+#+NAME: config.nix
+#+begin_src nix
+{
+  allowUnfree = true;
+}
+#+end_src
+
+**** config.nix tangle
+
++ home dir
+
+#+NAME: config.nix-home-dir
+#+BEGIN_SRC nix :noweb yes :tangle "~/.config/nixpkgs/config.nix"
+<<config.nix>>
+#+END_SRC
+  
++ current dir
+
+#+NAME: config.nix-current-dir
+#+BEGIN_SRC nix :noweb yes :tangle ".config/nixpkgs/config.nix"
+<<config.nix>>
+#+END_SRC
+
 ** nix-shell
 *** tts
 **** tts config
@@ -608,7 +635,6 @@ pkgs.mkShell {
   buildInputs = [ pkgs.tts ];
 
   shellHook = ''
-    export NIXPKGS_ALLOW_UNFREE=1
     echo "Coqui TTS environment loaded.  Run 'tts --help' for usage."
   '';
 }
