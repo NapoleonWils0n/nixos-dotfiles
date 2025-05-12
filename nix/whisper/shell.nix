@@ -8,7 +8,7 @@ pkgs.mkShell {
         triton = pkgs.python311Packages.triton-cuda;
       };
     })
-    pkgs.cudaPackages_12_3.cudatoolkit
+    pkgs.cudaPackages.cudatoolkit
   ];
 
   shellHook = ''

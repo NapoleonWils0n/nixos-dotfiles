@@ -604,6 +604,8 @@ with lib.hm.gvariant;
 #+begin_src nix
 {
   allowUnfree = true;
+  http2 = false; # Disable HTTP/2
+  system-openssl = true; # Use system OpenSSL
 }
 #+end_src
 
@@ -671,7 +673,7 @@ pkgs.mkShell {
         triton = pkgs.python311Packages.triton-cuda;
       };
     })
-    pkgs.cudaPackages_12_3.cudatoolkit
+    pkgs.cudaPackages.cudatoolkit
   ];
 
   shellHook = ''
@@ -679,7 +681,6 @@ pkgs.mkShell {
     echo "Run 'whisper input.mp3 --model small --device cuda' to transcribe."
   '';
 }
-
 #+end_src
 
 **** whisper tangle
