@@ -72,7 +72,6 @@
     noto-fonts-emoji
     oath-toolkit
     obs-studio
-    ollama-cuda
     openvpn
     pandoc
     pinentry-curses
