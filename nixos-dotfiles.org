@@ -4072,3 +4072,27 @@ ui = true
 <<gitconfig>>
 #+END_SRC
 
+
+** curl
+*** curl config
+
+#+NAME: curl
+#+BEGIN_SRC conf
+ssl_cipher_list = "DEFAULT"
+#+END_SRC
+
+*** curl tangle
+
++ home dir
+
+#+NAME: curl-home-dir
+#+BEGIN_SRC conf :noweb yes :tangle "~/.config/curl/curlrc"
+<<curl>>
+#+END_SRC
+
++ current dir
+
+#+NAME: curl-current-dir
+#+BEGIN_SRC conf :noweb yes :tangle ".config/curl/curlrc"
+<<curl>>
+#+END_SRC
