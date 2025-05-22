@@ -3003,7 +3003,7 @@ hide_when_typing = false
 **** zshrc
 
 #+NAME: zshrc
-#+BEGIN_SRC sh
+#+BEGIN_SRC conf
 # ~/.zshrc
 
 # ssh zsh fix
@@ -3121,7 +3121,7 @@ ZSH_HIGHLIGHT_PATTERNS=('rm -rf *' 'fg=white,bold,bg=red')
 **** zshenv
 
 #+NAME: zshenv
-#+begin_src sh
+#+begin_src conf
 # ~/.zshenv
 
 # Path
@@ -3157,14 +3157,14 @@ fi
 + home dir
 
 #+NAME: zshrc-home-dir
-#+BEGIN_SRC sh :noweb yes :tangle "~/.zshrc"
+#+BEGIN_SRC conf :noweb yes :tangle "~/.zshrc"
 <<zshrc>>
 #+END_SRC
 
 + current dir
 
 #+NAME: zshrc-current-dir
-#+BEGIN_SRC sh :noweb yes :tangle ".zshrc"
+#+BEGIN_SRC conf :noweb yes :tangle ".zshrc"
 <<zshrc>>
 #+END_SRC
 
@@ -3173,14 +3173,14 @@ fi
 + home dir
 
 #+NAME: zshenv-home-dir
-#+BEGIN_SRC sh :noweb yes :tangle "~/.zshenv"
+#+BEGIN_SRC conf :noweb yes :tangle "~/.zshenv"
 <<zshenv>>
 #+END_SRC
 
 + current dir
 
 #+NAME: zshenv-current-dir
-#+BEGIN_SRC sh :noweb yes :tangle ".zshenv"
+#+BEGIN_SRC conf :noweb yes :tangle ".zshenv"
 <<zshenv>>
 #+END_SRC
 
