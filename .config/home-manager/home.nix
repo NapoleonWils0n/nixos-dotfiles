@@ -49,6 +49,7 @@
     bc
     chromium
     curl
+    davinci-resolve
     dict
     dconf-editor
     fd
