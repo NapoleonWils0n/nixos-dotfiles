@@ -76,6 +76,8 @@
     pandoc
     pinentry-curses
     playerctl
+    podman
+    podman-compose
     realesrgan-ncnn-vulkan
     ripgrep
     sox
