@@ -695,38 +695,6 @@ pkgs.mkShell {
 <<kokoro>>
 #+END_SRC
 
-*** tts
-**** tts config
-
-#+NAME: tts
-#+begin_src nix
-{ pkgs ? import <nixpkgs> {} }:
-
-pkgs.mkShell {
-  buildInputs = [ pkgs.tts ];
-
-  shellHook = ''
-    echo "Coqui TTS environment loaded.  Run 'tts --help' for usage."
-  '';
-}
-#+end_src
-
-**** tts tangle
-
-+ home dir
-
-#+NAME: tts-home-dir
-#+BEGIN_SRC nix :noweb yes :tangle "~/nix/tts/shell.nix"
-<<tts>>
-#+END_SRC
-  
-+ current dir
-
-#+NAME: tts-current-dir
-#+BEGIN_SRC nix :noweb yes :tangle "nix/tts/shell.nix"
-<<tts>>
-#+END_SRC
-
 ** emacs
 *** emacs config
 **** init.el
