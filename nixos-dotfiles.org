@@ -727,47 +727,6 @@ pkgs.mkShell {
 <<tts>>
 #+END_SRC
 
-*** whisper
-**** whisper config
-
-#+NAME: whisper
-#+begin_src nix
-{ pkgs ? import <nixpkgs> {} }:
-
-pkgs.mkShell {
-  buildInputs = [
-    (pkgs.python311Packages.openai-whisper.override {
-      triton = pkgs.python311Packages.triton-cuda;
-      torch = pkgs.python311Packages.pytorch-bin.override {
-        triton = pkgs.python311Packages.triton-cuda;
-      };
-    })
-    pkgs.cudaPackages.cudatoolkit
-  ];
-
-  shellHook = ''
-    echo "Welcome to the Whisper CUDA environment!"
-    echo "Run 'whisper input.mp3 --model small --device cuda' to transcribe."
-  '';
-}
-#+end_src
-
-**** whisper tangle
-
-+ home dir
-
-#+NAME: whisper-home-dir
-#+BEGIN_SRC nix :noweb yes :tangle "~/nix/whisper/shell.nix"
-<<whisper>>
-#+END_SRC
-  
-+ current dir
-
-#+NAME: whisper-current-dir
-#+BEGIN_SRC nix :noweb yes :tangle "nix/whisper/shell.nix"
-<<whisper>>
-#+END_SRC
-
 ** emacs
 *** emacs config
 **** init.el
