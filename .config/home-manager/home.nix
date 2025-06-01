@@ -43,7 +43,6 @@
     abook
     apg
     alacritty
-    alsa-utils
     aria2
     aspell
     aspellDicts.en
