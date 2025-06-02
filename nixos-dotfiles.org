@@ -72,6 +72,7 @@ emacs --batch -l org --eval '(org-babel-tangle-file "~/git/ubuntu-dotfiles/ubunt
     abook
     apg
     alacritty
+    audacity
     aria2
     aspell
     aspellDicts.en
