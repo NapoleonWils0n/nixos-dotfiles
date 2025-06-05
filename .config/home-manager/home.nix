@@ -54,6 +54,7 @@
     dict
     dconf-editor
     fd
+    fdk-aac-encoder
     ffmpeg-full
     file
     fira-code
