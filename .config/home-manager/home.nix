@@ -87,7 +87,6 @@
     transmission_4-gtk
     ts
     unzip
-    x265
     yt-dlp
     wget
     widevine-cdm
