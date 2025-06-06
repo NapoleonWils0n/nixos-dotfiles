@@ -55,7 +55,7 @@
     dconf-editor
     fd
     fdk-aac-encoder
-    ffmpeg-full
+    ffmpeg_6-full
     file
     fira-code
     git
