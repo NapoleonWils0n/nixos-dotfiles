@@ -84,7 +84,7 @@ emacs --batch -l org --eval '(org-babel-tangle-file "~/git/ubuntu-dotfiles/ubunt
     dconf-editor
     fd
     fdk-aac-encoder
-    ffmpeg_6-full
+    ffmpeg-full
     file
     fira-code
     git
