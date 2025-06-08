@@ -60,6 +60,7 @@
     fira-code
     git
     gnome-tweaks
+    gnumake
     handbrake
     imagemagick
     iosevka
