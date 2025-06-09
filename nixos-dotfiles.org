@@ -3504,9 +3504,6 @@ ytdl-format="bestvideo[height<=?1080]+bestaudio/best"
 # show milliseconds in the on screen display
 osd-fractions
 
-# audio device
-#audio-device=oss//dev/dsp1
-
 # youtube subs - J to switch to subs
 sub-auto=fuzzy
 ytdl-raw-options=sub-lang="en",write-sub=,write-auto-sub=
@@ -3538,19 +3535,6 @@ fs
 fs-screen-name=DP-3
 
 
-# invidious conditional auto profile match any invidious url
-[invidious]
-profile-desc="invidious hardware acceleration, cache"
-profile-cond=path:find('http://192.168.1.151:3000') ~= nil
-# include hwdec profile 
-profile=hwdec
-# override hwdec profile cache setting
-cache=no
-# fullscreen 2nd display
-fs
-fs-screen-name=DP-3
-
-
 # archive.org conditional auto profile match any archive.org url
 [archive]
 profile-desc="archive hardware acceleration, cache"
@@ -3571,7 +3555,7 @@ profile-cond=path:find('bbc.co.uk/iplayer') ~= nil
 # include hwdec profile 
 profile=hwdec
 # override hwdec profile cache setting
-cache=no
+cache=yes
 # fullscreen 2nd display
 fs
 fs-screen-name=DP-3
@@ -3581,18 +3565,6 @@ fs-screen-name=DP-3
 [bbc]
 profile-desc="bbc hardware acceleration, cache"
 profile-cond=path:find('bbc:pips:service') ~= nil
-# include hwdec profile 
-profile=hwdec
-# override hwdec profile cache setting
-cache=no
-# fullscreen 2nd display
-fs
-fs-screen-name=DP-3
-
-# kodi invidious conditional auto profile match any youtube url
-[kodi]
-profile-desc="kodi invidious hardware acceleration, cache"
-profile-cond=path:find('http?s://inv.tux.pizza') ~= nil
 # include hwdec profile 
 profile=hwdec
 # override hwdec profile cache setting
