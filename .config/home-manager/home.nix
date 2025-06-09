@@ -47,6 +47,7 @@
     aria2
     aspell
     aspellDicts.en
+    bat
     bc
     chromium
     curl

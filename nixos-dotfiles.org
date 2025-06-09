@@ -76,6 +76,7 @@ emacs --batch -l org --eval '(org-babel-tangle-file "~/git/ubuntu-dotfiles/ubunt
     aria2
     aspell
     aspellDicts.en
+    bat
     bc
     chromium
     curl
