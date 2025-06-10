@@ -43,7 +43,6 @@
     abook
     apg
     alacritty
-    audacity
     aria2
     aspell
     aspellDicts.en
