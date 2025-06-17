@@ -1661,6 +1661,12 @@ minibuffer with something like `exit-minibuffer'."
 
 (add-hook 'gptel-post-response-functions #'my/gptel-fix-src-header)
 
+;; ----------------------------------------------------------------------------------
+;; exec-path add local bin directory
+;; ----------------------------------------------------------------------------------
+
+(add-to-list 'exec-path "~/bin")
+
 
 ;; ----------------------------------------------------------------------------------
 ;; garbage collection
