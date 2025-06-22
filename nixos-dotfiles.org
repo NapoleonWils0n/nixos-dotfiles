@@ -19,18 +19,23 @@ emacs --batch -l org --eval '(org-babel-tangle-file "~/git/ubuntu-dotfiles/ubunt
 
 * flake update
 
+update the flake
+
+#+begin_src sh
+nix flake update 
+#+end_src
+
 run home manager switch with the flake option
 
 #+begin_src sh
 home-manager switch --flake '.#djwilcox@pollux'
 #+end_src
 
-run nix flake update, add the lock file and push
+commit the files and push the git repo
 
 #+begin_src sh
-nix flake update 
-git add flake.lock
-git commit -m "Update Home Manager flake.lock after successful switch"
+git add .
+git commit -m "flake updated"
 git push github master
 #+end_src
 
