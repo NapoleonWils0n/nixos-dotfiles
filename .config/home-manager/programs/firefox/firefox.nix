@@ -155,6 +155,8 @@
           user_pref("toolkit.legacyUserProfileCustomizations.stylesheets", true);
           // theme
           user_pref("widget.content.gtk-theme-override", "Adwaita:dark");
+          // trim urls
+          user_pref("browser.urlbar.trimURLs", false);
           '';
           userChrome = ''
           /* userChrome.css */
