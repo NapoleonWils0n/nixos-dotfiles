@@ -1610,7 +1610,7 @@ minibuffer with something like `exit-minibuffer'."
 ;; ----------------------------------------------------------------------------------
 
 ;; ssh auth sock
-(setenv "SSH_AUTH_SOCK" "/run/user/1000/keyring/ssh")
+(setenv "SSH_AUTH_SOCK" "/run/user/1000/gcr/ssh")
 
 
 ;; ----------------------------------------------------------------------------------
