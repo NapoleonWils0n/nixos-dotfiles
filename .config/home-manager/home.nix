@@ -1,4 +1,10 @@
-{ config, pkgs, ... }:
+#+begin_src nix
+{
+  config,
+  pkgs,
+  pkgs-ee930f975,
+  ...
+}:
 
 {
   # Home Manager needs a bit of information about you and the paths it should
@@ -50,7 +56,6 @@
     bc
     chromium
     curl
-    davinci-resolve
     dict
     dconf-editor
     fd
@@ -155,6 +160,9 @@ nixpkgs.overlays = [
     mpv = super.mpv.override {
       scripts = [ self.mpvScripts.mpris ];
     };
+  })
+  (self: super: {
+    davinci-resolve = pkgs-ee930f975.davinci-resolve;
   })
 ];
 

@@ -6,6 +6,10 @@
     # Nixpkgs, pointing to the unstable branch for the latest packages
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
 
+    # davinci resolve fix
+    # You can also use a specific git commit hash to lock the version
+    nixpkgs-ee930f975.url = "github:nixos/nixpkgs/ee930f9755f58096ac6e8ca94a1887e0534e2d81";
+
     # Home Manager itself
     home-manager = {
       url = "github:nix-community/home-manager"; # Defaults to master/unstable branch [1]
@@ -15,7 +19,12 @@
     };
   };
 
-  outputs = { self, nixpkgs, home-manager,... }:
+  outputs = inputs@{
+    self,
+    nixpkgs,
+    nixpkgs-ee930f975,
+    home-manager,
+    ... }:
     let
       # Define the system architecture
       system = "x86_64-linux"; # For your MacBook Air 2011
@@ -31,7 +40,12 @@
         
         # Pass extra arguments to your home.nix if needed.
         # For example, if your home.nix needs access to the 'inputs' set:
-        # extraSpecialArgs = { inherit inputs; };
+        extraSpecialArgs = {
+          pkgs-ee930f975 = import nixpkgs-ee930f975 {
+            inherit system;
+            config.allowUnfree = true;
+          };
+        };
         
         # Import your existing home.nix file from its relative path within this repository [3]
         modules = [
