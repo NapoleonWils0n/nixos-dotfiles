@@ -161,6 +161,7 @@ nixpkgs.overlays = [
       scripts = [ self.mpvScripts.mpris ];
     };
   })
+# davinci resolve pin to git revision
   (self: super: {
     davinci-resolve = pkgs-ee930f975.davinci-resolve;
   })
