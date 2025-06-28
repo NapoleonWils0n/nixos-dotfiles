@@ -3356,7 +3356,13 @@ minibuffer with something like `exit-minibuffer'."
 ;;; This format is meant to be slightly human-readable;
 ;;; nevertheless, you probably don't want to edit it.
 ;;; -*- End Of Bookmark File Format Version Stamp -*-
-(("desktop"
+(("changelog"
+ (filename . "~/git/changelog/README.org")
+ (front-context-string . "#+STARTUP: show2")
+ (rear-context-string)
+ (position . 1)
+ (last-modified 26720 13229 20205 770000))
+("desktop"
  (filename . "~/Desktop/")
  (front-context-string . "changelog.org\n  ")
  (rear-context-string . "50 Apr 16 17:55 ")
