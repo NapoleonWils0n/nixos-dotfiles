@@ -101,6 +101,12 @@
     zip
   ];
 
+
+  # davinci resolve pin to git revision
+  home.packages = with pkgs-ee930f975; [
+    davinci-resolve
+  ];
+
   # home sessions variables
   home.sessionVariables = {
     XCURSOR_THEME = "Adwaita";
@@ -160,10 +166,6 @@ nixpkgs.overlays = [
     mpv = super.mpv.override {
       scripts = [ self.mpvScripts.mpris ];
     };
-  })
-# davinci resolve pin to git revision
-  (self: super: {
-    davinci-resolve = pkgs-ee930f975.davinci-resolve;
   })
 ];
 

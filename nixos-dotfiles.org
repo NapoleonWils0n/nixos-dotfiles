@@ -57,9 +57,6 @@ git log --oneline flake.lock
 to find the exact commit hash
 
 * nixos dotfiles
-:PROPERTIES:
-:VISIBILITY: children
-:END!:
 ** home-manager
 *** home-manager config
 **** home.nix
@@ -169,6 +166,12 @@ to find the exact commit hash
     zip
   ];
 
+
+  # davinci resolve pin to git revision
+  home.packages = with pkgs-ee930f975; [
+    davinci-resolve
+  ];
+
   # home sessions variables
   home.sessionVariables = {
     XCURSOR_THEME = "Adwaita";
@@ -228,10 +231,6 @@ nixpkgs.overlays = [
     mpv = super.mpv.override {
       scripts = [ self.mpvScripts.mpris ];
     };
-  })
-# davinci resolve pin to git revision
-  (self: super: {
-    davinci-resolve = pkgs-ee930f975.davinci-resolve;
   })
 ];
 
