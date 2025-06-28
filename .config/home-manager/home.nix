@@ -56,6 +56,7 @@
     bc
     chromium
     curl
+    pkgs-ee930f975.davinci-resolve # use pkgs-ee930f975 instead of unstable
     dict
     dconf-editor
     fd
@@ -102,10 +103,7 @@
   ];
 
 
-  # davinci resolve pin to git revision
-  home.packages = with pkgs-ee930f975; [
-    davinci-resolve
-  ];
+  
 
   # home sessions variables
   home.sessionVariables = {
