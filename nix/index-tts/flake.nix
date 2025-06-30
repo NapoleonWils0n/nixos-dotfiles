@@ -69,8 +69,8 @@
             pip install torch torchaudio --index-url https://download.pytorch.org/whl/cu121
 
             # install index-tts
-            pip install -r ./requirements.txt
-            pip install -e .
+            pip install -r ./index-tts/requirements.txt
+            pip install -e ./index-tts/.
 
             echo "index-tts setup complete."
           '';
