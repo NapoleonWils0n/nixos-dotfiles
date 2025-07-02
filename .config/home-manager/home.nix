@@ -92,6 +92,7 @@
     tmux
     translate-shell
     transmission_4-gtk
+    tree
     ts
     unzip
     yt-dlp
