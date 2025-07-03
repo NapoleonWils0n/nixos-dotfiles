@@ -2,8 +2,8 @@
   description = "A development shell for WhisperX with CUDA support (pip-based installation, targeting CUDA 12.x and cuDNN 8.x on NixOS 25.05).";
 
   inputs = {
-    # Pinning to the latest stable NixOS 25.05 release
-    nixpkgs.url = "github:NixOS/Nixpkgs/nixos-25.05";
+    # Pinning to the latest NixOS unstable
+    nixpkgs.url = "github:NixOS/Nixpkgs/nixos-unstable";
     flake-utils.url = "github:numtide/flake-utils";
   };
 
