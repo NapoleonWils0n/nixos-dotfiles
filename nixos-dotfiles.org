@@ -989,8 +989,8 @@ pkgs.mkShell rec {
   description = "A development shell for OpenAI Whisper with CUDA support.";
 
   inputs = {
-    # Pinning to the latest stable NixOS release for better CUDA stability
-    nixpkgs.url = "github:NixOS/Nixpkgs/nixos-25.05"; # <--- CHANGED: Pin to stable channel 25.05
+    # Pinning to the latest unstable NixOS release for better CUDA stability
+    nixpkgs.url = "github:NixOS/Nixpkgs/nixos-unstable";
     flake-utils.url = "github:numtide/flake-utils";
   };
 
@@ -1092,16 +1092,16 @@ pkgs.mkShell rec {
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1750969886,
-        "narHash": "sha256-zW/OFnotiz/ndPFdebpo3X0CrbVNf22n4DjN2vxlb58=",
+        "lastModified": 1751271578,
+        "narHash": "sha256-P/SQmKDu06x8yv7i0s8bvnnuJYkxVGBWLWHaU+tt4YY=",
         "owner": "NixOS",
         "repo": "Nixpkgs",
-        "rev": "a676066377a2fe7457369dd37c31fd2263b662f4",
+        "rev": "3016b4b15d13f3089db8a41ef937b13a9e33a8df",
         "type": "github"
       },
       "original": {
         "owner": "NixOS",
-        "ref": "nixos-25.05",
+        "ref": "nixos-unstable",
         "repo": "Nixpkgs",
         "type": "github"
       }
@@ -1131,7 +1131,6 @@ pkgs.mkShell rec {
   "root": "root",
   "version": 7
 }
-
 #+end_src
 
 **** index-tts tangle
