@@ -2,8 +2,8 @@
   description = "A development shell for OpenAI Whisper with CUDA support.";
 
   inputs = {
-    # Pinning to the latest stable NixOS release for better CUDA stability
-    nixpkgs.url = "github:NixOS/Nixpkgs/nixos-25.05"; # <--- CHANGED: Pin to stable channel 25.05
+    # Pinning to the latest unstable NixOS release for better CUDA stability
+    nixpkgs.url = "github:NixOS/Nixpkgs/nixos-unstable"; 
     flake-utils.url = "github:numtide/flake-utils";
   };
 

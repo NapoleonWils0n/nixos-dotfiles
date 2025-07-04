@@ -1190,8 +1190,8 @@ then commit lock file
   description = "A development shell for OpenAI Whisper with CUDA support.";
 
   inputs = {
-    # Pinning to the latest stable NixOS release for better CUDA stability
-    nixpkgs.url = "github:NixOS/Nixpkgs/nixos-25.05"; # <--- CHANGED: Pin to stable channel 25.05
+    # Pinning to the latest unstable NixOS release for better CUDA stability
+    nixpkgs.url = "github:NixOS/Nixpkgs/nixos-unstable"; 
     flake-utils.url = "github:numtide/flake-utils";
   };
 
@@ -1291,16 +1291,16 @@ then commit lock file
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1750259320,
-        "narHash": "sha256-H8J4H2XCIMEJ5g6fZ179QfQvsc2dUqhqfBjC8RAHNRY=",
+        "lastModified": 1751271578,
+        "narHash": "sha256-P/SQmKDu06x8yv7i0s8bvnnuJYkxVGBWLWHaU+tt4YY=",
         "owner": "NixOS",
         "repo": "Nixpkgs",
-        "rev": "9ba04bda9249d5d5e5238303c9755de5a49a79c5",
+        "rev": "3016b4b15d13f3089db8a41ef937b13a9e33a8df",
         "type": "github"
       },
       "original": {
         "owner": "NixOS",
-        "ref": "nixos-25.05",
+        "ref": "nixos-unstable",
         "repo": "Nixpkgs",
         "type": "github"
       }
