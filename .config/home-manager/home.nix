@@ -56,7 +56,7 @@
     bc
     chromium
     curl
-    pkgs-ee930f975.davinci-resolve # use pkgs-ee930f975 instead of unstable
+    davinci-resolve
     dict
     dconf-editor
     fd
