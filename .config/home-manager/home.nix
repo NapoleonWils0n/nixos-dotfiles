@@ -50,6 +50,7 @@
     apg
     alacritty
     aria2
+    ardour
     aspell
     aspellDicts.en
     bat
@@ -72,6 +73,7 @@
     iosevka
     libnotify
     libwebp
+    lsp-plugins
     kodi-wayland
     mpc
     mpd

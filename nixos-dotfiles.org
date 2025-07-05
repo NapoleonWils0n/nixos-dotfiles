@@ -115,6 +115,7 @@ to find the exact commit hash
     apg
     alacritty
     aria2
+    ardour
     aspell
     aspellDicts.en
     bat
@@ -137,6 +138,7 @@ to find the exact commit hash
     iosevka
     libnotify
     libwebp
+    lsp-plugins
     kodi-wayland
     mpc
     mpd
