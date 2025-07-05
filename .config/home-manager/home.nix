@@ -81,6 +81,7 @@
     ncdu
     ncmpc
     nerd-fonts.fira-code
+    noise-repellent
     noto-fonts-emoji
     oath-toolkit
     obs-studio
@@ -90,8 +91,6 @@
     playerctl
     realesrgan-ncnn-vulkan
     ripgrep
-    rnnoise
-    rnnoise-plugin
     sox
     tmux
     translate-shell

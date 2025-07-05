@@ -146,6 +146,7 @@ to find the exact commit hash
     ncdu
     ncmpc
     nerd-fonts.fira-code
+    noise-repellent
     noto-fonts-emoji
     oath-toolkit
     obs-studio
@@ -155,8 +156,6 @@ to find the exact commit hash
     playerctl
     realesrgan-ncnn-vulkan
     ripgrep
-    rnnoise
-    rnnoise-plugin
     sox
     tmux
     translate-shell
