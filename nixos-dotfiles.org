@@ -155,6 +155,7 @@ to find the exact commit hash
     playerctl
     realesrgan-ncnn-vulkan
     ripgrep
+    rnnoise
     sox
     tmux
     translate-shell
