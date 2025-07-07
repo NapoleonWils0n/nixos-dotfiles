@@ -91,6 +91,8 @@
     playerctl
     realesrgan-ncnn-vulkan
     ripgrep
+    rnnoise
+    rnnoise-plugin
     sox
     tmux
     translate-shell
