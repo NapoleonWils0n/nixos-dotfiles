@@ -90,6 +90,7 @@
     pinentry-curses
     playerctl
     realesrgan-ncnn-vulkan
+    rnnoise-plugin
     ripgrep
     sox
     tmux
