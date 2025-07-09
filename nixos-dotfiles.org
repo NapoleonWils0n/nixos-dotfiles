@@ -154,6 +154,7 @@ to find the exact commit hash
     pandoc
     pinentry-curses
     playerctl
+    qpwgraph
     realesrgan-ncnn-vulkan
     rnnoise-plugin
     ripgrep

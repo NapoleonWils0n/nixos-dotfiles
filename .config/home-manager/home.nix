@@ -89,6 +89,7 @@
     pandoc
     pinentry-curses
     playerctl
+    qpwgraph
     realesrgan-ncnn-vulkan
     rnnoise-plugin
     ripgrep
