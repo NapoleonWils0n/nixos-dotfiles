@@ -106,6 +106,23 @@
     wl-clipboard
     zathura
     zip
+
+    # dwl
+    dwlb
+    tofi
+    wlrctl
+    wlr-which-key
+
+    # Add dwl with custom config.h and movestack.patch
+    (pkgs.dwl.override {
+      # Path to your custom config.h file
+      conf = ./programs/dwl/config.h;
+
+      # Path to your movestack.patch file
+      patches = [
+        ./programs/dwl/movestack.patch
+      ];
+    })
   ];
 
 
