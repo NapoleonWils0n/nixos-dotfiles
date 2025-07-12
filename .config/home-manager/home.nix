@@ -106,15 +106,7 @@
     wl-clipboard
     zathura
     zip
-
-    # dwl
-    tofi
-    wlrctl
-    wlr-which-key
   ];
-
-
-  
 
   # home sessions variables
   home.sessionVariables = {
