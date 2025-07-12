@@ -173,21 +173,12 @@ to find the exact commit hash
     zip
 
     # dwl
+    dwl
     dwlb
     tofi
     wlrctl
     wlr-which-key
 
-    # Add dwl with custom config.h and movestack.patch
-    (pkgs.dwl.override {
-      # Path to your custom config.h file
-      conf = ./programs/dwl/config.h;
-
-      # Path to your movestack.patch file
-      patches = [
-        ./programs/dwl/movestack.patch
-      ];
-    })
   ];
 
 
@@ -252,6 +243,29 @@ nixpkgs.overlays = [
     mpv = super.mpv.override {
       scripts = [ self.mpvScripts.mpris ];
     };
+  })
+
+  # New overlay for dwl with movestack.patch
+  (self: super: {
+    dwl = super.dwl.overrideAttrs (oldAttrs: {
+      # Apply the movestack.patch
+      # This assumes the patch is relative to your home.nix
+      # and located at ./programs/dwl/movestack.patch
+      patches = (oldAttrs.patches or []) ++ [
+        ./programs/dwl/movestack.patch
+      ];
+
+      # Ensure the custom config.h is still applied
+      # You can manage conf here or in home.packages, but doing it here
+      # keeps all dwl-specific customization in one place (the overlay).
+      # If you want to manage config.h via `home.packages` `override` still,
+      # you can remove this `conf` line from the overlay.
+      # However, it's generally cleaner to handle all source modifications
+      # (patches, config.h) in the overlay if possible.
+      postPatch = (oldAttrs.postPatch or "") + ''
+        cp ${./programs/dwl/config.h} config.h
+      '';
+    });
   })
 ];
 
