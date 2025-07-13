@@ -75,6 +75,7 @@
     libnotify
     libwebp
     lsp-plugins
+    lxqt.pcmanfm-qt
     kodi-wayland
     mpc
     mpd
@@ -84,8 +85,10 @@
     nerd-fonts.fira-code
     noise-repellent
     noto-fonts-emoji
+    nsxiv
     oath-toolkit
     obs-studio
+    obs-studio-plugins.wlrobs
     openvpn
     pandoc
     pinentry-curses
@@ -95,6 +98,7 @@
     rnnoise-plugin
     ripgrep
     sox
+    tofi
     tmux
     translate-shell
     transmission_4-gtk
@@ -105,6 +109,8 @@
     wget
     widevine-cdm
     wl-clipboard
+    wlrctl
+    wlr-which-key
     zathura
     zip
   ];

@@ -140,6 +140,7 @@ to find the exact commit hash
     libnotify
     libwebp
     lsp-plugins
+    lxqt.pcmanfm-qt
     kodi-wayland
     mpc
     mpd
@@ -149,8 +150,10 @@ to find the exact commit hash
     nerd-fonts.fira-code
     noise-repellent
     noto-fonts-emoji
+    nsxiv
     oath-toolkit
     obs-studio
+    obs-studio-plugins.wlrobs
     openvpn
     pandoc
     pinentry-curses
@@ -160,6 +163,7 @@ to find the exact commit hash
     rnnoise-plugin
     ripgrep
     sox
+    tofi
     tmux
     translate-shell
     transmission_4-gtk
@@ -170,6 +174,8 @@ to find the exact commit hash
     wget
     widevine-cdm
     wl-clipboard
+    wlrctl
+    wlr-which-key
     zathura
     zip
   ];
