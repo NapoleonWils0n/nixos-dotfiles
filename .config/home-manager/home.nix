@@ -75,7 +75,6 @@
     libnotify
     libwebp
     lsp-plugins
-    lxqt.pcmanfm-qt
     kodi-wayland
     mpc
     mpd
