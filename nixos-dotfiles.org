@@ -149,6 +149,7 @@ to find the exact commit hash
     libwebp
     lsp-plugins
     kodi-wayland
+    mako
     mpc
     mpd
     mpv
