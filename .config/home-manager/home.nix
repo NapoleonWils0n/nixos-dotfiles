@@ -84,7 +84,6 @@
     libwebp
     lsp-plugins
     kodi-wayland
-    mako
     mpc
     mpd
     mpv
