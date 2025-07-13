@@ -68,6 +68,7 @@
     git
     gnome-tweaks
     gnumake
+    grim
     handbrake
     imagemagick
     iosevka
