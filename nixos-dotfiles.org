@@ -4757,6 +4757,79 @@ fs-screen-name=DP-3
 <<yt-dlp>>
 #+END_SRC
 
+** wireplumber
+*** wireplumber config
+
+#+NAME: wireplumber
+#+BEGIN_SRC conf
+monitor.alsa.rules = [
+  {
+    matches = [
+      {
+        object.path = "alsa:acp:PCH:6:playback"
+      }
+    ]
+    actions = {
+      update-props = {
+        node.description = "laptop"
+      }
+    }
+  },
+  {
+    matches = [
+      {
+        object.path = "alsa:acp:PCH:0:capture"
+      }
+    ]
+    actions = {
+      update-props = {
+        node.description = "mic"
+      }
+    }
+  },
+  {
+    matches = [
+      {
+        object.path = "alsa:acp:SoundSticks:1:playback"
+      }
+    ]
+    actions = {
+      update-props = {
+        node.description = "speakers"
+      }
+    }
+  },
+  {
+    matches = [
+      {
+        object.path = "alsa:acp:Snowball:0:capture"
+      }
+    ]
+    actions = {
+      update-props = {
+        node.description = "yeti"
+      }
+    }
+  }
+]
+#+END_SRC
+
+*** wireplumber tangle
+
++ home dir
+
+#+NAME: wireplumber-home-dir
+#+BEGIN_SRC conf :noweb yes :tangle "~/.config/wireplumber/wireplumber.conf.d/device-rename.conf"
+<<wireplumber>>
+#+END_SRC
+
++ current dir
+
+#+NAME: wireplumber-current-dir
+#+BEGIN_SRC conf :noweb yes :tangle ".config/wireplumber/wireplumber.conf.d/device-rename.conf"
+<<wireplumber>>
+#+END_SRC
+
 ** kodi
 *** kodi config
 **** playercorefactory.xml
