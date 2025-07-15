@@ -27,15 +27,6 @@
 ;; no title bar
 (add-to-list 'default-frame-alist '(undecorated . t))
 
-;; opacity
-(add-hook 'after-make-frame-functions
-          (lambda (frame)
-            (set-frame-parameter frame 'alpha-background 90)))
-
-;; You might also want to set it for the initial frame if the hook doesn't catch it
-(when (and (boundp 'initial-frame) initial-frame)
-  (set-frame-parameter initial-frame 'alpha-background 90))
-
 ;;Tell emacs where is your personal elisp lib dir
 (add-to-list 'load-path "~/.config/emacs/lisp/")
 
