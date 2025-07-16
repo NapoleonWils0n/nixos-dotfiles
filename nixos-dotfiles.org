@@ -3609,7 +3609,7 @@ minibuffer with something like `exit-minibuffer'."
 ;; gemini
 ;; ----------------------------------------------------------------------------------
 
-(setq gptel-model 'gemini-2.0-flash
+(setq gptel-model 'gemini-2.5-flash
       gptel-backend (gptel-make-gemini "Gemini"
                               :key (gptel-api-key-from-auth-source "generativelanguage.googleapis.com")
                               :stream t))
