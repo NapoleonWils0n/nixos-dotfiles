@@ -882,6 +882,53 @@ menu:
 <<wlr-which-key>>
 #+END_SRC
 
+** systemd
+*** systemd config
+**** status-bar.service
+
+#+NAME: status-bar.service
+#+BEGIN_SRC conf
+[Unit]
+Description=dwl Custom Status Bar Feeder
+After=graphical-session.target
+BindsTo=graphical-session.target
+
+[Service]
+ExecStart=/home/djwilcox/bin/status-bar
+Restart=on-failure
+RestartSec=5
+Type=simple
+
+[Install]
+WantedBy=graphical-session.target
+#+END_SRC
+
+*** systemd tangle
+**** status-bar.service
+
++ home dir
+
+#+NAME: status-bar.service-home-dir
+#+BEGIN_SRC conf :noweb yes :tangle "~/.config/systemd/user/status-bar.service"
+<<status-bar.service>>
+#+END_SRC
+
++ current dir
+
+#+NAME: status-bar.service-current-dir
+#+BEGIN_SRC conf :noweb yes :tangle ".config/systemd/user/status-bar.service"
+<<status-bar.service>>
+#+END_SRC
+
+*** enable status-bar.service
+
+enable the status-bar.service
+
+#+begin_src sh
+systemctl --user daemon-reload 
+systemctl --user enable status-bar.service 
+#+end_src
+
 ** nix
 *** gemini-cli
 **** gemini-cli config

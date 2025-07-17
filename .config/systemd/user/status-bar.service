@@ -1,0 +1,13 @@
+[Unit]
+Description=dwl Custom Status Bar Feeder
+After=graphical-session.target
+BindsTo=graphical-session.target
+
+[Service]
+ExecStart=/home/djwilcox/bin/status-bar
+Restart=on-failure
+RestartSec=5
+Type=simple
+
+[Install]
+WantedBy=graphical-session.target
