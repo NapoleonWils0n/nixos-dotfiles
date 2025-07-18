@@ -2240,6 +2240,9 @@ if __name__ == "__main__":
 (setq doom-modeline-vcs-icon t)
 (setq doom-modeline-vcs-bar-width 4)
 
+;; The maximum displayed length of the branch name of version control.
+(setq doom-modeline-vcs-max-length 15)
+
 
 ;; ----------------------------------------------------------------------------------
 ;; TAB bar mode 
