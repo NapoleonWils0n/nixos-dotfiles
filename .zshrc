@@ -10,9 +10,19 @@ HISTSIZE=1000
 newline=$'\n'
 yesmaster='Yes Master ? '
 
+# source git-prompt.sh
+source ~/.nix-profile/share/git/contrib/completion/git-prompt.sh
+
+# export git status options
+export GIT_PS1_SHOWDIRTYSTATE=true
+export GIT_PS1_SHOWSTASHSTATE=true
+export GIT_PS1_SHOWUNTRACKEDFILES=true
+export GIT_PS1_SHOWUPSTREAM="auto"
+export GIT_PS1_SHOWCOLORHINTS=true
+
 # PS3 prompt function
 function zle-line-init zle-keymap-select {
-    PS1="[%n@%M %~]${newline}${yesmaster}"
+    PS1="[%n@%M %~]$(__git_ps1 "(%s) ")${newline}${yesmaster}"
     zle reset-prompt
 }
 
