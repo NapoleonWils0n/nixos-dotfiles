@@ -157,6 +157,17 @@
 ;; dont display the buffer encoding.
 (setq doom-modeline-buffer-encoding nil)
 
+;; Often necessary for system icons
+(setq doom-modeline-major-mode-icon t)
+
+;; battery
+(display-battery-mode t)
+(setq doom-modeline-battery t)
+
+;; git
+(setq doom-modeline-vcs-icon t)
+(setq doom-modeline-vcs-bar-width 4)
+
 
 ;; ----------------------------------------------------------------------------------
 ;; TAB bar mode 
