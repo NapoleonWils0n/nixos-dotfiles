@@ -2238,9 +2238,18 @@ if __name__ == "__main__":
 (setq doom-modeline-vcs-max-length 15)
 
 ;; doom modeline elements order
-(doom-modeline-def-modeline 'main
-'(bar matches buffer-info remote-host buffer-position selection-info)
-'(misc-info minor-modes input-method buffer-encoding major-mode process vcs check battery time))
+;; Ensure doom-modeline-def-modeline runs after the package is loaded
+(eval-after-load 'doom-modeline
+  (lambda ()
+    ;; doom modeline elements order
+    (doom-modeline-def-modeline 'main
+      '(bar matches buffer-info remote-host buffer-position selection-info)
+      '(misc-info minor-modes input-method buffer-encoding major-mode process vcs check battery time))
+
+    ;; Optional: Force modeline update to see changes immediately
+    (force-mode-line-update)
+    (message "Doom Modeline segments redefined successfully.")
+    ))
 
 
 ;; ----------------------------------------------------------------------------------
