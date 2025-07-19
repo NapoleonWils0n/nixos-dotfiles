@@ -176,6 +176,7 @@ to find the exact commit hash
     ts
     unzip
     yt-dlp
+    wbg
     wget
     widevine-cdm
     wl-clipboard
