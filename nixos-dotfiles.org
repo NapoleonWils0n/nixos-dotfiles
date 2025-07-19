@@ -898,6 +898,25 @@ Type=simple
 WantedBy=graphical-session.target
 #+END_SRC
 
+**** wallpaper.service
+
+#+NAME: wallpaper.service
+#+BEGIN_SRC conf
+[Unit]
+Description=wbg wlroots wallpaper
+After=graphical-session.target
+BindsTo=graphical-session.target
+
+[Service]
+ExecStart=/home/djwilcox/bin/wallpaper
+Restart=on-failure
+RestartSec=5
+Type=simple
+
+[Install]
+WantedBy=graphical-session.target
+#+END_SRC
+
 *** systemd tangle
 **** status-bar.service
 
@@ -915,6 +934,22 @@ WantedBy=graphical-session.target
 <<status-bar.service>>
 #+END_SRC
 
+**** wallpaper.service
+
++ home dir
+
+#+NAME: wallpaper.service-home-dir
+#+BEGIN_SRC conf :noweb yes :tangle "~/.config/systemd/user/wallpaper.service"
+<<wallpaper.service>>
+#+END_SRC
+
++ current dir
+
+#+NAME: wallpaper.service-current-dir
+#+BEGIN_SRC conf :noweb yes :tangle ".config/systemd/user/wallpaper.service"
+<<wallpaper.service>>
+#+END_SRC
+
 *** enable status-bar.service
 
 enable the status-bar.service
@@ -922,6 +957,15 @@ enable the status-bar.service
 #+begin_src sh
 systemctl --user daemon-reload 
 systemctl --user enable status-bar.service 
+#+end_src
+
+*** enable wallpaper.service
+
+enable the wallpaper.service
+
+#+begin_src sh
+systemctl --user daemon-reload 
+systemctl --user enable wallpaper.service 
 #+end_src
 
 ** nix

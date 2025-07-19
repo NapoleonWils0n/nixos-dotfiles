@@ -1,0 +1,13 @@
+[Unit]
+Description=wbg wlroots wallpaper
+After=graphical-session.target
+BindsTo=graphical-session.target
+
+[Service]
+ExecStart=/home/djwilcox/bin/wallpaper
+Restart=on-failure
+RestartSec=5
+Type=simple
+
+[Install]
+WantedBy=graphical-session.target
