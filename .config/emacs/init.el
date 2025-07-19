@@ -171,6 +171,11 @@
 ;; The maximum displayed length of the branch name of version control.
 (setq doom-modeline-vcs-max-length 15)
 
+;; doom modeline elements order
+(doom-modeline-def-modeline 'main
+'(bar matches buffer-info remote-host buffer-position selection-info)
+'(misc-info minor-modes input-method buffer-encoding major-mode process vcs check battery time))
+
 
 ;; ----------------------------------------------------------------------------------
 ;; TAB bar mode 
