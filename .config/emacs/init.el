@@ -100,39 +100,7 @@
 (pixel-scroll-precision-mode 1)
 
 
-;; ----------------------------------------------------------------------------------
-;; TAB bar mode
-;; ----------------------------------------------------------------------------------
-
-(setq tab-bar-show 1)                     ;; hide bar if <= 1 tabs open
-(setq tab-bar-close-button-show nil)      ;; hide close tab button
-(setq tab-bar-new-button-show nil)        ;; hide new tab button
-(setq tab-bar-new-tab-choice "*scratch*") ;; default tab scratch
-(setq tab-bar-close-last-tab-choice 'tab-bar-mode-disable) 
-(setq tab-bar-close-tab-select 'recent)
-(setq tab-bar-new-tab-to 'right)
-(setq tab-bar-tab-hints nil)
-(setq tab-bar-separator " ")
-(setq tab-bar-auto-width-max '((100) 20))
-(setq tab-bar-auto-width t)
-
-;; Customize the tab bar format to add the global mode line string
-(setq tab-bar-format '(tab-bar-format-tabs tab-bar-separator tab-bar-format-align-right tab-bar-format-global))
-
-;; menubar in tab bar
-(add-to-list 'tab-bar-format #'tab-bar-format-menu-bar)
-
-;; Turn on tab bar mode after startup
-(tab-bar-mode 1)
-
-;; tab bar menu bar button
-(setq tab-bar-menu-bar-button "👿")
-
-
-;; ----------------------------------------------------------------------------------
-;; general
-;; ----------------------------------------------------------------------------------
-
+;; version control
 (setq version-control t)
 (setq vc-make-backup-files t)
 (setq backup-by-copying t)
@@ -205,6 +173,35 @@
         try-expand-line
         try-complete-lisp-symbol-partially
         try-complete-lisp-symbol))
+
+
+;; ----------------------------------------------------------------------------------
+;; TAB bar mode
+;; ----------------------------------------------------------------------------------
+
+(setq tab-bar-show 1)                     ;; hide bar if <= 1 tabs open
+(setq tab-bar-close-button-show nil)      ;; hide close tab button
+(setq tab-bar-new-button-show nil)        ;; hide new tab button
+(setq tab-bar-new-tab-choice "*scratch*") ;; default tab scratch
+(setq tab-bar-close-last-tab-choice 'tab-bar-mode-disable) 
+(setq tab-bar-close-tab-select 'recent)
+(setq tab-bar-new-tab-to 'right)
+(setq tab-bar-tab-hints nil)
+(setq tab-bar-separator " ")
+(setq tab-bar-auto-width-max '((100) 20))
+(setq tab-bar-auto-width t)
+
+;; Customize the tab bar format to add the global mode line string
+(setq tab-bar-format '(tab-bar-format-tabs tab-bar-separator tab-bar-format-align-right tab-bar-format-global))
+
+;; menubar in tab bar
+(add-to-list 'tab-bar-format #'tab-bar-format-menu-bar)
+
+;; Turn on tab bar mode after startup
+(tab-bar-mode 1)
+
+;; tab bar menu bar button
+(setq tab-bar-menu-bar-button "👿")
 
 
 ;; ----------------------------------------------------------------------------------
