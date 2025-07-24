@@ -174,6 +174,9 @@
         try-complete-lisp-symbol-partially
         try-complete-lisp-symbol))
 
+;; emacs 28 - dictionary server
+(setq dictionary-server "dict.org")
+
 
 ;; ----------------------------------------------------------------------------------
 ;; TAB bar mode
@@ -205,10 +208,13 @@
 
 
 ;; ----------------------------------------------------------------------------------
-;; emacs 28 - dictionary server
+;; buffer list
 ;; ----------------------------------------------------------------------------------
 
-(setq dictionary-server "dict.org")
+;; display Buffer List in same window
+(add-to-list 'display-buffer-alist
+   '("^*Buffer List*" display-buffer-same-window))
+
 
 ;; mandatory, as the dictionary misbehaves!
 (add-to-list 'display-buffer-alist
@@ -397,16 +403,6 @@
   (global-undo-tree-mode 1)
   (setq undo-tree-visualizer-timestamps t
         undo-tree-visualizer-diff t))
-
-
-;; ----------------------------------------------------------------------------------
-;; buffer list
-;; ----------------------------------------------------------------------------------
-
-;; display Buffer List in same window
-(add-to-list 'display-buffer-alist
-   '("^*Buffer List*" display-buffer-same-window))
-
 
 
 ;; ----------------------------------------------------------------------------------
