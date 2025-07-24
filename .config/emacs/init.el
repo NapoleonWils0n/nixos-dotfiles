@@ -177,6 +177,9 @@
 ;; emacs 28 - dictionary server
 (setq dictionary-server "dict.org")
 
+;; mpd host
+(setq mpc-host "/home/djwilcox/.config/mpd/socket")
+
 
 ;; ----------------------------------------------------------------------------------
 ;; TAB bar mode
@@ -1208,15 +1211,6 @@
 
   ;; Set global keybinding
   (global-set-key (kbd "C-a") 'hydra-nested/body))
-
-
-
-;; ----------------------------------------------------------------------------------
-;; mpc
-;; ----------------------------------------------------------------------------------
-
-;; mpd host
-(setq mpc-host "/home/djwilcox/.config/mpd/socket")
 
 
 ;; ----------------------------------------------------------------------------------
