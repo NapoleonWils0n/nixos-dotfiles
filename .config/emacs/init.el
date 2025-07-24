@@ -224,6 +224,23 @@
 
 
 ;; ----------------------------------------------------------------------------------
+;; functions
+;; ----------------------------------------------------------------------------------
+
+;; clear the kill ring
+(defun clear-kill-ring ()
+  "Clear the results on the kill ring."
+  (interactive)
+  (setq kill-ring nil))
+
+;; reload init.el
+(defun my-reload-init ()
+  "reload init.el"
+  (interactive)
+  (load-file "~/.config/emacs/init.el"))
+
+
+;; ----------------------------------------------------------------------------------
 ;; fonts
 ;; ----------------------------------------------------------------------------------
 
@@ -403,23 +420,6 @@
   (global-undo-tree-mode 1)
   (setq undo-tree-visualizer-timestamps t
         undo-tree-visualizer-diff t))
-
-
-;; ----------------------------------------------------------------------------------
-;; functions
-;; ----------------------------------------------------------------------------------
-
-;; clear the kill ring
-(defun clear-kill-ring ()
-  "Clear the results on the kill ring."
-  (interactive)
-  (setq kill-ring nil))
-
-;; reload init.el
-(defun my-reload-init ()
-  "reload init.el"
-  (interactive)
-  (load-file "~/.config/emacs/init.el"))
 
 
 ;; ----------------------------------------------------------------------------------
