@@ -2668,6 +2668,13 @@ if __name__ == "__main__":
 (keymap-set global-map "C-c l" 'org-store-link)
 (keymap-set global-map "C-c a" 'org-agenda)
 
+;; mpv seek to position at point
+(keymap-set global-map "C-x ," 'my/mpv-seek-to-position-at-point)
+
+;; mpv dired embark
+(with-eval-after-load 'embark
+  (define-key embark-file-map "l" #'mpv-play-marked-files))
+
 
 ;; ----------------------------------------------------------------------------------
 ;; dired (Built-in Emacs functionality)
@@ -3165,19 +3172,6 @@ if __name__ == "__main__":
 
   ) ;; This is the final closing parenthesis for the entire (use-package mpv ...) block
 
-
-;; ----------------------------------------------------------------------------------
-;; mpv keyboard
-;; ----------------------------------------------------------------------------------
-
-
-;; mpv seek to position at point
-(keymap-set global-map "C-x ," 'my/mpv-seek-to-position-at-point)
-
-
-;; mpv dired embark
-(with-eval-after-load 'embark
-  (define-key embark-file-map "l" #'mpv-play-marked-files))
 
 
 ;; ----------------------------------------------------------------------------------
