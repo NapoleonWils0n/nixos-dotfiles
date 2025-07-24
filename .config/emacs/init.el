@@ -41,18 +41,22 @@
 
 
 ;; ----------------------------------------------------------------------------------
-;; theme
+;; doom-theme : use-package
 ;; ----------------------------------------------------------------------------------
 
 ;; doom themes
 (use-package doom-themes)
 
-;;modus-vivendi-tinted
+
+;; ----------------------------------------------------------------------------------
+;; modus-vivendi-tinted : load-theme
+;; ----------------------------------------------------------------------------------
+
 (load-theme 'modus-vivendi-tinted t)
 
 
 ;; ----------------------------------------------------------------------------------
-;; general settings
+;; general settings : setq
 ;; ----------------------------------------------------------------------------------
 
 ;; Save all tempfiles in ~/.config/emacs/backups
@@ -93,6 +97,36 @@
 
 ;; scrolling
 (pixel-scroll-precision-mode 1)
+
+
+;; ----------------------------------------------------------------------------------
+;; TAB bar mode
+;; ----------------------------------------------------------------------------------
+
+
+(setq tab-bar-show 1)                     ;; hide bar if <= 1 tabs open
+(setq tab-bar-close-button-show nil)      ;; hide close tab button
+(setq tab-bar-new-button-show nil)        ;; hide new tab button
+(setq tab-bar-new-tab-choice "*scratch*") ;; default tab scratch
+(setq tab-bar-close-last-tab-choice 'tab-bar-mode-disable) 
+(setq tab-bar-close-tab-select 'recent)
+(setq tab-bar-new-tab-to 'right)
+(setq tab-bar-tab-hints nil)
+(setq tab-bar-separator " ")
+(setq tab-bar-auto-width-max '((100) 20))
+(setq tab-bar-auto-width t)
+
+;; Customize the tab bar format to add the global mode line string
+(setq tab-bar-format '(tab-bar-format-tabs tab-bar-separator tab-bar-format-align-right tab-bar-format-global))
+
+;; menubar in tab bar
+(add-to-list 'tab-bar-format #'tab-bar-format-menu-bar)
+
+;; Turn on tab bar mode after startup
+(tab-bar-mode 1)
+
+;; tab bar menu bar button
+(setq tab-bar-menu-bar-button "👿")
 
 
 ;; ----------------------------------------------------------------------------------
@@ -202,37 +236,6 @@
   (doom-modeline-now-playing-timer))
 
 
-
-;; ----------------------------------------------------------------------------------
-;; TAB bar mode
-;; ----------------------------------------------------------------------------------
-
-
-(setq tab-bar-show 1)                     ;; hide bar if <= 1 tabs open
-(setq tab-bar-close-button-show nil)      ;; hide close tab button
-(setq tab-bar-new-button-show nil)        ;; hide new tab button
-(setq tab-bar-new-tab-choice "*scratch*") ;; default tab scratch
-(setq tab-bar-close-last-tab-choice 'tab-bar-mode-disable) 
-(setq tab-bar-close-tab-select 'recent)
-(setq tab-bar-new-tab-to 'right)
-(setq tab-bar-tab-hints nil)
-(setq tab-bar-separator " ")
-(setq tab-bar-auto-width-max '((100) 20))
-(setq tab-bar-auto-width t)
-
-;; Customize the tab bar format to add the global mode line string
-(setq tab-bar-format '(tab-bar-format-tabs tab-bar-separator tab-bar-format-align-right tab-bar-format-global))
-
-;; menubar in tab bar
-(add-to-list 'tab-bar-format #'tab-bar-format-menu-bar)
-
-;; Turn on tab bar mode after startup
-(tab-bar-mode 1)
-
-;; tab bar menu bar button
-(setq tab-bar-menu-bar-button "👿")
-
-
 ;; ----------------------------------------------------------------------------------
 ;; evil
 ;; ----------------------------------------------------------------------------------
@@ -261,76 +264,18 @@
 
 
 ;; ----------------------------------------------------------------------------------
-;; evil-leader
+;; general packages : use-package
 ;; ----------------------------------------------------------------------------------
 
 (use-package evil-leader)
-
-
-;; ----------------------------------------------------------------------------------
-;; git-auto-commit-mode
-;; ----------------------------------------------------------------------------------
-
 (use-package git-auto-commit-mode)
-
-
-;; ----------------------------------------------------------------------------------
-;; iedit
-;; ----------------------------------------------------------------------------------
-
 (use-package iedit)
-
-
-;; ----------------------------------------------------------------------------------
-;; nerd-icons
-;; ----------------------------------------------------------------------------------
-
 (use-package nerd-icons)
-
-
-;; ----------------------------------------------------------------------------------
-;; nix-mode
-;; ----------------------------------------------------------------------------------
-
 (use-package nix-mode)
-
-;; ----------------------------------------------------------------------------------
-;; s
-;; ----------------------------------------------------------------------------------
-
 (use-package s)
-
-
-;; ----------------------------------------------------------------------------------
-;; shrink-path
-;; ----------------------------------------------------------------------------------
-
-
 (use-package shrink-path)
-
-
-;; ----------------------------------------------------------------------------------
-;; undo-tree
-;; ----------------------------------------------------------------------------------
-
-
 (use-package undo-tree)
-
-
-;; ----------------------------------------------------------------------------------
-;; wgrep
-;; ----------------------------------------------------------------------------------
-
-
 (use-package wgrep)
-
-
-
-;; ----------------------------------------------------------------------------------
-;; yaml-mode
-;; ----------------------------------------------------------------------------------
-
-
 (use-package yaml-mode)
 
 
