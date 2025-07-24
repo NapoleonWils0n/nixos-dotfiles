@@ -2235,6 +2235,93 @@ if __name__ == "__main__":
 ;; tab bar menu bar button
 (setq tab-bar-menu-bar-button "👿")
 
+;; general
+(setq version-control t)
+(setq vc-make-backup-files t)
+(setq backup-by-copying t)
+(setq delete-old-versions t)
+(setq kept-new-versions 6)
+(setq kept-old-versions 2)
+(setq create-lockfiles nil)
+(setq undo-tree-auto-save-history nil)
+
+;; pinentry
+(defvar epa-pinentry-mode)
+(setq epa-pinentry-mode 'loopback)
+
+;; display time in mode line, hide load average
+(setq display-time-format "%H:%M")
+(setq display-time-default-load-average nil)
+(display-time-mode 1)       ;; display time
+
+;; change prompt from yes or no, to y or n
+(setq use-short-answers t)
+
+;; turn off blinking cursor
+(setq blink-cursor-mode nil)
+
+;; suppress large file prompt
+(setq large-file-warning-threshold nil)
+
+;; always follow symlinks
+(setq vc-follow-symlinks t)
+
+;; case insensitive search
+(setq read-file-name-completion-ignore-case t)
+(setq completion-ignore-case t)
+
+;; M-n, M-p recall previous mini buffer commands
+(setq history-length 25)
+
+;; Use spaces instead of tabs
+(setq-default indent-tabs-mode nil)
+
+;; Use spaces instead of tabs
+(setq-default indent-tabs-mode nil)
+
+;; revert dired and other buffers
+(setq global-auto-revert-non-file-buffers t)
+
+;; eww browser text width
+(setq shr-width 80)
+
+;; ediff
+(setq ediff-window-setup-function 'ediff-setup-windows-plain)
+(setq ediff-split-window-function 'split-window-horizontally)
+
+;; disable ring bell
+(setq ring-bell-function 'ignore)
+
+;; side windows
+(setq switch-to-buffer-obey-display-actions t)
+
+;; hippie expand
+(setq save-abbrevs 'silently)
+(setq hippie-expand-try-functions-list
+      '(try-expand-all-abbrevs
+        try-complete-file-name-partially
+        try-complete-file-name
+        try-expand-dabbrev
+        try-expand-dabbrev-from-kill
+        try-expand-dabbrev-all-buffers
+        try-expand-list
+        try-expand-line
+        try-complete-lisp-symbol-partially
+        try-complete-lisp-symbol))
+
+
+;; ----------------------------------------------------------------------------------
+;; emacs 28 - dictionary server
+;; ----------------------------------------------------------------------------------
+
+(setq dictionary-server "dict.org")
+
+;; mandatory, as the dictionary misbehaves!
+(add-to-list 'display-buffer-alist
+   '("^\\*Dictionary\\*" display-buffer-in-side-window
+     (side . right)
+     (window-width . 0.50)))
+
 
 ;; ----------------------------------------------------------------------------------
 ;; fonts
@@ -2426,97 +2513,6 @@ if __name__ == "__main__":
 (add-to-list 'display-buffer-alist
    '("^*Buffer List*" display-buffer-same-window))
 
-
-;; ----------------------------------------------------------------------------------
-;; setq
-;; ----------------------------------------------------------------------------------
-
-;; general
-(setq version-control t)
-(setq vc-make-backup-files t)
-(setq backup-by-copying t)
-(setq delete-old-versions t)
-(setq kept-new-versions 6)
-(setq kept-old-versions 2)
-(setq create-lockfiles nil)
-(setq undo-tree-auto-save-history nil)
-
-;; pinentry
-(defvar epa-pinentry-mode)
-(setq epa-pinentry-mode 'loopback)
-
-;; display time in mode line, hide load average
-(setq display-time-format "%H:%M")
-(setq display-time-default-load-average nil)
-(display-time-mode 1)       ;; display time
-
-;; change prompt from yes or no, to y or n
-(setq use-short-answers t)
-
-;; turn off blinking cursor
-(setq blink-cursor-mode nil)
-
-;; suppress large file prompt
-(setq large-file-warning-threshold nil)
-
-;; always follow symlinks
-(setq vc-follow-symlinks t)
-
-;; case insensitive search
-(setq read-file-name-completion-ignore-case t)
-(setq completion-ignore-case t)
-
-;; M-n, M-p recall previous mini buffer commands
-(setq history-length 25)
-
-;; Use spaces instead of tabs
-(setq-default indent-tabs-mode nil)
-
-;; Use spaces instead of tabs
-(setq-default indent-tabs-mode nil)
-
-;; revert dired and other buffers
-(setq global-auto-revert-non-file-buffers t)
-
-;; eww browser text width
-(setq shr-width 80)
-
-;; ediff
-(setq ediff-window-setup-function 'ediff-setup-windows-plain)
-(setq ediff-split-window-function 'split-window-horizontally)
-
-;; disable ring bell
-(setq ring-bell-function 'ignore)
-
-;; side windows
-(setq switch-to-buffer-obey-display-actions t)
-
-;; hippie expand
-(setq save-abbrevs 'silently)
-(setq hippie-expand-try-functions-list
-      '(try-expand-all-abbrevs
-        try-complete-file-name-partially
-        try-complete-file-name
-        try-expand-dabbrev
-        try-expand-dabbrev-from-kill
-        try-expand-dabbrev-all-buffers
-        try-expand-list
-        try-expand-line
-        try-complete-lisp-symbol-partially
-        try-complete-lisp-symbol))
-
-
-;; ----------------------------------------------------------------------------------
-;; emacs 28 - dictionary server
-;; ----------------------------------------------------------------------------------
-
-(setq dictionary-server "dict.org")
-
-;; mandatory, as the dictionary misbehaves!
-(add-to-list 'display-buffer-alist
-   '("^\\*Dictionary\\*" display-buffer-in-side-window
-     (side . right)
-     (window-width . 0.50)))
 
 
 ;; ----------------------------------------------------------------------------------
