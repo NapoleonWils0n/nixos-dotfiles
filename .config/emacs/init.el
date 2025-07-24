@@ -239,6 +239,13 @@
   (interactive)
   (load-file "~/.config/emacs/init.el"))
 
+;; pinch - play urls with mpd
+(defun pinch-clipboard ()
+  "Send a url from the clipboard to mpd with pinch"
+  (interactive)
+  (let ((url (current-kill 0 t)))
+  (start-process "pinch" nil "pinch" "-i" url)))
+
 
 ;; ----------------------------------------------------------------------------------
 ;; keymap-global-set
@@ -274,7 +281,6 @@
 ;; mpv dired embark
 (with-eval-after-load 'embark
   (define-key embark-file-map "l" #'mpv-play-marked-files))
-
 
 
 ;; ----------------------------------------------------------------------------------
@@ -650,7 +656,6 @@
   :config
   ;; Enable dired-async-mode after the async package is loaded
   (dired-async-mode 1))
-
 
 
 ;; ----------------------------------------------------------------------------------
@@ -1062,21 +1067,7 @@
         (mpv-start (expand-file-name path))
         ;; mpv running append file to playlist
       (mpv--playlist-append (expand-file-name path))))
-
-
   ) ;; This is the final closing parenthesis for the entire (use-package mpv ...) block
-
-
-
-;; ----------------------------------------------------------------------------------
-;; pinch - play urls with mpd
-;; ----------------------------------------------------------------------------------
-
-(defun pinch-clipboard ()
-  "Send a url from the clipboard to mpd with pinch"
-  (interactive)
-  (let ((url (current-kill 0 t)))
-  (start-process "pinch" nil "pinch" "-i" url)))
 
 
 ;; ----------------------------------------------------------------------------------
