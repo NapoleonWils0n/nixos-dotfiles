@@ -241,6 +241,43 @@
 
 
 ;; ----------------------------------------------------------------------------------
+;; keymap-global-set
+;; ----------------------------------------------------------------------------------
+
+;; org-capture
+(keymap-global-set "C-c c" 'org-capture)
+
+;; press M-/ and invoke hippie-expand
+(keymap-global-set "M-/" 'hippie-expand)
+
+;; window-toggle-side-windows
+(keymap-global-set "C-x x w" 'window-toggle-side-windows)
+
+;; open dired side window
+(keymap-global-set "C-x x s" 'my/window-dired-vc-root-left)
+
+;; complete-symbol
+(keymap-global-set "C-." 'complete-symbol)
+
+
+;; ----------------------------------------------------------------------------------
+;; keymap-set
+;; ----------------------------------------------------------------------------------
+
+(keymap-set global-map "C-c h" 'iedit-mode)
+(keymap-set global-map "C-c l" 'org-store-link)
+(keymap-set global-map "C-c a" 'org-agenda)
+
+;; mpv seek to position at point
+(keymap-set global-map "C-x ," 'my/mpv-seek-to-position-at-point)
+
+;; mpv dired embark
+(with-eval-after-load 'embark
+  (define-key embark-file-map "l" #'mpv-play-marked-files))
+
+
+
+;; ----------------------------------------------------------------------------------
 ;; fonts
 ;; ----------------------------------------------------------------------------------
 
@@ -531,42 +568,6 @@
 
   (advice-add #'embark-completing-read-prompter
               :around #'embark-hide-which-key-indicator))
-
-
-;; ----------------------------------------------------------------------------------
-;; keymap-global-set
-;; ----------------------------------------------------------------------------------
-
-;; org-capture
-(keymap-global-set "C-c c" 'org-capture)
-
-;; press M-/ and invoke hippie-expand
-(keymap-global-set "M-/" 'hippie-expand)
-
-;; window-toggle-side-windows
-(keymap-global-set "C-x x w" 'window-toggle-side-windows)
-
-;; open dired side window
-(keymap-global-set "C-x x s" 'my/window-dired-vc-root-left)
-
-;; complete-symbol
-(keymap-global-set "C-." 'complete-symbol)
-
-
-;; ----------------------------------------------------------------------------------
-;; keymap-set
-;; ----------------------------------------------------------------------------------
-
-(keymap-set global-map "C-c h" 'iedit-mode)
-(keymap-set global-map "C-c l" 'org-store-link)
-(keymap-set global-map "C-c a" 'org-agenda)
-
-;; mpv seek to position at point
-(keymap-set global-map "C-x ," 'my/mpv-seek-to-position-at-point)
-
-;; mpv dired embark
-(with-eval-after-load 'embark
-  (define-key embark-file-map "l" #'mpv-play-marked-files))
 
 
 ;; ----------------------------------------------------------------------------------
