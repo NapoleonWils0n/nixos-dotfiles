@@ -248,6 +248,33 @@
 
 
 ;; ----------------------------------------------------------------------------------
+;; add-to-list
+;; ----------------------------------------------------------------------------------
+
+;; mutt
+(add-to-list 'auto-mode-alist '("/mutt" . mail-mode))
+
+;; exec-path add local bin directory
+(add-to-list 'exec-path "~/bin")
+(add-to-list 'exec-path "~/.nix-profile/bin")
+
+
+;; ----------------------------------------------------------------------------------
+;; add-hook
+;; ----------------------------------------------------------------------------------
+
+;; Make shebang (#!) file executable when saved
+(add-hook 'after-save-hook 'executable-make-buffer-file-executable-if-script-p)
+
+;; visual line mode
+(add-hook 'text-mode-hook 'visual-line-mode)
+
+;; h1 line mode
+(add-hook 'prog-mode-hook #'hl-line-mode)
+(add-hook 'text-mode-hook #'hl-line-mode)
+
+
+;; ----------------------------------------------------------------------------------
 ;; keymap-global-set
 ;; ----------------------------------------------------------------------------------
 
@@ -1167,27 +1194,6 @@
 
 
 ;; ----------------------------------------------------------------------------------
-;; mutt
-;; ----------------------------------------------------------------------------------
-
-(add-to-list 'auto-mode-alist '("/mutt" . mail-mode))
-
-;; ----------------------------------------------------------------------------------
-;; add-hook
-;; ----------------------------------------------------------------------------------
-
-;; Make shebang (#!) file executable when saved
-(add-hook 'after-save-hook 'executable-make-buffer-file-executable-if-script-p)
-
-;; visual line mode
-(add-hook 'text-mode-hook 'visual-line-mode)
-
-;; h1 line mode
-(add-hook 'prog-mode-hook #'hl-line-mode)
-(add-hook 'text-mode-hook #'hl-line-mode)
-
-
-;; ----------------------------------------------------------------------------------
 ;; wayland clipboard
 ;; ----------------------------------------------------------------------------------
 
@@ -1276,13 +1282,6 @@
   (add-hook 'gptel-post-response-functions #'my/gptel-fix-src-header))
 
 
-
-;; ----------------------------------------------------------------------------------
-;; exec-path add local bin directory
-;; ----------------------------------------------------------------------------------
-
-(add-to-list 'exec-path "~/bin")
-(add-to-list 'exec-path "~/.nix-profile/bin")
 
 
 ;; ----------------------------------------------------------------------------------
