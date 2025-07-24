@@ -597,6 +597,27 @@
   (add-hook 'dired-mode-hook (lambda () (dired-omit-mode 1))))
 
 
+;; ------------------------------------------------------------------------------------------------
+;; side-windows
+;; ------------------------------------------------------------------------------------------------
+
+;; dired-find-file-other-window 
+;; bound to <S-return>, g O, <normal-state> <S-return>, <normal-state> g O
+
+;; dired side window
+(defun my/window-dired-vc-root-left ()
+  (interactive)
+  (let ((dir (if (eq (vc-root-dir) nil)
+                 (dired-noselect default-directory)
+               (dired-noselect (vc-root-dir)))))
+    (display-buffer-in-side-window
+     dir `((side . left)
+           (slot . 0)
+           (window-width . 0.20)
+           (window-parameters . ((no-delete-other-windows . t)
+                                 (mode-line-format . (""))))))))
+
+
 ;; ----------------------------------------------------------------------------------
 ;; fd-dired (External Package)
 ;; ----------------------------------------------------------------------------------
@@ -622,26 +643,6 @@
   ;; Enable dired-async-mode after the async package is loaded
   (dired-async-mode 1))
 
-
-;; ------------------------------------------------------------------------------------------------
-;; side-windows
-;; ------------------------------------------------------------------------------------------------
-
-;; dired-find-file-other-window 
-;; bound to <S-return>, g O, <normal-state> <S-return>, <normal-state> g O
-
-;; dired side window
-(defun my/window-dired-vc-root-left ()
-  (interactive)
-  (let ((dir (if (eq (vc-root-dir) nil)
-                 (dired-noselect default-directory)
-               (dired-noselect (vc-root-dir)))))
-    (display-buffer-in-side-window
-     dir `((side . left)
-           (slot . 0)
-           (window-width . 0.20)
-           (window-parameters . ((no-delete-other-windows . t)
-                                 (mode-line-format . (""))))))))
 
 
 ;; ----------------------------------------------------------------------------------
