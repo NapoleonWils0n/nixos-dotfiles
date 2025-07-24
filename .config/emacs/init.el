@@ -246,6 +246,23 @@
   (let ((url (current-kill 0 t)))
   (start-process "pinch" nil "pinch" "-i" url)))
 
+;; wayland clipboard
+(setq wl-copy-process nil)
+(defun wl-copy (text)
+  (setq wl-copy-process (make-process :name "wl-copy"
+                                      :buffer nil
+                                      :command '("wl-copy" "-f" "-n")
+                                      :connection-type 'pipe
+                                      :noquery t))
+  (process-send-string wl-copy-process text)
+  (process-send-eof wl-copy-process))
+(defun wl-paste ()
+  (if (and wl-copy-process (process-live-p wl-copy-process))
+      nil ; should return nil if we're the current paste owner
+      (shell-command-to-string "wl-paste -n")))
+(setq interprogram-cut-function 'wl-copy)
+(setq interprogram-paste-function 'wl-paste)
+
 
 ;; ----------------------------------------------------------------------------------
 ;; add-to-list
@@ -1193,27 +1210,6 @@
   (global-set-key (kbd "C-a") 'hydra-nested/body))
 
 
-;; ----------------------------------------------------------------------------------
-;; wayland clipboard
-;; ----------------------------------------------------------------------------------
-
-;; credit: yorickvP on Github
-(setq wl-copy-process nil)
-(defun wl-copy (text)
-  (setq wl-copy-process (make-process :name "wl-copy"
-                                      :buffer nil
-                                      :command '("wl-copy" "-f" "-n")
-                                      :connection-type 'pipe
-                                      :noquery t))
-  (process-send-string wl-copy-process text)
-  (process-send-eof wl-copy-process))
-(defun wl-paste ()
-  (if (and wl-copy-process (process-live-p wl-copy-process))
-      nil ; should return nil if we're the current paste owner
-      (shell-command-to-string "wl-paste -n")))
-(setq interprogram-cut-function 'wl-copy)
-(setq interprogram-paste-function 'wl-paste)
-
 
 ;; ----------------------------------------------------------------------------------
 ;; mpc
@@ -1280,8 +1276,6 @@
         (replace-match "#+begin_src sh"))))
 
   (add-hook 'gptel-post-response-functions #'my/gptel-fix-src-header))
-
-
 
 
 ;; ----------------------------------------------------------------------------------
