@@ -71,6 +71,7 @@
 ;; history
 (setq savehist-file "~/.config/emacs/savehist")
 (savehist-mode 1)
+
 (setq history-length t)
 (setq history-delete-duplicates t)
 (setq savehist-save-minibuffer-history 1)
@@ -103,7 +104,6 @@
 ;; TAB bar mode
 ;; ----------------------------------------------------------------------------------
 
-
 (setq tab-bar-show 1)                     ;; hide bar if <= 1 tabs open
 (setq tab-bar-close-button-show nil)      ;; hide close tab button
 (setq tab-bar-new-button-show nil)        ;; hide new tab button
@@ -128,7 +128,11 @@
 ;; tab bar menu bar button
 (setq tab-bar-menu-bar-button "👿")
 
+
+;; ----------------------------------------------------------------------------------
 ;; general
+;; ----------------------------------------------------------------------------------
+
 (setq version-control t)
 (setq vc-make-backup-files t)
 (setq backup-by-copying t)
