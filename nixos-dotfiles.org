@@ -3754,7 +3754,7 @@ zstyle ':completion:*:*:kill:*' list-colors '=(#b) #([0-9]#)*( *[a-z])*=22=31=34
 zstyle ':completion:*:options' list-colors '=(#b) #(-[a-zA-Z0-9,]#)*(-- *)=36=37'
 
 # zsh autocompletion for sudo and doas
-#zstyle ":completion:*:(sudo|su|doas):*" command-path /usr/local/bin /usr/sbin /home/djwilcox/bin
+zstyle ":completion:*:(sudo|su|doas):*" command-path /run/wrappers/bin /run/current-system/sw/bin /home/djwilcox/bin
 
 # rehash commands
 zstyle ':completion:*' rehash true
@@ -4716,12 +4716,13 @@ Name=Profile Manager
 #+NAME: transmission-desktop
 #+begin_src conf
 [Desktop Entry]
-Name=Transmission
-Exec=/home/djwilcox/bin/magnet-add %u
-Icon=utilities-terminal
+Encoding=UTF-8
+Version=1.0
 Type=Application
+Exec=/run/wrappers/bin/doas /home/djwilcox/bin/namespace transmission-gtk %u
+Name=Transmission-VPN
+StartupNotify=true
 Terminal=false
-MimeType=application/x-bittorrent;x-scheme-handler/magnet;
 #+end_src
 
 *** desktop files tangle
@@ -4762,14 +4763,14 @@ MimeType=application/x-bittorrent;x-scheme-handler/magnet;
 + home dir
   
 #+NAME: transmission-desktop-home-dir
-#+BEGIN_SRC conf :noweb yes :tangle "~/.local/share/applications/transmission.desktop"
+#+BEGIN_SRC conf :noweb yes :tangle "~/.local/share/applications/userapp-transmission-vpn.desktop"
 <<transmission-desktop>>
 #+END_SRC
   
 + current dir
 
 #+NAME: transmission-desktop-current-dir
-#+BEGIN_SRC conf :noweb yes :tangle ".local/share/applications/transmission.desktop"
+#+BEGIN_SRC conf :noweb yes :tangle ".local/share/applications/userapp-transmission-vpn.desktop"
 <<transmission-desktop>>
 #+END_SRC
 
