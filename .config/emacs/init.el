@@ -1219,9 +1219,7 @@
 
 (use-package google-translate
   :config
-  (setq google-translate-default-source-language "auto"
-        google-translate-default-target-language "en"
-        google-translate-display-buffer-action
+  (setq google-translate-display-buffer-action
         '(pop-to-buffer-same-window)))
 
 
