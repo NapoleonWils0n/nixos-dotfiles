@@ -1382,6 +1382,150 @@ pkgs.mkShell rec {
 <<index-tts-flake.lock>>
 #+END_SRC
 
+*** n8n
+**** n8n config
+***** flake.nix
+
+#+NAME: n8n-flake.nix
+#+begin_src nix
+{
+  description = "n8n";
+
+  inputs = {
+    nixpkgs.url = "github:NixOS/Nixpkgs/nixos-unstable"; 
+    flake-utils.url = "github:numtide/flake-utils";
+  };
+
+  outputs = { self, nixpkgs, flake-utils }:
+    flake-utils.lib.eachDefaultSystem (system:
+      let
+        pkgs = import nixpkgs {
+          inherit system;
+          config = {
+            allowUnfree = true; 
+          };
+        };
+      in
+      {
+        devShells.default = pkgs.mkShell rec {
+          name = "n8n-dev-shell";
+
+          # build inputs 
+          buildInputs = with pkgs; [
+            n8n
+          ];
+
+          # Shell hook 
+          shellHook = ''
+            echo "Welcome to the n8n development shell!"
+            echo "You can now run 'n8n' directly by typing 'n8n'."
+            echo "To exit, press Ctrl+c."
+          '';
+        };
+      });
+}
+#+end_src
+
+***** flake.lock
+
+#+NAME: n8n-flake.lock
+#+begin_src nix
+{
+  "nodes": {
+    "flake-utils": {
+      "inputs": {
+        "systems": "systems"
+      },
+      "locked": {
+        "lastModified": 1731533236,
+        "narHash": "sha256-l0KFg5HjrsfsO/JpG+r7fRrqm12kzFHyUHqHCVpMMbI=",
+        "owner": "numtide",
+        "repo": "flake-utils",
+        "rev": "11707dc2f618dd54ca8739b309ec4fc024de578b",
+        "type": "github"
+      },
+      "original": {
+        "owner": "numtide",
+        "repo": "flake-utils",
+        "type": "github"
+      }
+    },
+    "nixpkgs": {
+      "locked": {
+        "lastModified": 1753694789,
+        "narHash": "sha256-cKgvtz6fKuK1Xr5LQW/zOUiAC0oSQoA9nOISB0pJZqM=",
+        "owner": "NixOS",
+        "repo": "Nixpkgs",
+        "rev": "dc9637876d0dcc8c9e5e22986b857632effeb727",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "nixos-unstable",
+        "repo": "Nixpkgs",
+        "type": "github"
+      }
+    },
+    "root": {
+      "inputs": {
+        "flake-utils": "flake-utils",
+        "nixpkgs": "nixpkgs"
+      }
+    },
+    "systems": {
+      "locked": {
+        "lastModified": 1681028828,
+        "narHash": "sha256-Vy1rq5AaRuLzOxct8nz4T6wlgyUR7zLU309k9mBC768=",
+        "owner": "nix-systems",
+        "repo": "default",
+        "rev": "da67096a3b9bf56a91d16901293e51ba5b49a27e",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-systems",
+        "repo": "default",
+        "type": "github"
+      }
+    }
+  },
+  "root": "root",
+  "version": 7
+}
+#+end_src
+
+**** n8n tangle
+***** flake.nix
+
++ home dir
+
+#+NAME: n8n-flake.nix-home-dir
+#+BEGIN_SRC nix :noweb yes :tangle "~/nix/n8n/flake.nix"
+<<n8n-flake.nix>>
+#+END_SRC
+  
++ current dir
+
+#+NAME: n8n-flake.nix-current-dir
+#+BEGIN_SRC nix :noweb yes :tangle "nix/n8n/flake.nix"
+<<n8n-flake.nix>>
+#+END_SRC
+
+***** flake.lock
+
++ home dir
+
+#+NAME: n8n-flake.lock-home-dir
+#+BEGIN_SRC nix :noweb yes :tangle "~/nix/n8n/flake.lock"
+<<n8n-flake.lock>>
+#+END_SRC
+  
++ current dir
+
+#+NAME: n8n-flake.lock-current-dir
+#+BEGIN_SRC nix :noweb yes :tangle "nix/n8n/flake.lock"
+<<n8n-flake.lock>>
+#+END_SRC
+
 *** whisper
 **** whisper config
 ***** whisper flake.nix
