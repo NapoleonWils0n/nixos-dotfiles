@@ -25,6 +25,7 @@
           ];
 
           shellHook = ''
+            source ${./shell-hook.sh}
             echo "You can now run 'ollama' by typing 'ollama serve'."
             echo "To exit, press Ctrl+c."
           '';
