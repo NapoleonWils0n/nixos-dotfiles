@@ -1250,6 +1250,16 @@
         gptel-post-response-functions #'gptel-end-of-response
         gptel-expert-commands t)
   :config
+  (setq gptel-model 'deepseek-r1:7b)
+  (setq gptel-backend (gptel-make-ollama "Ollama"
+                        :host "localhost:11434"
+                        :stream t
+                        :models '(deepseek-r1:7b)))
+  
+  ;; display the Ollama buffer in same window
+  (add-to-list 'display-buffer-alist
+     '("^*Ollama*" display-buffer-same-window))
+
   (setq gptel-model 'gemini-2.5-flash
         gptel-backend (gptel-make-gemini "Gemini"
                                          :key (gptel-api-key-from-auth-source "generativelanguage.googleapis.com")
