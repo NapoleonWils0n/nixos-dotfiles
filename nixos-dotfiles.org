@@ -961,30 +961,17 @@ systemctl --user enable wallpaper.service
 #+end_src
 
 ** nix
-*** gemini-cli
-**** gemini-cli config
-***** gemini-cli flake.nix
+*** ollama-cuda
+**** ollama-cuda config
+***** flake.nix
 
-#+begin_src sh
-nix develop
-#+end_src
-
-update
-
-#+begin_src sh
-nix flake update
-nix develop
-#+end_src
-
-then commit lock file
-
-#+NAME: gemini-cli-flake.nix
+#+NAME: ollama-cuda-flake.nix
 #+begin_src nix
 {
-  description = "gemini-cli";
+  description = "ollama-cuda";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/Nixpkgs/nixos-unstable"; 
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     flake-utils.url = "github:numtide/flake-utils";
   };
 
@@ -994,32 +981,31 @@ then commit lock file
         pkgs = import nixpkgs {
           inherit system;
           config = {
-            allowUnfree = true; 
+            allowUnfree = true;
           };
         };
       in
       {
-        devShells.default = pkgs.mkShell rec {
-          name = "gemini-cli-shell";
+        devShells.default = pkgs.mkShell {
+          name = "ollama-dev-shell";
 
-          # build inputs 
-          buildInputs = with pkgs; [
-            gemini-cli
+          packages = with pkgs; [
+            ollama-cuda
           ];
 
-          # Shell hook 
           shellHook = ''
-            echo "Welcome to the gemini-cli development shell!"
-            echo "You can now use 'gemini' directly."
+            source ${./shell-hook.sh}
+            echo "You can now run 'ollama' by typing 'ollama serve'."
+            echo "To exit, press Ctrl+c."
           '';
         };
       });
 }
 #+end_src
 
-***** gemini-cli flake.lock
+***** flake.lock
 
-#+NAME: gemini-cli-flake.lock
+#+NAME: ollama-cuda-flake.lock
 #+begin_src nix
 {
   "nodes": {
@@ -1046,14 +1032,14 @@ then commit lock file
         "lastModified": 1754214453,
         "narHash": "sha256-Q/I2xJn/j1wpkGhWkQnm20nShYnG7TI99foDBpXm1SY=",
         "owner": "NixOS",
-        "repo": "Nixpkgs",
+        "repo": "nixpkgs",
         "rev": "5b09dc45f24cf32316283e62aec81ffee3c3e376",
         "type": "github"
       },
       "original": {
         "owner": "NixOS",
         "ref": "nixos-unstable",
-        "repo": "Nixpkgs",
+        "repo": "nixpkgs",
         "type": "github"
       }
     },
@@ -1084,37 +1070,91 @@ then commit lock file
 }
 #+end_src
 
-**** gemini-cli tangle
-***** gemini-cli flake.nix
+***** shell-hook.sh
+
+#+NAME: ollama-cuda-shell-hook.sh
+#+begin_src bash
+# --- Bash Completion Code ---
+_ollama_get_models() {
+  ollama list | tail -n +2 | awk '{print $1}'
+}
+
+_ollama_completion() {
+  local current_word="${COMP_WORDS[COMP_CWORD]}"
+  local prev_word="${COMP_WORDS[COMP_CWORD-1]}"
+
+  # The full list of ollama subcommands
+  local subcommands="serve create show run stop pull push list ps cp rm help"
+
+  # Case 1: The user is typing a subcommand after 'ollama'
+  if [[ "${COMP_CWORD}" -eq 1 ]]; then
+    COMPREPLY=($(compgen -W "${subcommands}" -- "$current_word"))
+    return 0
+  fi
+
+  # Case 2: The user is typing a model name
+  # This covers commands that operate on a single model.
+  local model_commands="run pull push show stop rm cp create"
+  if [[ "${COMP_CWORD}" -gt 1 && " ${model_commands} " =~ " ${prev_word} " ]]; then
+    local models
+    models=($(_ollama_get_models))
+    COMPREPLY=($(compgen -W "${models[*]}" -- "$current_word"))
+    return 0
+  fi
+}
+
+complete -F _ollama_completion ollama
+# --- End Bash Completion Code ---
+
+#+end_src
+
+**** ollama-cuda tangle
+***** flake.nix
 
 + home dir
 
-#+NAME: gemini-cli-flake.nix-home-dir
-#+BEGIN_SRC nix :noweb yes :tangle "~/nix/gemini-cli/flake.nix"
-<<gemini-cli-flake.nix>>
+#+NAME: ollama-cuda-flake.nix-home-dir
+#+BEGIN_SRC nix :noweb yes :tangle "~/nix/ollama-cuda/flake.nix"
+<<ollama-cuda-flake.nix>>
 #+END_SRC
   
 + current dir
 
-#+NAME: gemini-cli-flake.nix-current-dir
-#+BEGIN_SRC nix :noweb yes :tangle "nix/gemini-cli/flake.nix"
-<<gemini-cli-flake.nix>>
+#+NAME: ollama-cuda-flake.nix-current-dir
+#+BEGIN_SRC nix :noweb yes :tangle "nix/ollama-cuda/flake.nix"
+<<ollama-cuda-flake.nix>>
 #+END_SRC
 
-***** gemini-cli flake.lock
+***** flake.lock
 
 + home dir
 
-#+NAME: gemini-cli-flake.lock-home-dir
-#+BEGIN_SRC nix :noweb yes :tangle "~/nix/gemini-cli/flake.lock"
-<<gemini-cli-flake.lock>>
+#+NAME: ollama-cuda-flake.lock-home-dir
+#+BEGIN_SRC nix :noweb yes :tangle "~/nix/ollama-cuda/flake.lock"
+<<ollama-cuda-flake.lock>>
 #+END_SRC
   
 + current dir
 
-#+NAME: gemini-cli-flake.lock-current-dir
-#+BEGIN_SRC nix :noweb yes :tangle "nix/gemini-cli/flake.lock"
-<<gemini-cli-flake.lock>>
+#+NAME: ollama-cuda-flake.lock-current-dir
+#+BEGIN_SRC nix :noweb yes :tangle "nix/ollama-cuda/flake.lock"
+<<ollama-cuda-flake.lock>>
+#+END_SRC
+
+***** shell-hook.sh
+
++ home dir
+
+#+NAME: ollama-cuda-shell-hook-home-dir
+#+BEGIN_SRC bash :noweb yes :tangle "~/nix/ollama-cuda/shell-hook.sh"
+<<ollama-cuda-shell-hook.sh>>
+#+END_SRC
+  
++ current dir
+
+#+NAME: ollama-cuda-shell-hook-current-dir
+#+BEGIN_SRC bash :noweb yes :tangle "nix/ollama-cuda/shell-hook.sh"
+<<ollama-cuda-shell-hook.sh>>
 #+END_SRC
 
 *** index-tts
