@@ -3117,6 +3117,8 @@ if __name__ == "__main__":
 
 (use-package gptel
   :init
+  ;; Enable tool use
+  (setq gptel-use-tools t)
   (setq gptel-default-mode 'org-mode
         gptel-post-response-functions #'gptel-end-of-response
         gptel-expert-commands t)
@@ -3148,6 +3150,30 @@ if __name__ == "__main__":
       (goto-char beg)
       (while (re-search-forward "^#\\+begin_src bash" end t)
         (replace-match "#+begin_src sh"))))
+
+
+  ;; Add a tool to gptel-tools
+  (add-to-list 'gptel-tools
+  ;; create file
+    (gptel-make-tool
+     :function (lambda (path filename content)
+                 (let ((full-path (expand-file-name filename path)))
+                   (with-temp-buffer
+                     (insert content)
+                     (write-file full-path))
+                   (format "Created file %s in %s" filename path)))
+     :name "create_file"
+     :description "Create a new file with the specified content"
+     :args (list '(:name "path"
+                   :type string
+                   :description "The directory where to create the file")
+                 '(:name "filename"
+                   :type string
+                   :description "The name of the file to create")
+                 '(:name "content"
+                   :type string
+                   :description "The content to write to the file"))
+     :category "filesystem"))
 
   (add-hook 'gptel-post-response-functions #'my/gptel-fix-src-header))
 
