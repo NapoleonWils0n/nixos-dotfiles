@@ -1252,12 +1252,16 @@
         gptel-post-response-functions #'gptel-end-of-response
         gptel-expert-commands t)
   :config
+  (setq gptel-model 'mistral:7b)
+  (setq gptel-model 'llama3.1:8b)
   (setq gptel-model 'gemma3:4b)
   (setq gptel-model 'deepseek-r1:8b)
   (setq gptel-backend (gptel-make-ollama "Ollama"
                         :host "localhost:11434"
                         :stream t
                         :models '(gemma3:4b
+                                  mistral:7b
+                                  llama3.1:8b
                                   deepseek-r1:8b)))
   
   ;; display the Ollama buffer in same window
