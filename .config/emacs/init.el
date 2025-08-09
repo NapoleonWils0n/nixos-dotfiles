@@ -1316,7 +1316,6 @@
                  :description "Path to the file to read. Supports relative paths and ~."))
    :category "filesystem")
 
-
   ;; edit file
   (defun my-gptel--edit_file (file-path file-edits)
     "In FILE-PATH, apply FILE-EDITS with pattern matching and replacing."
