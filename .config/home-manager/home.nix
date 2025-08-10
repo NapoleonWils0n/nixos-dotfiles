@@ -2,7 +2,7 @@
 {
   config,
   pkgs,
-  pkgs-ee930f975,
+  pkgs-stable,
   ...
 }:
 
@@ -65,7 +65,7 @@
     bc
     chromium
     curl
-    pkgs-ee930f975.davinci-resolve # use pkgs-ee930f975 instead of unstable
+    davinci-resolve # use pkgs-ee930f975 instead of unstable
     dict
     dconf-editor
     fd
