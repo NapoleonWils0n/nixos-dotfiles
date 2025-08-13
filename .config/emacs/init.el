@@ -435,9 +435,6 @@
 
 (require 'treesit)
 
-;; Enable global treesitter mode
-(global-tree-sitter-mode)
-
 ;; Enable treesitter highlighting for all major modes
 (add-hook 'tree-sitter-after-on-hook #'tree-sitter-hl-mode)
 
