@@ -38,10 +38,26 @@
 
   nixpkgs.config.allowUnfree = true;
   
-  programs.emacs = {
-    enable = true;
-    package = pkgs.emacs-pgtk;
-  };
+#  programs.emacs = {
+#    enable = true;
+#    package = pkgs.emacs-pgtk;
+#  };
+
+
+   programs.emacs = {
+     enable = true;
+     package = (pkgs.emacsPackagesFor pkgs.emacs-pgtk).emacsWithPackages (epkgs: with epkgs; [
+       # Core Emacs treesitter binding
+       tree-sitter
+   
+       # Treesitter grammars are added here
+       (tree-sitter-grammars.with-grammars (grammars: [
+         grammars.tree-sitter-bash
+         grammars.tree-sitter-nix
+         grammars.tree-sitter-python
+       ]))
+     ]);
+   };
 
   # --- OBS Studio Configuration for wlrobs ---
   programs.obs-studio = {
@@ -68,10 +84,6 @@
     davinci-resolve 
     dict
     dconf-editor
-    emacsPackages.tree-sitter
-    tree-sitter-grammars.tree-sitter-bash
-    tree-sitter-grammars.tree-sitter-nix
-    tree-sitter-grammars.tree-sitter-python
     fd
     fdk-aac-encoder
     ffmpeg-full
