@@ -103,26 +103,22 @@ to find the exact commit hash
 
   nixpkgs.config.allowUnfree = true;
   
-#  programs.emacs = {
-#    enable = true;
-#    package = pkgs.emacs-pgtk;
-#  };
-
-   programs.emacs = {
-     enable = true;
-     package = (pkgs.emacsPackagesFor pkgs.emacs-pgtk).emacsWithPackages (epkgs: with epkgs; [
-       # Core Emacs treesitter package
-       tree-sitter
-   
-       # Treesitter grammars are added here with the proper function call
-       (treesit-grammars.with-grammars (grammars: with grammars; [
-         tree-sitter-bash
-         tree-sitter-nix
-         tree-sitter-python
-         # Add other grammars as needed
-       ]))
-     ]);
-   };
+  # emacs with treesitter
+  programs.emacs = {
+    enable = true;
+    package = (pkgs.emacsPackagesFor pkgs.emacs-pgtk).emacsWithPackages (epkgs: with epkgs; [
+      # Core Emacs treesitter package
+      tree-sitter
+  
+      # Treesitter grammars are added here with the proper function call
+      (treesit-grammars.with-grammars (grammars: with grammars; [
+        tree-sitter-bash
+        tree-sitter-nix
+        tree-sitter-python
+        # Add other grammars as needed
+      ]))
+    ]);
+  };
 
   # --- OBS Studio Configuration for wlrobs ---
   programs.obs-studio = {
@@ -2611,6 +2607,30 @@ if __name__ == "__main__":
 (use-package undo-tree)
 (use-package wgrep)
 (use-package yaml-mode)
+
+
+;; ----------------------------------------------------------------------------------
+;; treesitter
+;; ----------------------------------------------------------------------------------
+
+(require 'treesit)
+
+;; Enable global treesitter mode
+(global-tree-sitter-mode)
+
+;; Enable treesitter highlighting for all major modes
+(add-hook 'tree-sitter-after-on-hook #'tree-sitter-hl-mode)
+
+;; sh-mode use bash-ts-mode
+(add-to-list 'major-mode-remap-alist
+             '(sh-mode . bash-ts-mode))
+
+
+;; treesitter explore open in side window
+(add-to-list 'display-buffer-alist
+   '("^*tree-sitter explorer *" display-buffer-in-side-window
+     (side . right)
+     (window-width . 0.50)))
 
 
 ;;----------------------------------------------------------------------------------

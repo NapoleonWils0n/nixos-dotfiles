@@ -429,6 +429,30 @@
 (use-package yaml-mode)
 
 
+;; ----------------------------------------------------------------------------------
+;; treesitter
+;; ----------------------------------------------------------------------------------
+
+(require 'treesit)
+
+;; Enable global treesitter mode
+(global-tree-sitter-mode)
+
+;; Enable treesitter highlighting for all major modes
+(add-hook 'tree-sitter-after-on-hook #'tree-sitter-hl-mode)
+
+;; sh-mode use bash-ts-mode
+(add-to-list 'major-mode-remap-alist
+             '(sh-mode . bash-ts-mode))
+
+
+;; treesitter explore open in side window
+(add-to-list 'display-buffer-alist
+   '("^*tree-sitter explorer *" display-buffer-in-side-window
+     (side . right)
+     (window-width . 0.50)))
+
+
 ;;----------------------------------------------------------------------------------
 ;; ob-sync
 ;;----------------------------------------------------------------------------------
