@@ -48,6 +48,7 @@
       # Treesitter grammars are added here with the proper function call
       (treesit-grammars.with-grammars (grammars: with grammars; [
         tree-sitter-bash
+        tree-sitter-elisp
         tree-sitter-nix
         tree-sitter-python
         # Add other grammars as needed
