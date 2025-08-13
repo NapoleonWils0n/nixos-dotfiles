@@ -69,11 +69,9 @@
     dict
     dconf-editor
     emacsPackages.tree-sitter
-    (emacsPackages.tree-sitter-grammars.with-grammars (grammars: with grammars; [
-      tree-sitter-bash
-      tree-sitter-python
-      tree-sitter-nix
-    ]))
+    tree-sitter-grammars.tree-sitter-bash
+    tree-sitter-grammars.tree-sitter-nix
+    tree-sitter-grammars.tree-sitter-python
     fd
     fdk-aac-encoder
     ffmpeg-full
