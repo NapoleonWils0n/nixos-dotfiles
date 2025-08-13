@@ -65,9 +65,11 @@
     bc
     chromium
     curl
-    davinci-resolve # use pkgs-ee930f975 instead of unstable
+    davinci-resolve 
     dict
     dconf-editor
+    emacsPackages.tree-sitter
+    emacsPackages.tree-sitter-langs 
     fd
     fdk-aac-encoder
     ffmpeg-full
