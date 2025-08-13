@@ -43,20 +43,19 @@
 #    package = pkgs.emacs-pgtk;
 #  };
 
-  programs.emacs = {
-    enable = true;
-    package = (pkgs.emacsPackagesFor pkgs.emacs-pgtk).emacsWithPackages (epkgs: with epkgs; [
-      # Core Emacs treesitter package
-      tree-sitter
-  
-      # Treesitter grammars are added here, referencing `epkgs` directly
-      tree-sitter-bash
-      tree-sitter-nix
-      tree-sitter-python
-      # Add other grammars as needed
-    ]);
-  };
-
+   programs.emacs = {
+     enable = true;
+     package = (pkgs.emacsPackagesFor pkgs.emacs-pgtk).emacsWithPackages (epkgs: [
+       # Core Emacs treesitter package
+       epkgs.tree-sitter
+   
+       # Treesitter grammars are added here, referencing `pkgs` directly
+       pkgs.tree-sitter-grammars.tree-sitter-bash
+       pkgs.tree-sitter-grammars.tree-sitter-nix
+       pkgs.tree-sitter-grammars.tree-sitter-python
+       # Add other grammars as needed
+     ]);
+   };
 
   # --- OBS Studio Configuration for wlrobs ---
   programs.obs-studio = {
