@@ -108,22 +108,20 @@ to find the exact commit hash
 #    package = pkgs.emacs-pgtk;
 #  };
 
+  programs.emacs = {
+    enable = true;
+    package = (pkgs.emacsPackagesFor pkgs.emacs-pgtk).emacsWithPackages (epkgs: with epkgs; [
+      # Core Emacs treesitter package
+      tree-sitter
+  
+      # Treesitter grammars are added here, referencing `epkgs` directly
+      tree-sitter-bash
+      tree-sitter-nix
+      tree-sitter-python
+      # Add other grammars as needed
+    ]);
+  };
 
-   programs.emacs = {
-     enable = true;
-     package = (pkgs.emacsPackagesFor pkgs.emacs-pgtk).emacsWithPackages (epkgs: with epkgs; [
-       # Core Emacs treesitter binding
-       tree-sitter
-   
-       # Treesitter grammars are added here, referencing `pkgs` directly
-       (pkgs.tree-sitter-grammars.with-grammars (grammars: [
-         grammars.tree-sitter-bash
-         grammars.tree-sitter-nix
-         grammars.tree-sitter-python
-         # Add other grammars here as needed
-       ]))
-     ]);
-   };
 
   # --- OBS Studio Configuration for wlrobs ---
   programs.obs-studio = {
