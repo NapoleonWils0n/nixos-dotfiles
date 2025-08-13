@@ -50,11 +50,12 @@
        # Core Emacs treesitter binding
        tree-sitter
    
-       # Treesitter grammars are added here
-       (tree-sitter-grammars.with-grammars (grammars: [
+       # Treesitter grammars are added here, referencing `pkgs` directly
+       (pkgs.tree-sitter-grammars.with-grammars (grammars: [
          grammars.tree-sitter-bash
          grammars.tree-sitter-nix
          grammars.tree-sitter-python
+         # Add other grammars here as needed
        ]))
      ]);
    };
