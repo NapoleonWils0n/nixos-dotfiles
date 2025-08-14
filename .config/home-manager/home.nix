@@ -54,6 +54,9 @@
         # Add other grammars as needed
       ]))
     ]);
+  extraConfig = ''
+    (setq treesit-extra-load-path '("${pkgs.emacsPackages.tree-sitter.out}/lib/tree-sitter"))
+  '';
   };
 
   # --- OBS Studio Configuration for wlrobs ---
