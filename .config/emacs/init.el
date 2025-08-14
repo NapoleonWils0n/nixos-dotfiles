@@ -430,6 +430,14 @@
 
 
 ;; ----------------------------------------------------------------------------------
+;; nix-ts-mode for treesitter
+;; ----------------------------------------------------------------------------------
+
+(use-package nix-ts-mode
+  :mode "\\.nix\\'")
+
+
+;; ----------------------------------------------------------------------------------
 ;; treesitter
 ;; ----------------------------------------------------------------------------------
 
@@ -438,10 +446,10 @@
 ;; Enable treesitter highlighting for all major modes
 (add-hook 'tree-sitter-after-on-hook #'tree-sitter-hl-mode)
 
-;; sh-mode use bash-ts-mode
+;; Use `major-mode-remap-alist` for languages that have a Treesitter major mode.
 (add-to-list 'major-mode-remap-alist
+             '(python-mode . python-ts-mode)
              '(sh-mode . bash-ts-mode))
-
 
 ;; treesitter explore open in side window
 (add-to-list 'display-buffer-alist
@@ -1356,7 +1364,13 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(package-selected-packages nil))
+ '(package-selected-packages
+   '(doom-modeline doom-themes ednc embark-consult evil-collection
+                   evil-leader fd-dired git-auto-commit-mode
+                   google-translate gptel hydra iedit lsp-ui magit
+                   marginalia mpv nix-mode nix-ts-mode ob-async
+                   orderless org-tree-slide rg tree-sitter undo-tree
+                   vertico yaml-mode)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
