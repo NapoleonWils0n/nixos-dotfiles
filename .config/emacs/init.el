@@ -443,15 +443,10 @@
 
 (require 'treesit)
 
-;; Enable treesitter highlighting for all major modes
-(add-hook 'tree-sitter-after-on-hook #'tree-sitter-hl-mode)
-
 ;; Use `major-mode-remap-alist` for languages that have a Treesitter major mode.
-(add-to-list 'major-mode-remap-alist
-             '(sh-mode . bash-ts-mode))
-
-(add-to-list 'major-mode-remap-alist
-             '(python-mode . python-ts-mode))
+(setq major-mode-remap-alist
+      '((sh-mode . bash-ts-mode)
+        (python-mode . python-ts-mode)))
 
 ;; treesitter explore open in side window
 (add-to-list 'display-buffer-alist
