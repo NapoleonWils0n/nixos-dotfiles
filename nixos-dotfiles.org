@@ -974,6 +974,161 @@ systemctl --user enable wallpaper.service
 #+end_src
 
 ** nix
+*** audacity
+**** audacity config
+***** audacity flake.nix
+
+#+begin_src sh
+nix develop
+#+end_src
+
+update
+
+#+begin_src sh
+nix flake update
+nix develop
+#+end_src
+
+then commit lock file
+
+#+NAME: audacity-flake.nix
+#+begin_src nix
+{
+  description = "audacity";
+
+  inputs = {
+    nixpkgs.url = "github:NixOS/Nixpkgs/nixos-unstable"; 
+    flake-utils.url = "github:numtide/flake-utils";
+  };
+
+  outputs = { self, nixpkgs, flake-utils }:
+    flake-utils.lib.eachDefaultSystem (system:
+      let
+        pkgs = import nixpkgs {
+          inherit system;
+          config = {
+            allowUnfree = true; 
+          };
+        };
+      in
+      {
+        devShells.default = pkgs.mkShell rec {
+          name = "audacity-shell";
+
+          # build inputs 
+          buildInputs = with pkgs; [
+            audacity
+          ];
+
+          # Shell hook 
+          shellHook = ''
+            echo "You can now use 'audacity' directly."
+          '';
+        };
+      });
+}
+#+end_src
+
+***** audacity flake.lock
+
+#+NAME: audacity-flake.lock
+#+begin_src nix
+{
+  "nodes": {
+    "flake-utils": {
+      "inputs": {
+        "systems": "systems"
+      },
+      "locked": {
+        "lastModified": 1731533236,
+        "narHash": "sha256-l0KFg5HjrsfsO/JpG+r7fRrqm12kzFHyUHqHCVpMMbI=",
+        "owner": "numtide",
+        "repo": "flake-utils",
+        "rev": "11707dc2f618dd54ca8739b309ec4fc024de578b",
+        "type": "github"
+      },
+      "original": {
+        "owner": "numtide",
+        "repo": "flake-utils",
+        "type": "github"
+      }
+    },
+    "nixpkgs": {
+      "locked": {
+        "lastModified": 1755186698,
+        "narHash": "sha256-wNO3+Ks2jZJ4nTHMuks+cxAiVBGNuEBXsT29Bz6HASo=",
+        "owner": "NixOS",
+        "repo": "Nixpkgs",
+        "rev": "fbcf476f790d8a217c3eab4e12033dc4a0f6d23c",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "nixos-unstable",
+        "repo": "Nixpkgs",
+        "type": "github"
+      }
+    },
+    "root": {
+      "inputs": {
+        "flake-utils": "flake-utils",
+        "nixpkgs": "nixpkgs"
+      }
+    },
+    "systems": {
+      "locked": {
+        "lastModified": 1681028828,
+        "narHash": "sha256-Vy1rq5AaRuLzOxct8nz4T6wlgyUR7zLU309k9mBC768=",
+        "owner": "nix-systems",
+        "repo": "default",
+        "rev": "da67096a3b9bf56a91d16901293e51ba5b49a27e",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-systems",
+        "repo": "default",
+        "type": "github"
+      }
+    }
+  },
+  "root": "root",
+  "version": 7
+}
+#+end_src
+
+**** audacity tangle
+***** audacity flake.nix
+
++ home dir
+
+#+NAME: audacity-flake.nix-home-dir
+#+BEGIN_SRC nix :noweb yes :tangle "~/nix/audacity/flake.nix"
+<<audacity-flake.nix>>
+#+END_SRC
+  
++ current dir
+
+#+NAME: audacity-flake.nix-current-dir
+#+BEGIN_SRC nix :noweb yes :tangle "nix/audacity/flake.nix"
+<<audacity-flake.nix>>
+#+END_SRC
+
+***** audacity flake.lock
+
++ home dir
+
+#+NAME: audacity-flake.lock-home-dir
+#+BEGIN_SRC nix :noweb yes :tangle "~/nix/audacity/flake.lock"
+<<audacity-flake.lock>>
+#+END_SRC
+  
++ current dir
+
+#+NAME: audacity-flake.lock-current-dir
+#+BEGIN_SRC nix :noweb yes :tangle "nix/audacity/flake.lock"
+<<audacity-flake.lock>>
+#+END_SRC
+
 *** gemini-cli
 **** gemini-cli config
 ***** gemini-cli flake.nix
