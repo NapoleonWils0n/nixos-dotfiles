@@ -429,6 +429,32 @@
 (use-package yaml-mode)
 
 
+;; ----------------------------------------------------------------------------------
+;; nix-ts-mode for treesitter
+;; ----------------------------------------------------------------------------------
+
+(use-package nix-ts-mode
+  :mode "\\.nix\\'")
+
+
+;; ----------------------------------------------------------------------------------
+;; treesitter
+;; ----------------------------------------------------------------------------------
+
+(require 'treesit)
+
+;; Use `major-mode-remap-alist` for languages that have a Treesitter major mode.
+(setq major-mode-remap-alist
+      '((sh-mode . bash-ts-mode)
+        (python-mode . python-ts-mode)))
+
+;; treesitter explore open in side window
+(add-to-list 'display-buffer-alist
+   '("^*tree-sitter explorer *" display-buffer-in-side-window
+     (side . right)
+     (window-width . 0.50)))
+
+
 ;;----------------------------------------------------------------------------------
 ;; ob-sync
 ;;----------------------------------------------------------------------------------
