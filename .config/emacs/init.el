@@ -1212,6 +1212,11 @@
                                   mistral:7b
                                   llama3.1:8b
                                   deepseek-r1:8b)))
+
+  (setq gptel-model 'gemini-2.5-flash
+        gptel-backend (gptel-make-gemini "Gemini"
+                                         :key (gptel-api-key-from-auth-source "generativelanguage.googleapis.com")
+                                         :stream t))
   
 
 ;; ----------------------------------------------------------------------------------
@@ -1220,11 +1225,6 @@
 
   (add-to-list 'display-buffer-alist
      '("^*Ollama*" display-buffer-same-window))
-
-  (setq gptel-model 'gemini-2.5-flash
-        gptel-backend (gptel-make-gemini "Gemini"
-                                         :key (gptel-api-key-from-auth-source "generativelanguage.googleapis.com")
-                                         :stream t))
 
 
 ;; ----------------------------------------------------------------------------------
