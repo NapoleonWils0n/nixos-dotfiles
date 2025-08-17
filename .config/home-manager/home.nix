@@ -39,21 +39,11 @@
   nixpkgs.config.allowUnfree = true;
 
   #emacs
-  programs.emacs =
-    let
-      treesit-grammars = pkgs.emacsPackages.treesit-grammars.with-grammars (grammars: with grammars; [
-        tree-sitter-bash
-        tree-sitter-elisp
-        tree-sitter-nix
-        tree-sitter-python
-      ]);
-    in
-    {
-      enable = true;
-      package = (pkgs.emacsPackagesFor pkgs.emacs-pgtk).emacsWithPackages (epkgs: with epkgs; [
-        (treesit-grammars)
-      ]);
-    };
+  programs.emacs = {
+    enable = true;
+    package = pkgs.emacs-pgtk;
+  }; 
+
 
   # --- OBS Studio Configuration for wlrobs ---
   programs.obs-studio = {
