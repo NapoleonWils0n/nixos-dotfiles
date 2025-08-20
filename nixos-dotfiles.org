@@ -4038,6 +4038,9 @@ cache=no
 # yt-dlp best format 1080 or less
 ytdl-format="bestvideo[height<=?1080]+bestaudio/best"
 
+# extractor args fix for fragment downloading bug
+ytdl-raw-options=extractor-args="youtube:player_client=default,-ios"
+
 #script-opts=ytdl_hook-ytdl_path=/home/djwilcox/bin/yt-dlp
 
 # show milliseconds in the on screen display
