@@ -63,7 +63,6 @@ to find the exact commit hash
 
 #+NAME: home.nix
 #+BEGIN_SRC nix
-,#+begin_src nix
 {
   config,
   pkgs,

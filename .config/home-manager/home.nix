@@ -1,4 +1,3 @@
-#+begin_src nix
 {
   config,
   pkgs,
