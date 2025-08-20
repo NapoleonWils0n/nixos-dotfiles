@@ -4996,22 +4996,6 @@ Comment=nognome_notifications
 
 ** desktop files
 *** desktop files config
-**** davinci resolve config
-
-#+NAME: davinci-resolve-desktop
-#+begin_src conf
-[Desktop Entry]
-Name=DaVinci Resolve
-GenericName=DaVinci Resolve
-Exec=env __NV_PRIME_RENDER_OFFLOAD=1 __GLX_VENDOR_LIBRARY_NAME=nvidia davinci-resolve %u
-Type=Application
-Terminal=false
-Icon=utilities-terminal
-StartupNotify=true
-StartupWMClass=resolve
-MimeType=application/x-resolveproj;
-#+end_src
-
 **** firefox vpn config
 
 #+NAME: firefox-vpn-desktop
@@ -5057,22 +5041,6 @@ Terminal=false
 #+end_src
 
 *** desktop files tangle
-**** davinci resolve tangle
-
-+ home dir
-  
-#+NAME: davinci-resolve-desktop-home-dir
-#+BEGIN_SRC conf :noweb yes :tangle "~/.local/share/applications/davinci-resolve.desktop"
-<<davinci-resolve-desktop>>
-#+END_SRC
-  
-+ current dir
-
-#+NAME: davinci-resolve-desktop-current-dir
-#+BEGIN_SRC conf :noweb yes :tangle ".local/share/applications/davinci-resolve.desktop"
-<<davinci-resolve-desktop>>
-#+END_SRC
-
 **** firefox-vpn tangle
 
 + home dir
