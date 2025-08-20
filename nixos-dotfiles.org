@@ -852,6 +852,7 @@ margin_top: 0
 
 menu: 
   "m": { desc: mpv, cmd: emacsclient -cF "((visibility . nil))" -e "(mpv-play-clipboard)" }
+  "d": { desc: dash-ffmpeg, cmd: /home/djwilcox/bin/dash-ffmpeg -i "$(wl-paste)" }
   "p": { desc: pinch, cmd: /home/djwilcox/bin/pinch -i "$(wl-paste)" }
   "s":
     desc: screenshot
