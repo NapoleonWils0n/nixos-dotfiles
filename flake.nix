@@ -3,12 +3,14 @@
   description = "Home Manager configuration for djwilcox on pollux";
 
   inputs = {
-    # Nixpkgs, pointing to the unstable branch for the latest packages
+    # nixpkgs pointing to the unstable branch
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
 
-    # davinci resolve fix
-    # You can also use a specific git commit hash to lock the version
+    # nixpkgs pointing to the stable branch
     nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-25.05";
+
+    # nixpkgs master branch to get the latest packages no in unstable
+    nixpkgs-master.url = "github:NixOS/nixpkgs/master";
 
     # Home Manager itself
     home-manager = {
@@ -23,6 +25,7 @@
     self,
     nixpkgs,
     nixpkgs-stable,
+    nixpkgs-master,
     home-manager,
     ... }:
     let

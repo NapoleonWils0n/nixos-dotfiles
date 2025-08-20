@@ -68,6 +68,7 @@ to find the exact commit hash
   config,
   pkgs,
   pkgs-stable,
+  pkgs-master,
   ...
 }:
 
@@ -176,7 +177,7 @@ to find the exact commit hash
     tree
     ts
     unzip
-    yt-dlp
+    pkgs-master.yt-dlp
     wbg
     wget
     widevine-cdm
@@ -673,12 +674,14 @@ with lib.hm.gvariant;
   description = "Home Manager configuration for djwilcox on pollux";
 
   inputs = {
-    # Nixpkgs, pointing to the unstable branch for the latest packages
+    # nixpkgs pointing to the unstable branch
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
 
-    # davinci resolve fix
-    # You can also use a specific git commit hash to lock the version
+    # nixpkgs pointing to the stable branch
     nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-25.05";
+
+    # nixpkgs master branch to get the latest packages no in unstable
+    nixpkgs-master.url = "github:NixOS/nixpkgs/master";
 
     # Home Manager itself
     home-manager = {
@@ -693,6 +696,7 @@ with lib.hm.gvariant;
     self,
     nixpkgs,
     nixpkgs-stable,
+    nixpkgs-master,
     home-manager,
     ... }:
     let
@@ -4017,8 +4021,9 @@ profile=hwdec
 # hardware acceleration profile
 [hwdec]
 profile-desc="hardware acceleration, no cache, yt-dlp 1080 or less"
-vo=gpu
-hwdec=vaapi
+# commented out causing a blue video, mpv still uses the gpu
+#vo=gpu
+#hwdec=vaapi
 
 # hide: GNOME's wayland compositor lacks support for the idle inhibit protocol. 
 #msg-level=ffmpeg=fatal,vo/gpu/wayland=no
@@ -4029,6 +4034,8 @@ cache=no
 
 # yt-dlp best format 1080 or less
 ytdl-format="bestvideo[height<=?1080]+bestaudio/best"
+
+#script-opts=ytdl_hook-ytdl_path=/home/djwilcox/bin/yt-dlp
 
 # show milliseconds in the on screen display
 osd-fractions

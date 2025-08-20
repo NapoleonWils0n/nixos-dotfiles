@@ -3,6 +3,7 @@
   config,
   pkgs,
   pkgs-stable,
+  pkgs-master,
   ...
 }:
 
@@ -111,7 +112,7 @@
     tree
     ts
     unzip
-    yt-dlp
+    pkgs-master.yt-dlp
     wbg
     wget
     widevine-cdm
