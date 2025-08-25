@@ -99,6 +99,7 @@
     pandoc
     pinentry-curses
     playerctl
+    python314
     qpwgraph
     realesrgan-ncnn-vulkan
     rnnoise-plugin
