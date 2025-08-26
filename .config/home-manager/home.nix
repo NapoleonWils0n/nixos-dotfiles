@@ -115,7 +115,7 @@
     pkgs-master.yt-dlp
     wbg
     wget
-    widevine-cdm
+    pkgs-master.widevine-cdm
     wl-clipboard
     wlrctl
     wlr-which-key
