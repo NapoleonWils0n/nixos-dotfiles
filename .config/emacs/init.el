@@ -1388,6 +1388,85 @@
 
 
 ;; ----------------------------------------------------------------------------------
+;; elfeed
+;; ----------------------------------------------------------------------------------
+
+(use-package elfeed
+  :init
+  (setq elfeed-db-directory "~/.config/emacs/elfeed")
+  (setq-default elfeed-search-filter "@1-week-ago +unread")
+  :bind (("C-x w" . elfeed))
+  :config
+  ;; elfeed evil
+  (add-to-list 'evil-motion-state-modes 'elfeed-search-mode)
+  (add-to-list 'evil-motion-state-modes 'elfeed-show-mode)
+
+  ;; evil elfeed-search-mode-map
+  (evil-collection-define-key 'normal 'elfeed-search-mode-map
+    "l" 'elfeed-search-show-entry
+    "s" #'prot-elfeed-search-tag-filter
+    "R" 'elfeed-mark-all-as-read
+    "u" 'elfeed-update
+    "b" #'elfeed-search-browse-url
+    "r" 'elfeed-search-untag-all-unread)
+
+  ;; evil elfeed-show-mode-map
+  (evil-collection-define-key 'normal 'elfeed-show-mode-map
+    "b" #'shr-browse-url)
+
+  (defun elfeed-mark-all-as-read ()
+    "Mark all entries in the current buffer as read."
+    (interactive)
+    (mark-whole-buffer)
+    (elfeed-search-untag-all-unread)))
+
+
+;; ----------------------------------------------------------------------------------
+;; elfeed-org
+;; ----------------------------------------------------------------------------------
+
+(use-package elfeed-org
+  :after elfeed
+  :custom
+  (rmh-elfeed-org-files '("~/git/personal/feeds/feeds.org"))
+  :config
+  (elfeed-org))
+
+
+;; ----------------------------------------------------------------------------------
+;; elfeed-tube
+;; ----------------------------------------------------------------------------------
+
+(use-package elfeed-tube
+  :after elfeed
+  :commands (elfeed-tube-fetch elfeed-tube-save)
+  :config
+  (elfeed-tube-setup)
+  :bind (
+         :map elfeed-show-mode-map
+         ("F" . elfeed-tube-fetch)
+         ([remap save-buffer] . elfeed-tube-save)
+         :map elfeed-search-mode-map
+         ("F" . elfeed-tube-fetch)
+         ([remap save-buffer] . elfeed-tube-save)))
+
+
+;; ----------------------------------------------------------------------------------
+;; elfeed-tube-mpv
+;; ----------------------------------------------------------------------------------
+
+(use-package elfeed-tube-mpv
+  :after (elfeed-tube mpv)
+  :init
+  (setq elfeed-tube-mpv-options '("--force-window=yes" "--fs" "--fs-screen=1"))
+  :bind (
+         :map elfeed-show-mode-map
+         ("C-c C-f" . elfeed-tube-mpv-follow-mode)
+         ("C-c C-w" . elfeed-tube-mpv-where)
+         ("C-c C-d" . elfeed-tube-mpv)))
+
+
+;; ----------------------------------------------------------------------------------
 ;; garbage collection
 ;; ----------------------------------------------------------------------------------
 
