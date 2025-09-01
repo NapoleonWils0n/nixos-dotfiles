@@ -35,6 +35,9 @@
 (unless (assoc-default "elpa" package-archives)
   (add-to-list 'package-archives '("elpa" . "https://elpa.gnu.org/packages/") t))
 
+;; M-x package-vc-install-selected-packages
+(setq package-vc-selected-packages
+ '((combobulate :vc-backend Git :url "https://github.com/mickeynp/combobulate")))
 
 ;; package initialize (use-package will handle installation and requiring)
 (package-initialize)
@@ -1215,6 +1218,19 @@
 
 
 ;; ----------------------------------------------------------------------------------
+;; combobulate
+;; ----------------------------------------------------------------------------------
+
+(use-package combobulate
+   :custom
+   (combobulate-key-prefix "C-c o")
+   :hook ((css-ts-mode . combobulate-mode)
+          (html-ts-mode . combobulate-mode)
+          (json-ts-mode . combobulate-mode)
+          (python-ts-mode . combobulate-mode)))
+
+
+;; ----------------------------------------------------------------------------------
 ;; auth-source
 ;; ----------------------------------------------------------------------------------
 
@@ -1431,7 +1447,10 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(package-selected-packages nil))
+ '(package-selected-packages '(combobulate))
+ '(package-vc-selected-packages
+   '((combobulate :vc-backend Git :url
+                  "https://github.com/mickeynp/combobulate"))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
