@@ -1224,7 +1224,8 @@
 (use-package combobulate
    :custom
    (combobulate-key-prefix "C-c o")
-   :hook ((css-ts-mode . combobulate-mode)
+   :hook ((prog-mode . combobulate-mode)
+          (css-ts-mode . combobulate-mode)
           (html-ts-mode . combobulate-mode)
           (json-ts-mode . combobulate-mode)
           (python-ts-mode . combobulate-mode)))
