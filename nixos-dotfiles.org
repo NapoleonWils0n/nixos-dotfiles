@@ -139,6 +139,7 @@ to find the exact commit hash
     ffmpeg-full
     file
     fira-code
+    gcc
     git
     gnome-tweaks
     gnumake

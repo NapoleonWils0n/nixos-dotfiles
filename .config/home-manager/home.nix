@@ -74,6 +74,7 @@
     ffmpeg-full
     file
     fira-code
+    gcc
     git
     gnome-tweaks
     gnumake
