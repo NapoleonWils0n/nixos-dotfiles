@@ -2877,6 +2877,39 @@ if __name__ == "__main__":
 
 
 ;; ----------------------------------------------------------------------------------
+;; treesitter
+;; ----------------------------------------------------------------------------------
+
+(require 'treesit)
+
+;; Use `major-mode-remap-alist` for languages that have a Treesitter major mode.
+;; M-x treesit-install-language-grammar bash
+
+(setq treesit-language-source-alist
+      '((awk "https://github.com/Beaglefoot/tree-sitter-awk")
+        (bash "https://github.com/tree-sitter/tree-sitter-bash")
+        (c "https://github.com/tree-sitter/tree-sitter-c")
+        (css "https://github.com/tree-sitter/tree-sitter-css")
+        (diff "https://github.com/the-mikedavis/tree-sitter-diff")
+        (elisp "https://github.com/Wilfred/tree-sitter-elisp")
+        (html "https://github.com/tree-sitter/tree-sitter-html")
+        (json "https://github.com/tree-sitter/tree-sitter-json")
+        (make "https://github.com/tree-sitter-grammars/tree-sitter-make")
+        (nix "https://github.com/nix-community/tree-sitter-nix")
+        (python "https://github.com/tree-sitter/tree-sitter-python")
+        (xml "https://github.com/panicinc/tree-sitter-xml")))
+
+(setq major-mode-remap-alist
+      '((sh-mode . bash-ts-mode)))
+
+;; treesitter explore open in side window
+(add-to-list 'display-buffer-alist
+   '("^*tree-sitter explorer *" display-buffer-in-side-window
+     (side . right)
+     (window-width . 0.50)))
+
+
+;; ----------------------------------------------------------------------------------
 ;; auth-source
 ;; ----------------------------------------------------------------------------------
 
