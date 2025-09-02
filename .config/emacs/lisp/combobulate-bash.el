@@ -1,5 +1,26 @@
 ;;; combobulate-bash.el --- Bash mode support for Combobulate  -*- lexical-binding: t; -*-
 
+;; Copyright (C) 2025 NapoleonWils0n
+
+;; This program is free software; you can redistribute it and/or modify
+;; it under the terms of the GNU General Public License as published by
+;; the Free Software Foundation, either version 3 of the License, or
+;; (at your option) any later version.
+
+;; This program is distributed in the hope that it will be useful,
+;; but WITHOUT ANY WARRANTY; without even the implied warranty of
+;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+;; GNU General Public License for more details.
+
+;; You should have received a copy of the GNU General Public License
+;; along with this program.  If not, see <https://www.gnu.org/licenses/>.
+
+;;; Commentary:
+
+;; Combobulate support for Bash based on tree-sitter.
+
+;;; Code:
+
 (require 'combobulate)
 
 ;; S-expression-like navigation for function bodies and conditionals.
@@ -35,19 +56,19 @@
   "Combobulate `procedures-hierarchy' for `bash'.")
 
 ;; Logical operators, for moving between `&&` and `||` parts of a command.
-;; This has been corrected to use the proper list structure.
 (defvar combobulate-bash-procedures-logical
   '((:activation-nodes
      ((:nodes ("and" "or") :position at))
      :selector (:choose parent :match-children t)))
   "Combobulate `procedures-logical' for `bash'.")
 
-(defun combobulate-bash-setup (_)
-  "Setup function for `bash-ts-mode'."
-  (add-hook 'sh-mode-hook
-            (lambda ()
-              (when (treesit-ready-p 'bash)
-                (combobulate-mode)))))
+;; Define what a `defun` is for navigation (e.g., M-a, M-e).
+(defvar combobulate-bash-procedures-defun
+  '((:activation-nodes
+     ((:nodes ("function_definition")))))
+  "Combobulate `procedures-defun' for `bash'.")
+
+(defun combobulate-bash-setup (_))
 
 (define-combobulate-language
  :name bash
