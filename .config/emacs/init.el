@@ -1224,12 +1224,9 @@
 (use-package combobulate
    :custom
    (combobulate-key-prefix "C-c o")
-   :bind
-   ("C-c o o" . combobulate-mode)
    :init
           (require 'combobulate-bash)
-   :hook ((prog-mode . combobulate-mode)
-          (bash-ts-mode . combobulate-mode)
+   :hook ((bash-ts-mode . combobulate-mode)
           (css-ts-mode . combobulate-mode)
           (html-ts-mode . combobulate-mode)
           (json-ts-mode . combobulate-mode)
