@@ -1,6 +1,6 @@
-;;; combobulate-bash.el --- Bash mode support for Combobulate  -*- lexical-binding: t; -*-
+;;; combobulate-elisp.el --- Elisp mode support for Combobulate  -*- lexical-binding: t; -*-
 
-;; Copyright (C) 2025 NapoleonWils0n
+;; Copyright (C) 2024 Your Name
 
 ;; This program is free software; you can redistribute it and/or modify
 ;; it under the terms of the GNU General Public License as published by
@@ -17,7 +17,7 @@
 
 ;;; Commentary:
 
-;; Combobulate support for Bash based on tree-sitter.
+;; Combobulate support for Emacs Lisp based on tree-sitter.
 
 ;;; Code:
 
@@ -28,59 +28,60 @@
 (require 'combobulate-rules)
 (require 'combobulate-setup)
 
-;; S-expression-like navigation for function bodies and conditionals.
-(defvar combobulate-bash-procedures-sexp
+;; S-expression-like navigation, specifically for functions and expressions.
+(defvar combobulate-elisp-procedures-sexp
   '((:activation-nodes
-     ((:nodes ("function_definition" "if_statement" "for_statement" "while_statement")))))
-  "Combobulate `procedures-sexp' for `bash'.")
+     ((:nodes ("call" "function-definition" "lambda"))))
+     :selector (:choose node))
+  "Combobulate `procedures-sexp' for `elisp'.")
 
-;; Sibling-based navigation, typically for moving between statements.
-(defvar combobulate-bash-procedures-sibling
-  '(;; General navigation at the file level
+;; Sibling-based navigation, for moving between top-level forms or statements within a body.
+(defvar combobulate-elisp-procedures-sibling
+  '(;; Navigation at the top-level of a file
     (:activation-nodes
      ((:nodes
        ((rule "source_file"))
        :position at
        :has-parent nil))
      :selector (:match-children t))
-    ;; Statement-level navigation inside a compound statement
+    ;; Navigation inside a function or expression body
     (:activation-nodes
      ((:nodes
-       ((rule "compound_statement"))
+       ((rule "body"))
        :position at
-       :has-parent ((rule "function_definition"))))
+       :has-parent ((rule "function-definition" "lambda"))))
      :selector (:choose parent :match-children t)))
-  "Combobulate `procedures-sibling' for `bash'.")
+  "Combobulate `procedures-sibling' for `elisp'.")
 
 ;; Hierarchical navigation, for moving up and down the syntax tree.
-(defvar combobulate-bash-procedures-hierarchy
+(defvar combobulate-elisp-procedures-hierarchy
   '(;; General navigation
     (:activation-nodes
-     ((:nodes (exclude (all) "string") :position at))
+     ((:nodes (all) :position at))
      :selector (:choose node :match-children t)))
-  "Combobulate `procedures-hierarchy' for `bash'.")
+  "Combobulate `procedures-hierarchy' for `elisp'.")
 
-;; Logical operators, for moving between `&&` and `||` parts of a command.
-(defvar combobulate-bash-procedures-logical
+;; Logical operators, for moving between the clauses of `and` or `or`.
+(defvar combobulate-elisp-procedures-logical
   '((:activation-nodes
      ((:nodes ("and" "or") :position at))
      :selector (:choose parent :match-children t)))
-  "Combobulate `procedures-logical' for `bash'.")
+  "Combobulate `procedures-logical' for `elisp'.")
 
 ;; Define what a `defun` is for navigation (e.g., M-a, M-e).
-(defvar combobulate-bash-procedures-defun
+(defvar combobulate-elisp-procedures-defun
   '((:activation-nodes
-     ((:nodes ("function_definition")))))
-  "Combobulate `procedures-defun' for `bash'.")
+     ((:nodes ("function-definition")))))
+  "Combobulate `procedures-defun' for `elisp'.")
 
-(defun combobulate-bash-setup (_))
+(defun combobulate-elisp-setup (_))
 
 (define-combobulate-language
- :name bash
- :language bash
- :major-modes (sh-mode bash-ts-mode)
- :setup-fn combobulate-bash-setup)
+  :name elisp
+  :language elisp
+  :major-modes (emacs-lisp-mode lisp-mode elisp-ts-mode)
+  :setup-fn combobulate-elisp-setup)
 
-(provide 'combobulate-bash)
+(provide 'combobulate-elisp)
 
-;;; combobulate-bash.el ends here
+;;; combobulate-elisp.el ends here
