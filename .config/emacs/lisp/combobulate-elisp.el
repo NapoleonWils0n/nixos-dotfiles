@@ -1,6 +1,6 @@
 ;;; combobulate-elisp.el --- Elisp mode support for Combobulate  -*- lexical-binding: t; -*-
 
-;; Copyright (C) 2024 Your Name
+;; Copyright (C) 2025 NapoleonWils0n
 
 ;; This program is free software; you can redistribute it and/or modify
 ;; it under the terms of the GNU General Public License as published by
