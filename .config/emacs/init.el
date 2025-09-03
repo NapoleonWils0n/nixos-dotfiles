@@ -1219,6 +1219,7 @@
 
 ;; ----------------------------------------------------------------------------------
 ;; combobulate
+;; combobulate languages installed in ~/.config/emacs/lisp
 ;; ----------------------------------------------------------------------------------
 
 (use-package combobulate
@@ -1226,9 +1227,11 @@
    ("C-c o o" . combobulate)
    :init
           (require 'combobulate-bash)
+          (require 'combobulate-c)
           (require 'combobulate-elisp)
           (require 'combobulate-nix)
    :hook ((bash-ts-mode . combobulate-mode)
+          (c-ts-mode . combobulate-mode)
           (css-ts-mode . combobulate-mode)
           (html-ts-mode . combobulate-mode)
           (json-ts-mode . combobulate-mode)
