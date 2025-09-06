@@ -36,8 +36,11 @@
   (add-to-list 'package-archives '("elpa" . "https://elpa.gnu.org/packages/") t))
 
 ;; M-x package-vc-install-selected-packages
-(setq package-vc-selected-packages
- '((combobulate :vc-backend Git :url "https://github.com/mickeynp/combobulate")))
+;;(setq package-vc-selected-packages
+;; '((combobulate :vc-backend Git :url "https://github.com/mickeynp/combobulate")))
+
+;;(setq package-vc-selected-packages
+;; '((combobulate :vc-backend Git :url "https://github.com/mickeynp/combobulate/tree/development")))
 
 ;; package initialize (use-package will handle installation and requiring)
 (package-initialize)
@@ -1222,23 +1225,70 @@
 ;; combobulate languages installed in ~/.config/emacs/lisp
 ;; ----------------------------------------------------------------------------------
 
-(use-package combobulate
-   :bind
-   ("C-c o o" . combobulate)
-   :init
-          (require 'combobulate-bash)
-          (require 'combobulate-c)
-          (require 'combobulate-elisp)
-          (require 'combobulate-nix)
-   :hook ((bash-ts-mode . combobulate-mode)
-          (c-ts-mode . combobulate-mode)
-          (css-ts-mode . combobulate-mode)
-          (html-ts-mode . combobulate-mode)
-          (json-ts-mode . combobulate-mode)
-          (lisp-mode . combobulate-mode)
-          (nix-mode . combobulate-mode)
-          (python-ts-mode . combobulate-mode)))
+;;(use-package combobulate
+;;   :bind
+;;   ("C-c o o" . combobulate)
+;;   :init
+;;          (require 'combobulate-bash)
+;;          (require 'combobulate-c)
+;;          (require 'combobulate-elisp)
+;;          (require 'combobulate-nix)
+;;   :hook ((bash-ts-mode . combobulate-mode)
+;;          (c-ts-mode . combobulate-mode)
+;;          (css-ts-mode . combobulate-mode)
+;;          (html-ts-mode . combobulate-mode)
+;;          (json-ts-mode . combobulate-mode)
+;;          (lisp-mode . combobulate-mode)
+;;          (nix-mode . combobulate-mode)
+;;          (python-ts-mode . combobulate-mode)))
 
+;;(use-package combobulate
+;;  :bind
+;;  ("C-c o o" . combobulate)
+;;  :init
+;;          (require 'combobulate-bash)
+;;  :config
+;;    (require 'combobulate-test-prelude)
+;;    (require 'combobulate-debug)
+;;  :hook ((bash-ts-mode . combobulate-mode)
+;;         (c-ts-mode . combobulate-mode)
+;;         (css-ts-mode . combobulate-mode)
+;;         (html-ts-mode . combobulate-mode)
+;;         (json-ts-mode . combobulate-mode)
+;;         (python-ts-mode . combobulate-mode)))
+
+
+;;(use-package combobulate
+;;    :config
+;;    (require 'combobulate-test-prelude)
+;;    (require 'combobulate-debug)
+;;    :load-path ("~/.config/emacs/packages/combobulate/"
+;;                "~/.config/emacs/packages/combobulate/tests/")
+;;    :init
+;;          (require 'combobulate-bash)
+;;    :hook ((c-ts-mode . combobulate-mode)
+;;           (bash-ts-mode . combobulate-mode)
+;;           (css-ts-mode . combobulate-mode)
+;;           (html-ts-mode . combobulate-mode)
+;;           (json-ts-mode . combobulate-mode)
+;;           (python-ts-mode . combobulate-mode)))
+
+
+(use-package combobulate
+    :config
+    (require 'combobulate-test-prelude)
+    (require 'combobulate-debug)
+    :load-path ("~/.config/emacs/packages/combobulate/"
+                "~/.config/emacs/packages/combobulate/tests/")
+    :hook ((c-ts-mode . combobulate-mode)
+           (css-ts-mode . combobulate-mode)
+           (bash-ts-mode . combobulate-mode)
+           (html-ts-mode . combobulate-mode)
+           (json-ts-mode . combobulate-mode)
+           (python-ts-mode . combobulate-mode)))
+
+(require 'combobulate-bash)
+(require 'combobulate-rules)
 
 ;; ----------------------------------------------------------------------------------
 ;; auth-source
@@ -1457,10 +1507,8 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(package-selected-packages '(combobulate))
- '(package-vc-selected-packages
-   '((combobulate :vc-backend Git :url
-                  "https://github.com/mickeynp/combobulate"))))
+ '(package-selected-packages nil))
+
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

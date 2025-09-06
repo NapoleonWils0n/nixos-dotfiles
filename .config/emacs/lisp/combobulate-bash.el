@@ -28,58 +28,115 @@
 (require 'combobulate-rules)
 (require 'combobulate-setup)
 
-;; S-expression-like navigation for function bodies and conditionals.
-(defvar combobulate-bash-procedures-sexp
-  '((:activation-nodes
-     ((:nodes ("function_definition" "if_statement" "for_statement" "while_statement")))))
-  "Combobulate `procedures-sexp' for `bash'.")
+(defun combobulate-bash-pretty-print-node-name (node default-name)
+  "Pretty print the node name for Bash mode."
+  (pcase (combobulate-node-type node)
+    ("command" (combobulate-string-truncate (combobulate-node-text node) 40))
+    ("variable_name" (combobulate-string-truncate (combobulate-node-text node) 40))
+    ("function_definition" (concat "def " (combobulate-node-text node)))
+    (_ default-name)))
 
-;; Sibling-based navigation, typically for moving between statements.
-(defvar combobulate-bash-procedures-sibling
-  '(;; General navigation at the file level
-    (:activation-nodes
-     ((:nodes
-       ((rule "source_file"))
-       :position at
-       :has-parent nil))
-     :selector (:match-children t))
-    ;; Statement-level navigation inside a compound statement
-    (:activation-nodes
-     ((:nodes
-       ((rule "compound_statement"))
-       :position at
-       :has-parent ((rule "function_definition"))))
-     :selector (:choose parent :match-children t)))
-  "Combobulate `procedures-sibling' for `bash'.")
+(eval-and-compile
+  (defvar combobulate-bash-definitions
+    '((pretty-print-node-name-function #'combobulate-bash-pretty-print-node-name)
+      
+      ;; This rule highlights keywords and node types in the query builder.
+      (highlight-queries-default
+       '(;; highlight keywords
+         ((word) @hl.default)
+         ;; highlight function definitions and commands
+         ((function_definition) @hl.function)
+         ((command) @hl.function)
+         ;; highlight variables
+         ((variable_name) @hl.variable)
+         ;; highlight comments
+         ((comment) @hl.comment)
+         ))
 
-;; Hierarchical navigation, for moving up and down the syntax tree.
-(defvar combobulate-bash-procedures-hierarchy
-  '(;; General navigation
-    (:activation-nodes
-     ((:nodes (exclude (all) "string") :position at))
-     :selector (:choose node :match-children t)))
-  "Combobulate `procedures-hierarchy' for `bash'.")
+      ;; S-expression-like navigation for function bodies and conditionals.
+      (procedures-sexp
+       '(:activation-nodes
+         ((:nodes ((rule "function_definition") (rule "if_statement") (rule "for_statement") (rule "while_statement") (rule "case_statement"))))))
+      
+      ;; Sibling-based navigation, typically for moving between statements.
+      (procedures-sibling
+       '(;; General navigation at the file level
+         (:activation-nodes
+          ((:nodes
+            ((rule "source_file"))
+            :position at
+            :has-parent nil))
+          :selector (:match-children t))
+         ;; Statement-level navigation inside a compound statement
+         (:activation-nodes
+          ((:nodes
+            ((rule "compound_statement"))
+            :position at
+            :has-parent ((rule "function_definition"))))
+          :selector (:choose parent :match-children t))
+         ;; Add this rule to enable sibling navigation in `case` statements
+         (:activation-nodes
+          ((:nodes ((rule "case_item"))))
+          :selector (:choose node :match-siblings t)))
+       )
 
-;; Logical operators, for moving between `&&` and `||` parts of a command.
-(defvar combobulate-bash-procedures-logical
-  '((:activation-nodes
-     ((:nodes ("and" "or") :position at))
-     :selector (:choose parent :match-children t)))
-  "Combobulate `procedures-logical' for `bash'.")
+      ;; Hierarchical navigation, for moving up and down the syntax tree.
+      (procedures-hierarchy
+       '(;; General navigation
+         (:activation-nodes
+          ((:nodes (exclude (all) (rule "string")) :position at))
+          :selector (:choose node :match-children t)))
+       )
 
-;; Define what a `defun` is for navigation (e.g., M-a, M-e).
-(defvar combobulate-bash-procedures-defun
-  '((:activation-nodes
-     ((:nodes ("function_definition")))))
-  "Combobulate `procedures-defun' for `bash'.")
+      ;; Logical operators, for moving between `&&` and `||` parts of a command.
+      (procedures-logical
+       '((:activation-nodes
+          ((:nodes ((rule "and") (rule "or")) :position at))
+          :selector (:choose parent :match-children t)))
+       )
 
-(defun combobulate-bash-setup (_))
+      ;; Define what a `defun` is for navigation (e.g., M-a, M-e).
+      (procedures-defun
+       '((:activation-nodes
+          ((:nodes ((rule "function_definition"))))))
+       )
+      
+      (procedures-edit
+       '((:activation-nodes
+          ((:nodes ((rule "string") (rule "variable_name")) :position at))
+          :selector (:choose node))))
+      
+      (procedures-copy
+       '((:activation-nodes
+          ((:nodes ((rule "command") (rule "function_definition") (rule "comment")) :position at))
+          :selector (:choose node))))
+      
+      (procedures-cut
+       '((:activation-nodes
+          ((:nodes ((rule "command") (rule "function_definition") (rule "comment")) :position at))
+          :selector (:choose node))))
+      
+      (procedures-delete
+       '((:activation-nodes
+          ((:nodes ((rule "command") (rule "function_definition") (rule "comment")) :position at))
+          :selector (:choose node))))
+      
+      (procedures-query-builder
+       '((:activation-nodes
+          ((:nodes (all) :position at))
+          :selector (:choose node))))
+      ))
+  "A combined variable for all Combobulate Bash definitions.")
+
 
 (define-combobulate-language
  :name bash
  :language bash
  :major-modes (sh-mode bash-ts-mode)
+ :custom combobulate-bash-definitions
  :setup-fn combobulate-bash-setup)
+
+(defun combobulate-bash-setup (_))
 
 (provide 'combobulate-bash)
 
