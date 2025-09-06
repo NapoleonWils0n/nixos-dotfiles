@@ -76,7 +76,7 @@
           :selector (:choose parent :match-children t))
          ;; Add this rule to enable sibling navigation in `case` statements
          (:activation-nodes
-          ((:nodes ((rule "case_item"))))
+          ((:nodes ((rule "case_item") (rule "word"))))
           :selector (:choose parent :match-children t)))
        )
 
