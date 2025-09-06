@@ -3403,7 +3403,7 @@ if __name__ == "__main__":
          ;; Add this rule to enable sibling navigation in `case` statements
          (:activation-nodes
           ((:nodes ((rule "case_item") (rule "word"))))
-          :selector (:choose node :match-siblings t)))
+          :selector (:choose parent :match-children t)))
        )
 
       ;; Hierarchical navigation, for moving up and down the syntax tree.
