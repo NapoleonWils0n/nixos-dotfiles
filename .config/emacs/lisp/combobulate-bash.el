@@ -1,4 +1,4 @@
-;;; combobulate-bash.el --- Bash mode support for Combobulate  -*- lexical-binding: t; -*-
+;;; combobulate-bash.el --- Bash mode support for Combobulate -*- lexical-binding: t; -*-
 
 ;; Copyright (C) 2025 NapoleonWils0n
 
@@ -76,7 +76,7 @@
           :selector (:choose parent :match-children t))
          ;; Add this rule to enable sibling navigation in `case` statements
          (:activation-nodes
-          ((:nodes ((rule "case_item") (rule "word"))))
+          ((:nodes ((rule "case_item") (rule "word") (rule "variable_assignment") (rule "command") (rule "redirected_statement"))))
           :selector (:choose parent :match-children t)))
        )
 
