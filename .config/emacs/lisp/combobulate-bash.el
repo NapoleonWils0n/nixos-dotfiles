@@ -78,12 +78,6 @@
          (:activation-nodes
           ((:nodes ((rule "case_item") (rule "word"))))
           :selector (:choose parent :match-children t)))
-          ;; New rule for function body navigation
-         (:activation-nodes
-          ((:nodes ((rule "compound_statement"))
-            :position at
-            :has-parent ((rule "function_definition"))))
-          :selector (:choose parent :match-children t))
        )
 
       ;; Hierarchical navigation, for moving up and down the syntax tree.
