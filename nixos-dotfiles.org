@@ -1892,10 +1892,6 @@ if __name__ == "__main__":
 (unless (assoc-default "elpa" package-archives)
   (add-to-list 'package-archives '("elpa" . "https://elpa.gnu.org/packages/") t))
 
-;; M-x package-vc-install-selected-packages
-(setq package-vc-selected-packages
- '((combobulate :vc-backend Git :url "https://github.com/mickeynp/combobulate")))
-
 ;; package initialize (use-package will handle installation and requiring)
 (package-initialize)
 
@@ -3080,15 +3076,19 @@ if __name__ == "__main__":
 ;; ----------------------------------------------------------------------------------
 
 (use-package combobulate
-   :bind
-   ("C-c o o" . combobulate)
-   :init
-          (require 'combobulate-bash)
-   :hook ((bash-ts-mode . combobulate-mode)
-          (css-ts-mode . combobulate-mode)
-          (html-ts-mode . combobulate-mode)
-          (json-ts-mode . combobulate-mode)
-          (python-ts-mode . combobulate-mode)))
+    :config
+    (require 'combobulate-test-prelude)
+    (require 'combobulate-debug)
+    :load-path ("~/.config/emacs/packages/combobulate/"
+                "~/.config/emacs/packages/combobulate/tests/")
+    :hook ((css-ts-mode . combobulate-mode)
+           (bash-ts-mode . combobulate-mode)
+           (html-ts-mode . combobulate-mode)
+           (json-ts-mode . combobulate-mode)
+           (python-ts-mode . combobulate-mode)))
+
+(require 'combobulate-bash)
+(require 'combobulate-rules)
 
 ;; ----------------------------------------------------------------------------------
 ;; auth-source
@@ -3307,16 +3307,7 @@ if __name__ == "__main__":
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(package-selected-packages
-   '(combobulate doom-modeline doom-themes ednc embark-consult
-                 evil-collection evil-leader fd-dired
-                 git-auto-commit-mode google-translate gptel hydra
-                 iedit magit marginalia mpv nix-mode ob-async
-                 orderless org-tree-slide rg undo-tree vertico
-                 yaml-mode))
- '(package-vc-selected-packages
-   '((combobulate :vc-backend Git :url
-                  "https://github.com/mickeynp/combobulate"))))
+ '(package-selected-packages nil))
 
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
