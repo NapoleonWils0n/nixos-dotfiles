@@ -1214,26 +1214,6 @@
 
 
 ;; ----------------------------------------------------------------------------------
-;; combobulate
-;; combobulate languages installed in ~/.config/emacs/lisp
-;; ----------------------------------------------------------------------------------
-
-(use-package combobulate
-    :config
-    (require 'combobulate-test-prelude)
-    (require 'combobulate-debug)
-    :load-path ("~/.config/emacs/packages/combobulate/"
-                "~/.config/emacs/packages/combobulate/tests/")
-    :hook ((css-ts-mode . combobulate-mode)
-           (bash-ts-mode . combobulate-mode)
-           (html-ts-mode . combobulate-mode)
-           (json-ts-mode . combobulate-mode)
-           (python-ts-mode . combobulate-mode)))
-
-(require 'combobulate-bash)
-(require 'combobulate-rules)
-
-;; ----------------------------------------------------------------------------------
 ;; auth-source
 ;; ----------------------------------------------------------------------------------
 
