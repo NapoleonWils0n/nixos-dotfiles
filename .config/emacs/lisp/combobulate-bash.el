@@ -78,6 +78,17 @@
          (:activation-nodes
           ((:nodes ((rule "case_item") (rule "word"))))
           :selector (:choose parent :match-children t)))
+           ;; Statement-level navigation inside a compound statement
+        (:activation-nodes
+         ((:nodes
+           ((rule "compound_statement"))
+           :position at
+           :has-parent ((rule "function_definition"))))
+         :selector (:choose parent :match-children t))
+        ;; Add this rule to enable sibling navigation in `case` statements
+        (:activation-nodes
+         ((:nodes ((rule "case_item") (rule "word"))))
+         :selector (:choose parent :match-children t))
        )
 
       ;; Hierarchical navigation, for moving up and down the syntax tree.
