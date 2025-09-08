@@ -85,6 +85,7 @@
     libnotify
     libwebp
     lsp-plugins
+    openssl
     kodi-wayland
     mpc
     mpd
