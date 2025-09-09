@@ -2024,8 +2024,8 @@ categories_as_tabs:
   news:
   it:
   files:
-
-
+  map:
+  social media:
 #+end_src
 
 ***** searxng-start
