@@ -1860,6 +1860,18 @@ create the data directory in the same directory as the compose.yaml file
 mkdir -p data
 #+end_src
 
+***** open-webui start
+
+#+begin_src sh
+podman-compose up -d
+#+end_src
+
+***** open-webui start
+
+#+begin_src sh
+podman-compose down
+#+end_src
+
 **** open-webui config
 
 #+NAME: open-webui-compose.yaml
