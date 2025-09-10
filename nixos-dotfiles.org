@@ -1852,6 +1852,20 @@ if __name__ == "__main__":
 
 ** podman
 *** searxng
+**** run searxng
+
+start searxng by running
+
+#+begin_src sh
+./searxng-start
+#+end_src
+
+stop searxng by running 
+
+#+begin_src sh
+podman-compose down
+#+end_src
+
 **** searxng-config
 ***** compose.yaml
 
