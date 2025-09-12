@@ -416,6 +416,7 @@
 ;; general packages : use-package
 ;; ----------------------------------------------------------------------------------
 
+(use-package csv-mode)
 (use-package evil-leader)
 (use-package git-auto-commit-mode)
 (use-package iedit)
