@@ -102,6 +102,7 @@
     pinentry-curses
     playerctl
     python314
+    pwgen
     qpwgraph
     realesrgan-ncnn-vulkan
     rnnoise-plugin

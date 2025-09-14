@@ -167,6 +167,7 @@ to find the exact commit hash
     pinentry-curses
     playerctl
     python314
+    pwgen
     qpwgraph
     realesrgan-ncnn-vulkan
     rnnoise-plugin
