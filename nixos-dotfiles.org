@@ -2049,14 +2049,14 @@ podman-compose up -d
 + home dir
 
 #+NAME: invidious-compose.yaml-home-dir
-#+BEGIN_SRC yaml :noweb yes :tangle "~/podman/invidious-podman/compose.yaml"
+#+BEGIN_SRC yaml :noweb yes :tangle "~/podman/invidious-podman/compose.yml"
 <<invidious-compose.yaml>>
 #+END_SRC
   
 + current dir
 
 #+NAME: invidious-compose.yaml-current-dir
-#+BEGIN_SRC yaml :noweb yes :tangle "podman/invidious-podman/compose.yaml"
+#+BEGIN_SRC yaml :noweb yes :tangle "podman/invidious-podman/compose.yml"
 <<invidious-compose.yaml>>
 #+END_SRC
 
