@@ -1121,6 +1121,21 @@ complete -F _ollama_completion ollama
 
 #+end_src
 
+***** ollama-start
+
+#+NAME: ollama-start
+#+begin_src sh
+#!/bin/sh
+
+# start ollama listen on 0:0:0:0
+
+# export ollama host
+export OLLAMA_HOST=0.0.0.0:11434
+
+# ollama serve
+ollama serve
+#+end_src
+
 **** ollama-cuda tangle
 ***** flake.nix
 
@@ -1168,6 +1183,22 @@ complete -F _ollama_completion ollama
 #+NAME: ollama-cuda-shell-hook-current-dir
 #+BEGIN_SRC bash :noweb yes :tangle "nix/ollama-cuda/shell-hook.sh"
 <<ollama-cuda-shell-hook.sh>>
+#+END_SRC
+
+***** ollama-start
+
++ home dir
+
+#+NAME: ollama-start-home-dir
+#+BEGIN_SRC sh :noweb yes :tangle "~/nix/ollama-cuda/ollama-start" :tangle-mode (identity #o755)
+<<ollama-start>>
+#+END_SRC
+  
++ current dir
+
+#+NAME: ollama-start-current-dir
+#+BEGIN_SRC sh :noweb yes :tangle "nix/ollama-cuda/ollama-start" :tangle-mode (identity #o755)
+<<ollama-start>>
 #+END_SRC
 
 *** python
