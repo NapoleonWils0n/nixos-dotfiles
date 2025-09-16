@@ -83,7 +83,7 @@
     imagemagick
     iosevka
     (kodi-wayland.withPackages (kodiPkgs: with kodiPkgs; [
-      inputstream-ffmpegdirect
+      inputstream-adaptive
     ]))
     libnotify
     libwebp
