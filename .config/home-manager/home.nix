@@ -82,7 +82,9 @@
     handbrake
     imagemagick
     iosevka
-    kodi-wayland
+    (kodi-wayland.withPackages (kodiPkgs: with kodiPkgs; [
+      inputstream-ffmpegdirect
+    ]))
     libnotify
     libwebp
     lsp-plugins
