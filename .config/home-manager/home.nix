@@ -53,15 +53,6 @@
     ];
   };
 
-  # --- Kodi Configuration ---
-  programs.kodi = {
-    enable = true;
-    package = pkgs.kodi-wayland;
-    plugins = with pkgs.kodiPackages; [
-      inputstream-adaptive
-    ];
-  };
-
   # The home.packages option allows you to install Nix packages into your
   # environment.
   home.packages = with pkgs; [
@@ -91,6 +82,9 @@
     handbrake
     imagemagick
     iosevka
+    (kodi-wayland.withPackages (kodiPkgs: with kodiPkgs; [
+      inputstream-adaptive
+    ]))
     libnotify
     libwebp
     lsp-plugins
