@@ -152,7 +152,6 @@ to find the exact commit hash
     lsp-plugins
     openssl
     kodi-wayland
-    kodiPackages.inputstream-adaptive
     mpc
     mpd
     mpv

@@ -87,7 +87,6 @@
     lsp-plugins
     openssl
     kodi-wayland
-    kodiPackages.inputstream-adaptive
     mpc
     mpd
     mpv
