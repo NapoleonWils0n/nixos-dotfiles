@@ -82,9 +82,7 @@
     handbrake
     imagemagick
     iosevka
-    (kodi-wayland.withPackages (kodiPkgs: with kodiPkgs; [
-      inputstream-adaptive
-    ]))
+    kodi-wayland
     libnotify
     libwebp
     lsp-plugins
