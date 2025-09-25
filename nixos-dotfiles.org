@@ -2364,9 +2364,7 @@ networks:
 
 volumes:
   searxng_config:
-    external: true
   valkey-data2:
-    external: true
 #+end_src
 
 ***** limiter.toml
