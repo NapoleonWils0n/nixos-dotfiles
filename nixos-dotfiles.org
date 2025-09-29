@@ -1931,9 +1931,9 @@ podman-compose down
 #+end_src
 
 **** invidious config
-***** compose.yml
+***** compose.yaml
 
-#+NAME: invidious-compose.yml
+#+NAME: invidious-compose.yaml
 #+begin_src yaml
 version: "3"
 services:
@@ -2044,20 +2044,20 @@ podman-compose up -d
 #+end_src
 
 **** invidious tangle
-***** compose.yml
+***** compose.yaml
 
 + home dir
 
-#+NAME: invidious-compose.yml-home-dir
-#+BEGIN_SRC yaml :noweb yes :tangle "~/podman/invidious-podman/compose.yml"
-<<invidious-compose.yml>>
+#+NAME: invidious-compose.yaml-home-dir
+#+BEGIN_SRC yaml :noweb yes :tangle "~/podman/invidious-podman/compose.yaml"
+<<invidious-compose.yaml>>
 #+END_SRC
   
 + current dir
 
-#+NAME: invidious-compose.yml-current-dir
-#+BEGIN_SRC yaml :noweb yes :tangle "podman/invidious-podman/compose.yml"
-<<invidious-compose.yml>>
+#+NAME: invidious-compose.yaml-current-dir
+#+BEGIN_SRC yaml :noweb yes :tangle "podman/invidious-podman/compose.yaml"
+<<invidious-compose.yaml>>
 #+END_SRC
 
 ***** start-invidious
@@ -2191,6 +2191,40 @@ POSTGRES_NON_ROOT_PASSWORD=changePassword
 PODMAN_USERNS=keep-id
 #+end_src
 
+***** setup-n8n
+
+#+NAME: setup-n8n
+#+begin_src sh
+#!/bin/sh
+
+# setup-n8n
+
+#=============================================
+# create data directory to store files for n8n
+#=============================================
+
+# data directory
+N8N_BASE_DIR="$HOME/podman/n8n"
+N8N_DATA_DIR="$N8N_BASE_DIR/data"
+
+# create the data directory
+echo "Creating data directory: $N8N_DATA_DIR"
+mkdir -p "$N8N_DATA_DIR"
+
+# change data directory to 777
+echo "Setting initial directory permissions to 777..."
+chmod 777 "$N8N_DATA_DIR"
+
+# podman unshare chown
+echo "Changing ownership (group to 'users') using podman unshare..."
+podman unshare chown -R :users "$N8N_DATA_DIR"
+
+# podman unshare setfacl
+echo "Setting default ACL for new files to be group-editable..."
+podman unshare setfacl -d -m g::rwx "$N8N_DATA_DIR"
+
+#+end_src
+
 **** n8n tangle
 ***** docker-compose.yml
 
@@ -2231,6 +2265,22 @@ PODMAN_USERNS=keep-id
 #+NAME: n8n-env-current-dir
 #+BEGIN_SRC sh :noweb yes :tangle "podman/n8n/.env"
 <<n8n-env>>
+#+END_SRC
+
+***** setup-n8n
+
++ home dir
+
+#+NAME: setup-n8n-home-dir
+#+BEGIN_SRC bash :noweb yes :tangle "~/podman/n8n/setup-n8n" :tangle-mode (identity #o755)
+<<setup-n8n>>
+#+END_SRC
+  
++ current dir
+
+#+NAME: setup-n8n-current-dir
+#+BEGIN_SRC bash :noweb yes :tangle "podman/n8n/setup-n8n" :tangle-mode (identity #o755)
+<<setup-n8n>>
 #+END_SRC
 
 *** open-webui
@@ -2305,7 +2355,7 @@ volumes:
 start searxng by running
 
 #+begin_src sh
-./searxng-start
+podman-compose up -d
 #+end_src
 
 stop searxng by running 
@@ -2353,6 +2403,7 @@ services:
       - "0.0.0.0:8080:8080"
     volumes:
       - ${HOME}/podman/searxng:/etc/searxng:rw
+      - ./searxng-genkey:/usr/local/bin/searxng-genkey
     environment:
       - SEARXNG_BASE_URL=http://localhost:8080
       - SEARXNG_REDIS_URL=redis://redis:6379/0
@@ -2487,20 +2538,16 @@ categories_as_tabs:
   social media:
 #+end_src
 
-***** searxng-start
+***** searxng-genkey
 
-#+NAME: searxng-start
+#+NAME: searxng-genkey
 #+begin_src sh
 #!/bin/sh
 
 # This script generates a new secret key and starts the SearXNG containers.
 
 # Generate a new random 32-byte hex secret key.
-SECRET_KEY=$(openssl rand -hex 32)
-
-# Start the services, passing the generated secret key as an environment variable.
-# The `podman-compose up -d` command will read this variable and apply it.
-SEARXNG_SECRET=$SECRET_KEY podman-compose up -d
+SEARXNG_SECRET=$(openssl rand -hex 32)
 #+end_src
 
 **** searxng-tangle
@@ -2552,20 +2599,20 @@ SEARXNG_SECRET=$SECRET_KEY podman-compose up -d
 <<searxng-settings.yml>>
 #+END_SRC
 
-***** searxng-start
+***** searxng-genkey
 
 + home dir
 
-#+NAME: searxng-start-home-dir
-#+BEGIN_SRC sh :noweb yes :tangle "~/podman/searxng/searxng-start" :tangle-mode (identity #o755)
-<<searxng-start>>
+#+NAME: searxng-genkey-home-dir
+#+BEGIN_SRC sh :noweb yes :tangle "~/podman/searxng/searxng-genkey" :tangle-mode (identity #o755)
+<<searxng-genkey>>
 #+END_SRC
   
 + current dir
 
-#+NAME: searxng-start-current-dir
-#+BEGIN_SRC sh :noweb yes :tangle "podman/searxng/searxng-start" :tangle-mode (identity #o755)
-<<searxng-start>>
+#+NAME: searxng-genkey-current-dir
+#+BEGIN_SRC sh :noweb yes :tangle "podman/searxng/searxng-genkey" :tangle-mode (identity #o755)
+<<searxng-genkey>>
 #+END_SRC
 
 ** emacs
