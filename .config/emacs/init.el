@@ -1182,6 +1182,22 @@
 
 
 ;; ----------------------------------------------------------------------------------
+;; markdown mode
+;; ----------------------------------------------------------------------------------
+
+(use-package markdown-mode
+  :commands (markdown-mode gfm-mode) ; Define mode functions to autoload the package
+  :mode (("\\.md\\'" . markdown-mode) ; Use markdown-mode for *.md files
+         ("\\.markdown\\'" . markdown-mode) ; Use markdown-mode for *.markdown files
+         ("README\\.md\\'" . gfm-mode)) ; Use gfm-mode for README.md files
+  
+  :config
+  (add-hook 'markdown-mode-hook 'visual-line-mode)
+  (setq markdown-command "pandoc")
+  )
+
+
+;; ----------------------------------------------------------------------------------
 ;; treesitter
 ;; ----------------------------------------------------------------------------------
 
