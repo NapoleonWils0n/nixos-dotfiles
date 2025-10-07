@@ -45,6 +45,7 @@
 
             # install requests
             pip install -U requests
+            pip install -U httpx
 
             echo "You can now run 'python3' by typing 'python3'."
             echo "To exit, press Ctrl+c."
