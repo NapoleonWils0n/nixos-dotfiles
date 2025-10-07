@@ -1883,6 +1883,205 @@ if __name__ == "__main__":
 #+END_SRC
 
 ** podman
+*** crawl4ai
+**** crawl4ai set up
+
+[[https://github.com/NapoleonWils0n/cerberus/blob/master/crawl4ai/crawl4ai-podman.org]]
+
+create the crawl4ai-podman directory
+
+#+begin_src sh
+mkdir -p ~/podman/crawl4ai-podman
+#+end_src
+
+change into the crawl4ai-podman directory
+
+#+begin_src sh
+cd ~/podman/crawl4ai-podman
+#+end_src
+
+clone the crawl4ai git repo
+
+#+begin_src sh
+git clone https://github.com/unclecode/crawl4ai.git
+#+end_src
+
+run the setup-crawl4ai script to create the output_data directory
+
+#+begin_src sh
+./setup-crawl4ai
+#+end_src
+
+***** start crawl4ai
+
+#+begin_src sh
+podman-compose up -d
+#+end_src
+
+***** stop crawl4ai
+
+#+begin_src sh 
+podman-compose down
+#+end_src
+
+**** crawl4ai config
+***** docker-compose.yml
+
+#+NAME: crawl4ai-docker-compose.yml
+#+begin_src yaml
+version: '3.8'
+
+# Shared configuration for all environments
+x-base-config: &base-config
+  ports:
+    - "11235:11235"  # Gunicorn port
+  env_file:
+    - .llm.env       # API keys (create from .llm.env.example)
+  environment:
+    - OPENAI_API_KEY=${OPENAI_API_KEY:-}
+    - DEEPSEEK_API_KEY=${DEEPSEEK_API_KEY:-}
+    - ANTHROPIC_API_KEY=${ANTHROPIC_API_KEY:-}
+    - GROQ_API_KEY=${GROQ_API_KEY:-}
+    - TOGETHER_API_KEY=${TOGETHER_API_KEY:-}
+    - MISTRAL_API_KEY=${MISTRAL_API_KEY:-}
+    - GEMINI_API_TOKEN=${GEMINI_API_TOKEN:-}
+    - LLM_PROVIDER=${LLM_PROVIDER:-}  # Optional: Override default provider (e.g., "anthropic/claude-3-opus")
+  volumes:
+    - /dev/shm:/dev/shm  # Chromium performance
+    - ./output_data:/app/output # output_data directory
+  deploy:
+    resources:
+      limits:
+        memory: 4G
+      reservations:
+        memory: 1G
+  restart: unless-stopped
+  healthcheck:
+    test: ["CMD", "curl", "-f", "http://localhost:11235/health"]
+    interval: 30s
+    timeout: 10s
+    retries: 3
+    start_period: 40s
+  user: "appuser"
+
+services:
+  crawl4ai:
+    # 1. Default: Pull multi-platform test image from Docker Hub
+    # 2. Override with local image via: IMAGE=local-test docker compose up
+    #image: ${IMAGE:-unclecode/crawl4ai:${TAG:-latest}}
+    image: unclecode/crawl4ai:latest
+    
+    # Local build config (used with --build)
+    build:
+      context: ./crawl4ai  # <--- MODIFIED TO POINT TO THE SUBDIRECTORY
+      dockerfile: Dockerfile
+      args:
+        INSTALL_TYPE: ${INSTALL_TYPE:-default}
+        ENABLE_GPU: ${ENABLE_GPU:-false}
+    
+    # Inherit shared config
+    <<: *base-config
+#+end_src
+
+***** setup-crawl4ai
+
+#+NAME: setup-crawl4ai
+#+begin_src sh
+#!/bin/sh
+
+# === Configuration ===
+# Define the base directory of your crawl4ai-podman setup
+CRAWL4AI_BASE_DIR="$HOME/podman/crawl4ai-podman"
+CRAWL4AI_DATA_DIR="$CRAWL4AI_BASE_DIR/output_data"
+
+# === Setup Steps ===
+
+# 1. Create the data directory
+echo "Creating data directory: $CRAWL4AI_DATA_DIR"
+mkdir -p "$CRAWL4AI_DATA_DIR"
+
+# 2. Set initial permissive permissions (777 is often required for podman/docker on first setup)
+echo "Setting initial directory permissions to 777..."
+chmod 777 "$CRAWL4AI_DATA_DIR"
+
+# 3. Change ownership using podman unshare
+# This is crucial for fixing UID/GID mapping issues. 
+# We'll assume the container's 'appuser' belongs to a group that you want to grant access to, 
+# typically your primary user group or a specific group like 'users' or 'nogroup'.
+echo "Changing ownership (group to 'users') using podman unshare..."
+# Replace 'users' with the group that works for your Podman configuration if necessary.
+podman unshare chown -R :users "$CRAWL4AI_DATA_DIR"
+
+# 4. Set default ACL for future files
+# This ensures any new files created by the host or the container inherit group-write permission.
+echo "Setting default ACL for new files to be group-editable..."
+podman unshare setfacl -d -m g::rwx "$CRAWL4AI_DATA_DIR"
+
+echo "Crawl4AI data directory setup complete!"
+#+end_src
+
+***** .llm.env
+
+#+NAME: crawl4ai-llm.env
+#+begin_src sh
+# LLM Provider Keys
+#OPENAI_API_KEY=your_openai_key_here
+#DEEPSEEK_API_KEY=your_deepseek_key_here
+#ANTHROPIC_API_KEY=your_anthropic_key_here
+#GROQ_API_KEY=your_groq_key_here
+#TOGETHER_API_KEY=your_together_key_here
+#MISTRAL_API_KEY=your_mistral_key_here
+GEMINI_API_TOKEN=your_gemini_key_here
+
+# Optional: Override the default LLM provider
+# Examples: "openai/gpt-4", "anthropic/claude-3-opus", "deepseek/chat", etc.
+# If not set, uses the provider specified in config.yml (default: openai/gpt-4o-mini)
+# LLM_PROVIDER=anthropic/claude-3-opus
+LLM_PROVIDER=google/gemini-2.5-flash
+#+end_src
+
+**** crawl4ai tangle
+***** docker-compose.yml
+
++ home dir
+
+#+NAME: crawl4ai-docker-compose.yml-home-dir
+#+BEGIN_SRC yaml :noweb yes :tangle "~/podman/crawl4ai-podman/docker-compose.yml"
+<<crawl4ai-docker-compose.yml>>
+#+END_SRC
+  
++ current dir
+
+#+NAME: crawl4ai-docker-compose.yaml-current-dir
+#+BEGIN_SRC yaml :noweb yes :tangle "podman/crawl4ai-podman/docker-compose.yml"
+<<crawl4ai-docker-compose.yml>>
+#+END_SRC
+
+***** setup-crawl4ai
+
++ home dir
+
+#+NAME: setup-crawl4ai-home-dir
+#+BEGIN_SRC sh :noweb yes :tangle "~/podman/crawl4ai-podman/setup-crawl4ai" :tangle-mode (identity #o755)
+<<setup-crawl4ai>>
+#+END_SRC
+  
++ current dir
+
+#+NAME: setup-crawl4ai-current-dir
+#+BEGIN_SRC sh :noweb yes :tangle "podman/crawl4ai-podman/setup-crawl4ai" :tangle-mode (identity #o755)
+<<setup-crawl4ai>>
+#+END_SRC
+
+***** .llm.env
+
++ current dir
+
+#+NAME: crawl4ai-llm.env-current-dir
+#+BEGIN_SRC sh :noweb yes :tangle "podman/crawl4ai-podman/.llm.env"
+<<crawl4ai-llm.env>>
+#+END_SRC
+
 *** invidious
 **** invidious set up
 

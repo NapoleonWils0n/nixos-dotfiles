@@ -1,0 +1,31 @@
+#!/bin/sh
+
+# === Configuration ===
+# Define the base directory of your crawl4ai-podman setup
+CRAWL4AI_BASE_DIR="$HOME/podman/crawl4ai-podman"
+CRAWL4AI_DATA_DIR="$CRAWL4AI_BASE_DIR/output_data"
+
+# === Setup Steps ===
+
+# 1. Create the data directory
+echo "Creating data directory: $CRAWL4AI_DATA_DIR"
+mkdir -p "$CRAWL4AI_DATA_DIR"
+
+# 2. Set initial permissive permissions (777 is often required for podman/docker on first setup)
+echo "Setting initial directory permissions to 777..."
+chmod 777 "$CRAWL4AI_DATA_DIR"
+
+# 3. Change ownership using podman unshare
+# This is crucial for fixing UID/GID mapping issues. 
+# We'll assume the container's 'appuser' belongs to a group that you want to grant access to, 
+# typically your primary user group or a specific group like 'users' or 'nogroup'.
+echo "Changing ownership (group to 'users') using podman unshare..."
+# Replace 'users' with the group that works for your Podman configuration if necessary.
+podman unshare chown -R :users "$CRAWL4AI_DATA_DIR"
+
+# 4. Set default ACL for future files
+# This ensures any new files created by the host or the container inherit group-write permission.
+echo "Setting default ACL for new files to be group-editable..."
+podman unshare setfacl -d -m g::rwx "$CRAWL4AI_DATA_DIR"
+
+echo "Crawl4AI data directory setup complete!"
