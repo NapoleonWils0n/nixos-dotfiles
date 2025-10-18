@@ -18,6 +18,7 @@ x-base-config: &base-config
   volumes:
     - /dev/shm:/dev/shm  # Chromium performance
     - ./output_data:/app/output # output_data directory
+    - ./scripts:/home/appuser/bin # Map local 'scripts' directory to '~/bin' inside the container
   deploy:
     resources:
       limits:
