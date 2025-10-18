@@ -80,7 +80,7 @@ def parse_args():
         "--delay_after_wait",
         type=int,
         default=2000, # Default to 2000ms (2 seconds)
-        help="A delay (in milliseconds) to wait after the page is ready before taking the screenshot/PDF. Default is 2000."
+        help="A delay (in milliseconds) to wait after the page is ready before taking the screenshot. Default is 2000."
     )
     return parser.parse_args()
 
