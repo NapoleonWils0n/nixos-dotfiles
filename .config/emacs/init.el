@@ -1230,39 +1230,6 @@
 
 
 ;; ----------------------------------------------------------------------------------
-;; lsp server
-;; ----------------------------------------------------------------------------------
-
-;; Install and configure lsp-mode
-(use-package lsp-mode
-  :commands (lsp lsp-deferred)
-  :hook ((prog-mode . lsp-deferred)) ; Start LSP in all programming files
-  ;; Explicitly ensure LSP starts for files remapped to bash-ts-mode,
-  ;; which includes files starting with #!/bin/sh.
-  (bash-ts-mode . lsp-deferred)
-  :init
-  ;; Set lsp-docker as the default backend for containerized language servers
-  (setq lsp-container-default-implementation 'lsp-docker)
-  ;; Optional: Set a keymap prefix for lsp-mode commands
-  (setq lsp-keymap-prefix "C-c s"))
-
-;; Install and configure lsp-docker
-(use-package lsp-docker
-  :after lsp-mode
-  :config
-  ;; Initialize lsp-docker for the default set of language servers (e.g., Python, Go, C++, etc.)
-  ;; This tells lsp-mode how to launch the server for each supported language using a container.
-  (lsp-docker-init-default-clients)
-  
-  ;; Optional: Add lsp-docker to the list of preferred backends
-  (add-to-list 'lsp-container-preferred-implementations 'lsp-docker))
-
-(setq lsp-docker-executable 'podman)
-;; You might also want to set lsp-docker-compose-executable if you use it for other things
-(setq lsp-docker-compose-executable 'podman-compose)
-
-
-;; ----------------------------------------------------------------------------------
 ;; auth-source
 ;; ----------------------------------------------------------------------------------
 
