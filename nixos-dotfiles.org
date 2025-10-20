@@ -4314,6 +4314,13 @@ SEARXNG_SECRET=$(openssl rand -hex 32)
   (corfu-auto-delay 0.1))
 
 ;; corfu complete
+(with-eval-after-load 'evil
+  ;; Bind C-. to corfu-complete in all states, overriding the evil-repeat-pop default.
+  (define-key evil-normal-state-map (kbd "C-.") 'corfu-complete)
+  (define-key evil-insert-state-map (kbd "C-.") 'corfu-complete)
+  (define-key evil-visual-state-map (kbd "C-.") 'corfu-complete)
+  (define-key evil-motion-state-map (kbd "C-.") 'corfu-complete))
+
 (keymap-global-set "C-." 'corfu-complete)
 
 
