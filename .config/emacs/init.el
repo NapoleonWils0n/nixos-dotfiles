@@ -1250,6 +1250,19 @@
 
 
 ;; ----------------------------------------------------------------------------------
+;; YASnippet Completion-At-Point Function (CAPF)
+;; ----------------------------------------------------------------------------------
+
+(use-package yasnippet-capf
+  :ensure t
+  ;; Ensure it loads after YASnippet and Cape (if Cape is being used to combine CAPFs)
+  :after (yasnippet cape)
+  :config
+  ;; This function is the one that actually works!
+  (add-to-list 'completion-at-point-functions #'yasnippet-capf))
+
+
+;; ----------------------------------------------------------------------------------
 ;; corfu
 ;; ----------------------------------------------------------------------------------
 
@@ -1281,7 +1294,6 @@
   (add-to-list 'completion-at-point-functions #'cape-file)
   (add-to-list 'completion-at-point-functions #'cape-keyword)
   (add-to-list 'completion-at-point-functions #'cape-buffer)
-  (add-to-list 'completion-at-point-functions #'cape-yasnippet)
   )
 
 
