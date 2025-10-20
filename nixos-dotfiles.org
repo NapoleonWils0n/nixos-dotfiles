@@ -4266,6 +4266,29 @@ SEARXNG_SECRET=$(openssl rand -hex 32)
 
 
 ;; ----------------------------------------------------------------------------------
+;; eglot
+;; ----------------------------------------------------------------------------------
+
+;; Configure Eglot to recognize and start the language servers.
+(with-eval-after-load 'eglot
+  ;; nix-mode uses the 'nixd' executable
+  (add-to-list 'eglot-server-programs
+               '(nix-mode "nixd"))
+
+  ;; sh-mode (for shell scripts) uses 'bash-language-server' with a 'start' argument
+  (add-to-list 'eglot-server-programs
+               '(sh-mode "bash-language-server" "start"))
+
+  ;; python-mode uses 'python-lsp-server', whose executable is typically 'pylsp'
+  (add-to-list 'eglot-server-programs
+               '(python-mode "pylsp")))
+
+;; Automatically start Eglot when opening a relevant file
+(add-hook 'nix-mode-hook 'eglot-ensure)
+(add-hook 'sh-mode-hook 'eglot-ensure)
+(add-hook 'python-mode-hook 'eglot-ensure)
+
+;; ----------------------------------------------------------------------------------
 ;; auth-source
 ;; ----------------------------------------------------------------------------------
 
