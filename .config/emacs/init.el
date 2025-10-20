@@ -1275,7 +1275,7 @@
 
 (use-package cape
   :after yasnippet
-  :init
+  :config
   ;; Add a list of cape completion functions to the standard Emacs CAPF
   (add-to-list 'completion-at-point-functions #'cape-dabbrev)
   (add-to-list 'completion-at-point-functions #'cape-file)
