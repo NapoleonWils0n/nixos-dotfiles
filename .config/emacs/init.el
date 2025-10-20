@@ -1279,14 +1279,14 @@
 
 ;; corfu complete
 (with-eval-after-load 'evil
-  ;; Bind C-. to corfu-complete in all states, overriding the evil-repeat-pop default.
-  (define-key evil-normal-state-map (kbd "C-.") 'corfu-complete)
-  (define-key evil-insert-state-map (kbd "C-.") 'corfu-complete)
-  (define-key evil-visual-state-map (kbd "C-.") 'corfu-complete)
-  (define-key evil-motion-state-map (kbd "C-.") 'corfu-complete))
+  ;; Bind C-. to the standard Emacs completion command, which Corfu is designed to use.
+  (define-key evil-normal-state-map (kbd "C-.") 'completion-at-point)
+  (define-key evil-insert-state-map (kbd "C-.") 'completion-at-point)
+  (define-key evil-visual-state-map (kbd "C-.") 'completion-at-point)
+  (define-key evil-motion-state-map (kbd "C-.") 'completion-at-point))
 
-(keymap-global-set "C-." 'corfu-complete)
-
+;; Set the global binding as well for non-Evil buffers
+(keymap-global-set "C-." 'completion-at-point)
 
 ;; ----------------------------------------------------------------------------------
 ;; cape
