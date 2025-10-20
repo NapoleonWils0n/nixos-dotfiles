@@ -63,6 +63,7 @@
     ardour
     aspell
     aspellDicts.en
+    bash-language-server
     bat
     bc
     chromium
@@ -95,12 +96,14 @@
     nerd-fonts.fira-code
     noise-repellent
     noto-fonts-emoji
+    nixd
     nsxiv
     oath-toolkit
     openvpn
     pandoc
     pinentry-curses
     playerctl
+    python313Packages.python-lsp-server
     python314
     pwgen
     qpwgraph
