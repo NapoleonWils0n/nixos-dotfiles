@@ -1254,7 +1254,6 @@
 ;; ----------------------------------------------------------------------------------
 
 (use-package yasnippet-capf
-  :ensure t
   ;; Ensure it loads after YASnippet and Cape (if Cape is being used to combine CAPFs)
   :after (yasnippet cape)
   :config
@@ -1287,7 +1286,6 @@
 ;; ----------------------------------------------------------------------------------
 
 (use-package cape
-  :after yasnippet
   :config
   ;; Add a list of cape completion functions to the standard Emacs CAPF
   (add-to-list 'completion-at-point-functions #'cape-dabbrev)
