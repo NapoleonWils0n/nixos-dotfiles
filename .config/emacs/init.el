@@ -1230,6 +1230,26 @@
 
 
 ;; ----------------------------------------------------------------------------------
+;; corfu
+;; ----------------------------------------------------------------------------------
+
+(use-package corfu
+  ;; Install the package if not found
+  :init
+  ;; Enable Corfu globally.
+  (global-corfu-mode)
+
+  :custom
+  ;; Optional: Enable auto-completion after typing 0 characters (as-you-type)
+  (corfu-auto t)
+  ;; Optional: Set the delay before the popup appears to 0.1 seconds
+  (corfu-auto-delay 0.1))
+
+;; Recommended pairing for more completion sources (like snippets)
+(use-package cape)
+
+
+;; ----------------------------------------------------------------------------------
 ;; eglot
 ;; ----------------------------------------------------------------------------------
 
