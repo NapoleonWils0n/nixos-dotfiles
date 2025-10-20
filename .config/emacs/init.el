@@ -309,9 +309,6 @@
 ;; open dired side window
 (keymap-global-set "C-x x s" 'my/window-dired-vc-root-left)
 
-;; complete-symbol
-(keymap-global-set "C-." 'complete-symbol)
-
 
 ;; ----------------------------------------------------------------------------------
 ;; keymap-set
@@ -1230,6 +1227,29 @@
 
 
 ;; ----------------------------------------------------------------------------------
+;; Snippets (YASnippet)
+;; ----------------------------------------------------------------------------------
+
+(use-package yasnippet
+  :init
+  ;; Enable YASnippet globally for all modes.
+  (yas-global-mode 1)
+  :config
+  ;; Load the built-in snippets after the package is ready.
+  (yas-reload-all)
+
+  ;; Optional: Set the key for manually expanding a snippet (if TAB is taken)
+  ;; By default, TAB usually works unless another minor mode takes it.
+  ;; If you need a separate key, uncomment the line below.
+  ;; (define-key yas-minor-mode-map (kbd "C-c y") 'yas-expand)
+  )
+
+;; Install the massive collection of community snippets
+(use-package yasnippet-snippets
+  :after yasnippet)
+
+
+;; ----------------------------------------------------------------------------------
 ;; corfu
 ;; ----------------------------------------------------------------------------------
 
@@ -1245,8 +1265,23 @@
   ;; Optional: Set the delay before the popup appears to 0.1 seconds
   (corfu-auto-delay 0.1))
 
-;; Recommended pairing for more completion sources (like snippets)
-(use-package cape)
+;; corfu complete
+(keymap-global-set "C-." 'corfu-complete)
+
+
+;; ----------------------------------------------------------------------------------
+;; cape
+;; ----------------------------------------------------------------------------------
+
+(use-package cape
+  :init
+  ;; Add a list of cape completion functions to the standard Emacs CAPF
+  (add-to-list 'completion-at-point-functions #'cape-dabbrev)
+  (add-to-list 'completion-at-point-functions #'cape-file)
+  (add-to-list 'completion-at-point-functions #'cape-keyword)
+  (add-to-list 'completion-at-point-functions #'cape-buffer)
+  (add-to-list 'completion-at-point-functions #'cape-yasnippet)
+  )
 
 
 ;; ----------------------------------------------------------------------------------
