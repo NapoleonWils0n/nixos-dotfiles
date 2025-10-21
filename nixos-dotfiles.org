@@ -4883,7 +4883,23 @@ export GIT_PS1_SHOWCOLORHINTS=true
 #===============================================================================
 
 function zle-line-init zle-keymap-select {
-    PS1="[%n@%M %~]$(__git_ps1 "(%s) ")${newline}${yesmaster}"
+    # 1. Determine the mode string based on Zsh's internal KEYMAP variable
+    local MODE_INDICATOR
+    case $KEYMAP in
+        vicmd)
+            MODE_INDICATOR="[n] " # Normal Mode Indicator + a space
+            ;;
+        viins|main)
+            MODE_INDICATOR="[i] " # Insert Mode Indicator + a space
+            ;;
+        ,*)
+            MODE_INDICATOR="" # Fallback
+            ;;
+    esac
+
+    # 2. Rebuild the PS1, inserting the MODE_INDICATOR on the second line
+    PS1="[%n@%M %~]$(__git_ps1 "(%s) ")${newline}${MODE_INDICATOR}${yesmaster}"
+
     zle reset-prompt
 }
 
