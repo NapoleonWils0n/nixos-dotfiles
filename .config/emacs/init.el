@@ -1412,10 +1412,7 @@
                      )) ;; closing parentheses
 
   :config
-  (require 'mcp-hub)
-  :hook
-  (after-init . mcp-hub-start-all-server)
-  )
+  (require 'mcp-hub))
 
 
 ;; ----------------------------------------------------------------------------------
