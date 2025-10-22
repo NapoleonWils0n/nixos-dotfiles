@@ -110,6 +110,7 @@
     realesrgan-ncnn-vulkan
     rnnoise-plugin
     ripgrep
+    shellcheck-minimal
     sox
     tofi
     tmux

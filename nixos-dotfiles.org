@@ -175,6 +175,7 @@ to find the exact commit hash
     realesrgan-ncnn-vulkan
     rnnoise-plugin
     ripgrep
+    shellcheck-minimal
     sox
     tofi
     tmux
