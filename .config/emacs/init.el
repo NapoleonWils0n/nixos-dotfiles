@@ -275,7 +275,12 @@
 
 ;; exec-path add local bin directory
 (add-to-list 'exec-path "~/bin")
+
+;; exec-path add nix-profile bin directory
 (add-to-list 'exec-path "~/.nix-profile/bin")
+
+;; exec-path add nix system bin directory
+(add-to-list 'exec-path "/run/current-system/sw/bin")
 
 
 ;; ----------------------------------------------------------------------------------
@@ -1344,6 +1349,7 @@
   (setq gptel-default-mode 'org-mode
         gptel-post-response-functions #'gptel-end-of-response
         gptel-expert-commands t)
+  (require 'gptel-integrations) 
   :config
   (setq gptel-model 'mistral:7b)
   (setq gptel-model 'llama3.1:8b)
@@ -1532,6 +1538,24 @@
 
 
 ;; ----------------------------------------------------------------------------------
+;; mcp
+;; ----------------------------------------------------------------------------------
+
+(use-package mcp
+  :after gptel
+  :custom
+  (mcp-hub-servers `(("mcp-nixos" . (
+                                      :command "podman" ; <-- Use your container runtime
+                                      :args ("run" "--rm" "-i" "ghcr.io/utensils/mcp-nixos")))
+                     )) ;; closing parentheses
+
+  :config
+  (require 'mcp-hub)
+  :hook
+  (after-init . mcp-hub-start-all-server)
+  )
+
+;; ----------------------------------------------------------------------------------
 ;; garbage collection
 ;; ----------------------------------------------------------------------------------
 
@@ -1542,7 +1566,13 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(package-selected-packages nil))
+ '(package-selected-packages
+   '(cape corfu csv-mode doom-modeline doom-themes ednc embark-consult
+          evil-collection evil-leader fd-dired git-auto-commit-mode
+          google-translate gptel hydra iedit magit marginalia
+          markdown-mode mcp mpv nix-mode ob-async orderless
+          org-tree-slide rg undo-tree vertico yaml-mode yasnippet-capf
+          yasnippet-snippets)))
 
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
