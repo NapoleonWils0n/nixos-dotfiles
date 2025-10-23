@@ -68,6 +68,7 @@
     bc
     chromium
     curl
+    csvkit
     dict
     dconf-editor
     fd
@@ -103,6 +104,7 @@
     pandoc
     pinentry-curses
     playerctl
+    podman-desktop
     python313Packages.python-lsp-server
     python314
     pwgen

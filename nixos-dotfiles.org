@@ -133,6 +133,7 @@ to find the exact commit hash
     bc
     chromium
     curl
+    csvkit
     dict
     dconf-editor
     fd
@@ -168,6 +169,7 @@ to find the exact commit hash
     pandoc
     pinentry-curses
     playerctl
+    podman-desktop
     python313Packages.python-lsp-server
     python314
     pwgen
