@@ -1399,6 +1399,7 @@
 ;; end of gptel use-package config
 (add-hook 'gptel-post-response-functions #'my/gptel-fix-src-header)) 
 
+
 ;; ----------------------------------------------------------------------------------
 ;; mcp server
 ;; ----------------------------------------------------------------------------------
@@ -1409,6 +1410,13 @@
   (mcp-hub-servers `(("mcp-nixos" . (
                                       :command "podman" ; <-- Use your container runtime
                                       :args ("run" "--rm" "-i" "ghcr.io/utensils/mcp-nixos")))
+                     ("searxng" . ( ; General web search tool
+                                    :command "podman"
+                                    :args ("run" "-i" "--rm"
+                                           "--network=host"
+                                            "-e" "SEARXNG_URL=http://localhost:8080"
+                                            "mcp-searxng:local")
+                                    ))
                      )) ;; closing parentheses
 
   :config
