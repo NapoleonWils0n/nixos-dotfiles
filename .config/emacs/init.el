@@ -1409,12 +1409,6 @@
   (mcp-hub-servers `(("mcp-nixos" . (
                                       :command "podman" ; <-- Use your container runtime
                                       :args ("run" "--rm" "-i" "ghcr.io/utensils/mcp-nixos")))
-                     ("searxng" . ( ; General web search tool
-                                    :command "podman"
-                                    :args ("run" "--rm" "-i" 
-                                           ;; Pass the environment variable to the container
-                                           "--env" "SEARXNG_URL=http://localhost:8080" 
-                                           "docker.io/isokoliuk/mcp-searxng:latest")))
                      )) ;; closing parentheses
 
   :config
