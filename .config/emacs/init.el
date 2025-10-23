@@ -1445,13 +1445,7 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(package-selected-packages
-   '(cape corfu csv-mode doom-modeline doom-themes ednc embark-consult
-          evil-collection evil-leader fd-dired git-auto-commit-mode
-          google-translate gptel hydra iedit magit marginalia
-          markdown-mode mcp mpv nix-mode ob-async orderless
-          org-tree-slide rg undo-tree vertico yaml-mode yasnippet-capf
-          yasnippet-snippets)))
+ '(package-selected-packages nil))
 
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
