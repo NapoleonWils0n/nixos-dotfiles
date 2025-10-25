@@ -207,6 +207,9 @@ services = {
     enable = true;
     package = pkgs.emacs-pgtk;
   };
+  dict = {
+    enable = true;
+  };
   gnome-keyring = {
     enable = true;
   };
@@ -3212,7 +3215,7 @@ SEARXNG_SECRET=$(openssl rand -hex 32)
         try-complete-lisp-symbol))
 
 ;; emacs 28 - dictionary server
-(setq dictionary-server "dict.org")
+(setq dictionary-server "localhost")
 
 ;; mpd host
 (setq mpc-host "/home/djwilcox/.config/mpd/socket")
