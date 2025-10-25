@@ -174,7 +174,7 @@
         try-complete-lisp-symbol))
 
 ;; emacs 28 - dictionary server
-(setq dictionary-server "localhost")
+(setq dictionary-server "dict.org")
 
 ;; mpd host
 (setq mpc-host "/home/djwilcox/.config/mpd/socket")
