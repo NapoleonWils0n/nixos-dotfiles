@@ -142,9 +142,6 @@ services = {
     enable = true;
     package = pkgs.emacs-pgtk;
   };
-  dictd = {
-    enable = true;
-  };
   gnome-keyring = {
     enable = true;
   };
