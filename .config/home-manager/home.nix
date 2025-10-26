@@ -70,6 +70,8 @@
     curl
     csvkit
     dict
+    dictdDBs.wordnet
+    dictdDBs.wiktionary
     dconf-editor
     fd
     fdk-aac-encoder
