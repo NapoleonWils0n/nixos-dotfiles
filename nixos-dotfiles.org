@@ -891,6 +891,42 @@ menu:
 
 ** systemd
 *** systemd config
+**** dictd.service
+
+#+NAME: dictd.service
+#+begin_src conf
+[Unit]
+Description=Dictionary Server Daemon
+After=network-online.target
+
+[Service]
+# Type should be 'forking' because dictd daemonizes by default.
+Type=forking
+# SuccessExitStatus is needed because dictd typically exits with 143 (SIGTERM)
+SuccessExitStatus=143
+
+# IMPORTANT: This environment variable is often required in NixOS/Home Manager 
+# environments for programs (like dictd) that rely on locale data.
+Environment=LOCALE_ARCHIVE=/run/current-system/sw/lib/locale/locale-archive
+
+# ExecStart: 
+# - Removed -f flag (Type=forking handles this)
+# - Added -s (syslog logging, helpful for debugging)
+# - Added --locale en_US.UTF-8 (dictd often requires this in Nix)
+ExecStart=%h/.nix-profile/bin/dictd -s -c %h/.dictd.conf --locale en_US.UTF-8
+
+# This is the key: Systemd creates this directory (/run/user/<UID>/dictd)
+# and makes it available to the service, solving the permission problem.
+RuntimeDirectory=dictd
+RuntimeDirectoryMode=0700
+
+# Security and management
+Restart=always
+
+[Install]
+WantedBy=default.target
+#+end_src
+
 **** status-bar.service
 
 #+NAME: status-bar.service
@@ -930,6 +966,22 @@ WantedBy=graphical-session.target
 #+END_SRC
 
 *** systemd tangle
+**** dictd.service
+
++ home dir
+
+#+NAME: dictd.service-home-dir
+#+BEGIN_SRC conf :noweb yes :tangle "~/.config/systemd/user/dictd.service"
+<<dictd.service>>
+#+END_SRC
+
++ current dir
+
+#+NAME: dictd.service-current-dir
+#+BEGIN_SRC conf :noweb yes :tangle ".config/systemd/user/dictd.service"
+<<dictd.service>>
+#+END_SRC
+
 **** status-bar.service
 
 + home dir
@@ -962,6 +1014,16 @@ WantedBy=graphical-session.target
 <<wallpaper.service>>
 #+END_SRC
 
+*** enable dictd.service
+
+enable the dictd.service
+
+#+begin_src sh
+systemctl --user daemon-reload 
+systemctl --user enable dict.service 
+systemctl --user start dict.service 
+#+end_src
+
 *** enable status-bar.service
 
 enable the status-bar.service
@@ -969,6 +1031,7 @@ enable the status-bar.service
 #+begin_src sh
 systemctl --user daemon-reload 
 systemctl --user enable status-bar.service 
+systemctl --user start status-bar.service 
 #+end_src
 
 *** enable wallpaper.service
@@ -978,6 +1041,7 @@ enable the wallpaper.service
 #+begin_src sh
 systemctl --user daemon-reload 
 systemctl --user enable wallpaper.service 
+systemctl --user start wallpaper.service 
 #+end_src
 
 ** nix
@@ -3214,7 +3278,7 @@ SEARXNG_SECRET=$(openssl rand -hex 32)
         try-complete-lisp-symbol))
 
 ;; emacs 28 - dictionary server
-(setq dictionary-server "dict.org")
+(setq dictionary-server "localhost")
 
 ;; mpd host
 (setq mpc-host "/home/djwilcox/.config/mpd/socket")
@@ -5461,6 +5525,70 @@ fs-screen-name=DP-3
 #+NAME: yt-dlp-current-dir
 #+BEGIN_SRC conf :noweb yes :tangle ".config/yt-dlp/config"
 <<yt-dlp>>
+#+END_SRC
+
+** dict
+*** dict config
+**** dictrc
+
+#+NAME: dictrc
+#+begin_src conf
+server localhost
+#+end_src
+
+**** dictd.conf
+
+#+NAME: dictd.conf
+#+begin_src conf
+# ~/.dictd.conf
+
+global {
+    listen_to 127.0.0.1
+    port 2628
+    pid_file "/tmp/dictd.pid"
+}
+database wordnet {
+    data "/home/djwilcox/.nix-profile/share/dictd/wn.dict"
+    index "/home/djwilcox/.nix-profile/share/dictd/wn.index"
+}
+
+database wiktionary-en {
+    data "/home/djwilcox/.nix-profile/share/dictd/wiktionary-en.dict.dz"
+    index "/home/djwilcox/.nix-profile/share/dictd/wiktionary-en.index"
+}
+#+end_src
+
+*** dict tangle
+**** dictrc
+
++ home dir
+
+#+NAME: dictrc-home-dir
+#+BEGIN_SRC conf :noweb yes :tangle "~/.dictrc"
+<<dictrc>>
+#+END_SRC
+
++ current dir
+
+#+NAME: dictrc-current-dir
+#+BEGIN_SRC conf :noweb yes :tangle ".dictrc"
+<<dictrc>>
+#+END_SRC
+
+**** dictd.conf
+
++ home dir
+
+#+NAME: dictd.conf-home-dir
+#+BEGIN_SRC conf :noweb yes :tangle "~/.dictd.conf"
+<<dictd.conf>>
+#+END_SRC
+
++ current dir
+
+#+NAME: dictd.conf-current-dir
+#+BEGIN_SRC conf :noweb yes :tangle ".dictd.conf"
+<<dictd.conf>>
 #+END_SRC
 
 ** wireplumber
