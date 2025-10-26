@@ -1020,8 +1020,8 @@ enable the dictd.service
 
 #+begin_src sh
 systemctl --user daemon-reload 
-systemctl --user enable dict.service 
-systemctl --user start dict.service 
+systemctl --user enable dictd.service 
+systemctl --user start dictd.service 
 #+end_src
 
 *** enable status-bar.service
