@@ -1,0 +1,30 @@
+[Unit]
+Description=Dictionary Server Daemon
+After=network-online.target
+
+[Service]
+# Type should be 'forking' because dictd daemonizes by default.
+Type=forking
+# SuccessExitStatus is needed because dictd typically exits with 143 (SIGTERM)
+SuccessExitStatus=143
+
+# IMPORTANT: This environment variable is often required in NixOS/Home Manager 
+# environments for programs (like dictd) that rely on locale data.
+Environment=LOCALE_ARCHIVE=/run/current-system/sw/lib/locale/locale-archive
+
+# ExecStart: 
+# - Removed -f flag (Type=forking handles this)
+# - Added -s (syslog logging, helpful for debugging)
+# - Added --locale en_US.UTF-8 (dictd often requires this in Nix)
+ExecStart=%h/.nix-profile/bin/dictd -s -c %h/.dictd.conf --locale en_US.UTF-8
+
+# This is the key: Systemd creates this directory (/run/user/<UID>/dictd)
+# and makes it available to the service, solving the permission problem.
+RuntimeDirectory=dictd
+RuntimeDirectoryMode=0700
+
+# Security and management
+Restart=always
+
+[Install]
+WantedBy=default.target
