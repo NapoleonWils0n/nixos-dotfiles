@@ -3472,6 +3472,7 @@ SEARXNG_SECRET=$(openssl rand -hex 32)
 (use-package undo-tree)
 (use-package wgrep)
 (use-package yaml-mode)
+(use-package systemd)
 
 
 ;;----------------------------------------------------------------------------------
