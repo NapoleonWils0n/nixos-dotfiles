@@ -83,6 +83,7 @@
     gnome-tweaks
     gnumake
     grim
+    graphviz
     handbrake
     imagemagick
     iosevka

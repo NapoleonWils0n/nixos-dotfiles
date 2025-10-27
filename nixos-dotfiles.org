@@ -148,6 +148,7 @@ to find the exact commit hash
     gnome-tweaks
     gnumake
     grim
+    graphviz
     handbrake
     imagemagick
     iosevka
