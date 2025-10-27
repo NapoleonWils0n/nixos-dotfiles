@@ -810,7 +810,10 @@
   ;; org-babel shell script
   (org-babel-do-load-languages
    'org-babel-load-languages
-   '((shell . t)))
+   '((shell . t)
+     (emacs-lisp . t)
+     (python . t)
+     (dot . t)))
 
   ;; yank-media--registered-handlers org mode
   (setq yank-media--registered-handlers '(("image/.*" . #'org-mode--image-yank-handler)))
