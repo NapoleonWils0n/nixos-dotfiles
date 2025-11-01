@@ -76,7 +76,7 @@
     fd
     fdk-aac-encoder
     ffmpeg-full
-    pkg-master.ffmpegthumbnailer
+    pkgs-master.ffmpegthumbnailer
     file
     fira-code
     gcc

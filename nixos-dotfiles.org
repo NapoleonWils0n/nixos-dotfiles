@@ -141,7 +141,7 @@ to find the exact commit hash
     fd
     fdk-aac-encoder
     ffmpeg-full
-    pkg-master.ffmpegthumbnailer
+    pkgs-master.ffmpegthumbnailer
     file
     fira-code
     gcc
