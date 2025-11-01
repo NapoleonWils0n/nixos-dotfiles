@@ -579,7 +579,7 @@
 
 
 ;; ----------------------------------------------------------------------------------
-;; dired (Built-in Emacs functionality)
+;; dired
 ;; ----------------------------------------------------------------------------------
 
 ;; dired hide long listing by default -- Define this function early and globally
@@ -610,7 +610,9 @@
 
   ;; Dired hooks (moved here to ensure my-dired-mode-setup is defined)
   (add-hook 'dired-mode-hook 'my-dired-mode-setup)
-  (add-hook 'dired-mode-hook (lambda () (dired-omit-mode 1))))
+  (add-hook 'dired-mode-hook (lambda () (dired-omit-mode 1)))
+  ;; media-thumbnail-dired-mode
+  (define-key dired-mode-map (kbd "C-x m") 'media-thumbnail-dired-mode))
 
 
 ;; ------------------------------------------------------------------------------------------------
@@ -635,7 +637,23 @@
 
 
 ;; ----------------------------------------------------------------------------------
-;; fd-dired (External Package)
+;; media-thumbnail
+;; ----------------------------------------------------------------------------------
+
+;; use ffmpegthumbnailer to create thumbnails for videos
+
+(use-package media-thumbnail
+  :diminish media-thumbnail-dired-mode
+  :commands (media-thumbnail-dired-mode)
+  :config
+  (setq media-thumbnail-image-width 480)
+  (setq media-thumbnail-cache-dir 
+        (file-name-concat temporary-file-directory "ffmpegthumbnailer/"))
+  (setq media-thumbnail-dired-should-hide-details-fn #'ignore))
+
+
+;; ----------------------------------------------------------------------------------
+;; fd-dired
 ;; ----------------------------------------------------------------------------------
 
 (use-package fd-dired
@@ -1305,7 +1323,6 @@
 ;; ----------------------------------------------------------------------------------
 
 (use-package cape
-  :demand t 
   :config
   ;; Add a list of cape completion functions to the standard Emacs CAPF
   (add-to-list 'completion-at-point-functions #'cape-dabbrev)
@@ -1578,7 +1595,14 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(package-selected-packages nil))
+ '(package-selected-packages
+   '(cape corfu csv-mode docker dockerfile-mode doom-modeline doom-themes
+          ednc embark-consult evil-collection evil-leader fd-dired
+          git-auto-commit-mode google-translate gptel hydra iedit
+          magit marginalia markdown-mode mcp media-thumbnail mpv
+          nix-mode ob-async orderless org-tree-slide rg systemd
+          undo-tree vertico yaml-mode yasnippet-capf
+          yasnippet-snippets)))
 
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
