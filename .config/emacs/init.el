@@ -140,9 +140,6 @@
 ;; Use spaces instead of tabs
 (setq-default indent-tabs-mode nil)
 
-;; Use spaces instead of tabs
-(setq-default indent-tabs-mode nil)
-
 ;; revert dired and other buffers
 (setq global-auto-revert-non-file-buffers t)
 
