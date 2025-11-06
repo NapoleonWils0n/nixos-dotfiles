@@ -39,65 +39,6 @@ git -C "${expanded_path}" log --pretty=format:'%h, %s, %cd, "%D"' -10 --date=for
 | d72fee9 | emacs              | 18:59:49/06-11-2025 |                               |
 #+end_quote
 
-** tangle dotfiles
-
-tangle document
-
-#+begin_example
-C-c C-v t
-#+end_example
-
-tangle only one code block
-
-#+begin_example
-C-u C-c C-v t
-#+end_example
-
-tangle from the command line
-
-#+begin_src sh
-emacs --batch -l org --eval '(org-babel-tangle-file "~/git/nixos/nixos-dotfiles/nixos-dotfiles.org")'
-#+end_src
-
-** flake update
-
-update the flake
-
-#+begin_src sh
-nix flake update 
-#+end_src
-
-run home manager switch with the flake option
-
-#+begin_src sh
-home-manager switch --flake '.#djwilcox@pollux'
-#+end_src
-
-commit the files and push the git repo
-
-#+begin_src sh
-git add .
-git commit -m "flake updated"
-git push github master
-#+end_src
-
-if there are any errors you can revert the flake.lock file
-
-#+begin_src sh
-git checkout 'HEAD^' -- flake.lock
-#+end_src
-
-This command will revert flake.lock to its state in the previous commit.
-
-If you updated multiple times, you might need to go back further
-e.g., HEAD~2 for two commits ago, or look at
-
-#+begin_src sh
-git log --oneline flake.lock
-#+end_src
-
-to find the exact commit hash
-
 ** tree
 
 tree listing of the dotfiles
@@ -214,6 +155,65 @@ tree -aI .git
 
 42 directories, 61 files
 #+end_example
+
+** tangle dotfiles
+
+tangle document
+
+#+begin_example
+C-c C-v t
+#+end_example
+
+tangle only one code block
+
+#+begin_example
+C-u C-c C-v t
+#+end_example
+
+tangle from the command line
+
+#+begin_src sh
+emacs --batch -l org --eval '(org-babel-tangle-file "~/git/nixos/nixos-dotfiles/nixos-dotfiles.org")'
+#+end_src
+
+** flake update
+
+update the flake
+
+#+begin_src sh
+nix flake update 
+#+end_src
+
+run home manager switch with the flake option
+
+#+begin_src sh
+home-manager switch --flake '.#djwilcox@pollux'
+#+end_src
+
+commit the files and push the git repo
+
+#+begin_src sh
+git add .
+git commit -m "flake updated"
+git push github master
+#+end_src
+
+if there are any errors you can revert the flake.lock file
+
+#+begin_src sh
+git checkout 'HEAD^' -- flake.lock
+#+end_src
+
+This command will revert flake.lock to its state in the previous commit.
+
+If you updated multiple times, you might need to go back further
+e.g., HEAD~2 for two commits ago, or look at
+
+#+begin_src sh
+git log --oneline flake.lock
+#+end_src
+
+to find the exact commit hash
 
 * nixos dotfiles
 ** emacs
