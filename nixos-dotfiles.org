@@ -70,7 +70,6 @@ tree listing of the dotfiles
 tree -aI .git
 #+end_src
 
-#+RESULTS:
 #+begin_example
 .
 ├── .config
@@ -178,7 +177,6 @@ tree -aI .git
 
 42 directories, 61 files
 #+end_example
-
 
 * nixos dotfiles
 ** emacs
