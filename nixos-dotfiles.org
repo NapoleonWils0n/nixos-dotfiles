@@ -22,10 +22,6 @@ C-c C-c
 
 and delete the RESULTS line above the example code block so it renders on github
 
-#+begin_example
-#+RESULTS: tree-listing
-#+end_example
-
 #+NAME: tree-listing
 #+begin_src sh :results output verbatim drawer replace :wrap example
 tree -aI .git
