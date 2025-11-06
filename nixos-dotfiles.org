@@ -549,6 +549,42 @@ Evil is an extensible vi layer for Emacs. It emulates the main features of Vim
 
 ***** general packages
 
++ csv-mode
+
+Major mode for editing comma/char separated values
+
+[[https://elpa.gnu.org/packages/csv-mode.html]]
+
++ evil-leader
+
+Evil Leader provides the <leader> feature from Vim that provides an easy way to bind keys under a variable prefix key. 
+
+[[https://github.com/cofi/evil-leader]]
+
++ git-auto-commit-mode
+
+git-auto-commit-mode - Emacs minor mode to automatically commit (and push) a git repository.
+
+[[https://github.com/ryuslash/git-auto-commit-mode]]
+
++ iedit
+
+Iedit - Edit multiple occurrences in the same way simultaneously
+  
+[[https://github.com/victorhge/iedit]]
+
++ nerd-icons
+
+Nerd-icons.el is a library for easily using Nerd Font icons inside Emacs
+
+[[https://github.com/rainstormstudio/nerd-icons.el]]
+
++ nix-mode
+
+An Emacs major mode for editing Nix expressions.
+
+[[https://github.com/NixOS/nix-mode]]
+
 #+begin_src emacs-lisp
 ;; ----------------------------------------------------------------------------------
 ;; general packages : use-package
