@@ -8,7 +8,7 @@ dotfiles for nixos on a dell xps 15 2019
 
 ** changelog
 
-after editing files commit the changes with magit but dont push them
+after editing files commit the changes with magit
 
 then execute the code block below with
 
@@ -16,7 +16,7 @@ then execute the code block below with
 C-c C-c
 #+end_example
 
-stage and ammend the commit and then push the changes
+stage the commit and then push the changes
 
 #+NAME: changelog
 #+HEADER: :var path="~/git/nixos/nixos-dotfiles"
@@ -27,16 +27,16 @@ git -C "${expanded_path}" log --pretty=format:'%h, %s, %cd, "%D"' -10 --date=for
 
 #+RESULTS: changelog
 #+begin_quote
-| da04816 | emacs changelog    | 20:06:20/06-11-2025 | HEAD -> master |
-| 97aa595 | dotfiles update    | 20:02:19/06-11-2025 | github/master  |
-| 96cb4c8 | changelog dotfiles | 19:58:32/06-11-2025 |                |
-| 15aaa0a | changelog          | 19:57:01/06-11-2025 |                |
-| 68fc938 | dotfiles           | 19:14:09/06-11-2025 |                |
-| d8384d7 | dotfiles           | 19:13:44/06-11-2025 |                |
-| 3165763 | emacs              | 19:10:33/06-11-2025 |                |
-| a57d474 | emacs              | 19:05:04/06-11-2025 |                |
-| 41c5723 | emacs              | 19:02:25/06-11-2025 |                |
-| d72fee9 | emacs              | 18:59:49/06-11-2025 |                |
+| fc98138 | emacs changelog    | 20:06:36/06-11-2025 | HEAD -> master, github/master |
+| 97aa595 | dotfiles update    | 20:02:19/06-11-2025 |                               |
+| 96cb4c8 | changelog dotfiles | 19:58:32/06-11-2025 |                               |
+| 15aaa0a | changelog          | 19:57:01/06-11-2025 |                               |
+| 68fc938 | dotfiles           | 19:14:09/06-11-2025 |                               |
+| d8384d7 | dotfiles           | 19:13:44/06-11-2025 |                               |
+| 3165763 | emacs              | 19:10:33/06-11-2025 |                               |
+| a57d474 | emacs              | 19:05:04/06-11-2025 |                               |
+| 41c5723 | emacs              | 19:02:25/06-11-2025 |                               |
+| d72fee9 | emacs              | 18:59:49/06-11-2025 |                               |
 #+end_quote
 
 ** tangle dotfiles
