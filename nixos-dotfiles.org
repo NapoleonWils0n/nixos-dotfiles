@@ -752,6 +752,8 @@ Consult provides search and navigation commands based on the Emacs completion fu
 
 ***** Orderless
 
+This package provides an orderless completion style that divides the pattern into space-separated components, and matches candidates that match all of the components in any order. Each component can match in any one of several ways: literally, as a regexp, as an initialism, in the flex style, or as multiple word prefixes.
+
 [[https://github.com/oantolin/orderless]]
 
 #+begin_src emacs-lisp
@@ -766,6 +768,8 @@ Consult provides search and navigation commands based on the Emacs completion fu
 #+end_src
 
 ***** Embark
+
+Embark makes it easy to choose a command to run based on what is near point, both during a minibuffer completion session (in a way familiar to Helm or Counsel users) and in normal buffers. Bind the command embark-act to a key and it acts like prefix-key for a keymap of actions (commands) relevant to the target around point.
 
 [[https://github.com/oantolin/embark]]
 
