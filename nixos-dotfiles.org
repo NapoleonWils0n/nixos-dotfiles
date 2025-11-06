@@ -63,6 +63,11 @@ to find the exact commit hash
 :PROPERTIES:
 :header-args: :noweb-ref init.el :noweb-sep "\n\n"
 :END:
+
+#+begin_example
+~/.config/emacs/init.el
+#+end_example
+
 ***** emacs-startup-hook
 
 #+begin_src emacs-lisp
@@ -2490,6 +2495,11 @@ This helps diagnose keybinding issues and conflicts."
 :PROPERTIES:
 :header-args: :noweb-ref early-init.el :noweb-sep "\n\n"
 :END:
+
+#+begin_example
+~/.config/emacs/early-init.el
+#+end_example
+
 ***** garbage collection
 
 #+begin_src emacs-lisp
@@ -2560,6 +2570,10 @@ This helps diagnose keybinding issues and conflicts."
 #+end_src
 
 **** bookmarks config
+
+#+begin_example
+~/.config/emacs/bookmarks
+#+end_example
 
 #+NAME: emacs-bookmarks
 #+BEGIN_SRC emacs-lisp
