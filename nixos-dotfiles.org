@@ -8,24 +8,7 @@ dotfiles for nixos on a dell xps 15 2019
 
 ** changelog
 
-after editing files commit the changes with magit and push them
-
-then execute the code block below with
-
-#+begin_example
-C-c C-c
-#+end_example
-
-stage and amend the commit and then push the changes
-
-#+NAME: changelog
-#+HEADER: :var path="~/git/nixos/nixos-dotfiles"
-#+begin_src sh :results output table replace :noweb yes :wrap quote
-expanded_path=$(eval echo "${path}") # Force shell expansion
-git -C "${expanded_path}" log --pretty=format:'%h, %s, %cd, "%D"' -10 --date=format:'%H:%M:%S/%d-%m-%Y' 
-#+end_src
-
-#+RESULTS: changelog
+[[https://github.com/NapoleonWils0n/changelog?tab=readme-ov-file#nixos-dotfiles]]
 
 ** tree
 
