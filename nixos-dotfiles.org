@@ -65,11 +65,12 @@ to find the exact commit hash
 ** tree
 
 #+NAME: tree-dotfiles
-#+begin_src sh :results output raw
+#+begin_src sh :results output drawer
 tree -aI .git
 #+end_src
 
 #+RESULTS: tree-dotfiles
+:results:
 .
 ├── .config
 │   ├── alacritty
@@ -175,6 +176,7 @@ tree -aI .git
 └── .zshrc
 
 42 directories, 61 files
+:end:
 
 
 * nixos dotfiles
