@@ -11,7 +11,6 @@
                               (time-subtract after-init-time before-init-time)))
                      gcs-done)))
 
-
 ;; ----------------------------------------------------------------------------------
 ;; Bootstrap use-package
 ;; ----------------------------------------------------------------------------------
@@ -38,7 +37,6 @@
 ;; package initialize (use-package will handle installation and requiring)
 (package-initialize)
 
-
 ;; ----------------------------------------------------------------------------------
 ;; doom-theme : use-package
 ;; ----------------------------------------------------------------------------------
@@ -46,13 +44,11 @@
 ;; doom themes
 (use-package doom-themes)
 
-
 ;; ----------------------------------------------------------------------------------
 ;; modus-vivendi-tinted : load-theme
 ;; ----------------------------------------------------------------------------------
 
 (load-theme 'modus-vivendi-tinted t)
-
 
 ;; ----------------------------------------------------------------------------------
 ;; general settings : setq
@@ -97,7 +93,6 @@
 
 ;; scrolling
 (pixel-scroll-precision-mode 1)
-
 
 ;; version control
 (setq version-control t)
@@ -176,7 +171,6 @@
 ;; mpd host
 (setq mpc-host "/home/djwilcox/.config/mpd/socket")
 
-
 ;; ----------------------------------------------------------------------------------
 ;; TAB bar mode
 ;; ----------------------------------------------------------------------------------
@@ -205,25 +199,23 @@
 ;; tab bar menu bar button
 (setq tab-bar-menu-bar-button "👿")
 
-
 ;; ----------------------------------------------------------------------------------
 ;; buffer list
 ;; ----------------------------------------------------------------------------------
 
 ;; display Buffer List in same window
 (add-to-list 'display-buffer-alist
-   '("^*Buffer List*" display-buffer-same-window))
+             '("^*Buffer List*" display-buffer-same-window))
 
 
 ;; mandatory, as the dictionary misbehaves!
 (add-to-list 'display-buffer-alist
-   '("^\\*Dictionary\\*" display-buffer-in-side-window
-     (side . right)
-     (window-width . 0.50)))
+             '("^\\*Dictionary\\*" display-buffer-in-side-window
+               (side . right)
+               (window-width . 0.50)))
 
 ;; Man display in current buffer
 (setq Man-notify-method 'bully)
-
 
 ;; ----------------------------------------------------------------------------------
 ;; functions
@@ -246,7 +238,7 @@
   "Send a url from the clipboard to mpd with pinch"
   (interactive)
   (let ((url (current-kill 0 t)))
-  (start-process "pinch" nil "pinch" "-i" url)))
+    (start-process "pinch" nil "pinch" "-i" url)))
 
 ;; wayland clipboard
 (setq wl-copy-process nil)
@@ -261,10 +253,9 @@
 (defun wl-paste ()
   (if (and wl-copy-process (process-live-p wl-copy-process))
       nil ; should return nil if we're the current paste owner
-      (shell-command-to-string "wl-paste -n")))
+    (shell-command-to-string "wl-paste -n")))
 (setq interprogram-cut-function 'wl-copy)
 (setq interprogram-paste-function 'wl-paste)
-
 
 ;; ----------------------------------------------------------------------------------
 ;; add-to-list
@@ -282,7 +273,6 @@
 ;; exec-path add nix system bin directory
 (add-to-list 'exec-path "/run/current-system/sw/bin")
 
-
 ;; ----------------------------------------------------------------------------------
 ;; add-hook
 ;; ----------------------------------------------------------------------------------
@@ -296,7 +286,6 @@
 ;; h1 line mode
 (add-hook 'prog-mode-hook #'hl-line-mode)
 (add-hook 'text-mode-hook #'hl-line-mode)
-
 
 ;; ----------------------------------------------------------------------------------
 ;; keymap-global-set
@@ -314,7 +303,6 @@
 ;; open dired side window
 (keymap-global-set "C-x x s" 'my/window-dired-vc-root-left)
 
-
 ;; ----------------------------------------------------------------------------------
 ;; keymap-set
 ;; ----------------------------------------------------------------------------------
@@ -330,14 +318,12 @@
 (with-eval-after-load 'embark
   (define-key embark-file-map "l" #'mpv-play-marked-files))
 
-
 ;; ----------------------------------------------------------------------------------
 ;; fonts
 ;; ----------------------------------------------------------------------------------
 
 (defvar efs/default-font-size 180)
 (defvar efs/default-variable-font-size 180)
-
 
 ;; ----------------------------------------------------------------------------------
 ;; set-face-attribute
@@ -386,7 +372,6 @@
     '(bar matches buffer-info remote-host buffer-position selection-info)
     '(misc-info minor-modes input-method buffer-encoding major-mode process vcs check battery time)))
 
-
 ;; ----------------------------------------------------------------------------------
 ;; evil
 ;; ----------------------------------------------------------------------------------
@@ -413,7 +398,6 @@
     "h" 'dired-up-directory
     "l" 'dired-find-file-mpv))
 
-
 ;; ----------------------------------------------------------------------------------
 ;; general packages : use-package
 ;; ----------------------------------------------------------------------------------
@@ -431,7 +415,6 @@
 (use-package yaml-mode)
 (use-package systemd)
 
-
 ;;----------------------------------------------------------------------------------
 ;; ob-sync
 ;;----------------------------------------------------------------------------------
@@ -443,7 +426,6 @@
     (setq org-babel-hide-result-overlays nil))
   (advice-add 'ob-async-org-babel-execute-src-block :before #'no-hide-overlays))
 
-
 ;;----------------------------------------------------------------------------------
 ;; which-key
 ;;----------------------------------------------------------------------------------
@@ -451,7 +433,6 @@
 (use-package which-key
   :config
   (which-key-mode))
-
 
 ;;----------------------------------------------------------------------------------
 ;; undo-tree
@@ -462,7 +443,6 @@
   (global-undo-tree-mode 1)
   (setq undo-tree-visualizer-timestamps t
         undo-tree-visualizer-diff t))
-
 
 ;; ----------------------------------------------------------------------------------
 ;; Vertico
@@ -483,7 +463,6 @@
     ;; (define-key vertico-map (kbd "M-h") 'my-vertico-directory-up)
     ))
 
-
 ;; ----------------------------------------------------------------------------------
 ;; Marginalia
 ;; ----------------------------------------------------------------------------------
@@ -493,7 +472,6 @@
   (setq marginalia-annotators '(marginalia-annotators-heavy marginalia-annotators-light nil))
   :config
   (marginalia-mode 1))
-
 
 ;; ----------------------------------------------------------------------------------
 ;; Consult
@@ -510,7 +488,6 @@
   :config
   (define-key minibuffer-local-map (kbd "C-r") 'consult-history))
 
-
 ;; ----------------------------------------------------------------------------------
 ;; Orderless
 ;; ----------------------------------------------------------------------------------
@@ -519,7 +496,6 @@
   :init
   (setq completion-styles '(orderless basic)
         completion-category-overrides '((file (styles . (partial-completion))))))
-
 
 ;; ----------------------------------------------------------------------------------
 ;; Embark
@@ -573,7 +549,6 @@
 
   (advice-add #'embark-completing-read-prompter
               :around #'embark-hide-which-key-indicator))
-
 
 ;; ----------------------------------------------------------------------------------
 ;; dired
@@ -674,7 +649,6 @@
   ;; Enable dired-async-mode after the async package is loaded
   (dired-async-mode 1))
 
-
 ;; ----------------------------------------------------------------------------------
 ;; rip-grep
 ;; ----------------------------------------------------------------------------------
@@ -685,7 +659,6 @@
   ;; https://github.com/dajva/rg.el/issues/142
   (advice-add 'rg-run :after
               #'(lambda (_pattern _files _dir &optional _literal _confirm _flags) (pop-to-buffer (rg-buffer-name)))))
-
 
 ;; ----------------------------------------------------------------------------------
 ;; tramp
@@ -704,7 +677,6 @@
   (add-to-list 'tramp-backup-directory-alist
                (cons tramp-file-name-regexp nil))
   (add-to-list 'backup-directory-alist (cons tramp-file-name-regexp nil)))
-
 
 ;; ----------------------------------------------------------------------------------
 ;; org mode
@@ -844,7 +816,6 @@
       (with-temp-buffer (set-buffer-multibyte nil) (insert image) (write-region (point-min) (point-max) file))
       (insert (format "[[file:%s]]\n" (file-relative-name file))))))
 
-
 ;; ----------------------------------------------------------------------------------
 ;; org tree slide
 ;; ----------------------------------------------------------------------------------
@@ -866,12 +837,12 @@
   (defun my/presentation-setup ()
     (setq-local mode-line-format nil)
     (setq-local face-remapping-alist '((default (:height 1.5) variable-pitch)
-                                      (header-line (:height 4.0) variable-pitch)
-                                      (org-document-title (:height 1.75) org-document-title)
-                                      (org-code (:height 1.55) org-code)
-                                      (org-verbatim (:height 1.55) org-verbatim)
-                                      (org-block (:height 1.25) org-block)
-                                      (org-block-begin-line (:height 0.7) org-block))))
+                                       (header-line (:height 4.0) variable-pitch)
+                                       (org-document-title (:height 1.75) org-document-title)
+                                       (org-code (:height 1.55) org-code)
+                                       (org-verbatim (:height 1.55) org-verbatim)
+                                       (org-block (:height 1.25) org-block)
+                                       (org-block-begin-line (:height 0.7) org-block))))
 
   ;; presentation end
   (defun my/presentation-end ()
@@ -902,7 +873,6 @@
     (interactive)
     (if my-hide-org-meta-line-p (my-show-org-meta-line) (my-hide-org-meta-line))))
 
-
 ;; ----------------------------------------------------------------------------------
 ;; mpv.el 
 ;; ----------------------------------------------------------------------------------
@@ -923,10 +893,10 @@
   ;; org video store link
   (defun org-video-store-link ()
     "Store a link to a video url."
-        (org-link-store-props
-         :type "video"
-         :link link
-         :description description))
+    (org-link-store-props
+     :type "video"
+     :link link
+     :description description))
   
   
   ;; mpv-play-remote-video
@@ -938,7 +908,7 @@
     (if (not mpv--process)
         ;; mpv isnt running play file
         (mpv-start url)
-        ;; mpv running append file to playlist
+      ;; mpv running append file to playlist
       (mpv--playlist-append url)))
   
   
@@ -947,13 +917,13 @@
     "Start an mpv process playing the video stream at URL."
     (interactive)
     (let ((url (current-kill 0 t)))
-    (unless (mpv--url-p url)
-      (user-error "Invalid argument: `%s' (must be a valid URL)" url))
-    (if (not mpv--process)
-        ;; mpv isnt running play file
-        (mpv-start url)
+      (unless (mpv--url-p url)
+        (user-error "Invalid argument: `%s' (must be a valid URL)" url))
+      (if (not mpv--process)
+          ;; mpv isnt running play file
+          (mpv-start url)
         ;; mpv running append file to playlist
-      (mpv--playlist-append url))))
+        (mpv--playlist-append url))))
   
   
   ;; create a mpv: link type that opens a file using mpv-play
@@ -963,7 +933,7 @@
      (org-link-complete-file arg)
      t t))
   (org-link-set-parameters "mpv"
-    :follow #'mpv-play :complete #'org-mpv-complete-link)
+                           :follow #'mpv-play :complete #'org-mpv-complete-link)
   
   ;; M-RET will insert a new item with the timestamp of the current playback position
   (defun my:mpv/org-metareturn-insert-playback-position ()
@@ -1019,31 +989,31 @@
 
 
   ;; frame step forward
-    (defun mpv-frame-step ()
-      "Step one frame forward."
-      (interactive)
-      (mpv--enqueue '("frame-step") #'ignore))
+  (defun mpv-frame-step ()
+    "Step one frame forward."
+    (interactive)
+    (mpv--enqueue '("frame-step") #'ignore))
   
   
   ;; frame step backward
-    (defun mpv-frame-back-step ()
-      "Step one frame backward."
-      (interactive)
-      (mpv--enqueue '("frame-back-step") #'ignore))
+  (defun mpv-frame-back-step ()
+    "Step one frame backward."
+    (interactive)
+    (mpv--enqueue '("frame-back-step") #'ignore))
   
   
   ;; mpv take a screenshot
-    (defun mpv-screenshot ()
-      "Take a screenshot"
-      (interactive)
-      (mpv--enqueue '("screenshot") #'ignore))
+  (defun mpv-screenshot ()
+    "Take a screenshot"
+    (interactive)
+    (mpv--enqueue '("screenshot") #'ignore))
   
   
   ;; mpv show osd
-    (defun mpv-osd ()
-      "Show the osd"
-      (interactive)
-      (mpv--enqueue '("set_property" "osd-level" "3") #'ignore))
+  (defun mpv-osd ()
+    "Show the osd"
+    (interactive)
+    (mpv--enqueue '("set_property" "osd-level" "3") #'ignore))
   
   
   ;; add a newline in the current document
@@ -1074,21 +1044,20 @@
     (save-excursion
       (skip-chars-backward ":[:digit:]" (point-at-bol))
       (when (looking-at "[0-9]+:[0-9]\\{2\\}:[0-9]\\{2\\}\\([.]?[0-9]\\{0,3\\}\\)"))
-        (let ((secs (my/org-timer-hms-to-secs (match-string 0))))
-          (when (>= secs 0)
-            (mpv-seek secs)))))
+      (let ((secs (my/org-timer-hms-to-secs (match-string 0))))
+        (when (>= secs 0)
+          (mpv-seek secs)))))
 
   
   ;; mpv-play-dired
   (defun mpv-play-dired (path)
-  "Start an mpv process playing the file at PATH append subsequent files to the playlist"
+    "Start an mpv process playing the file at PATH append subsequent files to the playlist"
     (if (not mpv--process)
         ;; mpv isnt running play file
         (mpv-start (expand-file-name path))
-        ;; mpv running append file to playlist
+      ;; mpv running append file to playlist
       (mpv--playlist-append (expand-file-name path))))
   ) ;; This is the final closing parenthesis for the entire (use-package mpv ...) block
-
 
 ;; ----------------------------------------------------------------------------------
 ;; emacs desktop notification center
@@ -1115,17 +1084,16 @@
   
   ;; open notifications in side window
   (add-to-list 'display-buffer-alist
-     '("^Notification *" display-buffer-in-side-window
-       (side . right)
-       (window-width . 0.50)))
+               '("^Notification *" display-buffer-in-side-window
+                 (side . right)
+                 (window-width . 0.50)))
   
   ;; ednc evil - normal mode
   (defun noevil ()
     (evil-define-key 'normal ednc-view-mode-map "d" 'ednc-dismiss-notification)
     (evil-define-key 'normal ednc-view-mode-map (kbd "RET") 'ednc-invoke-action)
-  )
+    )
   (add-hook 'ednc-view-mode-hook 'noevil))
-
 
 ;; ----------------------------------------------------------------------------------
 ;; hydra
@@ -1185,7 +1153,6 @@
   ;; Set global keybinding
   (global-set-key (kbd "C-a") 'hydra-nested/body))
 
-
 ;; ----------------------------------------------------------------------------------
 ;; google-translate
 ;; ----------------------------------------------------------------------------------
@@ -1195,7 +1162,6 @@
   (setq google-translate-display-buffer-action
         '(pop-to-buffer-same-window)))
 
-
 ;; ----------------------------------------------------------------------------------
 ;; magit
 ;; ----------------------------------------------------------------------------------
@@ -1203,7 +1169,6 @@
 (use-package magit
   :init
   (setenv "SSH_AUTH_SOCK" "/run/user/1000/gcr/ssh"))
-
 
 ;; ----------------------------------------------------------------------------------
 ;; markdown mode
@@ -1218,7 +1183,6 @@
   (add-hook 'markdown-mode-hook 'visual-line-mode)
   (setq markdown-command "pandoc")
   )
-
 
 ;; ----------------------------------------------------------------------------------
 ;; treesitter
@@ -1248,10 +1212,9 @@
 
 ;; treesitter explore open in side window
 (add-to-list 'display-buffer-alist
-   '("^*tree-sitter explorer *" display-buffer-in-side-window
-     (side . right)
-     (window-width . 0.50)))
-
+             '("^*tree-sitter explorer *" display-buffer-in-side-window
+               (side . right)
+               (window-width . 0.50)))
 
 ;; ----------------------------------------------------------------------------------
 ;; Snippets (YASnippet)
@@ -1286,7 +1249,6 @@
   :config
   ;; This function is the one that actually works!
   (add-to-list 'completion-at-point-functions #'yasnippet-capf))
-
 
 ;; ----------------------------------------------------------------------------------
 ;; corfu
@@ -1327,7 +1289,6 @@
   (add-to-list 'completion-at-point-functions #'cape-keyword)
   )
 
-
 ;; ----------------------------------------------------------------------------------
 ;; eglot
 ;; ----------------------------------------------------------------------------------
@@ -1358,7 +1319,6 @@
 (require 'auth-source)
 (add-to-list 'auth-sources (expand-file-name ".authinfo" user-emacs-directory))
 
-
 ;; ----------------------------------------------------------------------------------
 ;; gptel
 ;; ----------------------------------------------------------------------------------
@@ -1388,29 +1348,29 @@
 
   (setq gptel-model 'gemini-2.5-flash
         gptel-backend (gptel-make-gemini "Gemini"
-                                         :key (gptel-api-key-from-auth-source "generativelanguage.googleapis.com")
-                                         :stream t))
+                        :key (gptel-api-key-from-auth-source "generativelanguage.googleapis.com")
+                        :stream t))
   
 
-;; ----------------------------------------------------------------------------------
-;; display the Ollama buffer in same window
-;; ----------------------------------------------------------------------------------
+  ;; ----------------------------------------------------------------------------------
+  ;; display the Ollama buffer in same window
+  ;; ----------------------------------------------------------------------------------
 
   (add-to-list 'display-buffer-alist
-     '("^*Ollama*" display-buffer-same-window))
+               '("^*Ollama*" display-buffer-same-window))
 
 
-;; ----------------------------------------------------------------------------------
-;; display the Gemini buffer in same window
-;; ----------------------------------------------------------------------------------
+  ;; ----------------------------------------------------------------------------------
+  ;; display the Gemini buffer in same window
+  ;; ----------------------------------------------------------------------------------
 
   (add-to-list 'display-buffer-alist
                '("^*Gemini*" display-buffer-same-window))
 
 
-;; ----------------------------------------------------------------------------------
-;; gptel set org source blocks to use sh and not bash
-;; ----------------------------------------------------------------------------------
+  ;; ----------------------------------------------------------------------------------
+  ;; gptel set org source blocks to use sh and not bash
+  ;; ----------------------------------------------------------------------------------
 
   (defun my/gptel-fix-src-header (beg end)
     (save-excursion
@@ -1418,37 +1378,37 @@
       (while (re-search-forward "^#\\+begin_src bash" end t)
         (replace-match "#+begin_src sh"))))
 
-(add-hook 'gptel-post-response-functions #'my/gptel-fix-src-header)
+  (add-hook 'gptel-post-response-functions #'my/gptel-fix-src-header)
 
 
-;; ----------------------------------------------------------------------------------
-;; gptel-tools create file
-;; ----------------------------------------------------------------------------------
+  ;; ----------------------------------------------------------------------------------
+  ;; gptel-tools create file
+  ;; ----------------------------------------------------------------------------------
 
-    (gptel-make-tool
-     :function (lambda (path filename content)
-                 (let ((full-path (expand-file-name filename path)))
-                   (with-temp-buffer
-                     (insert content)
-                     (write-file full-path))
-                   (format "Created file %s in %s" filename path)))
-     :name "create_file"
-     :description "Create a new file with the specified content"
-     :args (list '(:name "path"
-                   :type string
-                   :description "The directory where to create the file")
-                 '(:name "filename"
-                   :type string
-                   :description "The name of the file to create")
-                 '(:name "content"
-                   :type string
-                   :description "The content to write to the file"))
-     :category "filesystem")
+  (gptel-make-tool
+   :function (lambda (path filename content)
+               (let ((full-path (expand-file-name filename path)))
+                 (with-temp-buffer
+                   (insert content)
+                   (write-file full-path))
+                 (format "Created file %s in %s" filename path)))
+   :name "create_file"
+   :description "Create a new file with the specified content"
+   :args (list '(:name "path"
+                       :type string
+                       :description "The directory where to create the file")
+               '(:name "filename"
+                       :type string
+                       :description "The name of the file to create")
+               '(:name "content"
+                       :type string
+                       :description "The content to write to the file"))
+   :category "filesystem")
 
 
-;; ----------------------------------------------------------------------------------
-;; gptel-tools read file
-;; ----------------------------------------------------------------------------------
+  ;; ----------------------------------------------------------------------------------
+  ;; gptel-tools read file
+  ;; ----------------------------------------------------------------------------------
 
   (gptel-make-tool
    :function (lambda (filepath)
@@ -1458,14 +1418,14 @@
    :name "read_file"
    :description "Read and display the contents of a file"
    :args (list '(:name "filepath"
-                 :type string
-                 :description "Path to the file to read. Supports relative paths and ~."))
+                       :type string
+                       :description "Path to the file to read. Supports relative paths and ~."))
    :category "filesystem")
 
 
-;; ----------------------------------------------------------------------------------
-;; gptel-tools edit file
-;; ----------------------------------------------------------------------------------
+  ;; ----------------------------------------------------------------------------------
+  ;; gptel-tools edit file
+  ;; ----------------------------------------------------------------------------------
 
   (defun my-gptel--edit_file (file-path file-edits)
     "In FILE-PATH, apply FILE-EDITS with pattern matching and replacing."
@@ -1498,202 +1458,202 @@
       (format "Failed to edited %s" file-path)))
   
   (gptel-make-tool
-     :function #'my-gptel--edit_file
-     :name "edit_file"
-     :description "Edit file with a list of edits, each edit contains a line-number,
+   :function #'my-gptel--edit_file
+   :name "edit_file"
+   :description "Edit file with a list of edits, each edit contains a line-number,
   a old-string and a new-string, new-string will replace the old-string at the specified line."
-     :args (list '(:name "file-path"
-                         :type string
-                         :description "The full path of the file to edit")
-                 '(:name "file-edits"
-                         :type array
-                         :items (:type object
-                                       :properties
-                                       (:line_number
-                                        (:type integer :description "The line number of the file where edit starts.")
-                                        :old_string
-                                        (:type string :description "The old-string to be replaced.")
-                                        :new_string
-                                        (:type string :description "The new-string to replace old-string.")))
-                         :description "The list of edits to apply on the file"))
-     :category "filesystem")
+   :args (list '(:name "file-path"
+                       :type string
+                       :description "The full path of the file to edit")
+               '(:name "file-edits"
+                       :type array
+                       :items (:type object
+                                     :properties
+                                     (:line_number
+                                      (:type integer :description "The line number of the file where edit starts.")
+                                      :old_string
+                                      (:type string :description "The old-string to be replaced.")
+                                      :new_string
+                                      (:type string :description "The new-string to replace old-string.")))
+                       :description "The list of edits to apply on the file"))
+   :category "filesystem")
 
 
-;; ----------------------------------------------------------------------------------
-;; gptel-tools read buffer
-;; ----------------------------------------------------------------------------------
+  ;; ----------------------------------------------------------------------------------
+  ;; gptel-tools read buffer
+  ;; ----------------------------------------------------------------------------------
 
-    (gptel-make-tool
-     :function (lambda (buffer)
-                 (unless (buffer-live-p (get-buffer buffer))
-                   (error "Error: buffer %s is not live." buffer))
-                 (with-current-buffer buffer
-                   (buffer-substring-no-properties (point-min) (point-max))))
-     :name "read_buffer"
-     :description "Return the contents of an Emacs buffer"
-     :args (list '(:name "buffer"
-                   :type string
-                   :description "The name of the buffer whose contents are to be retrieved"))
-     :category "emacs")
-
-
-;; ----------------------------------------------------------------------------------
-;; gptel-tools: Emacs Introspection (Derived from emacs-mcp.el source)
-;; https://github.com/mpontus/emacs-mcp
-;; ----------------------------------------------------------------------------------
+  (gptel-make-tool
+   :function (lambda (buffer)
+               (unless (buffer-live-p (get-buffer buffer))
+                 (error "Error: buffer %s is not live." buffer))
+               (with-current-buffer buffer
+                 (buffer-substring-no-properties (point-min) (point-max))))
+   :name "read_buffer"
+   :description "Return the contents of an Emacs buffer"
+   :args (list '(:name "buffer"
+                       :type string
+                       :description "The name of the buffer whose contents are to be retrieved"))
+   :category "emacs")
 
 
-;; ----------------------------------------------------------------------------------
-;; Emacs: get_docstring
-;; ----------------------------------------------------------------------------------
+  ;; ----------------------------------------------------------------------------------
+  ;; gptel-tools: Emacs Introspection (Derived from emacs-mcp.el source)
+  ;; https://github.com/mpontus/emacs-mcp
+  ;; ----------------------------------------------------------------------------------
 
-(gptel-make-tool
- :function (lambda (function-name)
-             (let* ((symbol (intern-soft function-name))
-                    (docstring (and symbol (documentation symbol))))
-               (or docstring
-                   (error "No docstring found for function: %s" function-name))))
- :name "get_docstring"
- :description "Get the docstring for an Emacs Lisp function.
+
+  ;; ----------------------------------------------------------------------------------
+  ;; Emacs: get_docstring
+  ;; ----------------------------------------------------------------------------------
+
+  (gptel-make-tool
+   :function (lambda (function-name)
+               (let* ((symbol (intern-soft function-name))
+                      (docstring (and symbol (documentation symbol))))
+                 (or docstring
+                     (error "No docstring found for function: %s" function-name))))
+   :name "get_docstring"
+   :description "Get the docstring for an Emacs Lisp function.
 Provides the raw documentation string for any Emacs Lisp function.
 FUNCTION-NAME should be the name of the function as a string.
 Returns the full docstring or an error if the function doesn't exist."
- :args (list '(:name "function-name" :type string :description "The name of the function as a string."))
- :category "emacs")
+   :args (list '(:name "function-name" :type string :description "The name of the function as a string."))
+   :category "emacs")
 
 
-;; ----------------------------------------------------------------------------------
-;; Emacs: describe_elisp_variable
-;; ----------------------------------------------------------------------------------
+  ;; ----------------------------------------------------------------------------------
+  ;; Emacs: describe_elisp_variable
+  ;; ----------------------------------------------------------------------------------
 
-(gptel-make-tool
- :function (lambda (variable-name)
-             (save-window-excursion
-               (describe-variable (intern variable-name))
-               (with-current-buffer "*Help*"
-                 (let ((docstring (buffer-string)))
-                   (kill-buffer)
-                   docstring))))
- :name "describe_elisp_variable"
- :description "Describe an Emacs Lisp variable in detail.
+  (gptel-make-tool
+   :function (lambda (variable-name)
+               (save-window-excursion
+                 (describe-variable (intern variable-name))
+                 (with-current-buffer "*Help*"
+                   (let ((docstring (buffer-string)))
+                     (kill-buffer)
+                     docstring))))
+   :name "describe_elisp_variable"
+   :description "Describe an Emacs Lisp variable in detail.
 Provides comprehensive information about a variable including:
 - Current value
 - Documentation string
 - Whether it is customizable
 - Where it was defined
 VARIABLE-NAME should be the name of the variable as a string."
- :args (list '(:name "variable-name" :type string :description "The name of the variable as a string."))
- :category "emacs")
+   :args (list '(:name "variable-name" :type string :description "The name of the variable as a string."))
+   :category "emacs")
 
 
-;; ----------------------------------------------------------------------------------
-;; Emacs: describe_key_binding
-;; ----------------------------------------------------------------------------------
+  ;; ----------------------------------------------------------------------------------
+  ;; Emacs: describe_key_binding
+  ;; ----------------------------------------------------------------------------------
 
-(gptel-make-tool
- :function (lambda (key-sequence)
-             (save-window-excursion
-               (let ((key (kbd key-sequence)))
-                 (describe-key key)
-                 (with-current-buffer "*Help*"
-                   (let ((result (buffer-string)))
-                     (kill-buffer)
-                     result)))))
- :name "describe_key_binding"
- :description "Display documentation of the function invoked by KEY-SEQUENCE.
+  (gptel-make-tool
+   :function (lambda (key-sequence)
+               (save-window-excursion
+                 (let ((key (kbd key-sequence)))
+                   (describe-key key)
+                   (with-current-buffer "*Help*"
+                     (let ((result (buffer-string)))
+                       (kill-buffer)
+                       result)))))
+   :name "describe_key_binding"
+   :description "Display documentation of the function invoked by KEY-SEQUENCE.
 Provides information about what command a key sequence runs and its documentation.
 KEY-SEQUENCE should be in Emacs key notation as a string (e.g. \"C-x C-f\").
 Returns details about the key binding and the function it calls."
- :args (list '(:name "key-sequence" :type string :description "Key sequence in Emacs notation (e.g. \"C-x C-f\")."))
- :category "emacs")
+   :args (list '(:name "key-sequence" :type string :description "Key sequence in Emacs notation (e.g. \"C-x C-f\")."))
+   :category "emacs")
 
 
-;; ----------------------------------------------------------------------------------
-;; Emacs: describe_current_mode
-;; ----------------------------------------------------------------------------------
+  ;; ----------------------------------------------------------------------------------
+  ;; Emacs: describe_current_mode
+  ;; ----------------------------------------------------------------------------------
 
-(gptel-make-tool
- :function (lambda ()
-             (save-window-excursion
-               (describe-mode)
-               (with-current-buffer "*Help*"
-                 (let ((result (buffer-string)))
-                   (kill-buffer)
-                   result))))
- :name "describe_current_mode"
- :description "Display documentation of current major mode and minor modes.
+  (gptel-make-tool
+   :function (lambda ()
+               (save-window-excursion
+                 (describe-mode)
+                 (with-current-buffer "*Help*"
+                   (let ((result (buffer-string)))
+                     (kill-buffer)
+                     result))))
+   :name "describe_current_mode"
+   :description "Display documentation of current major mode and minor modes.
 Provides comprehensive information about:
 - The current major mode and its purpose
 - All enabled minor modes
 - Key bindings specific to these modes
 This helps understand the current editing environment and available commands."
- :args nil
- :category "emacs")
+   :args nil
+   :category "emacs")
 
 
-;; ----------------------------------------------------------------------------------
-;; Emacs: describe_elisp_function 
-;; ----------------------------------------------------------------------------------
+  ;; ----------------------------------------------------------------------------------
+  ;; Emacs: describe_elisp_function 
+  ;; ----------------------------------------------------------------------------------
 
-(gptel-make-tool
- :function (lambda (function-name)
-             (save-window-excursion
-               (describe-function (intern function-name))
-               (with-current-buffer "*Help*"
-                 (let ((result (buffer-string)))
-                   (kill-buffer)
-                   result))))
- :name "describe_elisp_function"
- :description "Display the full documentation of FUNCTION.
+  (gptel-make-tool
+   :function (lambda (function-name)
+               (save-window-excursion
+                 (describe-function (intern function-name))
+                 (with-current-buffer "*Help*"
+                   (let ((result (buffer-string)))
+                     (kill-buffer)
+                     result))))
+   :name "describe_elisp_function"
+   :description "Display the full documentation of FUNCTION.
 Provides detailed information about an Emacs Lisp function including:
 - Its argument list
 - Full documentation string
 - Where it was defined
 - Key bindings that call this function
 FUNCTION-NAME should be the name of the function as a string."
- :args (list '(:name "function-name" :type string :description "The name of the function as a string."))
- :category "emacs")
+   :args (list '(:name "function-name" :type string :description "The name of the function as a string."))
+   :category "emacs")
 
 
-;; ----------------------------------------------------------------------------------
-;; Emacs: describe_display_face
-;; ----------------------------------------------------------------------------------
+  ;; ----------------------------------------------------------------------------------
+  ;; Emacs: describe_display_face
+  ;; ----------------------------------------------------------------------------------
 
-(gptel-make-tool
- :function (lambda (face-name)
-             (save-window-excursion
-               (describe-face (intern face-name))
-               (with-current-buffer "*Help*"
-                 (let ((result (buffer-string)))
-                   (kill-buffer)
-                   result))))
- :name "describe_display_face"
- :description "Display the properties of face FACE.
+  (gptel-make-tool
+   :function (lambda (face-name)
+               (save-window-excursion
+                 (describe-face (intern face-name))
+                 (with-current-buffer "*Help*"
+                   (let ((result (buffer-string)))
+                     (kill-buffer)
+                     result))))
+   :name "describe_display_face"
+   :description "Display the properties of face FACE.
 Provides detailed information about a display face including:
 - Its appearance attributes (color, weight, slant, etc.)
 - Where it was defined
 - How it's currently displayed
 FACE-NAME should be the name of the face as a string.
 This is useful for understanding text styling in Emacs."
- :args (list '(:name "face-name" :type string :description "The name of the face as a string (e.g., 'default')."))
- :category "emacs")
+   :args (list '(:name "face-name" :type string :description "The name of the face as a string (e.g., 'default')."))
+   :category "emacs")
 
 
-;; ----------------------------------------------------------------------------------
-;; Emacs: describe_installed_package
-;; ----------------------------------------------------------------------------------
+  ;; ----------------------------------------------------------------------------------
+  ;; Emacs: describe_installed_package
+  ;; ----------------------------------------------------------------------------------
 
-(gptel-make-tool
- :function (lambda (package-name)
-             (save-window-excursion
-               (require 'package)
-               (describe-package (intern package-name))
-               (with-current-buffer "*Help*"
-                 (let ((result (buffer-string)))
-                   (kill-buffer)
-                   result))))
- :name "describe_installed_package"
- :description "Display the full documentation of PACKAGE.
+  (gptel-make-tool
+   :function (lambda (package-name)
+               (save-window-excursion
+                 (require 'package)
+                 (describe-package (intern package-name))
+                 (with-current-buffer "*Help*"
+                   (let ((result (buffer-string)))
+                     (kill-buffer)
+                     result))))
+   :name "describe_installed_package"
+   :description "Display the full documentation of PACKAGE.
 Provides comprehensive information about an installed package including:
 - Version information
 - Summary and description
@@ -1701,524 +1661,522 @@ Provides comprehensive information about an installed package including:
 - Features provided
 PACKAGE-NAME should be the name of the package as a string.
 This helps understand what functionality a package provides."
- :args (list '(:name "package-name" :type string :description "The name of the package as a string."))
- :category "emacs")
+   :args (list '(:name "package-name" :type string :description "The name of the package as a string."))
+   :category "emacs")
 
 
-;; ----------------------------------------------------------------------------------
-;; Emacs: list_all_bindings
-;; ----------------------------------------------------------------------------------
+  ;; ----------------------------------------------------------------------------------
+  ;; Emacs: list_all_bindings
+  ;; ----------------------------------------------------------------------------------
 
-(gptel-make-tool
- :function (lambda ()
-             (save-window-excursion
-               (describe-bindings)
-               (with-current-buffer "*Help*"
-                 (let ((result (buffer-string)))
-                   (kill-buffer)
-                   result))))
- :name "list_all_bindings"
- :description "Display a buffer showing a list of all defined keys, and their definitions.
+  (gptel-make-tool
+   :function (lambda ()
+               (save-window-excursion
+                 (describe-bindings)
+                 (with-current-buffer "*Help*"
+                   (let ((result (buffer-string)))
+                     (kill-buffer)
+                     result))))
+   :name "list_all_bindings"
+   :description "Display a buffer showing a list of all defined keys, and their definitions.
 Provides a comprehensive list of all currently active key bindings organized by prefix.
 This gives a complete overview of available commands and their key shortcuts.
 Useful for understanding what commands are available in the current context."
- :args nil
- :category "emacs")
+   :args nil
+   :category "emacs")
 
 
-;; ----------------------------------------------------------------------------------
-;; Emacs: describe_custom_theme
-;; ----------------------------------------------------------------------------------
+  ;; ----------------------------------------------------------------------------------
+  ;; Emacs: describe_custom_theme
+  ;; ----------------------------------------------------------------------------------
 
-(gptel-make-tool
- :function (lambda (theme-name)
-             (save-window-excursion
-               (require 'custom)
-               (describe-theme (intern theme-name))
-               (with-current-buffer "*Help*"
-                 (let ((result (buffer-string)))
-                   (kill-buffer)
-                   result))))
- :name "describe_custom_theme"
- :description "Display a description of the Custom theme THEME.
+  (gptel-make-tool
+   :function (lambda (theme-name)
+               (save-window-excursion
+                 (require 'custom)
+                 (describe-theme (intern theme-name))
+                 (with-current-buffer "*Help*"
+                   (let ((result (buffer-string)))
+                     (kill-buffer)
+                     result))))
+   :name "describe_custom_theme"
+   :description "Display a description of the Custom theme THEME.
 Provides information about a specific Emacs theme including:
 - Its settings and customizations
 - Faces it defines or modifies
 - Where it was defined
 THEME-NAME should be the name of the theme as a string.
 This helps understand how a theme affects Emacs appearance."
- :args (list '(:name "theme-name" :type string :description "The name of the theme as a string."))
- :category "emacs")
+   :args (list '(:name "theme-name" :type string :description "The name of the theme as a string."))
+   :category "emacs")
 
 
-;; ----------------------------------------------------------------------------------
-;; Emacs: describe_current_syntax
-;; ----------------------------------------------------------------------------------
+  ;; ----------------------------------------------------------------------------------
+  ;; Emacs: describe_current_syntax
+  ;; ----------------------------------------------------------------------------------
 
-(gptel-make-tool
- :function (lambda ()
-             (save-window-excursion
-               (describe-syntax)
-               (with-current-buffer "*Help*"
-                 (let ((result (buffer-string)))
-                   (kill-buffer)
-                   result))))
- :name "describe_current_syntax"
- :description "Describe the syntax specifications in the current syntax table.
+  (gptel-make-tool
+   :function (lambda ()
+               (save-window-excursion
+                 (describe-syntax)
+                 (with-current-buffer "*Help*"
+                   (let ((result (buffer-string)))
+                     (kill-buffer)
+                     result))))
+   :name "describe_current_syntax"
+   :description "Describe the syntax specifications in the current syntax table.
 Provides detailed information about how Emacs interprets different characters
 in the current buffer's major mode. This includes:
 - Which characters are considered word constituents
 - Which characters are considered punctuation
 - How comment and string delimiters are defined
 This is useful for understanding how Emacs parses text in different modes."
- :args nil
- :category "emacs")
+   :args nil
+   :category "emacs")
 
 
-;; ----------------------------------------------------------------------------------
-;; Emacs: apropos_command
-;; ----------------------------------------------------------------------------------
+  ;; ----------------------------------------------------------------------------------
+  ;; Emacs: apropos_command
+  ;; ----------------------------------------------------------------------------------
 
-(gptel-make-tool
- :function (lambda (pattern)
-             (require 'apropos)
-             (save-window-excursion
-               (apropos-command pattern)
-               (with-current-buffer "*Apropos*"
-                 (let ((result (buffer-string)))
-                   (kill-buffer)
-                   result))))
- :name "apropos_command"
- :description "Search for commands matching PATTERN.
+  (gptel-make-tool
+   :function (lambda (pattern)
+               (require 'apropos)
+               (save-window-excursion
+                 (apropos-command pattern)
+                 (with-current-buffer "*Apropos*"
+                   (let ((result (buffer-string)))
+                     (kill-buffer)
+                     result))))
+   :name "apropos_command"
+   :description "Search for commands matching PATTERN.
 Finds and returns information about all Emacs commands whose names match PATTERN.
 PATTERN can be a regular expression or a simple string.
 Results include command names, key bindings, and brief descriptions.
 This is useful for discovering commands related to a specific topic or feature."
- :args (list '(:name "pattern" :type string :description "A string or regular expression to match command names."))
- :category "emacs")
+   :args (list '(:name "pattern" :type string :description "A string or regular expression to match command names."))
+   :category "emacs")
 
 
-;; ----------------------------------------------------------------------------------
-;; Emacs: apropos_variable
-;; ----------------------------------------------------------------------------------
+  ;; ----------------------------------------------------------------------------------
+  ;; Emacs: apropos_variable
+  ;; ----------------------------------------------------------------------------------
 
-(gptel-make-tool
- :function (lambda (pattern)
-             (require 'apropos)
-             (save-window-excursion
-               (apropos-variable pattern)
-               (with-current-buffer "*Apropos*"
-                 (let ((result (buffer-string)))
-                   (kill-buffer)
-                   result))))
- :name "apropos_variable"
- :description "Search for variables matching PATTERN.
+  (gptel-make-tool
+   :function (lambda (pattern)
+               (require 'apropos)
+               (save-window-excursion
+                 (apropos-variable pattern)
+                 (with-current-buffer "*Apropos*"
+                   (let ((result (buffer-string)))
+                     (kill-buffer)
+                     result))))
+   :name "apropos_variable"
+   :description "Search for variables matching PATTERN.
 Finds and returns information about all Emacs variables whose names match PATTERN.
 PATTERN can be a regular expression or a simple string.
 Results include variable names, current values, and brief descriptions.
 This is useful for discovering configuration options related to a specific feature."
- :args (list '(:name "pattern" :type string :description "A string or regular expression to match variable names."))
- :category "emacs")
+   :args (list '(:name "pattern" :type string :description "A string or regular expression to match variable names."))
+   :category "emacs")
 
 
-;; ----------------------------------------------------------------------------------
-;; Emacs: apropos_value
-;; ----------------------------------------------------------------------------------
+  ;; ----------------------------------------------------------------------------------
+  ;; Emacs: apropos_value
+  ;; ----------------------------------------------------------------------------------
 
-(gptel-make-tool
- :function (lambda (pattern)
-             (require 'apropos)
-             (save-window-excursion
-               (apropos-value pattern)
-               (with-current-buffer "*Apropos*"
-                 (let ((result (buffer-string)))
-                   (kill-buffer)
-                   result))))
- :name "apropos_value"
- :description "Search for variables with values matching PATTERN.
+  (gptel-make-tool
+   :function (lambda (pattern)
+               (require 'apropos)
+               (save-window-excursion
+                 (apropos-value pattern)
+                 (with-current-buffer "*Apropos*"
+                   (let ((result (buffer-string)))
+                     (kill-buffer)
+                     result))))
+   :name "apropos_value"
+   :description "Search for variables with values matching PATTERN.
 Finds and returns information about Emacs variables whose values match PATTERN.
 PATTERN can be a regular expression or a simple string.
 Results include variable names, matching values, and brief descriptions.
 This is useful for finding variables set to specific values or containing certain data."
- :args (list '(:name "pattern" :type string :description "A string or regular expression to match variable values."))
- :category "emacs")
+   :args (list '(:name "pattern" :type string :description "A string or regular expression to match variable values."))
+   :category "emacs")
 
 
-;; ----------------------------------------------------------------------------------
-;; Emacs: apropos_documentation
-;; ----------------------------------------------------------------------------------
+  ;; ----------------------------------------------------------------------------------
+  ;; Emacs: apropos_documentation
+  ;; ----------------------------------------------------------------------------------
 
-(gptel-make-tool
- :function (lambda (pattern)
-             (require 'apropos)
-             (save-window-excursion
-               (apropos-documentation pattern)
-               (with-current-buffer "*Apropos*"
-                 (let ((result (buffer-string)))
-                   (kill-buffer)
-                   result))))
- :name "apropos_documentation"
- :description "Search for symbols with documentation matching PATTERN.
+  (gptel-make-tool
+   :function (lambda (pattern)
+               (require 'apropos)
+               (save-window-excursion
+                 (apropos-documentation pattern)
+                 (with-current-buffer "*Apropos*"
+                   (let ((result (buffer-string)))
+                     (kill-buffer)
+                     result))))
+   :name "apropos_documentation"
+   :description "Search for symbols with documentation matching PATTERN.
 Finds and returns information about Emacs symbols whose documentation contains PATTERN.
 PATTERN can be a regular expression or a simple string.
 Results include symbol names and the matching portions of their documentation.
 This is useful for finding features described with specific terms in their documentation."
- :args (list '(:name "pattern" :type string :description "A string or regular expression to search within documentation strings."))
- :category "emacs")
+   :args (list '(:name "pattern" :type string :description "A string or regular expression to search within documentation strings."))
+   :category "emacs")
 
 
-;; ----------------------------------------------------------------------------------
-;; Emacs: apropos_all_symbols
-;; ----------------------------------------------------------------------------------
+  ;; ----------------------------------------------------------------------------------
+  ;; Emacs: apropos_all_symbols
+  ;; ----------------------------------------------------------------------------------
 
-(gptel-make-tool
- :function (lambda (pattern)
-             (require 'apropos)
-             (save-window-excursion
-               (apropos pattern)
-               (with-current-buffer "*Apropos*"
-                 (let ((result (buffer-string)))
-                   (kill-buffer)
-                   result))))
- :name "apropos_all_symbols"
- :description "Search for symbols whose names match PATTERN.
+  (gptel-make-tool
+   :function (lambda (pattern)
+               (require 'apropos)
+               (save-window-excursion
+                 (apropos pattern)
+                 (with-current-buffer "*Apropos*"
+                   (let ((result (buffer-string)))
+                     (kill-buffer)
+                     result))))
+   :name "apropos_all_symbols"
+   :description "Search for symbols whose names match PATTERN.
 Finds and returns information about all Emacs symbols whose names match PATTERN.
 PATTERN can be a regular expression or a simple string.
 Results include functions, variables, faces, and other symbols.
 This is the most general search tool and useful for broad exploration of Emacs features."
- :args (list '(:name "pattern" :type string :description "A string or regular expression to match symbol names."))
- :category "emacs")
+   :args (list '(:name "pattern" :type string :description "A string or regular expression to match symbol names."))
+   :category "emacs")
 
 
-;; ----------------------------------------------------------------------------------
-;; Emacs: info_get_node
-;; ----------------------------------------------------------------------------------
+  ;; ----------------------------------------------------------------------------------
+  ;; Emacs: info_get_node
+  ;; ----------------------------------------------------------------------------------
 
-(gptel-make-tool
- :function (lambda (node-name)
-             (require 'info)
-             (save-window-excursion
-               (info node-name)
-               (with-current-buffer "*info*"
-                 (let ((result (buffer-string)))
-                   (kill-buffer)
-                   result))))
- :name "info_get_node"
- :description "Display the contents of an Info node.
+  (gptel-make-tool
+   :function (lambda (node-name)
+               (require 'info)
+               (save-window-excursion
+                 (info node-name)
+                 (with-current-buffer "*info*"
+                   (let ((result (buffer-string)))
+                     (kill-buffer)
+                     result))))
+   :name "info_get_node"
+   :description "Display the contents of an Info node.
 Provides the full text content of a specific Info documentation node.
 NODE-NAME should be the name of the node as a string (e.g. \"(emacs)Basic\").
 Returns the text content of the specified Info node."
- :args (list '(:name "node-name" :type string :description "The Info node name as a string."))
- :category "emacs")
+   :args (list '(:name "node-name" :type string :description "The Info node name as a string."))
+   :category "emacs")
 
 
-;; ----------------------------------------------------------------------------------
-;; Emacs: info_documentation_search
-;; ----------------------------------------------------------------------------------
+  ;; ----------------------------------------------------------------------------------
+  ;; Emacs: info_documentation_search
+  ;; ----------------------------------------------------------------------------------
 
-(gptel-make-tool
- :function (lambda (topic)
-             (require 'info)
-             (save-window-excursion
-               (info)
-               (Info-search topic)
-               (let ((result (format "Search results for '%s':\n\n" topic))
-                     (node-name (format "%s" Info-current-node))
-                     (file-name (format "%s" Info-current-file)))
-                 (setq result (concat result
-                                      (format "Found in node: %s in file: %s\n\n"
-                                              node-name file-name)))
-                 ;; Get context around the match
-                 (let ((start (max (point-min) (- (point) 200)))
-                       (end (min (point-max) (+ (point) 500))))
-                   (setq result (concat result
-                                        (buffer-substring-no-properties start end))))
-                 (kill-buffer)
-                 result)))
- :name "info_documentation_search"
- :description "Search for TOPIC in the Info documentation.
-Performs a search across Info documentation for the specified topic.
-TOPIC should be a string to search for.
-Returns a list of matching nodes and context around the matches."
- :args (list '(:name "topic" :type string :description "The topic string to search for."))
- :category "emacs")
-
-
-;; ----------------------------------------------------------------------------------
-;; Emacs: info_index_lookup
-;; ----------------------------------------------------------------------------------
-
-(gptel-make-tool
- :function (lambda (index-item)
-             (require 'info)
-             (save-window-excursion
-               (info)
-               (Info-index index-item)
-               (with-current-buffer "*info*"
-                 (let ((result (format "Index results for '%s':\n\n" index-item))
+  (gptel-make-tool
+   :function (lambda (topic)
+               (require 'info)
+               (save-window-excursion
+                 (info)
+                 (Info-search topic)
+                 (let ((result (format "Search results for '%s':\n\n" topic))
                        (node-name (format "%s" Info-current-node))
                        (file-name (format "%s" Info-current-file)))
                    (setq result (concat result
                                         (format "Found in node: %s in file: %s\n\n"
                                                 node-name file-name)))
-                   ;; Get the content of the node
-                   (setq result (concat result (buffer-substring-no-properties (point-min) (point-max))))
+                   ;; Get context around the match
+                   (let ((start (max (point-min) (- (point) 200)))
+                         (end (min (point-max) (+ (point) 500))))
+                     (setq result (concat result
+                                          (buffer-substring-no-properties start end))))
                    (kill-buffer)
-                   result))))
- :name "info_index_lookup"
- :description "Look up INDEX-ITEM in the indices of the Info documentation.
+                   result)))
+   :name "info_documentation_search"
+   :description "Search for TOPIC in the Info documentation.
+Performs a search across Info documentation for the specified topic.
+TOPIC should be a string to search for.
+Returns a list of matching nodes and context around the matches."
+   :args (list '(:name "topic" :type string :description "The topic string to search for."))
+   :category "emacs")
+
+
+  ;; ----------------------------------------------------------------------------------
+  ;; Emacs: info_index_lookup
+  ;; ----------------------------------------------------------------------------------
+
+  (gptel-make-tool
+   :function (lambda (index-item)
+               (require 'info)
+               (save-window-excursion
+                 (info)
+                 (Info-index index-item)
+                 (with-current-buffer "*info*"
+                   (let ((result (format "Index results for '%s':\n\n" index-item))
+                         (node-name (format "%s" Info-current-node))
+                         (file-name (format "%s" Info-current-file)))
+                     (setq result (concat result
+                                          (format "Found in node: %s in file: %s\n\n"
+                                                  node-name file-name)))
+                     ;; Get the content of the node
+                     (setq result (concat result (buffer-substring-no-properties (point-min) (point-max))))
+                     (kill-buffer)
+                     result))))
+   :name "info_index_lookup"
+   :description "Look up INDEX-ITEM in the indices of the Info documentation.
 Finds entries in Info documentation indices that match the specified item.
 INDEX-ITEM should be a string to look up in the indices.
 Returns information about matching index entries and their locations."
- :args (list '(:name "index-item" :type string :description "The item string to look up in the indices."))
- :category "emacs")
+   :args (list '(:name "index-item" :type string :description "The item string to look up in the indices."))
+   :category "emacs")
 
 
-;; ----------------------------------------------------------------------------------
-;; Emacs: info_get_toc
-;; ----------------------------------------------------------------------------------
+  ;; ----------------------------------------------------------------------------------
+  ;; Emacs: info_get_toc
+  ;; ----------------------------------------------------------------------------------
 
-(gptel-make-tool
- :function (lambda (manual)
-             (require 'info)
-             (save-window-excursion
-               (info (concat "(" manual ")"))
-               (Info-directory)
-               (with-current-buffer "*info*"
-                 (let ((result (format "Table of Contents for '%s':\n\n" manual)))
-                   (setq result (concat result (buffer-substring-no-properties (point-min) (point-max))))
-                   (kill-buffer)
-                   result))))
- :name "info_get_toc"
- :description "Display the table of contents for a specific Info MANUAL.
+  (gptel-make-tool
+   :function (lambda (manual)
+               (require 'info)
+               (save-window-excursion
+                 (info (concat "(" manual ")"))
+                 (Info-directory)
+                 (with-current-buffer "*info*"
+                   (let ((result (format "Table of Contents for '%s':\n\n" manual)))
+                     (setq result (concat result (buffer-substring-no-properties (point-min) (point-max))))
+                     (kill-buffer)
+                     result))))
+   :name "info_get_toc"
+   :description "Display the table of contents for a specific Info MANUAL.
 Provides the structure and organization of an Info manual.
 MANUAL should be the name of the manual as a string (e.g. \"emacs\").
 Returns the table of contents of the specified manual."
- :args (list '(:name "manual" :type string :description "The name of the Info manual as a string."))
- :category "emacs")
+   :args (list '(:name "manual" :type string :description "The name of the Info manual as a string."))
+   :category "emacs")
 
 
-;; ----------------------------------------------------------------------------------
-;; Emacs: info_list_manuals
-;; ----------------------------------------------------------------------------------
+  ;; ----------------------------------------------------------------------------------
+  ;; Emacs: info_list_manuals
+  ;; ----------------------------------------------------------------------------------
 
-(gptel-make-tool
- :function (lambda ()
-             (require 'info)
-             (save-window-excursion
-               (info)
-               (Info-directory)
-               (with-current-buffer "*info*"
-                 (let ((result "Available Info Manuals:\n\n"))
-                   (setq result (concat result (buffer-substring-no-properties (point-min) (point-max))))
-                   (kill-buffer)
-                   result))))
- :name "info_list_manuals"
- :description "List all available Info manuals.
+  (gptel-make-tool
+   :function (lambda ()
+               (require 'info)
+               (save-window-excursion
+                 (info)
+                 (Info-directory)
+                 (with-current-buffer "*info*"
+                   (let ((result "Available Info Manuals:\n\n"))
+                     (setq result (concat result (buffer-substring-no-properties (point-min) (point-max))))
+                     (kill-buffer)
+                     result))))
+   :name "info_list_manuals"
+   :description "List all available Info manuals.
 Provides a comprehensive list of all Info documentation manuals available in the system.
 This helps discover what documentation is available for reference."
- :args nil
- :category "emacs")
+   :args nil
+   :category "emacs")
 
 
-;; ----------------------------------------------------------------------------------
-;; Emacs: get_emacs_version
-;; ----------------------------------------------------------------------------------
+  ;; ----------------------------------------------------------------------------------
+  ;; Emacs: get_emacs_version
+  ;; ----------------------------------------------------------------------------------
 
-(gptel-make-tool
- :function (lambda ()
-             (concat "Emacs Version:\n\n" (emacs-version)))
- :name "get_emacs_version"
- :description "Get detailed information about the current Emacs version.
+  (gptel-make-tool
+   :function (lambda ()
+               (concat "Emacs Version:\n\n" (emacs-version)))
+   :name "get_emacs_version"
+   :description "Get detailed information about the current Emacs version.
 Provides version number, build details, and system configuration information.
 This helps understand the capabilities and limitations of the current Emacs instance."
- :args nil
- :category "emacs")
+   :args nil
+   :category "emacs")
 
 
-;; ----------------------------------------------------------------------------------
-;; Emacs: list_loaded_features
-;; ----------------------------------------------------------------------------------
+  ;; ----------------------------------------------------------------------------------
+  ;; Emacs: list_loaded_features
+  ;; ----------------------------------------------------------------------------------
 
-(gptel-make-tool
- :function (lambda ()
-             (let ((result "Loaded Features:\n\n"))
-               (dolist (feature features)
-                 (setq result (concat result (format "- %s\n" feature))))
-               result))
- :name "list_loaded_features"
- :description "List all features (libraries) that have been loaded in Emacs.
+  (gptel-make-tool
+   :function (lambda ()
+               (let ((result "Loaded Features:\n\n"))
+                 (dolist (feature features)
+                   (setq result (concat result (format "- %s\n" feature))))
+                 result))
+   :name "list_loaded_features"
+   :description "List all features (libraries) that have been loaded in Emacs.
 Provides a comprehensive list of all Emacs Lisp libraries currently loaded.
 This helps understand what functionality is available in the current session."
- :args nil
- :category "emacs")
+   :args nil
+   :category "emacs")
 
 
-;; ----------------------------------------------------------------------------------
-;; Emacs: list_installed_packages
-;; ----------------------------------------------------------------------------------
+  ;; ----------------------------------------------------------------------------------
+  ;; Emacs: list_installed_packages
+  ;; ----------------------------------------------------------------------------------
 
-(gptel-make-tool
- :function (lambda ()
-             (require 'package)
-             (package-initialize)
-             (let ((result "Installed Packages:\n\n"))
-               (dolist (pkg package-alist)
-                 (let* ((name (car pkg))
-                        (desc (cadr pkg))
-                        (version (package-desc-version desc))
-                        (status (if (package-installed-p name) "Installed" "Not Installed")))
-                   (setq result (concat result (format "- %s (%s): %s\n"
-                                                      name version status)))))
-               result))
- :name "list_installed_packages"
- :description "List all installed packages with their status and version.
+  (gptel-make-tool
+   :function (lambda ()
+               (require 'package)
+               (package-initialize)
+               (let ((result "Installed Packages:\n\n"))
+                 (dolist (pkg package-alist)
+                   (let* ((name (car pkg))
+                          (desc (cadr pkg))
+                          (version (package-desc-version desc))
+                          (status (if (package-installed-p name) "Installed" "Not Installed")))
+                     (setq result (concat result (format "- %s (%s): %s\n"
+                                                         name version status)))))
+                 result))
+   :name "list_installed_packages"
+   :description "List all installed packages with their status and version.
 Provides a comprehensive overview of the user's package ecosystem."
- :args nil
- :category "emacs")
+   :args nil
+   :category "emacs")
 
 
-;; ----------------------------------------------------------------------------------
-;; Emacs: list_available_modes
-;; ----------------------------------------------------------------------------------
+  ;; ----------------------------------------------------------------------------------
+  ;; Emacs: list_available_modes
+  ;; ----------------------------------------------------------------------------------
 
-(gptel-make-tool
- :function (lambda ()
-             (let ((result "Available Major Modes:\n\n")
-                   (modes '()))
-               (mapatoms (lambda (sym)
-                           (when (and (functionp sym)
-                                      (string-match "-mode$" (symbol-name sym))
-                                      (not (string-match "-minor-mode$" (symbol-name sym))))
-                             (push (symbol-name sym) modes))))
-               (setq modes (sort modes 'string<))
-               (dolist (mode modes)
-                 (setq result (concat result (format "- %s\n" mode))))
-               result))
- :name "list_available_modes"
- :description "List all available major modes in this Emacs instance.
+  (gptel-make-tool
+   :function (lambda ()
+               (let ((result "Available Major Modes:\n\n")
+                     (modes '()))
+                 (mapatoms (lambda (sym)
+                             (when (and (functionp sym)
+                                        (string-match "-mode$" (symbol-name sym))
+                                        (not (string-match "-minor-mode$" (symbol-name sym))))
+                               (push (symbol-name sym) modes))))
+                 (setq modes (sort modes 'string<))
+                 (dolist (mode modes)
+                   (setq result (concat result (format "- %s\n" mode))))
+                 result))
+   :name "list_available_modes"
+   :description "List all available major modes in this Emacs instance.
 Provides a comprehensive list of all major modes that can be used.
 This helps understand what file types and editing modes are supported."
- :args nil
- :category "emacs")
+   :args nil
+   :category "emacs")
 
 
-;; ----------------------------------------------------------------------------------
-;; Emacs: list_custom_variables
-;; ----------------------------------------------------------------------------------
+  ;; ----------------------------------------------------------------------------------
+  ;; Emacs: list_custom_variables
+  ;; ----------------------------------------------------------------------------------
 
-(gptel-make-tool
- :function (lambda ()
-             (require 'cus-edit)
-             (let ((result "Customized Variables:\n\n"))
-               (dolist (theme custom-enabled-themes)
-                 (setq result (concat result (format "Theme: %s\n" theme))))
-               (setq result (concat result "\nVariables:\n"))
-               (mapatoms
-                (lambda (symbol)
-                  (when (and (boundp symbol)
-                             (get symbol 'saved-value))
-                    (setq result (concat result (format "- %s: %S\n"
-                                                      symbol (symbol-value symbol)))))))
-               result))
- :name "list_custom_variables"
- :description "List all customized variables in the current Emacs session.
+  (gptel-make-tool
+   :function (lambda ()
+               (require 'cus-edit)
+               (let ((result "Customized Variables:\n\n"))
+                 (dolist (theme custom-enabled-themes)
+                   (setq result (concat result (format "Theme: %s\n" theme))))
+                 (setq result (concat result "\nVariables:\n"))
+                 (mapatoms
+                  (lambda (symbol)
+                    (when (and (boundp symbol)
+                               (get symbol 'saved-value))
+                      (setq result (concat result (format "- %s: %S\n"
+                                                          symbol (symbol-value symbol)))))))
+                 result))
+   :name "list_custom_variables"
+   :description "List all customized variables in the current Emacs session.
 Shows variables that have been customized away from their default values.
 This helps understand how the user has personalized their Emacs."
- :args nil
- :category "emacs")
+   :args nil
+   :category "emacs")
 
 
-;; ----------------------------------------------------------------------------------
-;; Emacs: describe_matching_hooks
-;; ----------------------------------------------------------------------------------
+  ;; ----------------------------------------------------------------------------------
+  ;; Emacs: describe_matching_hooks
+  ;; ----------------------------------------------------------------------------------
 
-(gptel-make-tool
- :function (lambda (hook-pattern)
-             (let ((result (format "Hooks matching \"%s\":\n\n" hook-pattern))
-                   (hooks '()))
-               (mapatoms
-                (lambda (symbol)
-                  (when (and (boundp symbol)
-                             (string-match "-hook$" (symbol-name symbol))
-                             (string-match hook-pattern (symbol-name symbol)))
-                    (push symbol hooks))))
-               (setq hooks (sort hooks (lambda (a b) (string< (symbol-name a) (symbol-name b)))))
-               (dolist (hook hooks)
-                 (setq result (concat result (format "- %s:\n" hook)))
-                 (let ((value (symbol-value hook)))
-                   (if (not value)
-                       (setq result (concat result "  (empty)\n"))
-                     (dolist (func value)
-                       (setq result (concat result (format "  - %s\n" func)))))))
-               result))
- :name "describe_matching_hooks"
- :description "List and show the functions attached to hooks matching HOOK-PATTERN."
- :args (list '(:name "hook-pattern" :type string :description "A string or regex to match hook names (e.g., 'prog-mode')."))
- :category "emacs")
+  (gptel-make-tool
+   :function (lambda (hook-pattern)
+               (let ((result (format "Hooks matching \"%s\":\n\n" hook-pattern))
+                     (hooks '()))
+                 (mapatoms
+                  (lambda (symbol)
+                    (when (and (boundp symbol)
+                               (string-match "-hook$" (symbol-name symbol))
+                               (string-match hook-pattern (symbol-name symbol)))
+                      (push symbol hooks))))
+                 (setq hooks (sort hooks (lambda (a b) (string< (symbol-name a) (symbol-name b)))))
+                 (dolist (hook hooks)
+                   (setq result (concat result (format "- %s:\n" hook)))
+                   (let ((value (symbol-value hook)))
+                     (if (not value)
+                         (setq result (concat result "  (empty)\n"))
+                       (dolist (func value)
+                         (setq result (concat result (format "  - %s\n" func)))))))
+                 result))
+   :name "describe_matching_hooks"
+   :description "List and show the functions attached to hooks matching HOOK-PATTERN."
+   :args (list '(:name "hook-pattern" :type string :description "A string or regex to match hook names (e.g., 'prog-mode')."))
+   :category "emacs")
 
 
-;; ----------------------------------------------------------------------------------
-;; Emacs: list_available_fonts
-;; ----------------------------------------------------------------------------------
+  ;; ----------------------------------------------------------------------------------
+  ;; Emacs: list_available_fonts
+  ;; ----------------------------------------------------------------------------------
 
-(gptel-make-tool
- :function (lambda ()
-             (let ((result "Available Fonts:\n\n")
-                   (fonts (font-family-list)))
-               (setq fonts (sort fonts 'string<))
-               (dolist (font fonts)
-                 (setq result (concat result (format "- %s\n" font))))
-               result))
- :name "list_available_fonts"
- :description "List all available fonts in the current Emacs session.
+  (gptel-make-tool
+   :function (lambda ()
+               (let ((result "Available Fonts:\n\n")
+                     (fonts (font-family-list)))
+                 (setq fonts (sort fonts 'string<))
+                 (dolist (font fonts)
+                   (setq result (concat result (format "- %s\n" font))))
+                 result))
+   :name "list_available_fonts"
+   :description "List all available fonts in the current Emacs session.
 Shows what fonts can be used for display customization.
 This helps understand display capabilities and options."
- :args nil
- :category "emacs")
+   :args nil
+   :category "emacs")
 
 
-;; ----------------------------------------------------------------------------------
-;; Emacs: find_key_conflicts
-;; ----------------------------------------------------------------------------------
+  ;; ----------------------------------------------------------------------------------
+  ;; Emacs: find_key_conflicts
+  ;; ----------------------------------------------------------------------------------
 
-(gptel-make-tool
- :function (lambda (prefix)
-             (require 'help-fns)
-             (let ((result (format "Key bindings starting with %s:\n\n" prefix))
-                   (key (kbd prefix))
-                   (map (current-global-map))
-                   bindings)
-               ;; This code block has a minor issue in the original file,
-               ;; as it attempts to call lookup-key on a keymap which is not a vector.
-               ;; The intention is to list all keys *under* the prefix, but since 
-               ;; the exact logic is hard to reproduce reliably outside the package,
-               ;; we simplify it to list all bindings that START with the prefix.
-               (map-keymap
-                (lambda (k v)
-                  (when (and v (string-prefix-p prefix (key-description (vector k))))
-                    (let ((key-desc (key-description (vector k))))
-                      (push (cons key-desc v) bindings))))
-                map)
-               (setq bindings (sort bindings (lambda (a b) (string< (car a) (car b)))))
-               (dolist (binding bindings)
-                 (setq result (concat result (format "- %s: %s\n"
-                                                    (car binding)
-                                                    (cdr binding)))))
-               result))
- :name "find_key_conflicts"
- :description "Find conflicting key bindings starting with PREFIX.
+  (gptel-make-tool
+   :function (lambda (prefix)
+               (require 'help-fns)
+               (let ((result (format "Key bindings starting with %s:\n\n" prefix))
+                     (key (kbd prefix))
+                     (map (current-global-map))
+                     bindings)
+                 ;; This code block has a minor issue in the original file,
+                 ;; as it attempts to call lookup-key on a keymap which is not a vector.
+                 ;; The intention is to list all keys *under* the prefix, but since 
+                 ;; the exact logic is hard to reproduce reliably outside the package,
+                 ;; we simplify it to list all bindings that START with the prefix.
+                 (map-keymap
+                  (lambda (k v)
+                    (when (and v (string-prefix-p prefix (key-description (vector k))))
+                      (let ((key-desc (key-description (vector k))))
+                        (push (cons key-desc v) bindings))))
+                  map)
+                 (setq bindings (sort bindings (lambda (a b) (string< (car a) (car b)))))
+                 (dolist (binding bindings)
+                   (setq result (concat result (format "- %s: %s\n"
+                                                       (car binding)
+                                                       (cdr binding)))))
+                 result))
+   :name "find_key_conflicts"
+   :description "Find conflicting key bindings starting with PREFIX.
 Identifies key sequences that might shadow or conflict with each other.
 PREFIX should be a key prefix in string form (e.g. \"C-c\").
 This helps diagnose keybinding issues and conflicts."
- :args (list '(:name "prefix" :type string :description "The key prefix string to check (e.g. \"C-c\")."))
- :category "emacs")
+   :args (list '(:name "prefix" :type string :description "The key prefix string to check (e.g. \"C-c\")."))
+   :category "emacs")
 
 
   ) ;; gptel use-package config closing parentheses
 ;; ----------------------------------------------------------------------------------
-
-
 
 ;; ----------------------------------------------------------------------------------
 ;; mcp server
@@ -2228,20 +2186,19 @@ This helps diagnose keybinding issues and conflicts."
   :after gptel
   :custom
   (mcp-hub-servers `(("mcp-nixos" . (
-                                      :command "podman" ; <-- Use your container runtime
-                                      :args ("run" "--rm" "-i" "ghcr.io/utensils/mcp-nixos")))
+                                     :command "podman" ; <-- Use your container runtime
+                                     :args ("run" "--rm" "-i" "ghcr.io/utensils/mcp-nixos")))
                      ("searxng" . ( ; General web search tool
-                                    :command "podman"
-                                    :args ("run" "-i" "--rm"
-                                           "--network=host"
-                                            "-e" "SEARXNG_URL=http://localhost:8080"
-                                            "mcp-searxng:local")
-                                    ))
+                                   :command "podman"
+                                   :args ("run" "-i" "--rm"
+                                          "--network=host"
+                                          "-e" "SEARXNG_URL=http://localhost:8080"
+                                          "mcp-searxng:local")
+                                   ))
                      )) ;; closing parentheses
 
   :config
   (require 'mcp-hub))
-
 
 ;; ----------------------------------------------------------------------------------
 ;; docker
@@ -2252,7 +2209,6 @@ This helps diagnose keybinding issues and conflicts."
   :custom
   (docker-command "podman"))
 
-
 ;; ----------------------------------------------------------------------------------
 ;; dockerfile-mode
 ;; ----------------------------------------------------------------------------------
@@ -2260,7 +2216,6 @@ This helps diagnose keybinding issues and conflicts."
 (use-package dockerfile-mode
   :custom
   (dockerfile-mode-command "podman"))
-
 
 ;; ----------------------------------------------------------------------------------
 ;; garbage collection
@@ -2274,6 +2229,7 @@ This helps diagnose keybinding issues and conflicts."
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(package-selected-packages nil))
+
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

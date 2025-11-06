@@ -15,9 +15,8 @@
 ;; Don’t compact font caches during GC.
 (setq inhibit-compacting-font-caches t)
 
-
 ;; ----------------------------------------------------------------------------------
-;; UI configuration
+;; ui configuration
 ;; ----------------------------------------------------------------------------------
 
 ;; Remove some unneeded UI elements (the user can turn back on anything they wish)
@@ -35,7 +34,6 @@
 ;; no title bar
 (add-to-list 'default-frame-alist '(undecorated . t))
 
-
 ;; ----------------------------------------------------------------------------------
 ;; scratch buffer
 ;; ----------------------------------------------------------------------------------
@@ -45,7 +43,6 @@
 
 ;; Make the initial buffer load faster by setting its mode to fundamental-mode
 (customize-set-variable 'initial-major-mode 'fundamental-mode)
-
 
 ;; ----------------------------------------------------------------------------------
 ;; personal elisp lib dir
