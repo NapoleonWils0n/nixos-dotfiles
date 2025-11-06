@@ -585,6 +585,36 @@ An Emacs major mode for editing Nix expressions.
 
 [[https://github.com/NixOS/nix-mode]]
 
++ s
+
+The long lost Emacs string manipulation library.
+
+[[https://github.com/magnars/s.el/]]
+
++ shrink-path
+
+Small utility functions that allow for fish-style trunctated directories in eshell and for example modeline.
+
+[[https://github.com/zbelial/shrink-path.el]]
+
++ wgrep
+
+wgrep allows you to edit a grep buffer and apply those changes to the file buffer like sed interactively. 
+
+[[https://github.com/mhayashi1120/Emacs-wgrep]]
+
++ yaml-mode
+
+yaml-mode - Simple major mode to edit YAML file for emacs
+
+[[https://github.com/yoshiki/yaml-mode]]
+
++ systemd
+
+Major mode for editing systemd units in GNU Emacs. 
+
+[[https://github.com/holomorph/systemd-mode]]
+
 #+begin_src emacs-lisp
 ;; ----------------------------------------------------------------------------------
 ;; general packages : use-package
@@ -598,7 +628,6 @@ An Emacs major mode for editing Nix expressions.
 (use-package nix-mode)
 (use-package s)
 (use-package shrink-path)
-(use-package undo-tree)
 (use-package wgrep)
 (use-package yaml-mode)
 (use-package systemd)
