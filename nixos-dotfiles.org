@@ -3,7 +3,6 @@
 #+OPTIONS: num:nil author:nil
 #+PROPERTY: header-args :mkdirp yes
 * update dotfiles
-** about
 
 dotfiles for nixos on a dell xps 15 2019
 
