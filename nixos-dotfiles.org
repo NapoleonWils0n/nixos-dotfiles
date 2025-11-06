@@ -67,12 +67,12 @@ to find the exact commit hash
 tree listing of the dotfiles
 
 #+NAME: tree-listing
-#+begin_src sh :results output raw replace :wrap quote
+#+begin_src sh :results output raw replace :wrap org
 tree -aI .git
 #+end_src
 
 #+RESULTS: tree-listing
-#+begin_quote
+#+begin_org
 .
 ├── .config
 │   ├── alacritty
@@ -178,8 +178,7 @@ tree -aI .git
 └── .zshrc
 
 42 directories, 61 files
-#+end_quote
-
+#+end_org
 
 * nixos dotfiles
 ** emacs
