@@ -66,10 +66,11 @@ to find the exact commit hash
 
 tree listing of the dotfiles
 
-#+begin_src sh :results output raw :wrap example
+#+begin_src sh :results output raw replace :wrap example
 tree -aI .git
 #+end_src
 
+#+RESULTS:
 #+begin_example
 .
 ├── .config
@@ -177,6 +178,7 @@ tree -aI .git
 
 42 directories, 61 files
 #+end_example
+
 
 * nixos dotfiles
 ** emacs
