@@ -1180,6 +1180,10 @@ A GNU Emacs major mode for keeping notes, authoring documents, computational not
 
 ***** org tree slide
 
+#+begin_quote
+The main purpose of this elisp is to handle each tree in an org buffer as a slide by simple narrowing. 
+#+end_quote
+
 [[https://github.com/takaxp/org-tree-slide]]
 
 #+begin_src emacs-lisp
@@ -1242,6 +1246,12 @@ A GNU Emacs major mode for keeping notes, authoring documents, computational not
 #+end_src
 
 ***** mpv
+
+#+begin_quote
+control mpv for easy note-taking
+
+This package is a potpourri of helper functions to control a mpv process via its IPC interface.
+#+end_quote
 
 [[https://github.com/kljohann/mpv.el]]
 
@@ -1435,6 +1445,10 @@ A GNU Emacs major mode for keeping notes, authoring documents, computational not
 
 ***** emacs desktop notification center
 
+#+begin_quote
+The Emacs Desktop Notification Center (EDNC) is an Emacs package written in pure Lisp that implements a Desktop Notifications service according to the freedesktop.org specification. EDNC aspires to be a small, but flexible drop-in replacement of standalone daemons like Dunst. 
+#+end_quote
+
 [[https://github.com/sinic/ednc]]
 
 #+begin_src emacs-lisp
@@ -1476,6 +1490,10 @@ A GNU Emacs major mode for keeping notes, authoring documents, computational not
 #+end_src
 
 ***** hydra
+
+#+begin_quote
+This is a package for GNU Emacs that can be used to tie related commands into a family of short bindings with a common prefix - a Hydra.
+#+end_quote
 
 [[https://github.com/abo-abo/hydra]]
 
@@ -1541,6 +1559,10 @@ A GNU Emacs major mode for keeping notes, authoring documents, computational not
 
 ***** google-translate
 
+#+begin_quote
+This package allows to translate the strings using Google Translate service directly from GNU Emacs.
+#+end_quote
+
 [[https://github.com/atykhonov/google-translate]]
 
 #+begin_src emacs-lisp
@@ -1556,6 +1578,10 @@ A GNU Emacs major mode for keeping notes, authoring documents, computational not
 
 ***** magit
 
+#+begin_quote
+Magit is an interface to the version control system Git, implemented as an Emacs package. Magit aspires to be a complete Git porcelain. 
+#+end_quote
+
 [[https://github.com/magit/magit]]
 
 #+begin_src emacs-lisp
@@ -1569,6 +1595,10 @@ A GNU Emacs major mode for keeping notes, authoring documents, computational not
 #+end_src
 
 ***** markdown mode
+
+#+begin_quote
+markdown-mode is a major mode for editing Markdown-formatted text. 
+#+end_quote
 
 [[https://jblevins.org/projects/markdown-mode/]]
 
@@ -1589,6 +1619,10 @@ A GNU Emacs major mode for keeping notes, authoring documents, computational not
 #+end_src
 
 ***** treesitter
+
+#+begin_quote
+Emacs 29 introduces tree-sitter support, a powerful parsing library that enhances its understanding of source code. With this integration, Emacs gains features like precise syntax highlighting, accurate indentation and easier extensibility.
+#+end_quote
 
 [[https://www.masteringemacs.org/article/how-to-get-started-tree-sitter]]
 
@@ -1627,6 +1661,10 @@ A GNU Emacs major mode for keeping notes, authoring documents, computational not
 #+end_src
 
 ***** yas snippet
+
+#+begin_quote
+YASnippet is a template system for Emacs. It allows you to type an abbreviation and automatically expand it into function templates. Bundled language templates include: C, C++, C#, Perl, Python, Ruby, SQL, LaTeX, HTML, CSS and more. The snippet syntax is inspired from TextMate's syntax, you can even import most TextMate templates to YASnippet. 
+#+end_quote
 
 [[https://github.com/joaotavora/yasnippet]]
 
@@ -1668,6 +1706,10 @@ A GNU Emacs major mode for keeping notes, authoring documents, computational not
 
 ***** corfu
 
+#+begin_quote
+Corfu enhances in-buffer completion with a small completion popup. The current candidates are shown in a popup below or above the point, and can be selected by moving up and down. Corfu is the minimalistic in-buffer completion counterpart of the Vertico minibuffer UI.
+#+end_quote
+
 [[https://github.com/minad/corfu]]
 
 #+begin_src emacs-lisp
@@ -1701,6 +1743,10 @@ A GNU Emacs major mode for keeping notes, authoring documents, computational not
 
 ***** cape
 
+#+begin_quote
+Cape provides Completion At Point Extensions which can be used in combination with Corfu, Company or the default completion UI. The completion backends used by completion-at-point are so called completion-at-point-functions (Capfs).
+#+end_quote
+
 [[https://github.com/minad/cape]]
 
 #+begin_src emacs-lisp
@@ -1718,6 +1764,10 @@ A GNU Emacs major mode for keeping notes, authoring documents, computational not
 #+end_src
 
 ***** eglot
+
+#+begin_quote
+Emacs Polyglot is the Emacs LSP client that stays out of your way:
+#+end_quote
 
 [[https://github.com/joaotavora/eglot]]
 
@@ -1748,6 +1798,10 @@ A GNU Emacs major mode for keeping notes, authoring documents, computational not
 
 ***** auth source
 
+#+begin_quote
+It is a way for multiple applications to share a single configuration (in Emacs and in files) for user convenience. 
+#+end_quote
+
 [[https://www.gnu.org/software/emacs/manual/html_mono/auth.html]]
 
 #+begin_src emacs-lisp
@@ -1760,6 +1814,10 @@ A GNU Emacs major mode for keeping notes, authoring documents, computational not
 #+end_src
 
 ***** gptel
+
+#+begin_quote
+gptel is a simple Large Language Model chat client for Emacs, with support for multiple models and backends. It works in the spirit of Emacs, available at any time and uniformly in any buffer.
+#+end_quote
 
 [[https://github.com/karthink/gptel]]
 
@@ -2626,6 +2684,10 @@ This helps diagnose keybinding issues and conflicts."
 
 ***** mcp server
 
+#+begin_quote
+This is an Emacs client for interfacing with MCP, supporting connections to MCP servers.
+#+end_quote
+
 [[https://github.com/lizqwerscott/mcp.el]]
 
 #+begin_src emacs-lisp
@@ -2654,6 +2716,12 @@ This helps diagnose keybinding issues and conflicts."
 
 ***** docker
 
+#+begin_quote
+Emacs integration for Docker!
+
+Supports docker containers, images, volumes, networks, contexts and docker-compose.
+#+end_quote
+
 [[https://github.com/Silex/docker.el]]
 
 #+begin_src emacs-lisp
@@ -2668,6 +2736,12 @@ This helps diagnose keybinding issues and conflicts."
 #+end_src
 
 ***** dockerfile mode
+
+#+begin_quote
+A Dockerfile mode for emacs
+
+Adds syntax highlighting as well as the ability to build the image directly using C-c C-b from the buffer (C-c M-b to bypass docker build cache).
+#+end_quote
 
 [[https://github.com/spotify/dockerfile-mode]]
 
