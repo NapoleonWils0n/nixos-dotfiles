@@ -71,7 +71,6 @@ tree listing of the dotfiles
 tree -aI .git
 #+end_src
 
-#+RESULTS: tree-dotfiles
 #+begin_example
 .
 ├── .config
