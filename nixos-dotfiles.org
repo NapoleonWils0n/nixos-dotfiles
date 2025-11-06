@@ -16,7 +16,7 @@ then execute the code block below with
 C-c C-c
 #+end_example
 
-stage and amend the commit and then push the changes
+stage and commit and then push the changes
 
 #+NAME: changelog
 #+HEADER: :var path="~/git/nixos/nixos-dotfiles"
