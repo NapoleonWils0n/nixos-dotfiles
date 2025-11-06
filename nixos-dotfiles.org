@@ -1283,6 +1283,8 @@ to find the exact commit hash
 
 ***** emacs desktop notification center
 
+[[https://github.com/sinic/ednc]]
+
 #+begin_src emacs-lisp
 ;; ----------------------------------------------------------------------------------
 ;; emacs desktop notification center
@@ -1322,6 +1324,8 @@ to find the exact commit hash
 #+end_src
 
 ***** hydra
+
+[[https://github.com/abo-abo/hydra]]
 
 #+begin_src emacs-lisp
 ;; ----------------------------------------------------------------------------------
@@ -1385,6 +1389,8 @@ to find the exact commit hash
 
 ***** google-translate
 
+[[https://github.com/atykhonov/google-translate]]
+
 #+begin_src emacs-lisp
 ;; ----------------------------------------------------------------------------------
 ;; google-translate
@@ -1398,6 +1404,8 @@ to find the exact commit hash
 
 ***** magit
 
+[[https://github.com/magit/magit]]
+
 #+begin_src emacs-lisp
 ;; ----------------------------------------------------------------------------------
 ;; magit
@@ -1409,6 +1417,8 @@ to find the exact commit hash
 #+end_src
 
 ***** markdown mode
+
+[[https://jblevins.org/projects/markdown-mode/]]
 
 #+begin_src emacs-lisp
 ;; ----------------------------------------------------------------------------------
@@ -1427,6 +1437,8 @@ to find the exact commit hash
 #+end_src
 
 ***** treesitter
+
+[[https://www.masteringemacs.org/article/how-to-get-started-tree-sitter]]
 
 #+begin_src emacs-lisp
 ;; ----------------------------------------------------------------------------------
@@ -1463,6 +1475,8 @@ to find the exact commit hash
 #+end_src
 
 ***** yas snippet
+
+[[https://github.com/joaotavora/yasnippet]]
 
 #+begin_src emacs-lisp
 ;; ----------------------------------------------------------------------------------
@@ -1501,6 +1515,8 @@ to find the exact commit hash
 #+end_src
 
 ***** corfu
+
+[[https://github.com/minad/corfu]]
 
 #+begin_src emacs-lisp
 ;; ----------------------------------------------------------------------------------
