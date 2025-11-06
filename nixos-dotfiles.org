@@ -117,6 +117,12 @@ to find the exact commit hash
 
 ***** themes
 
+Modus Themes
+
+Accessible themes for GNU Emacs, conforming with the highest standard for colour contrast between background and foreground values (WCAG AAA)
+
+[[https://protesilaos.com/emacs/modus-themes]]
+
 #+begin_src emacs-lisp
 ;; ----------------------------------------------------------------------------------
 ;; doom-theme : use-package
