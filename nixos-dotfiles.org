@@ -62,6 +62,122 @@ git log --oneline flake.lock
 
 to find the exact commit hash
 
+** tree
+
+#+NAME: tree-dotfiles
+#+begin_src sh :results output org
+tree -aI .git
+#+end_src
+
+#+RESULTS: tree-dotfiles
+#+begin_src org
+.
+├── .config
+│   ├── alacritty
+│   │   └── alacritty.toml
+│   ├── aria2
+│   │   └── aria2.conf
+│   ├── autostart
+│   │   └── nognome_notications.desktop
+│   ├── curl
+│   │   └── curlrc
+│   ├── emacs
+│   │   ├── bookmarks
+│   │   ├── early-init.el
+│   │   └── init.el
+│   ├── git
+│   │   └── gitconfig
+│   ├── home-manager
+│   │   ├── home.nix
+│   │   └── programs
+│   │       ├── dconf
+│   │       │   └── dconf.nix
+│   │       └── firefox
+│   │           └── firefox.nix
+│   ├── mpv
+│   │   ├── input.conf
+│   │   └── mpv.conf
+│   ├── ncmpc
+│   │   └── config
+│   ├── nixpkgs
+│   │   └── config.nix
+│   ├── systemd
+│   │   └── user
+│   │       ├── dictd.service
+│   │       ├── status-bar.service
+│   │       └── wallpaper.service
+│   ├── tmux
+│   │   └── tmux.conf
+│   ├── tofi
+│   │   └── config
+│   ├── wireplumber
+│   │   └── wireplumber.conf.d
+│   │       └── device-rename.conf
+│   ├── wlr-which-key
+│   │   └── config.yaml
+│   ├── xkb
+│   │   ├── rules
+│   │   │   ├── evdev
+│   │   │   └── evdev.xml
+│   │   └── symbols
+│   │       ├── custom
+│   │       └── gb
+│   └── yt-dlp
+│       └── config
+├── .dictd.conf
+├── .dictrc
+├── flake.lock
+├── flake.nix
+├── .kodi
+│   └── userdata
+│       └── playercorefactory.xml
+├── .local
+│   └── share
+│       └── applications
+│           ├── firefox_vpn.desktop
+│           └── userapp-transmission-vpn.desktop
+├── nix
+│   ├── ollama-cuda
+│   │   ├── flake.lock
+│   │   ├── flake.nix
+│   │   ├── ollama-start
+│   │   └── shell-hook.sh
+│   ├── python
+│   │   ├── flake.lock
+│   │   └── flake.nix
+│   └── whisperx
+│       ├── flake.lock
+│       ├── flake.nix
+│       └── process_whisperx_output.py
+├── nixos-dotfiles.org
+├── podman
+│   ├── crawl4ai-podman
+│   │   ├── docker-compose.yml
+│   │   ├── .llm.env
+│   │   ├── scripts
+│   │   │   └── screenshot.py
+│   │   └── setup-crawl4ai
+│   ├── invidious-podman
+│   │   ├── compose.yaml
+│   │   └── start-invidious
+│   ├── n8n
+│   │   ├── docker-compose.yml
+│   │   ├── .env
+│   │   ├── init-data.sh
+│   │   └── setup-n8n
+│   ├── open-webui
+│   │   └── compose.yaml
+│   └── searxng
+│       ├── compose.yaml
+│       ├── limiter.toml
+│       ├── searxng-genkey
+│       └── settings.yml
+├── .zshenv
+└── .zshrc
+
+42 directories, 61 files
+#+end_src
+
 * nixos dotfiles
 ** emacs
 *** emacs config
