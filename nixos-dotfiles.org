@@ -2,7 +2,7 @@
 #+STARTUP: overview hideblocks
 #+OPTIONS: num:nil author:nil
 #+PROPERTY: header-args :mkdirp yes
-* update dotfiles
+* dotfiles update
 ** tangle dotfiles
 
 tangle document
