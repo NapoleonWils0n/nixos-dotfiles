@@ -8,7 +8,7 @@ dotfiles for nixos on a dell xps 15 2019
 
 ** changelog
 
-after editing files commit the changes with magit
+after editing files commit the changes with magit but dont push them
 
 then execute the code block below with
 
@@ -16,7 +16,7 @@ then execute the code block below with
 C-c C-c
 #+end_example
 
-stage the commit and then push the changes
+stage and emand the commit and then push the changes
 
 #+NAME: changelog
 #+HEADER: :var path="~/git/nixos/nixos-dotfiles"
@@ -27,7 +27,9 @@ git -C "${expanded_path}" log --pretty=format:'%h, %s, %cd, "%D"' -10 --date=for
 
 #+RESULTS: changelog
 #+begin_quote
-| 1ebee2c | dotfiles           | 20:10:12/06-11-2025 | HEAD -> master |
+| 16739fb | changelog          | 20:11:24/06-11-2025 | HEAD -> master |
+| cf87d43 | emacs              | 20:10:44/06-11-2025 |                |
+| 1ebee2c | dotfiles           | 20:10:12/06-11-2025 |                |
 | c53743f | changelog          | 20:08:17/06-11-2025 | github/master  |
 | fc98138 | emacs changelog    | 20:06:36/06-11-2025 |                |
 | 97aa595 | dotfiles update    | 20:02:19/06-11-2025 |                |
@@ -35,8 +37,6 @@ git -C "${expanded_path}" log --pretty=format:'%h, %s, %cd, "%D"' -10 --date=for
 | 15aaa0a | changelog          | 19:57:01/06-11-2025 |                |
 | 68fc938 | dotfiles           | 19:14:09/06-11-2025 |                |
 | d8384d7 | dotfiles           | 19:13:44/06-11-2025 |                |
-| 3165763 | emacs              | 19:10:33/06-11-2025 |                |
-| a57d474 | emacs              | 19:05:04/06-11-2025 |                |
 #+end_quote
 
 ** tree
