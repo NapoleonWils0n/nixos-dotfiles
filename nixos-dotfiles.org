@@ -474,6 +474,8 @@ to find the exact commit hash
 
 ***** doom modeline
 
+[[https://github.com/seagle0128/doom-modeline]]
+
 #+begin_src emacs-lisp
 ;; ----------------------------------------------------------------------------------
 ;; doom-modeline
