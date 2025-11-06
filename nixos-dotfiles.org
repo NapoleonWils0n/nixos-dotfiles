@@ -650,6 +650,8 @@ Major mode for editing systemd units in GNU Emacs.
 
 ***** which key
 
+which-key is a minor mode for Emacs that displays the key bindings following your currently entered incomplete command (a prefix) in a popup.
+
 [[https://github.com/justbur/emacs-which-key]]
 
 #+begin_src emacs-lisp
@@ -663,6 +665,8 @@ Major mode for editing systemd units in GNU Emacs.
 #+end_src
 
 ***** undo tree
+
+The undo-tree-mode provided by this package replaces Emacs' undo system with a system that treats undo history as what it is: a branching tree of changes.
 
 [[https://www.dr-qubit.org/undo-tree.html]]
 
