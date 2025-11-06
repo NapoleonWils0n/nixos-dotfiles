@@ -25,6 +25,20 @@ expanded_path=$(eval echo "${path}") # Force shell expansion
 git -C "${expanded_path}" log --pretty=format:'%h, %s, %cd, "%D"' -10 --date=format:'%H:%M:%S/%d-%m-%Y' 
 #+end_src
 
+#+RESULTS: changelog
+#+begin_quote
+| cedaac1 | Merge remote-tracking branch 'refs/remotes/github/master' | 20:16:56/06-11-2025 | HEAD -> master, github/master |
+| ad51596 | emacs                                                     | 20:14:48/06-11-2025 |                               |
+| 1439fcd | changelog                                                 | 20:12:19/06-11-2025 |                               |
+| 83a6bf1 | changelog                                                 | 20:11:43/06-11-2025 |                               |
+| cf87d43 | emacs                                                     | 20:10:44/06-11-2025 |                               |
+| 1ebee2c | dotfiles                                                  | 20:10:12/06-11-2025 |                               |
+| c53743f | changelog                                                 | 20:08:17/06-11-2025 |                               |
+| fc98138 | emacs changelog                                           | 20:06:36/06-11-2025 |                               |
+| 97aa595 | dotfiles update                                           | 20:02:19/06-11-2025 |                               |
+| 96cb4c8 | changelog dotfiles                                        | 19:58:32/06-11-2025 |                               |
+#+end_quote
+
 ** tree
 
 tree listing of the dotfiles
