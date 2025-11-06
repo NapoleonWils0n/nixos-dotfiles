@@ -1549,6 +1549,8 @@ to find the exact commit hash
 
 ***** cape
 
+[[https://github.com/minad/cape]]
+
 #+begin_src emacs-lisp
 ;; ----------------------------------------------------------------------------------
 ;; cape
@@ -1564,6 +1566,8 @@ to find the exact commit hash
 #+end_src
 
 ***** eglot
+
+[[https://github.com/joaotavora/eglot]]
 
 #+begin_src emacs-lisp
 ;; ----------------------------------------------------------------------------------
@@ -1592,6 +1596,8 @@ to find the exact commit hash
 
 ***** auth source
 
+[[https://www.gnu.org/software/emacs/manual/html_mono/auth.html]]
+
 #+begin_src emacs-lisp
 ;; ----------------------------------------------------------------------------------
 ;; auth-source
@@ -1602,6 +1608,8 @@ to find the exact commit hash
 #+end_src
 
 ***** gptel
+
+[[https://github.com/karthink/gptel]]
 
 #+begin_src emacs-lisp
 ;; ----------------------------------------------------------------------------------
@@ -2466,6 +2474,8 @@ This helps diagnose keybinding issues and conflicts."
 
 ***** mcp server
 
+[[https://github.com/lizqwerscott/mcp.el]]
+
 #+begin_src emacs-lisp
 ;; ----------------------------------------------------------------------------------
 ;; mcp server
@@ -2492,6 +2502,8 @@ This helps diagnose keybinding issues and conflicts."
 
 ***** docker
 
+[[https://github.com/Silex/docker.el]]
+
 #+begin_src emacs-lisp
 ;; ----------------------------------------------------------------------------------
 ;; docker
@@ -2504,6 +2516,8 @@ This helps diagnose keybinding issues and conflicts."
 #+end_src
 
 ***** dockerfile mode
+
+[[https://github.com/spotify/dockerfile-mode]]
 
 #+begin_src emacs-lisp
 ;; ----------------------------------------------------------------------------------
