@@ -2,7 +2,11 @@
 #+STARTUP: overview hideblocks
 #+OPTIONS: num:nil author:nil
 #+PROPERTY: header-args :mkdirp yes
-* dotfiles update
+* update dotfiles
+** about
+
+dotfiles for nixos on a dell xps 15 2019
+
 ** tangle dotfiles
 
 tangle document
