@@ -489,7 +489,9 @@ On graphical displays and on text terminals, Emacs can optionally display a Tab 
 
 ***** doom modeline
 
+#+begin_quote
 A fancy and fast mode-line inspired by minimalism design.
+#+end_quote
 
 [[https://github.com/seagle0128/doom-modeline]]
 
@@ -519,7 +521,9 @@ A fancy and fast mode-line inspired by minimalism design.
 
 ***** evil 
 
+#+begin_quote
 Evil is an extensible vi layer for Emacs. It emulates the main features of Vim
+#+end_quote
 
 [[https://github.com/emacs-evil/evil]]
 
@@ -555,67 +559,89 @@ Evil is an extensible vi layer for Emacs. It emulates the main features of Vim
 
 + csv-mode
 
+#+begin_quote
 Major mode for editing comma/char separated values
+#+end_quote
 
 [[https://elpa.gnu.org/packages/csv-mode.html]]
 
 + evil-leader
 
+#+begin_quote
 Evil Leader provides the <leader> feature from Vim that provides an easy way to bind keys under a variable prefix key. 
+#+end_quote
 
 [[https://github.com/cofi/evil-leader]]
 
 + git-auto-commit-mode
 
+#+begin_quote
 git-auto-commit-mode - Emacs minor mode to automatically commit (and push) a git repository.
+#+end_quote
 
 [[https://github.com/ryuslash/git-auto-commit-mode]]
 
 + iedit
 
+#+begin_quote
 Iedit - Edit multiple occurrences in the same way simultaneously
+#+end_quote
   
 [[https://github.com/victorhge/iedit]]
 
 + nerd-icons
 
+#+begin_quote
 Nerd-icons.el is a library for easily using Nerd Font icons inside Emacs
+#+end_quote
 
 [[https://github.com/rainstormstudio/nerd-icons.el]]
 
 + nix-mode
 
+#+begin_quote
 An Emacs major mode for editing Nix expressions.
+#+end_quote
 
 [[https://github.com/NixOS/nix-mode]]
 
 + s
 
+#+begin_quote
 The long lost Emacs string manipulation library.
+#+end_quote
 
 [[https://github.com/magnars/s.el/]]
 
 + shrink-path
 
+#+begin_quote
 Small utility functions that allow for fish-style trunctated directories in eshell and for example modeline.
+#+end_quote
 
 [[https://github.com/zbelial/shrink-path.el]]
 
 + wgrep
 
+#+begin_quote
 wgrep allows you to edit a grep buffer and apply those changes to the file buffer like sed interactively. 
+#+end_quote
 
 [[https://github.com/mhayashi1120/Emacs-wgrep]]
 
 + yaml-mode
 
+#+begin_quote
 yaml-mode - Simple major mode to edit YAML file for emacs
+#+end_quote
 
 [[https://github.com/yoshiki/yaml-mode]]
 
 + systemd
 
+#+begin_quote
 Major mode for editing systemd units in GNU Emacs. 
+#+end_quote
 
 [[https://github.com/holomorph/systemd-mode]]
 
@@ -654,7 +680,9 @@ Major mode for editing systemd units in GNU Emacs.
 
 ***** which key
 
+#+begin_quote
 which-key is a minor mode for Emacs that displays the key bindings following your currently entered incomplete command (a prefix) in a popup.
+#+end_quote
 
 [[https://github.com/justbur/emacs-which-key]]
 
@@ -670,7 +698,9 @@ which-key is a minor mode for Emacs that displays the key bindings following you
 
 ***** undo tree
 
+#+begin_quote
 The undo-tree-mode provided by this package replaces Emacs' undo system with a system that treats undo history as what it is: a branching tree of changes.
+#+end_quote
 
 [[https://www.dr-qubit.org/undo-tree.html]]
 
@@ -688,7 +718,9 @@ The undo-tree-mode provided by this package replaces Emacs' undo system with a s
 
 ***** Vertico
 
+#+begin_quote
 Vertico provides a performant and minimalistic vertical completion UI based on the default completion system.
+#+end_quote
 
 [[https://github.com/minad/vertico]]
 
@@ -715,7 +747,9 @@ Vertico provides a performant and minimalistic vertical completion UI based on t
 
 ***** Marginalia
 
+#+begin_quote
 This package provides marginalia-mode which adds marginalia to the minibuffer completions. Marginalia are marks or annotations placed at the margin of the page of a book or in this case helpful colorful annotations placed at the margin of the minibuffer for your completion candidates. 
+#+end_quote
 
 [[https://github.com/minad/marginalia]]
 
@@ -733,7 +767,9 @@ This package provides marginalia-mode which adds marginalia to the minibuffer co
 
 ***** Consult
 
+#+begin_quote
 Consult provides search and navigation commands based on the Emacs completion function completing-read documented in the Elisp manual. Completion allows you to quickly select an item from a list of candidates. 
+#+end_quote
 
 [[https://github.com/minad/consult]]
 
@@ -756,7 +792,9 @@ Consult provides search and navigation commands based on the Emacs completion fu
 
 ***** Orderless
 
+#+begin_quote
 This package provides an orderless completion style that divides the pattern into space-separated components, and matches candidates that match all of the components in any order. Each component can match in any one of several ways: literally, as a regexp, as an initialism, in the flex style, or as multiple word prefixes.
+#+end_quote
 
 [[https://github.com/oantolin/orderless]]
 
@@ -773,7 +811,9 @@ This package provides an orderless completion style that divides the pattern int
 
 ***** Embark
 
+#+begin_quote
 Embark makes it easy to choose a command to run based on what is near point, both during a minibuffer completion session (in a way familiar to Helm or Counsel users) and in normal buffers. Bind the command embark-act to a key and it acts like prefix-key for a keymap of actions (commands) relevant to the target around point.
+#+end_quote
 
 [[https://github.com/oantolin/embark]]
 
@@ -834,7 +874,9 @@ Embark makes it easy to choose a command to run based on what is near point, bot
 
 ***** dired
 
+#+begin_quote
 Dired makes an Emacs buffer containing a listing of a directory, and optionally some of its subdirectories as well. You can use the normal Emacs commands to move around in this buffer, and special Dired commands to operate on the listed files. Dired works with both local and remote directories. 
+#+end_quote
 
 [[https://www.gnu.org/software/emacs/manual/html_node/emacs/Dired.html]]
 
@@ -941,7 +983,9 @@ Dired makes an Emacs buffer containing a listing of a directory, and optionally 
 
 ***** ripgrep
 
+#+begin_quote
 Ripgrep is a replacement for both grep like (search one file) and ag like (search many files) tools. It's fast and versatile and written in Rust.
+#+end_quote
 
 [[https://github.com/dajva/rg.el]]
 
@@ -960,7 +1004,9 @@ Ripgrep is a replacement for both grep like (search one file) and ag like (searc
 
 ***** tramp
 
+#+begin_quote
 TRAMP stands for “Transparent Remote (file) Access, Multiple Protocol”. This package provides an easy, convenient, and consistent interface to editing remote files transparently, just as if they are local files. This extends to editing, version control, dired, and more. 
+#+end_quote
 
 [[https://www.gnu.org/software/tramp/]]
 
@@ -985,6 +1031,10 @@ TRAMP stands for “Transparent Remote (file) Access, Multiple Protocol”. This
 #+end_src
 
 ***** org mode
+
+#+begin_quote
+A GNU Emacs major mode for keeping notes, authoring documents, computational notebooks, literate programming, maintaining to-do lists, planning projects, and more — in a fast and effective plain text system.
+#+end_quote
 
 [[https://orgmode.org/]]
 
