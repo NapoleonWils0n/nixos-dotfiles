@@ -502,6 +502,8 @@ to find the exact commit hash
 
 ***** evil 
 
+[[https://github.com/emacs-evil/evil]]
+
 #+begin_src emacs-lisp
 ;; ----------------------------------------------------------------------------------
 ;; evil
@@ -568,6 +570,8 @@ to find the exact commit hash
 
 ***** which key
 
+[[https://github.com/justbur/emacs-which-key]]
+
 #+begin_src emacs-lisp
 ;;----------------------------------------------------------------------------------
 ;; which-key
@@ -579,6 +583,8 @@ to find the exact commit hash
 #+end_src
 
 ***** undo tree
+
+[[https://www.dr-qubit.org/undo-tree.html]]
 
 #+begin_src emacs-lisp
 ;;----------------------------------------------------------------------------------
@@ -593,6 +599,8 @@ to find the exact commit hash
 #+end_src
 
 ***** Vertico
+
+[[https://github.com/minad/vertico]]
 
 #+begin_src emacs-lisp
 ;; ----------------------------------------------------------------------------------
@@ -617,6 +625,8 @@ to find the exact commit hash
 
 ***** Marginalia
 
+[[https://github.com/minad/marginalia]]
+
 #+begin_src emacs-lisp
 ;; ----------------------------------------------------------------------------------
 ;; Marginalia
@@ -630,6 +640,8 @@ to find the exact commit hash
 #+end_src
 
 ***** Consult
+
+[[https://github.com/minad/consult]]
 
 #+begin_src emacs-lisp
 ;; ----------------------------------------------------------------------------------
@@ -650,6 +662,8 @@ to find the exact commit hash
 
 ***** Orderless
 
+[[https://github.com/oantolin/orderless]]
+
 #+begin_src emacs-lisp
 ;; ----------------------------------------------------------------------------------
 ;; Orderless
@@ -662,6 +676,8 @@ to find the exact commit hash
 #+end_src
 
 ***** Embark
+
+[[https://github.com/oantolin/embark]]
 
 #+begin_src emacs-lisp
 ;; ----------------------------------------------------------------------------------
