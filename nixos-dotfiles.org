@@ -3,19 +3,20 @@
 #+OPTIONS: num:nil author:nil
 #+PROPERTY: header-args :mkdirp yes
 * tangle dotfiles
-** tangle document
+
+tangle document
 
 #+begin_example
 C-c C-v t
 #+end_example
 
-** tangle only one code block
+tangle only one code block
 
 #+begin_example
 C-u C-c C-v t
 #+end_example
 
-** tangle from the command line
+tangle from the command line
 
 #+begin_src sh
 emacs --batch -l org --eval '(org-babel-tangle-file "~/git/nixos/nixos-dotfiles/nixos-dotfiles.org")'
