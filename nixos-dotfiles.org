@@ -43,11 +43,24 @@ git -C "${expanded_path}" log --pretty=format:'%h, %s, %cd, "%D"' -10 --date=for
 
 tree listing of the dotfiles
 
+execute the code block below
+
+then delete the RESULTS line above the example code block so it renders on github
+
+#+begin_example
+#+RESULTS: tree-listing
+#+end_example
+
+#+begin_example
+C-c C-c
+#+end_example
+
 #+NAME: tree-listing
 #+begin_src sh :results output verbatim drawer replace :wrap example
 tree -aI .git
 #+end_src
 
+#+RESULTS: tree-listing
 #+begin_example
 .
 ├── .config
