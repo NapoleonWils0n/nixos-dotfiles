@@ -6,9 +6,7 @@
 
 dotfiles for nixos on a dell xps 15 2019
 
-** changelog
-
-[[https://github.com/NapoleonWils0n/changelog?tab=readme-ov-file#nixos-dotfiles]]
+[[https://github.com/NapoleonWils0n/changelog?tab=readme-ov-file#nixos-dotfiles][nixos dotfiles changelog]]
 
 ** tree
 
