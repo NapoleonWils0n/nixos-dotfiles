@@ -48,7 +48,6 @@ C-c C-c
 tree -aI .git
 #+end_src
 
-#+RESULTS: tree-listing
 #+begin_example
 .
 ├── .config
