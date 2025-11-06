@@ -5,11 +5,15 @@
 * tangle dotfiles
 ** tangle document
 
+#+begin_example
 C-c C-v t
+#+end_example
 
 ** tangle only one code block
 
+#+begin_example
 C-u C-c C-v t
+#+end_example
 
 ** tangle from the command line
 
