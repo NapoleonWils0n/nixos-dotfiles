@@ -268,7 +268,9 @@ conforming with the highest standard for colour contrast between background and 
 
 ***** tab bar mode
 
+#+begin_quote
 On graphical displays and on text terminals, Emacs can optionally display a Tab Bar at the top of each frame, just below the menu bar (see Menu Bars) and above or below the tool bar (see Tool Bars) depending on the variable tab-bar-position. The Tab Bar is a row of tabs—buttons that you can click to switch between window configurations. 
+#+end_quote
 
 [[https://www.gnu.org/software/emacs/manual/html_node/emacs/Tab-Bars.html]]
 
