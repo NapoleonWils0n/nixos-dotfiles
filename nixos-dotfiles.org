@@ -684,6 +684,8 @@ The undo-tree-mode provided by this package replaces Emacs' undo system with a s
 
 ***** Vertico
 
+Vertico provides a performant and minimalistic vertical completion UI based on the default completion system.
+
 [[https://github.com/minad/vertico]]
 
 #+begin_src emacs-lisp
@@ -709,6 +711,8 @@ The undo-tree-mode provided by this package replaces Emacs' undo system with a s
 
 ***** Marginalia
 
+This package provides marginalia-mode which adds marginalia to the minibuffer completions. Marginalia are marks or annotations placed at the margin of the page of a book or in this case helpful colorful annotations placed at the margin of the minibuffer for your completion candidates. 
+
 [[https://github.com/minad/marginalia]]
 
 #+begin_src emacs-lisp
@@ -724,6 +728,8 @@ The undo-tree-mode provided by this package replaces Emacs' undo system with a s
 #+end_src
 
 ***** Consult
+
+Consult provides search and navigation commands based on the Emacs completion function completing-read documented in the Elisp manual. Completion allows you to quickly select an item from a list of candidates. 
 
 [[https://github.com/minad/consult]]
 
