@@ -410,7 +410,6 @@
 (use-package nix-mode)
 (use-package s)
 (use-package shrink-path)
-(use-package undo-tree)
 (use-package wgrep)
 (use-package yaml-mode)
 (use-package systemd)
