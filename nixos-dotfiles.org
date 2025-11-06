@@ -830,6 +830,8 @@ Embark makes it easy to choose a command to run based on what is near point, bot
 
 ***** dired
 
+Dired makes an Emacs buffer containing a listing of a directory, and optionally some of its subdirectories as well. You can use the normal Emacs commands to move around in this buffer, and special Dired commands to operate on the listed files. Dired works with both local and remote directories. 
+
 [[https://www.gnu.org/software/emacs/manual/html_node/emacs/Dired.html]]
 
 #+begin_src emacs-lisp
@@ -935,6 +937,8 @@ Embark makes it easy to choose a command to run based on what is near point, bot
 
 ***** ripgrep
 
+Ripgrep is a replacement for both grep like (search one file) and ag like (search many files) tools. It's fast and versatile and written in Rust.
+
 [[https://github.com/dajva/rg.el]]
 
 #+begin_src emacs-lisp
@@ -951,6 +955,8 @@ Embark makes it easy to choose a command to run based on what is near point, bot
 #+end_src
 
 ***** tramp
+
+TRAMP stands for “Transparent Remote (file) Access, Multiple Protocol”. This package provides an easy, convenient, and consistent interface to editing remote files transparently, just as if they are local files. This extends to editing, version control, dired, and more. 
 
 [[https://www.gnu.org/software/tramp/]]
 
