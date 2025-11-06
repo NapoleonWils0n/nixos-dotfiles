@@ -485,6 +485,8 @@ On graphical displays and on text terminals, Emacs can optionally display a Tab 
 
 ***** doom modeline
 
+A fancy and fast mode-line inspired by minimalism design.
+
 [[https://github.com/seagle0128/doom-modeline]]
 
 #+begin_src emacs-lisp
@@ -512,6 +514,8 @@ On graphical displays and on text terminals, Emacs can optionally display a Tab 
 #+end_src
 
 ***** evil 
+
+Evil is an extensible vi layer for Emacs. It emulates the main features of Vim
 
 [[https://github.com/emacs-evil/evil]]
 
