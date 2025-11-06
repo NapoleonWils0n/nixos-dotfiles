@@ -259,6 +259,8 @@ to find the exact commit hash
 
 ***** tab bar mode
 
+[[https://www.gnu.org/software/emacs/manual/html_node/emacs/Tab-Bars.html]]
+
 #+begin_src emacs-lisp
 ;; ----------------------------------------------------------------------------------
 ;; TAB bar mode
@@ -736,6 +738,8 @@ to find the exact commit hash
 
 ***** dired
 
+[[https://www.gnu.org/software/emacs/manual/html_node/emacs/Dired.html]]
+
 #+begin_src emacs-lisp
 ;; ----------------------------------------------------------------------------------
 ;; dired
@@ -839,6 +843,8 @@ to find the exact commit hash
 
 ***** ripgrep
 
+[[https://github.com/dajva/rg.el]]
+
 #+begin_src emacs-lisp
 ;; ----------------------------------------------------------------------------------
 ;; rip-grep
@@ -853,6 +859,8 @@ to find the exact commit hash
 #+end_src
 
 ***** tramp
+
+[[https://www.gnu.org/software/tramp/]]
 
 #+begin_src emacs-lisp
 ;; ----------------------------------------------------------------------------------
@@ -875,6 +883,8 @@ to find the exact commit hash
 #+end_src
 
 ***** org mode
+
+[[https://orgmode.org/]]
 
 #+begin_src emacs-lisp
 ;; ----------------------------------------------------------------------------------
@@ -1018,6 +1028,8 @@ to find the exact commit hash
 
 ***** org tree slide
 
+[[https://github.com/takaxp/org-tree-slide]]
+
 #+begin_src emacs-lisp
 ;; ----------------------------------------------------------------------------------
 ;; org tree slide
@@ -1078,6 +1090,8 @@ to find the exact commit hash
 #+end_src
 
 ***** mpv
+
+[[https://github.com/kljohann/mpv.el]]
 
 #+begin_src emacs-lisp
 ;; ----------------------------------------------------------------------------------
