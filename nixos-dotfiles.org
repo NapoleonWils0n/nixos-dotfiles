@@ -3019,10 +3019,10 @@ Adds syntax highlighting as well as the ability to build the image directly usin
  (last-modified 26623 61673 55530 368000))
 ("dotfiles"
  (filename . "~/git/nixos/nixos-dotfiles/nixos-dotfiles.org")
- (front-context-string . "#TITLE: nixos do")
+ (front-context-string . "#+TITLE: Nixos d")
  (rear-context-string)
  (position . 1)
- (last-modified 26623 61644 642588 138000))
+ (last-modified 26893 7032 595670 708000))
 ("video"
  (filename . "~/git/personal/bookmarks/video.org")
  (front-context-string . "* links\n** [[vid")
