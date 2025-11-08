@@ -194,6 +194,38 @@ git log --oneline flake.lock
 
 to find the exact commit hash
 
+** tags :tags:
+
+#+begin_quote
+Tags can simply be typed into the buffer at the end of a headline. After a colon, M-TAB offers completion on tags. There is also a special command for inserting tags: 
+#+end_quote
+
+#+begin_example
+C-c C-q 
+#+end_example
+
+#+begin_src emacs-lisp
+(org-set-tags-command)
+#+end_src
+
+Once a system of tags has been set up, it can be used to collect related information into special lists.
+
+#+begin_example
+C-c / m
+#+end_example
+
+or
+
+#+begin_example
+C-c \
+#+end_example
+
+#+begin_src emacs-lisp
+(org-match-sparse-tree)
+#+end_src
+
+Create a sparse tree with all headlines matching a tags search.
+
 * nixos dotfiles
 ** emacs :emacs:
 *** emacs config :config:
