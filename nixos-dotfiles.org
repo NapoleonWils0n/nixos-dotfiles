@@ -742,6 +742,25 @@ Evil is an extensible vi layer for Emacs. It emulates the main features of Vim
 
 ***** general packages
 
+#+NAME: emacs-general-packages
+#+begin_src emacs-lisp
+;; ----------------------------------------------------------------------------------
+;; general packages : use-package
+;; ----------------------------------------------------------------------------------
+
+(use-package csv-mode)
+(use-package evil-leader)
+(use-package git-auto-commit-mode)
+(use-package iedit)
+(use-package nerd-icons)
+(use-package nix-mode)
+(use-package s)
+(use-package shrink-path)
+(use-package wgrep)
+(use-package yaml-mode)
+(use-package systemd)
+#+end_src
+
 + csv-mode
 
 #+begin_quote
@@ -829,25 +848,6 @@ Major mode for editing systemd units in GNU Emacs.
 #+end_quote
 
 [[https://github.com/holomorph/systemd-mode]]
-
-#+NAME: emacs-general-packages
-#+begin_src emacs-lisp
-;; ----------------------------------------------------------------------------------
-;; general packages : use-package
-;; ----------------------------------------------------------------------------------
-
-(use-package csv-mode)
-(use-package evil-leader)
-(use-package git-auto-commit-mode)
-(use-package iedit)
-(use-package nerd-icons)
-(use-package nix-mode)
-(use-package s)
-(use-package shrink-path)
-(use-package wgrep)
-(use-package yaml-mode)
-(use-package systemd)
-#+end_src
 
 ***** ob sync
 
