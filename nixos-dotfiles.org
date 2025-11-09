@@ -2159,7 +2159,7 @@ Adds syntax highlighting as well as the ability to build the image directly usin
  '(org-link ((t (:inherit link :underline nil)))))
 #+end_src
 
-**** early-init.el :early:
+**** early-init.el :earlyinit:
 :PROPERTIES:
 :header-args: :noweb-ref early-init.el :noweb-sep "\n\n"
 :END:
@@ -3224,7 +3224,7 @@ a old-string and a new-string, new-string will replace the old-string at the spe
 <<init.el>>
 #+END_SRC
 
-**** early-init.el :early:
+**** early-init.el :earlyinit:
 
 + home dir
 
@@ -5581,7 +5581,7 @@ LLM_PROVIDER=google/gemini-2.5-flash
 <<crawl4ai-llm.env>>
 #+END_SRC
 
-*** invidious
+*** invidious :invidious:
 **** invidious set up
 
 create the invidious-podman directory
@@ -5628,7 +5628,7 @@ and run podman-compose down
 podman-compose down
 #+end_src
 
-**** invidious config
+**** invidious config :config:
 ***** compose.yaml
 
 #+NAME: invidious-compose.yaml
@@ -5741,7 +5741,7 @@ INVIDIOUS_COMPANION_KEY=$SECRET_COMPANION_KEY INVIDIOUS_HMAC_KEY=$SECRET_HMAC_KE
 podman-compose up -d
 #+end_src
 
-**** invidious tangle
+**** invidious tangle :tangle:
 ***** compose.yaml
 
 + home dir
@@ -5774,7 +5774,7 @@ podman-compose up -d
 <<start-invidious>>
 #+END_SRC
 
-*** n8n
+*** n8n :n8n:
 **** n8n set up
 
 [[https://github.com/NapoleonWils0n/cerberus/blob/master/n8n/n8n-podman.org]]
@@ -5797,7 +5797,7 @@ and run podman-compose down
 podman-compose down
 #+end_src
 
-**** n8n config
+**** n8n config :config:
 ***** docker-compose.yml
 
 #+NAME: n8n-docker-compose.yml
@@ -5923,7 +5923,7 @@ podman unshare setfacl -d -m g::rwx "$N8N_DATA_DIR"
 
 #+end_src
 
-**** n8n tangle
+**** n8n tangle :tangle:
 ***** docker-compose.yml
 
 + home dir
@@ -5981,7 +5981,7 @@ podman unshare setfacl -d -m g::rwx "$N8N_DATA_DIR"
 <<setup-n8n>>
 #+END_SRC
 
-*** open-webui
+*** open-webui :openwebui:
 **** open-webui set up
 
 create the data directory in the same directory as the compose.yaml file
@@ -6002,7 +6002,7 @@ podman-compose up -d
 podman-compose down
 #+end_src
 
-**** open-webui config
+**** open-webui config :config:
 
 #+NAME: open-webui-compose.yaml
 #+begin_src yaml
@@ -6031,7 +6031,7 @@ volumes:
   open-webui:
 #+end_src
 
-**** open-webui tangle
+**** open-webui tangle :tangle:
 
 + home dir
 
@@ -6047,7 +6047,7 @@ volumes:
 <<open-webui-compose.yaml>>
 #+END_SRC
 
-*** searxng
+*** searxng :searxng:
 **** run searxng
 
 start searxng by running
@@ -6062,7 +6062,7 @@ stop searxng by running
 podman-compose down
 #+end_src
 
-**** searxng-config
+**** searxng-config :config:
 ***** compose.yaml
 
 #+NAME: searxng-compose.yaml 
@@ -6248,7 +6248,7 @@ categories_as_tabs:
 SEARXNG_SECRET=$(openssl rand -hex 32)
 #+end_src
 
-**** searxng-tangle
+**** searxng-tangle :tangle:
 ***** compose.yaml
 
 + home dir
