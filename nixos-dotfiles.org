@@ -1,7 +1,7 @@
 #+TITLE: Nixos dotfiles Dell xps
 #+STARTUP: overview hideblocks
 #+OPTIONS: num:nil author:nil
-#+PROPERTY: header-args :mkdirp yes
+#+PROPERTY: header-args :mkdirp yes :noweb yes 
 * dotfiles update
 
 dotfiles for nixos on a dell xps 15 2019
@@ -3213,14 +3213,14 @@ a old-string and a new-string, new-string will replace the old-string at the spe
 + home dir
 
 #+NAME: emacs-init.el-home-dir
-#+BEGIN_SRC emacs-lisp :noweb yes :tangle "~/.config/emacs/init.el"
+#+BEGIN_SRC emacs-lisp :tangle "~/.config/emacs/init.el"
 <<init.el>>
 #+END_SRC
 
 + current dir
 
 #+NAME: emacs-init.el-current-dir
-#+BEGIN_SRC emacs-lisp :noweb yes :tangle ".config/emacs/init.el"
+#+BEGIN_SRC emacs-lisp :tangle ".config/emacs/init.el"
 <<init.el>>
 #+END_SRC
 
@@ -3229,14 +3229,14 @@ a old-string and a new-string, new-string will replace the old-string at the spe
 + home dir
 
 #+NAME: emacs-early-init.el-home-dir
-#+BEGIN_SRC emacs-lisp :noweb yes :tangle "~/.config/emacs/early-init.el"
+#+BEGIN_SRC emacs-lisp :tangle "~/.config/emacs/early-init.el"
 <<early-init.el>>
 #+END_SRC
 
 + current dir
 
 #+NAME: emacs-early-init.el-current-dir
-#+BEGIN_SRC emacs-lisp :noweb yes :tangle ".config/emacs/early-init.el"
+#+BEGIN_SRC emacs-lisp :tangle ".config/emacs/early-init.el"
 <<early-init.el>>
 #+END_SRC
 
@@ -3246,14 +3246,14 @@ a old-string and a new-string, new-string will replace the old-string at the spe
 + home dir
 
 #+NAME: gptel-custom-tools.el-home-dir
-#+BEGIN_SRC emacs-lisp :noweb yes :tangle "~/.config/emacs/lisp/gptel-custom-tools.el"
+#+BEGIN_SRC emacs-lisp :tangle "~/.config/emacs/lisp/gptel-custom-tools.el"
 <<gptel-custom-tools.el>>
 #+END_SRC
 
 + current dir
 
 #+NAME: gptel-custom-tools.el-current-dir
-#+BEGIN_SRC emacs-lisp :noweb yes :tangle ".config/emacs/lisp/gptel-custom-tools.el"
+#+BEGIN_SRC emacs-lisp :tangle ".config/emacs/lisp/gptel-custom-tools.el"
 <<gptel-custom-tools.el>>
 #+END_SRC
 
@@ -3262,14 +3262,14 @@ a old-string and a new-string, new-string will replace the old-string at the spe
 + home dir
 
 #+NAME: emacs-bookmarks-home-dir
-#+BEGIN_SRC emacs-lisp :noweb yes :tangle "~/.config/emacs/bookmarks"
+#+BEGIN_SRC emacs-lisp :tangle "~/.config/emacs/bookmarks"
 <<emacs-bookmarks>>
 #+END_SRC
 
 + current dir
 
 #+NAME: emacs-bookmarks-current-dir
-#+BEGIN_SRC emacs-lisp :noweb yes :tangle ".config/emacs/bookmarks"
+#+BEGIN_SRC emacs-lisp :tangle ".config/emacs/bookmarks"
 <<emacs-bookmarks>>
 #+END_SRC
 ** home-manager :nix:manager:
@@ -3842,14 +3842,14 @@ with lib.hm.gvariant;
 + home dir
 
 #+NAME: home.nix-home-dir
-#+BEGIN_SRC nix :noweb yes :tangle "~/.config/home-manager/home.nix"
+#+BEGIN_SRC nix :tangle "~/.config/home-manager/home.nix"
 <<home.nix>>
 #+END_SRC
   
 + current dir
 
 #+NAME: home.nix-current-dir
-#+BEGIN_SRC nix :noweb yes :tangle ".config/home-manager/home.nix"
+#+BEGIN_SRC nix :tangle ".config/home-manager/home.nix"
 <<home.nix>>
 #+END_SRC
 
@@ -3861,14 +3861,14 @@ with lib.hm.gvariant;
 + home dir
 
 #+NAME: firefox.nix-home-dir
-#+BEGIN_SRC nix :noweb yes :tangle "~/.config/home-manager/programs/firefox/firefox.nix"
+#+BEGIN_SRC nix :tangle "~/.config/home-manager/programs/firefox/firefox.nix"
 <<firefox.nix>>
 #+END_SRC
   
 + current dir
 
 #+NAME: firefox.nix-current-dir
-#+BEGIN_SRC nix :noweb yes :tangle ".config/home-manager/programs/firefox/firefox.nix"
+#+BEGIN_SRC nix :tangle ".config/home-manager/programs/firefox/firefox.nix"
 <<firefox.nix>>
 #+END_SRC
 
@@ -3880,14 +3880,14 @@ with lib.hm.gvariant;
 + home dir
 
 #+NAME: dconf.nix-home-dir
-#+BEGIN_SRC nix :noweb yes :tangle "~/.config/home-manager/programs/dconf/dconf.nix"
+#+BEGIN_SRC nix :tangle "~/.config/home-manager/programs/dconf/dconf.nix"
 <<dconf.nix>>
 #+END_SRC
   
 + current dir
 
 #+NAME: dconf.nix-current-dir
-#+BEGIN_SRC nix :noweb yes :tangle ".config/home-manager/programs/dconf/dconf.nix"
+#+BEGIN_SRC nix :tangle ".config/home-manager/programs/dconf/dconf.nix"
 <<dconf.nix>>
 #+END_SRC
 
@@ -3966,7 +3966,7 @@ with lib.hm.gvariant;
 + current dir
 
 #+NAME: flake.nix-current-dir
-#+BEGIN_SRC nix :noweb yes :tangle "flake.nix"
+#+BEGIN_SRC nix :tangle "flake.nix"
 <<flake.nix>>
 #+END_SRC
 
@@ -3988,14 +3988,14 @@ with lib.hm.gvariant;
 + home dir
 
 #+NAME: config.nix-home-dir
-#+BEGIN_SRC nix :noweb yes :tangle "~/.config/nixpkgs/config.nix"
+#+BEGIN_SRC nix :tangle "~/.config/nixpkgs/config.nix"
 <<config.nix>>
 #+END_SRC
   
 + current dir
 
 #+NAME: config.nix-current-dir
-#+BEGIN_SRC nix :noweb yes :tangle ".config/nixpkgs/config.nix"
+#+BEGIN_SRC nix :tangle ".config/nixpkgs/config.nix"
 <<config.nix>>
 #+END_SRC
 
@@ -4044,14 +4044,14 @@ default-result-background-padding = 4
 + home dir
 
 #+NAME: tofi-home-dir
-#+BEGIN_SRC conf :noweb yes :tangle "~/.config/tofi/config"
+#+BEGIN_SRC conf :tangle "~/.config/tofi/config"
 <<tofi>>
 #+END_SRC
 
 + current dir
 
 #+NAME: tofi-current-dir
-#+BEGIN_SRC conf :noweb yes :tangle ".config/tofi/config"
+#+BEGIN_SRC conf :tangle ".config/tofi/config"
 <<tofi>>
 #+END_SRC
 
@@ -4095,14 +4095,14 @@ menu:
 + home dir
 
 #+NAME: wlr-which-key-home-dir
-#+BEGIN_SRC yaml :noweb yes :tangle "~/.config/wlr-which-key/config.yaml"
+#+BEGIN_SRC yaml :tangle "~/.config/wlr-which-key/config.yaml"
 <<wlr-which-key>>
 #+END_SRC
 
 + current dir
 
 #+NAME: wlr-which-key-current-dir
-#+BEGIN_SRC yaml :noweb yes :tangle ".config/wlr-which-key/config.yaml"
+#+BEGIN_SRC yaml :tangle ".config/wlr-which-key/config.yaml"
 <<wlr-which-key>>
 #+END_SRC
 
@@ -4188,14 +4188,14 @@ WantedBy=graphical-session.target
 + home dir
 
 #+NAME: dictd.service-home-dir
-#+BEGIN_SRC conf :noweb yes :tangle "~/.config/systemd/user/dictd.service"
+#+BEGIN_SRC conf :tangle "~/.config/systemd/user/dictd.service"
 <<dictd.service>>
 #+END_SRC
 
 + current dir
 
 #+NAME: dictd.service-current-dir
-#+BEGIN_SRC conf :noweb yes :tangle ".config/systemd/user/dictd.service"
+#+BEGIN_SRC conf :tangle ".config/systemd/user/dictd.service"
 <<dictd.service>>
 #+END_SRC
 
@@ -4204,14 +4204,14 @@ WantedBy=graphical-session.target
 + home dir
 
 #+NAME: status-bar.service-home-dir
-#+BEGIN_SRC conf :noweb yes :tangle "~/.config/systemd/user/status-bar.service"
+#+BEGIN_SRC conf :tangle "~/.config/systemd/user/status-bar.service"
 <<status-bar.service>>
 #+END_SRC
 
 + current dir
 
 #+NAME: status-bar.service-current-dir
-#+BEGIN_SRC conf :noweb yes :tangle ".config/systemd/user/status-bar.service"
+#+BEGIN_SRC conf :tangle ".config/systemd/user/status-bar.service"
 <<status-bar.service>>
 #+END_SRC
 
@@ -4220,14 +4220,14 @@ WantedBy=graphical-session.target
 + home dir
 
 #+NAME: wallpaper.service-home-dir
-#+BEGIN_SRC conf :noweb yes :tangle "~/.config/systemd/user/wallpaper.service"
+#+BEGIN_SRC conf :tangle "~/.config/systemd/user/wallpaper.service"
 <<wallpaper.service>>
 #+END_SRC
 
 + current dir
 
 #+NAME: wallpaper.service-current-dir
-#+BEGIN_SRC conf :noweb yes :tangle ".config/systemd/user/wallpaper.service"
+#+BEGIN_SRC conf :tangle ".config/systemd/user/wallpaper.service"
 <<wallpaper.service>>
 #+END_SRC
 
@@ -4430,14 +4430,14 @@ ollama serve
 + home dir
 
 #+NAME: ollama-cuda-flake.nix-home-dir
-#+BEGIN_SRC nix :noweb yes :tangle "~/nix/ollama-cuda/flake.nix"
+#+BEGIN_SRC nix :tangle "~/nix/ollama-cuda/flake.nix"
 <<ollama-cuda-flake.nix>>
 #+END_SRC
   
 + current dir
 
 #+NAME: ollama-cuda-flake.nix-current-dir
-#+BEGIN_SRC nix :noweb yes :tangle "nix/ollama-cuda/flake.nix"
+#+BEGIN_SRC nix :tangle "nix/ollama-cuda/flake.nix"
 <<ollama-cuda-flake.nix>>
 #+END_SRC
 
@@ -4446,14 +4446,14 @@ ollama serve
 + home dir
 
 #+NAME: ollama-cuda-flake.lock-home-dir
-#+BEGIN_SRC nix :noweb yes :tangle "~/nix/ollama-cuda/flake.lock"
+#+BEGIN_SRC nix :tangle "~/nix/ollama-cuda/flake.lock"
 <<ollama-cuda-flake.lock>>
 #+END_SRC
   
 + current dir
 
 #+NAME: ollama-cuda-flake.lock-current-dir
-#+BEGIN_SRC nix :noweb yes :tangle "nix/ollama-cuda/flake.lock"
+#+BEGIN_SRC nix :tangle "nix/ollama-cuda/flake.lock"
 <<ollama-cuda-flake.lock>>
 #+END_SRC
 
@@ -4462,14 +4462,14 @@ ollama serve
 + home dir
 
 #+NAME: ollama-cuda-shell-hook-home-dir
-#+BEGIN_SRC bash :noweb yes :tangle "~/nix/ollama-cuda/shell-hook.sh"
+#+BEGIN_SRC bash :tangle "~/nix/ollama-cuda/shell-hook.sh"
 <<ollama-cuda-shell-hook.sh>>
 #+END_SRC
   
 + current dir
 
 #+NAME: ollama-cuda-shell-hook-current-dir
-#+BEGIN_SRC bash :noweb yes :tangle "nix/ollama-cuda/shell-hook.sh"
+#+BEGIN_SRC bash :tangle "nix/ollama-cuda/shell-hook.sh"
 <<ollama-cuda-shell-hook.sh>>
 #+END_SRC
 
@@ -4478,14 +4478,14 @@ ollama serve
 + home dir
 
 #+NAME: ollama-start-home-dir
-#+BEGIN_SRC sh :noweb yes :tangle "~/nix/ollama-cuda/ollama-start" :tangle-mode (identity #o755)
+#+BEGIN_SRC sh :tangle "~/nix/ollama-cuda/ollama-start" :tangle-mode (identity #o755)
 <<ollama-start>>
 #+END_SRC
   
 + current dir
 
 #+NAME: ollama-start-current-dir
-#+BEGIN_SRC sh :noweb yes :tangle "nix/ollama-cuda/ollama-start" :tangle-mode (identity #o755)
+#+BEGIN_SRC sh :tangle "nix/ollama-cuda/ollama-start" :tangle-mode (identity #o755)
 <<ollama-start>>
 #+END_SRC
 
@@ -4625,14 +4625,14 @@ ollama serve
 + home dir
 
 #+NAME: python-flake.nix-home-dir
-#+BEGIN_SRC nix :noweb yes :tangle "~/nix/python/flake.nix"
+#+BEGIN_SRC nix :tangle "~/nix/python/flake.nix"
 <<python-flake.nix>>
 #+END_SRC
   
 + current dir
 
 #+NAME: python-flake.nix-current-dir
-#+BEGIN_SRC nix :noweb yes :tangle "nix/python/flake.nix"
+#+BEGIN_SRC nix :tangle "nix/python/flake.nix"
 <<python-flake.nix>>
 #+END_SRC
 
@@ -4641,14 +4641,14 @@ ollama serve
 + home dir
 
 #+NAME: python-flake.lock-home-dir
-#+BEGIN_SRC nix :noweb yes :tangle "~/nix/python/flake.lock"
+#+BEGIN_SRC nix :tangle "~/nix/python/flake.lock"
 <<python-flake.lock>>
 #+END_SRC
   
 + current dir
 
 #+NAME: python-flake.lock-current-dir
-#+BEGIN_SRC nix :noweb yes :tangle "nix/python/flake.lock"
+#+BEGIN_SRC nix :tangle "nix/python/flake.lock"
 <<python-flake.lock>>
 #+END_SRC
 
@@ -5128,14 +5128,14 @@ if __name__ == "__main__":
 + home dir
 
 #+NAME: whisperx-flake.nix-home-dir
-#+BEGIN_SRC nix :noweb yes :tangle "~/nix/whisperx/flake.nix"
+#+BEGIN_SRC nix :tangle "~/nix/whisperx/flake.nix"
 <<whisperx-flake.nix>>
 #+END_SRC
   
 + current dir
 
 #+NAME: whisperx-flake.nix-current-dir
-#+BEGIN_SRC nix :noweb yes :tangle "nix/whisperx/flake.nix"
+#+BEGIN_SRC nix :tangle "nix/whisperx/flake.nix"
 <<whisperx-flake.nix>>
 #+END_SRC
 
@@ -5144,14 +5144,14 @@ if __name__ == "__main__":
 + home dir
 
 #+NAME: whisperx-flake.lock-home-dir
-#+BEGIN_SRC nix :noweb yes :tangle "~/nix/whisperx/flake.lock"
+#+BEGIN_SRC nix :tangle "~/nix/whisperx/flake.lock"
 <<whisperx-flake.lock>>
 #+END_SRC
   
 + current dir
 
 #+NAME: whisperx-flake.lock-current-dir
-#+BEGIN_SRC nix :noweb yes :tangle "nix/whisperx/flake.lock"
+#+BEGIN_SRC nix :tangle "nix/whisperx/flake.lock"
 <<whisperx-flake.lock>>
 #+END_SRC
 
@@ -5160,14 +5160,14 @@ if __name__ == "__main__":
 + home dir
 
 #+NAME: process_whisperx_output.py-home-dir
-#+BEGIN_SRC nix :noweb yes :tangle "~/nix/whisperx/process_whisperx_output.py"
+#+BEGIN_SRC nix :tangle "~/nix/whisperx/process_whisperx_output.py"
 <<process_whisperx_output.py>>
 #+END_SRC
   
 + current dir
 
 #+NAME: process_whisperx_output.py-current-dir
-#+BEGIN_SRC nix :noweb yes :tangle "nix/whisperx/process_whisperx_output.py"
+#+BEGIN_SRC nix :tangle "nix/whisperx/process_whisperx_output.py"
 <<process_whisperx_output.py>>
 #+END_SRC
 
@@ -5528,14 +5528,14 @@ LLM_PROVIDER=google/gemini-2.5-flash
 + home dir
 
 #+NAME: crawl4ai-docker-compose.yml-home-dir
-#+BEGIN_SRC yaml :noweb yes :tangle "~/podman/crawl4ai-podman/docker-compose.yml"
+#+BEGIN_SRC yaml :tangle "~/podman/crawl4ai-podman/docker-compose.yml"
 <<crawl4ai-docker-compose.yml>>
 #+END_SRC
   
 + current dir
 
 #+NAME: crawl4ai-docker-compose.yaml-current-dir
-#+BEGIN_SRC yaml :noweb yes :tangle "podman/crawl4ai-podman/docker-compose.yml"
+#+BEGIN_SRC yaml :tangle "podman/crawl4ai-podman/docker-compose.yml"
 <<crawl4ai-docker-compose.yml>>
 #+END_SRC
 
@@ -5544,14 +5544,14 @@ LLM_PROVIDER=google/gemini-2.5-flash
 + home dir
 
 #+NAME: setup-crawl4ai-home-dir
-#+BEGIN_SRC sh :noweb yes :tangle "~/podman/crawl4ai-podman/setup-crawl4ai" :tangle-mode (identity #o755)
+#+BEGIN_SRC sh :tangle "~/podman/crawl4ai-podman/setup-crawl4ai" :tangle-mode (identity #o755)
 <<setup-crawl4ai>>
 #+END_SRC
   
 + current dir
 
 #+NAME: setup-crawl4ai-current-dir
-#+BEGIN_SRC sh :noweb yes :tangle "podman/crawl4ai-podman/setup-crawl4ai" :tangle-mode (identity #o755)
+#+BEGIN_SRC sh :tangle "podman/crawl4ai-podman/setup-crawl4ai" :tangle-mode (identity #o755)
 <<setup-crawl4ai>>
 #+END_SRC
 
@@ -5561,14 +5561,14 @@ LLM_PROVIDER=google/gemini-2.5-flash
 + home dir
 
 #+NAME: crawl4ai-screenshot.py-home-dir
-#+BEGIN_SRC python :noweb yes :tangle "~/podman/crawl4ai-podman/scripts/screenshot.py"
+#+BEGIN_SRC python :tangle "~/podman/crawl4ai-podman/scripts/screenshot.py"
 <<crawl4ai-screenshot.py>>
 #+END_SRC
   
 + current dir
 
 #+NAME: crawl4ai-screenshot.py-current-dir
-#+BEGIN_SRC sh :noweb yes :tangle "podman/crawl4ai-podman/scripts/screenshot.py"
+#+BEGIN_SRC sh :tangle "podman/crawl4ai-podman/scripts/screenshot.py"
 <<crawl4ai-screenshot.py>>
 #+END_SRC
 
@@ -5577,7 +5577,7 @@ LLM_PROVIDER=google/gemini-2.5-flash
 + current dir
 
 #+NAME: crawl4ai-llm.env-current-dir
-#+BEGIN_SRC sh :noweb yes :tangle "podman/crawl4ai-podman/.llm.env"
+#+BEGIN_SRC sh :tangle "podman/crawl4ai-podman/.llm.env"
 <<crawl4ai-llm.env>>
 #+END_SRC
 
@@ -5747,14 +5747,14 @@ podman-compose up -d
 + home dir
 
 #+NAME: invidious-compose.yaml-home-dir
-#+BEGIN_SRC yaml :noweb yes :tangle "~/podman/invidious-podman/compose.yaml"
+#+BEGIN_SRC yaml :tangle "~/podman/invidious-podman/compose.yaml"
 <<invidious-compose.yaml>>
 #+END_SRC
   
 + current dir
 
 #+NAME: invidious-compose.yaml-current-dir
-#+BEGIN_SRC yaml :noweb yes :tangle "podman/invidious-podman/compose.yaml"
+#+BEGIN_SRC yaml :tangle "podman/invidious-podman/compose.yaml"
 <<invidious-compose.yaml>>
 #+END_SRC
 
@@ -5763,14 +5763,14 @@ podman-compose up -d
 + home dir
 
 #+NAME: start-invidious-home-dir
-#+BEGIN_SRC sh :noweb yes :tangle "~/podman/invidious-podman/start-invidious" :tangle-mode (identity #o755)
+#+BEGIN_SRC sh :tangle "~/podman/invidious-podman/start-invidious" :tangle-mode (identity #o755)
 <<start-invidious>>
 #+END_SRC
   
 + current dir
 
 #+NAME: start-invidious-current-dir
-#+BEGIN_SRC sh :noweb yes :tangle "podman/invidious-podman/start-invidious" :tangle-mode (identity #o755)
+#+BEGIN_SRC sh :tangle "podman/invidious-podman/start-invidious" :tangle-mode (identity #o755)
 <<start-invidious>>
 #+END_SRC
 
@@ -5929,14 +5929,14 @@ podman unshare setfacl -d -m g::rwx "$N8N_DATA_DIR"
 + home dir
 
 #+NAME: n8n-docker-compose.yml-home-dir
-#+BEGIN_SRC yaml :noweb yes :tangle "~/podman/n8n/docker-compose.yml"
+#+BEGIN_SRC yaml :tangle "~/podman/n8n/docker-compose.yml"
 <<n8n-docker-compose.yml>>
 #+END_SRC
   
 + current dir
 
 #+NAME: n8n-docker-compose.yml-current-dir
-#+BEGIN_SRC yaml :noweb yes :tangle "podman/n8n/docker-compose.yml"
+#+BEGIN_SRC yaml :tangle "podman/n8n/docker-compose.yml"
 <<n8n-docker-compose.yml>>
 #+END_SRC
 
@@ -5945,14 +5945,14 @@ podman unshare setfacl -d -m g::rwx "$N8N_DATA_DIR"
 + home dir
 
 #+NAME: n8n-init-data.sh-home-dir
-#+BEGIN_SRC bash :noweb yes :tangle "~/podman/n8n/init-data.sh" :tangle-mode (identity #o755)
+#+BEGIN_SRC bash :tangle "~/podman/n8n/init-data.sh" :tangle-mode (identity #o755)
 <<n8n-init-data.sh>>
 #+END_SRC
   
 + current dir
 
 #+NAME: n8n-init-data.sh-current-dir
-#+BEGIN_SRC bash :noweb yes :tangle "podman/n8n/init-data.sh" :tangle-mode (identity #o755)
+#+BEGIN_SRC bash :tangle "podman/n8n/init-data.sh" :tangle-mode (identity #o755)
 <<n8n-init-data.sh>>
 #+END_SRC
 
@@ -5961,7 +5961,7 @@ podman unshare setfacl -d -m g::rwx "$N8N_DATA_DIR"
 + current dir
 
 #+NAME: n8n-env-current-dir
-#+BEGIN_SRC sh :noweb yes :tangle "podman/n8n/.env"
+#+BEGIN_SRC sh :tangle "podman/n8n/.env"
 <<n8n-env>>
 #+END_SRC
 
@@ -5970,14 +5970,14 @@ podman unshare setfacl -d -m g::rwx "$N8N_DATA_DIR"
 + home dir
 
 #+NAME: setup-n8n-home-dir
-#+BEGIN_SRC bash :noweb yes :tangle "~/podman/n8n/setup-n8n" :tangle-mode (identity #o755)
+#+BEGIN_SRC bash :tangle "~/podman/n8n/setup-n8n" :tangle-mode (identity #o755)
 <<setup-n8n>>
 #+END_SRC
   
 + current dir
 
 #+NAME: setup-n8n-current-dir
-#+BEGIN_SRC bash :noweb yes :tangle "podman/n8n/setup-n8n" :tangle-mode (identity #o755)
+#+BEGIN_SRC bash :tangle "podman/n8n/setup-n8n" :tangle-mode (identity #o755)
 <<setup-n8n>>
 #+END_SRC
 
@@ -6036,14 +6036,14 @@ volumes:
 + home dir
 
 #+NAME: open-webui-compose.yaml-home-dir
-#+BEGIN_SRC yaml :noweb yes :tangle "~/podman/open-webui/compose.yaml"
+#+BEGIN_SRC yaml :tangle "~/podman/open-webui/compose.yaml"
 <<open-webui-compose.yaml>>
 #+END_SRC
   
 + current dir
 
 #+NAME: open-webui-compose.yaml-current-dir
-#+BEGIN_SRC yaml :noweb yes :tangle "podman/open-webui/compose.yaml"
+#+BEGIN_SRC yaml :tangle "podman/open-webui/compose.yaml"
 <<open-webui-compose.yaml>>
 #+END_SRC
 
@@ -6254,14 +6254,14 @@ SEARXNG_SECRET=$(openssl rand -hex 32)
 + home dir
 
 #+NAME: searxng-compose.yaml-home-dir
-#+BEGIN_SRC yaml :noweb yes :tangle "~/podman/searxng/compose.yaml"
+#+BEGIN_SRC yaml :tangle "~/podman/searxng/compose.yaml"
 <<searxng-compose.yaml>>
 #+END_SRC
   
 + current dir
 
 #+NAME: searxng-compose.yaml-current-dir
-#+BEGIN_SRC yaml :noweb yes :tangle "podman/searxng/compose.yaml"
+#+BEGIN_SRC yaml :tangle "podman/searxng/compose.yaml"
 <<searxng-compose.yaml>>
 #+END_SRC
 
@@ -6270,14 +6270,14 @@ SEARXNG_SECRET=$(openssl rand -hex 32)
 + home dir
 
 #+NAME: searxng-limiter.toml-home-dir
-#+BEGIN_SRC toml :noweb yes :tangle "~/podman/searxng/limiter.toml"
+#+BEGIN_SRC toml :tangle "~/podman/searxng/limiter.toml"
 <<searxng-limiter.toml>>
 #+END_SRC
   
 + current dir
 
 #+NAME: searxng-limiter.toml-current-dir
-#+BEGIN_SRC toml :noweb yes :tangle "podman/searxng/limiter.toml"
+#+BEGIN_SRC toml :tangle "podman/searxng/limiter.toml"
 <<searxng-limiter.toml>>
 #+END_SRC
 
@@ -6286,14 +6286,14 @@ SEARXNG_SECRET=$(openssl rand -hex 32)
 + home dir
 
 #+NAME: searxng-settings.yml-home-dir
-#+BEGIN_SRC yaml :noweb yes :tangle "~/podman/searxng/settings.yml"
+#+BEGIN_SRC yaml :tangle "~/podman/searxng/settings.yml"
 <<searxng-settings.yml>>
 #+END_SRC
   
 + current dir
 
 #+NAME: searxng-settings.yml-current-dir
-#+BEGIN_SRC yaml :noweb yes :tangle "podman/searxng/settings.yml"
+#+BEGIN_SRC yaml :tangle "podman/searxng/settings.yml"
 <<searxng-settings.yml>>
 #+END_SRC
 
@@ -6302,14 +6302,14 @@ SEARXNG_SECRET=$(openssl rand -hex 32)
 + home dir
 
 #+NAME: searxng-genkey-home-dir
-#+BEGIN_SRC sh :noweb yes :tangle "~/podman/searxng/searxng-genkey" :tangle-mode (identity #o755)
+#+BEGIN_SRC sh :tangle "~/podman/searxng/searxng-genkey" :tangle-mode (identity #o755)
 <<searxng-genkey>>
 #+END_SRC
   
 + current dir
 
 #+NAME: searxng-genkey-current-dir
-#+BEGIN_SRC sh :noweb yes :tangle "podman/searxng/searxng-genkey" :tangle-mode (identity #o755)
+#+BEGIN_SRC sh :tangle "podman/searxng/searxng-genkey" :tangle-mode (identity #o755)
 <<searxng-genkey>>
 #+END_SRC
 
@@ -6386,14 +6386,14 @@ hide_when_typing = false
 + home dir
 
 #+NAME: alacritty-home-dir
-#+BEGIN_SRC toml :noweb yes :tangle "~/.config/alacritty/alacritty.toml"
+#+BEGIN_SRC toml :tangle "~/.config/alacritty/alacritty.toml"
 <<alacritty>>
 #+END_SRC
 
 + current dir
 
 #+NAME: alacritty-current-dir
-#+BEGIN_SRC toml :noweb yes :tangle ".config/alacritty/alacritty.toml"
+#+BEGIN_SRC toml :tangle ".config/alacritty/alacritty.toml"
 <<alacritty>>
 #+END_SRC
 
@@ -6729,14 +6729,14 @@ fi
 + home dir
 
 #+NAME: zshrc-home-dir
-#+BEGIN_SRC conf :noweb yes :tangle "~/.zshrc"
+#+BEGIN_SRC conf :tangle "~/.zshrc"
 <<zshrc>>
 #+END_SRC
 
 + current dir
 
 #+NAME: zshrc-current-dir
-#+BEGIN_SRC conf :noweb yes :tangle ".zshrc"
+#+BEGIN_SRC conf :tangle ".zshrc"
 <<zshrc>>
 #+END_SRC
 
@@ -6745,14 +6745,14 @@ fi
 + home dir
 
 #+NAME: zshenv-home-dir
-#+BEGIN_SRC conf :noweb yes :tangle "~/.zshenv"
+#+BEGIN_SRC conf :tangle "~/.zshenv"
 <<zshenv>>
 #+END_SRC
 
 + current dir
 
 #+NAME: zshenv-current-dir
-#+BEGIN_SRC conf :noweb yes :tangle ".zshenv"
+#+BEGIN_SRC conf :tangle ".zshenv"
 <<zshenv>>
 #+END_SRC
 
@@ -6894,14 +6894,14 @@ set-option -g set-titles-string "#W"
 + home dir
 
 #+NAME: tmux-home-dir
-#+BEGIN_SRC conf :noweb yes :tangle "~/.config/tmux/tmux.conf"
+#+BEGIN_SRC conf :tangle "~/.config/tmux/tmux.conf"
 <<tmux>>
 #+END_SRC
 
 + current dir
 
 #+NAME: tmux-current-dir
-#+BEGIN_SRC conf :noweb yes :tangle ".config/tmux/tmux.conf"
+#+BEGIN_SRC conf :tangle ".config/tmux/tmux.conf"
 <<tmux>>
 #+END_SRC
 
@@ -7044,14 +7044,14 @@ fs-screen-name=DP-3
 + home dir
 
 #+NAME: input.conf-home-dir
-#+BEGIN_SRC conf :noweb yes :tangle "~/.config/mpv/input.conf"
+#+BEGIN_SRC conf :tangle "~/.config/mpv/input.conf"
 <<input.conf>>
 #+END_SRC
 
 + current dir
 
 #+NAME: input.conf-current-dir
-#+BEGIN_SRC conf :noweb yes :tangle ".config/mpv/input.conf"
+#+BEGIN_SRC conf :tangle ".config/mpv/input.conf"
 <<input.conf>>
 #+END_SRC
 
@@ -7060,14 +7060,14 @@ fs-screen-name=DP-3
 + home dir
 
 #+NAME: mpv.conf-home-dir
-#+BEGIN_SRC conf :noweb yes :tangle "~/.config/mpv/mpv.conf"
+#+BEGIN_SRC conf :tangle "~/.config/mpv/mpv.conf"
 <<mpv.conf>>
 #+END_SRC
 
 + current dir
 
 #+NAME: mpv.conf-current-dir
-#+BEGIN_SRC conf :noweb yes :tangle ".config/mpv/mpv.conf"
+#+BEGIN_SRC conf :tangle ".config/mpv/mpv.conf"
 <<mpv.conf>>
 #+END_SRC
 
@@ -7100,14 +7100,14 @@ fs-screen-name=DP-3
 + home dir
 
 #+NAME: yt-dlp-home-dir
-#+BEGIN_SRC conf :noweb yes :tangle "~/.config/yt-dlp/config"
+#+BEGIN_SRC conf :tangle "~/.config/yt-dlp/config"
 <<yt-dlp>>
 #+END_SRC
 
 + current dir
 
 #+NAME: yt-dlp-current-dir
-#+BEGIN_SRC conf :noweb yes :tangle ".config/yt-dlp/config"
+#+BEGIN_SRC conf :tangle ".config/yt-dlp/config"
 <<yt-dlp>>
 #+END_SRC
 
@@ -7148,14 +7148,14 @@ database wiktionary-en {
 + home dir
 
 #+NAME: dictrc-home-dir
-#+BEGIN_SRC conf :noweb yes :tangle "~/.dictrc"
+#+BEGIN_SRC conf :tangle "~/.dictrc"
 <<dictrc>>
 #+END_SRC
 
 + current dir
 
 #+NAME: dictrc-current-dir
-#+BEGIN_SRC conf :noweb yes :tangle ".dictrc"
+#+BEGIN_SRC conf :tangle ".dictrc"
 <<dictrc>>
 #+END_SRC
 
@@ -7164,14 +7164,14 @@ database wiktionary-en {
 + home dir
 
 #+NAME: dictd.conf-home-dir
-#+BEGIN_SRC conf :noweb yes :tangle "~/.dictd.conf"
+#+BEGIN_SRC conf :tangle "~/.dictd.conf"
 <<dictd.conf>>
 #+END_SRC
 
 + current dir
 
 #+NAME: dictd.conf-current-dir
-#+BEGIN_SRC conf :noweb yes :tangle ".dictd.conf"
+#+BEGIN_SRC conf :tangle ".dictd.conf"
 <<dictd.conf>>
 #+END_SRC
 
@@ -7237,14 +7237,14 @@ monitor.alsa.rules = [
 + home dir
 
 #+NAME: wireplumber-home-dir
-#+BEGIN_SRC conf :noweb yes :tangle "~/.config/wireplumber/wireplumber.conf.d/device-rename.conf"
+#+BEGIN_SRC conf :tangle "~/.config/wireplumber/wireplumber.conf.d/device-rename.conf"
 <<wireplumber>>
 #+END_SRC
 
 + current dir
 
 #+NAME: wireplumber-current-dir
-#+BEGIN_SRC conf :noweb yes :tangle ".config/wireplumber/wireplumber.conf.d/device-rename.conf"
+#+BEGIN_SRC conf :tangle ".config/wireplumber/wireplumber.conf.d/device-rename.conf"
 <<wireplumber>>
 #+END_SRC
 
@@ -7353,14 +7353,14 @@ monitor.alsa.rules = [
 + home dir
 
 #+NAME: playercorefactory.xml-home-dir
-#+BEGIN_SRC xml :noweb yes :tangle "~/.kodi/userdata/playercorefactory.xml"
+#+BEGIN_SRC xml :tangle "~/.kodi/userdata/playercorefactory.xml"
 <<playercorefactory.xml>>
 #+END_SRC
 
 + current dir
 
 #+NAME: playercorefactory.xml-current-dir
-#+BEGIN_SRC xml :noweb yes :tangle ".kodi/userdata/playercorefactory.xml"
+#+BEGIN_SRC xml :tangle ".kodi/userdata/playercorefactory.xml"
 <<playercorefactory.xml>>
 #+END_SRC
 
@@ -7416,14 +7416,14 @@ http-accept-gzip=true
 + home dir
   
 #+NAME: aria2c-home-dir
-#+begin_src conf :noweb yes :tangle "~/.config/aria2/aria2.conf"
+#+begin_src conf :tangle "~/.config/aria2/aria2.conf"
 <<aria2c>>
 #+end_src
 
 + current dir
 
 #+NAME: aria2c-current-dir
-#+begin_src conf :noweb yes :tangle ".config/aria2/aria2.conf"
+#+begin_src conf :tangle ".config/aria2/aria2.conf"
 <<aria2c>>
 #+end_src
 
@@ -7462,14 +7462,14 @@ color alert = black,bold
 + home dir
 
 #+NAME: ncmpc-home-dir
-#+BEGIN_SRC conf :noweb yes :tangle "~/.config/ncmpc/config"
+#+BEGIN_SRC conf :tangle "~/.config/ncmpc/config"
 <<ncmpc>>
 #+END_SRC
 
 + current dir
 
 #+NAME: ncmpc-current-dir
-#+BEGIN_SRC conf :noweb yes :tangle ".config/ncmpc/config"
+#+BEGIN_SRC conf :tangle ".config/ncmpc/config"
 <<ncmpc>>
 #+END_SRC
 
@@ -7491,14 +7491,14 @@ color alert = black,bold
 + home dir
 
 #+NAME: evdev-home-dir
-#+BEGIN_SRC conf :noweb yes :tangle "~/.config/xkb/rules/evdev"
+#+BEGIN_SRC conf :tangle "~/.config/xkb/rules/evdev"
 <<evdev>>
 #+END_SRC
 
 + current dir
 
 #+NAME: evdev-current-dir
-#+BEGIN_SRC conf :noweb yes :tangle ".config/xkb/rules/evdev"
+#+BEGIN_SRC conf :tangle ".config/xkb/rules/evdev"
 <<evdev>>
 #+END_SRC
 
@@ -7548,14 +7548,14 @@ color alert = black,bold
 + home dir
 
 #+NAME: evdev.xml-home-dir
-#+BEGIN_SRC conf :noweb yes :tangle "~/.config/xkb/rules/evdev.xml"
+#+BEGIN_SRC conf :tangle "~/.config/xkb/rules/evdev.xml"
 <<evdev.xml>>
 #+END_SRC
 
 + current dir
 
 #+NAME: evdev.xml-current-dir
-#+BEGIN_SRC conf :noweb yes :tangle ".config/xkb/rules/evdev.xml"
+#+BEGIN_SRC conf :tangle ".config/xkb/rules/evdev.xml"
 <<evdev.xml>>
 #+END_SRC
 
@@ -7577,14 +7577,14 @@ xkb_symbols "swap_sterling_numbersign" {
 + home dir
 
 #+NAME: custom-home-dir
-#+BEGIN_SRC conf :noweb yes :tangle "~/.config/xkb/symbols/custom"
+#+BEGIN_SRC conf :tangle "~/.config/xkb/symbols/custom"
 <<custom>>
 #+END_SRC
 
 + current dir
 
 #+NAME: custom-current-dir
-#+BEGIN_SRC conf :noweb yes :tangle ".config/xkb/symbols/custom"
+#+BEGIN_SRC conf :tangle ".config/xkb/symbols/custom"
 <<custom>>
 #+END_SRC
 
@@ -7606,14 +7606,14 @@ xkb_symbols "swap_sterling_numbersign" {
 + home dir
 
 #+NAME: gb-home-dir
-#+BEGIN_SRC conf :noweb yes :tangle "~/.config/xkb/symbols/gb"
+#+BEGIN_SRC conf :tangle "~/.config/xkb/symbols/gb"
 <<gb>>
 #+END_SRC
 
 + current dir
 
 #+NAME: gb-current-dir
-#+BEGIN_SRC conf :noweb yes :tangle ".config/xkb/symbols/gb"
+#+BEGIN_SRC conf :tangle ".config/xkb/symbols/gb"
 <<gb>>
 #+END_SRC
 
@@ -7639,14 +7639,14 @@ Comment=nognome_notifications
 + home dir
 
 #+NAME: nognome_notications-autostart-home-dir
-#+BEGIN_SRC conf :noweb yes :tangle "~/.config/autostart/nognome_notications.desktop"
+#+BEGIN_SRC conf :tangle "~/.config/autostart/nognome_notications.desktop"
 <<nognome_notications>>
 #+END_SRC
 
 + current dir
 
 #+NAME: nognome_notications-autostart-current-dir
-#+BEGIN_SRC conf :noweb yes :tangle ".config/autostart/nognome_notications.desktop"
+#+BEGIN_SRC conf :tangle ".config/autostart/nognome_notications.desktop"
 <<nognome_notications>>
 #+END_SRC
 
@@ -7702,14 +7702,14 @@ Terminal=false
 + home dir
   
 #+NAME: firefox-vpn-desktop-home-dir
-#+BEGIN_SRC conf :noweb yes :tangle "~/.local/share/applications/firefox_vpn.desktop"
+#+BEGIN_SRC conf :tangle "~/.local/share/applications/firefox_vpn.desktop"
 <<firefox-vpn-desktop>>
 #+END_SRC
   
 + current dir
 
 #+NAME: firefox-vpn-desktop-current-dir
-#+BEGIN_SRC conf :noweb yes :tangle ".local/share/applications/firefox_vpn.desktop"
+#+BEGIN_SRC conf :tangle ".local/share/applications/firefox_vpn.desktop"
 <<firefox-vpn-desktop>>
 #+END_SRC
 
@@ -7718,14 +7718,14 @@ Terminal=false
 + home dir
   
 #+NAME: transmission-desktop-home-dir
-#+BEGIN_SRC conf :noweb yes :tangle "~/.local/share/applications/userapp-transmission-vpn.desktop"
+#+BEGIN_SRC conf :tangle "~/.local/share/applications/userapp-transmission-vpn.desktop"
 <<transmission-desktop>>
 #+END_SRC
   
 + current dir
 
 #+NAME: transmission-desktop-current-dir
-#+BEGIN_SRC conf :noweb yes :tangle ".local/share/applications/userapp-transmission-vpn.desktop"
+#+BEGIN_SRC conf :tangle ".local/share/applications/userapp-transmission-vpn.desktop"
 <<transmission-desktop>>
 #+END_SRC
 
@@ -7746,14 +7746,14 @@ ui = true
 + home dir
 
 #+NAME: gitconfig-home-dir
-#+BEGIN_SRC conf :noweb yes :tangle "~/.config/git/config"
+#+BEGIN_SRC conf :tangle "~/.config/git/config"
 <<gitconfig>>
 #+END_SRC
 
 + current dir
 
 #+NAME: gitconfig-current-dir
-#+BEGIN_SRC conf :noweb yes :tangle ".config/git/gitconfig"
+#+BEGIN_SRC conf :tangle ".config/git/gitconfig"
 <<gitconfig>>
 #+END_SRC
 
@@ -7770,13 +7770,13 @@ ssl_cipher_list = "DEFAULT"
 + home dir
 
 #+NAME: curl-home-dir
-#+BEGIN_SRC conf :noweb yes :tangle "~/.config/curl/curlrc"
+#+BEGIN_SRC conf :tangle "~/.config/curl/curlrc"
 <<curl>>
 #+END_SRC
 
 + current dir
 
 #+NAME: curl-current-dir
-#+BEGIN_SRC conf :noweb yes :tangle ".config/curl/curlrc"
+#+BEGIN_SRC conf :tangle ".config/curl/curlrc"
 <<curl>>
 #+END_SRC
