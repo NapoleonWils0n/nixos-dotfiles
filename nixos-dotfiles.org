@@ -770,8 +770,7 @@ Evil is an extensible vi layer for Emacs. It emulates the main features of Vim
 #+end_src
 
 ****** info
-
-+ csv-mode
+******* csv-mode
 
 #+begin_quote
 Major mode for editing comma/char separated values
@@ -779,7 +778,7 @@ Major mode for editing comma/char separated values
 
 [[https://elpa.gnu.org/packages/csv-mode.html]]
 
-+ evil-leader
+******* evil-leader
 
 #+begin_quote
 Evil Leader provides the <leader> feature from Vim that provides an easy way to bind keys under a variable prefix key. 
@@ -787,7 +786,7 @@ Evil Leader provides the <leader> feature from Vim that provides an easy way to 
 
 [[https://github.com/cofi/evil-leader]]
 
-+ git-auto-commit-mode
+******* git-auto-commit-mode
 
 #+begin_quote
 git-auto-commit-mode - Emacs minor mode to automatically commit (and push) a git repository.
@@ -795,7 +794,7 @@ git-auto-commit-mode - Emacs minor mode to automatically commit (and push) a git
 
 [[https://github.com/ryuslash/git-auto-commit-mode]]
 
-+ iedit
+******* iedit
 
 #+begin_quote
 Iedit - Edit multiple occurrences in the same way simultaneously
@@ -803,7 +802,7 @@ Iedit - Edit multiple occurrences in the same way simultaneously
   
 [[https://github.com/victorhge/iedit]]
 
-+ nerd-icons
+******* nerd-icons
 
 #+begin_quote
 Nerd-icons.el is a library for easily using Nerd Font icons inside Emacs
@@ -811,7 +810,7 @@ Nerd-icons.el is a library for easily using Nerd Font icons inside Emacs
 
 [[https://github.com/rainstormstudio/nerd-icons.el]]
 
-+ nix-mode
+******* nix-mode
 
 #+begin_quote
 An Emacs major mode for editing Nix expressions.
@@ -819,7 +818,7 @@ An Emacs major mode for editing Nix expressions.
 
 [[https://github.com/NixOS/nix-mode]]
 
-+ s
+******* s
 
 #+begin_quote
 The long lost Emacs string manipulation library.
@@ -827,7 +826,7 @@ The long lost Emacs string manipulation library.
 
 [[https://github.com/magnars/s.el/]]
 
-+ shrink-path
+******* shrink-path
 
 #+begin_quote
 Small utility functions that allow for fish-style trunctated directories in eshell and for example modeline.
@@ -835,7 +834,7 @@ Small utility functions that allow for fish-style trunctated directories in eshe
 
 [[https://github.com/zbelial/shrink-path.el]]
 
-+ wgrep
+******* wgrep
 
 #+begin_quote
 wgrep allows you to edit a grep buffer and apply those changes to the file buffer like sed interactively. 
@@ -843,7 +842,7 @@ wgrep allows you to edit a grep buffer and apply those changes to the file buffe
 
 [[https://github.com/mhayashi1120/Emacs-wgrep]]
 
-+ yaml-mode
+******* yaml-mode
 
 #+begin_quote
 yaml-mode - Simple major mode to edit YAML file for emacs
@@ -851,7 +850,7 @@ yaml-mode - Simple major mode to edit YAML file for emacs
 
 [[https://github.com/yoshiki/yaml-mode]]
 
-+ systemd
+******* systemd
 
 #+begin_quote
 Major mode for editing systemd units in GNU Emacs. 
