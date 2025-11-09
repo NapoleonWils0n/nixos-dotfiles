@@ -4144,7 +4144,7 @@ Restart=always
 WantedBy=default.target
 #+end_src
 
-**** status-bar.service :status:
+**** status-bar.service :statusbar:
 
 #+NAME: status-bar.service
 #+BEGIN_SRC conf
@@ -4199,7 +4199,7 @@ WantedBy=graphical-session.target
 <<dictd.service>>
 #+END_SRC
 
-**** status-bar.service :status:
+**** status-bar.service :statusbar:
 
 + home dir
 
