@@ -240,6 +240,7 @@ Create a sparse tree with all headlines matching a tags search.
 
 ***** emacs-startup-hook
 
+#+NAME: emacs-startup-hook
 #+begin_src emacs-lisp
 ;; ----------------------------------------------------------------------------------
 ;; emacs init.el - also using early-init.el
@@ -257,6 +258,7 @@ Create a sparse tree with all headlines matching a tags search.
 
 ***** bootstrap use package
 
+#+NAME: emacs-bootstrap-use-package
 #+begin_src emacs-lisp
 ;; ----------------------------------------------------------------------------------
 ;; Bootstrap use-package
@@ -296,6 +298,7 @@ conforming with the highest standard for colour contrast between background and 
 
 [[https://protesilaos.com/emacs/modus-themes]]
 
+#+NAME: emacs-themes
 #+begin_src emacs-lisp
 ;; ----------------------------------------------------------------------------------
 ;; doom-theme : use-package
@@ -313,6 +316,7 @@ conforming with the highest standard for colour contrast between background and 
 
 ***** setq
 
+#+NAME: emacs-setq
 #+begin_src emacs-lisp
 ;; ----------------------------------------------------------------------------------
 ;; general settings : setq
@@ -444,6 +448,7 @@ On graphical displays and on text terminals, Emacs can optionally display a Tab 
 
 [[https://www.gnu.org/software/emacs/manual/html_node/emacs/Tab-Bars.html]]
 
+#+NAME: emacs-tab-bar
 #+begin_src emacs-lisp
 ;; ----------------------------------------------------------------------------------
 ;; TAB bar mode
@@ -476,6 +481,7 @@ On graphical displays and on text terminals, Emacs can optionally display a Tab 
 
 ***** buffer list
 
+#+NAME: emacs-buffer-list
 #+begin_src emacs-lisp
 ;; ----------------------------------------------------------------------------------
 ;; buffer list
@@ -498,6 +504,7 @@ On graphical displays and on text terminals, Emacs can optionally display a Tab 
 
 ***** functions
 
+#+NAME: emacs-functions
 #+begin_src emacs-lisp
 ;; ----------------------------------------------------------------------------------
 ;; functions
@@ -542,6 +549,7 @@ On graphical displays and on text terminals, Emacs can optionally display a Tab 
 
 ***** add to list
 
+#+NAME: emacs-add-to-list
 #+begin_src emacs-lisp
 ;; ----------------------------------------------------------------------------------
 ;; add-to-list
@@ -562,6 +570,7 @@ On graphical displays and on text terminals, Emacs can optionally display a Tab 
 
 ***** add hook
 
+#+NAME: emacs-add-hook
 #+begin_src emacs-lisp
 ;; ----------------------------------------------------------------------------------
 ;; add-hook
@@ -580,6 +589,7 @@ On graphical displays and on text terminals, Emacs can optionally display a Tab 
 
 ***** keymap global set
 
+#+NAME: emacs-keymap-global-set
 #+begin_src emacs-lisp
 ;; ----------------------------------------------------------------------------------
 ;; keymap-global-set
@@ -600,6 +610,7 @@ On graphical displays and on text terminals, Emacs can optionally display a Tab 
 
 ***** keymap set
 
+#+NAME: emacs-keymap-set
 #+begin_src emacs-lisp
 ;; ----------------------------------------------------------------------------------
 ;; keymap-set
@@ -619,6 +630,7 @@ On graphical displays and on text terminals, Emacs can optionally display a Tab 
 
 ***** fonts
 
+#+NAME: emacs-fonts
 #+begin_src emacs-lisp
 ;; ----------------------------------------------------------------------------------
 ;; fonts
@@ -630,6 +642,7 @@ On graphical displays and on text terminals, Emacs can optionally display a Tab 
 
 ***** set face attribute
 
+#+NAME: emacs-set-face-attribute
 #+begin_src emacs-lisp
 ;; ----------------------------------------------------------------------------------
 ;; set-face-attribute
@@ -665,6 +678,7 @@ A fancy and fast mode-line inspired by minimalism design.
 
 [[https://github.com/seagle0128/doom-modeline]]
 
+#+NAME: emacs-doom-modeline
 #+begin_src emacs-lisp
 ;; ----------------------------------------------------------------------------------
 ;; doom-modeline
@@ -697,6 +711,7 @@ Evil is an extensible vi layer for Emacs. It emulates the main features of Vim
 
 [[https://github.com/emacs-evil/evil]]
 
+#+NAME: emacs-evil
 #+begin_src emacs-lisp
 ;; ----------------------------------------------------------------------------------
 ;; evil
@@ -815,6 +830,7 @@ Major mode for editing systemd units in GNU Emacs.
 
 [[https://github.com/holomorph/systemd-mode]]
 
+#+NAME: emacs-general-packages
 #+begin_src emacs-lisp
 ;; ----------------------------------------------------------------------------------
 ;; general packages : use-package
@@ -835,6 +851,7 @@ Major mode for editing systemd units in GNU Emacs.
 
 ***** ob sync
 
+#+NAME: emacs-ob-sync
 #+begin_src emacs-lisp
 ;;----------------------------------------------------------------------------------
 ;; ob-sync
@@ -856,6 +873,7 @@ which-key is a minor mode for Emacs that displays the key bindings following you
 
 [[https://github.com/justbur/emacs-which-key]]
 
+#+NAME: emacs-which-key
 #+begin_src emacs-lisp
 ;;----------------------------------------------------------------------------------
 ;; which-key
@@ -874,6 +892,7 @@ The undo-tree-mode provided by this package replaces Emacs' undo system with a s
 
 [[https://www.dr-qubit.org/undo-tree.html]]
 
+#+NAME: emacs-undo-tree
 #+begin_src emacs-lisp
 ;;----------------------------------------------------------------------------------
 ;; undo-tree
@@ -886,7 +905,7 @@ The undo-tree-mode provided by this package replaces Emacs' undo system with a s
         undo-tree-visualizer-diff t))
 #+end_src
 
-***** Vertico
+***** vertico
 
 #+begin_quote
 Vertico provides a performant and minimalistic vertical completion UI based on the default completion system.
@@ -894,6 +913,7 @@ Vertico provides a performant and minimalistic vertical completion UI based on t
 
 [[https://github.com/minad/vertico]]
 
+#+NAME: emacs-vertico
 #+begin_src emacs-lisp
 ;; ----------------------------------------------------------------------------------
 ;; Vertico
@@ -915,7 +935,7 @@ Vertico provides a performant and minimalistic vertical completion UI based on t
     ))
 #+end_src
 
-***** Marginalia
+***** marginalia
 
 #+begin_quote
 This package provides marginalia-mode which adds marginalia to the minibuffer completions. Marginalia are marks or annotations placed at the margin of the page of a book or in this case helpful colorful annotations placed at the margin of the minibuffer for your completion candidates. 
@@ -923,6 +943,7 @@ This package provides marginalia-mode which adds marginalia to the minibuffer co
 
 [[https://github.com/minad/marginalia]]
 
+#+NAME: emacs-marginalia
 #+begin_src emacs-lisp
 ;; ----------------------------------------------------------------------------------
 ;; Marginalia
@@ -935,7 +956,7 @@ This package provides marginalia-mode which adds marginalia to the minibuffer co
   (marginalia-mode 1))
 #+end_src
 
-***** Consult
+***** consult
 
 #+begin_quote
 Consult provides search and navigation commands based on the Emacs completion function completing-read documented in the Elisp manual. Completion allows you to quickly select an item from a list of candidates. 
@@ -943,6 +964,7 @@ Consult provides search and navigation commands based on the Emacs completion fu
 
 [[https://github.com/minad/consult]]
 
+#+NAME: emacs-consult
 #+begin_src emacs-lisp
 ;; ----------------------------------------------------------------------------------
 ;; Consult
@@ -960,7 +982,7 @@ Consult provides search and navigation commands based on the Emacs completion fu
   (define-key minibuffer-local-map (kbd "C-r") 'consult-history))
 #+end_src
 
-***** Orderless
+***** orderless
 
 #+begin_quote
 This package provides an orderless completion style that divides the pattern into space-separated components, and matches candidates that match all of the components in any order. Each component can match in any one of several ways: literally, as a regexp, as an initialism, in the flex style, or as multiple word prefixes.
@@ -968,6 +990,7 @@ This package provides an orderless completion style that divides the pattern int
 
 [[https://github.com/oantolin/orderless]]
 
+#+NAME: emacs-orderless
 #+begin_src emacs-lisp
 ;; ----------------------------------------------------------------------------------
 ;; Orderless
@@ -979,7 +1002,7 @@ This package provides an orderless completion style that divides the pattern int
         completion-category-overrides '((file (styles . (partial-completion))))))
 #+end_src
 
-***** Embark
+***** embark
 
 #+begin_quote
 Embark makes it easy to choose a command to run based on what is near point, both during a minibuffer completion session (in a way familiar to Helm or Counsel users) and in normal buffers. Bind the command embark-act to a key and it acts like prefix-key for a keymap of actions (commands) relevant to the target around point.
@@ -987,6 +1010,7 @@ Embark makes it easy to choose a command to run based on what is near point, bot
 
 [[https://github.com/oantolin/embark]]
 
+#+NAME: emacs-embark
 #+begin_src emacs-lisp
 ;; ----------------------------------------------------------------------------------
 ;; Embark
@@ -1050,6 +1074,7 @@ Dired makes an Emacs buffer containing a listing of a directory, and optionally 
 
 [[https://www.gnu.org/software/emacs/manual/html_node/emacs/Dired.html]]
 
+#+NAME: emacs-dired
 #+begin_src emacs-lisp
 ;; ----------------------------------------------------------------------------------
 ;; dired
@@ -1159,6 +1184,7 @@ Ripgrep is a replacement for both grep like (search one file) and ag like (searc
 
 [[https://github.com/dajva/rg.el]]
 
+#+NAME: emacs-ripgrep
 #+begin_src emacs-lisp
 ;; ----------------------------------------------------------------------------------
 ;; rip-grep
@@ -1180,6 +1206,7 @@ TRAMP stands for “Transparent Remote (file) Access, Multiple Protocol”. This
 
 [[https://www.gnu.org/software/tramp/]]
 
+#+NAME: emacs-tramp
 #+begin_src emacs-lisp
 ;; ----------------------------------------------------------------------------------
 ;; tramp
@@ -1208,6 +1235,7 @@ A GNU Emacs major mode for keeping notes, authoring documents, computational not
 
 [[https://orgmode.org/]]
 
+#+NAME: emacs-org-mode
 #+begin_src emacs-lisp
 ;; ----------------------------------------------------------------------------------
 ;; org mode
@@ -1356,6 +1384,7 @@ The main purpose of this elisp is to handle each tree in an org buffer as a slid
 
 [[https://github.com/takaxp/org-tree-slide]]
 
+#+NAME: emacs-org-tree-slide
 #+begin_src emacs-lisp
 ;; ----------------------------------------------------------------------------------
 ;; org tree slide
@@ -1425,6 +1454,7 @@ This package is a potpourri of helper functions to control a mpv process via its
 
 [[https://github.com/kljohann/mpv.el]]
 
+#+NAME: emacs-mpv
 #+begin_src emacs-lisp
 ;; ----------------------------------------------------------------------------------
 ;; mpv.el 
@@ -1621,6 +1651,7 @@ The Emacs Desktop Notification Center (EDNC) is an Emacs package written in pure
 
 [[https://github.com/sinic/ednc]]
 
+#+NAME: emacs-ednc
 #+begin_src emacs-lisp
 ;; ----------------------------------------------------------------------------------
 ;; emacs desktop notification center
@@ -1667,6 +1698,7 @@ This is a package for GNU Emacs that can be used to tie related commands into a 
 
 [[https://github.com/abo-abo/hydra]]
 
+#+NAME: emacs-hydra
 #+begin_src emacs-lisp
 ;; ----------------------------------------------------------------------------------
 ;; hydra
@@ -1735,6 +1767,7 @@ This package allows to translate the strings using Google Translate service dire
 
 [[https://github.com/atykhonov/google-translate]]
 
+#+NAME: emacs-google-translate
 #+begin_src emacs-lisp
 ;; ----------------------------------------------------------------------------------
 ;; google-translate
@@ -1754,6 +1787,7 @@ Magit is an interface to the version control system Git, implemented as an Emacs
 
 [[https://github.com/magit/magit]]
 
+#+NAME: emacs-magit
 #+begin_src emacs-lisp
 ;; ----------------------------------------------------------------------------------
 ;; magit
@@ -1772,6 +1806,7 @@ markdown-mode is a major mode for editing Markdown-formatted text.
 
 [[https://jblevins.org/projects/markdown-mode/]]
 
+#+NAME: emacs-markdown-mode
 #+begin_src emacs-lisp
 ;; ----------------------------------------------------------------------------------
 ;; markdown mode
@@ -1796,6 +1831,7 @@ Emacs 29 introduces tree-sitter support, a powerful parsing library that enhance
 
 [[https://www.masteringemacs.org/article/how-to-get-started-tree-sitter]]
 
+#+NAME: emacs-treesitter
 #+begin_src emacs-lisp
 ;; ----------------------------------------------------------------------------------
 ;; treesitter
@@ -1838,6 +1874,7 @@ YASnippet is a template system for Emacs. It allows you to type an abbreviation 
 
 [[https://github.com/joaotavora/yasnippet]]
 
+#+NAME: emacs-yas-snippets
 #+begin_src emacs-lisp
 ;; ----------------------------------------------------------------------------------
 ;; Snippets (YASnippet)
@@ -1882,6 +1919,7 @@ Corfu enhances in-buffer completion with a small completion popup. The current c
 
 [[https://github.com/minad/corfu]]
 
+#+NAME: emacs-corfu
 #+begin_src emacs-lisp
 ;; ----------------------------------------------------------------------------------
 ;; corfu
@@ -1919,6 +1957,7 @@ Cape provides Completion At Point Extensions which can be used in combination wi
 
 [[https://github.com/minad/cape]]
 
+#+NAME: emacs-cape
 #+begin_src emacs-lisp
 ;; ----------------------------------------------------------------------------------
 ;; cape
@@ -1941,6 +1980,7 @@ Emacs Polyglot is the Emacs LSP client that stays out of your way:
 
 [[https://github.com/joaotavora/eglot]]
 
+#+NAME: emacs-eglot
 #+begin_src emacs-lisp
 ;; ----------------------------------------------------------------------------------
 ;; eglot
@@ -1974,6 +2014,7 @@ It is a way for multiple applications to share a single configuration (in Emacs 
 
 [[https://www.gnu.org/software/emacs/manual/html_mono/auth.html]]
 
+#+NAME: emacs-auth-source
 #+begin_src emacs-lisp
 ;; ----------------------------------------------------------------------------------
 ;; auth-source
@@ -1991,6 +2032,7 @@ gptel is a simple Large Language Model chat client for Emacs, with support for m
 
 [[https://github.com/karthink/gptel]]
 
+#+NAME: emacs-gptel
 #+begin_src emacs-lisp
 ;; ----------------------------------------------------------------------------------
 ;; gptel
@@ -2070,6 +2112,7 @@ This is an Emacs client for interfacing with MCP, supporting connections to MCP 
 
 [[https://github.com/lizqwerscott/mcp.el]]
 
+#+NAME: emacs-mcp-server
 #+begin_src emacs-lisp
 ;; ----------------------------------------------------------------------------------
 ;; mcp server
@@ -2104,6 +2147,7 @@ Supports docker containers, images, volumes, networks, contexts and docker-compo
 
 [[https://github.com/Silex/docker.el]]
 
+#+NAME: emacs-docker
 #+begin_src emacs-lisp
 ;; ----------------------------------------------------------------------------------
 ;; docker
@@ -2125,6 +2169,7 @@ Adds syntax highlighting as well as the ability to build the image directly usin
 
 [[https://github.com/spotify/dockerfile-mode]]
 
+#+NAME: emacs-dockerfile-mode
 #+begin_src emacs-lisp
 ;; ----------------------------------------------------------------------------------
 ;; dockerfile-mode
@@ -2137,6 +2182,7 @@ Adds syntax highlighting as well as the ability to build the image directly usin
 
 ***** garbage collection
 
+#+NAME: emacs-garbage-collection
 #+begin_src emacs-lisp
 ;; ----------------------------------------------------------------------------------
 ;; garbage collection
@@ -2170,6 +2216,7 @@ Adds syntax highlighting as well as the ability to build the image directly usin
 
 ***** garbage collection
 
+#+NAME: emacs-early-garbage
 #+begin_src emacs-lisp
 ;;; early-init.el -*- lexical-binding: t; -*-
 
@@ -2191,6 +2238,7 @@ Adds syntax highlighting as well as the ability to build the image directly usin
 
 ***** ui configuration
 
+#+NAME: emacs-early-ui
 #+begin_src emacs-lisp
 ;; ----------------------------------------------------------------------------------
 ;; ui configuration
@@ -2214,6 +2262,7 @@ Adds syntax highlighting as well as the ability to build the image directly usin
 
 ***** scratch buffer
 
+#+NAME: emacs-early-scratch-buffer
 #+begin_src emacs-lisp
 ;; ----------------------------------------------------------------------------------
 ;; scratch buffer
@@ -2228,6 +2277,7 @@ Adds syntax highlighting as well as the ability to build the image directly usin
 
 ***** lisp directory
 
+#+NAME: emacs-early-lisp-dir
 #+begin_src emacs-lisp
 ;; ----------------------------------------------------------------------------------
 ;; personal elisp lib dir
@@ -3272,6 +3322,7 @@ a old-string and a new-string, new-string will replace the old-string at the spe
 #+BEGIN_SRC emacs-lisp :tangle ".config/emacs/bookmarks"
 <<emacs-bookmarks>>
 #+END_SRC
+
 ** home-manager :nix:manager:
 *** home-manager config :config:
 **** home.nix :home:
