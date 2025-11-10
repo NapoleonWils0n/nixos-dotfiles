@@ -5660,7 +5660,7 @@ LLM_PROVIDER=google/gemini-2.5-flash
 ******* current dir
 
 #+NAME: crawl4ai-screenshot.py-current-dir
-#+BEGIN_SRC sh :tangle "podman/crawl4ai-podman/scripts/screenshot.py"
+#+BEGIN_SRC python :tangle "podman/crawl4ai-podman/scripts/screenshot.py"
 <<crawl4ai-screenshot.py>>
 #+END_SRC
 
