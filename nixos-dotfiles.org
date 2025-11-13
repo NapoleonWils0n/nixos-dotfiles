@@ -2,13 +2,14 @@
 #+STARTUP: overview hideblocks
 #+OPTIONS: num:nil author:nil
 #+PROPERTY: header-args :mkdirp yes :noweb yes 
-* dotfiles update
+* nixos dotfiles
+** update
 
 dotfiles for nixos on a dell xps 15 2019
 
 [[https://github.com/NapoleonWils0n/changelog?tab=readme-ov-file#nixos-dotfiles][nixos dotfiles changelog]]
 
-** tangle dotfiles
+*** tangle dotfiles
 
 tangle document
 
@@ -28,7 +29,7 @@ tangle from the command line
 emacs --batch -l org --eval '(org-babel-tangle-file "~/git/nixos/nixos-dotfiles/nixos-dotfiles.org")'
 #+end_src
 
-** flake update
+*** flake update
 
 update the flake
 
@@ -67,7 +68,6 @@ git log --oneline flake.lock
 
 to find the exact commit hash
 
-* nixos dotfiles
 ** emacs
 *** emacs config
 **** init.el
