@@ -1332,16 +1332,16 @@
   (require 'gptel-integrations) 
   :config
   (setq gptel-model 'llama3.1:8b)
-  (setq gptel-model 'qwen3:4b-thinking-2507-q4_K_M)
   (setq gptel-model 'granite4:tiny-h)
+  (setq gptel-model 'mistral:7b-instruct-v0.3-q3_K_M)
   (setq gptel-model 'gemma3:4b)
   (setq gptel-model 'deepseek-r1:8b)
   (setq gptel-backend (gptel-make-ollama "Ollama"
                         :host "localhost:11434"
                         :stream t
                         :models '(llama3.1:8b
-                                  qwen3:4b-thinking-2507-q4_K_M
                                   granite4:tiny-h
+                                  mistral:7b-instruct-v0.3-q3_K_M
                                   gemma3:4b
                                   deepseek-r1:8b)))
 
