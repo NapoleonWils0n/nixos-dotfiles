@@ -3808,7 +3808,6 @@ with lib.hm.gvariant;
 :PROPERTIES:
 :ORDERED:  t
 :END:
-
 ***** home dir
 
 #+NAME: firefox.nix-home-dir
