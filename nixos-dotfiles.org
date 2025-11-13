@@ -1,5 +1,5 @@
 #+TITLE: Nixos dotfiles Dell xps
-#+STARTUP: overview hideblocks
+#+STARTUP: show2levels hideblocks
 #+OPTIONS: num:nil author:nil
 #+PROPERTY: header-args :mkdirp yes :noweb yes 
 * nixos dotfiles
