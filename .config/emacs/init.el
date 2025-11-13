@@ -1337,6 +1337,7 @@
   (setq gptel-model 'gemma3:4b)
   (setq gptel-model 'mistral:7b)
   (setq gptel-model 'deepseek-r1:8b)
+  (setq gptel-model 'hermes3:8b)
   (setq gptel-backend (gptel-make-ollama "Ollama"
                         :host "localhost:11434"
                         :stream t
@@ -1345,7 +1346,8 @@
                                   granite4:tiny-h
                                   gemma3:4b
                                   mistral:7b
-                                  deepseek-r1:8b)))
+                                  deepseek-r1:8b
+                                  hermes3:8b)))
 
   (setq gptel-model 'gemini-2.5-flash
         gptel-backend (gptel-make-gemini "Gemini"
