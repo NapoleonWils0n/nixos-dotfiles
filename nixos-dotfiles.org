@@ -3163,8 +3163,8 @@ a old-string and a new-string, new-string will replace the old-string at the spe
 )
 #+END_SRC
 
-*** emacs tangle :tangle:
-**** init.el :init:
+*** emacs tangle
+**** init.el
 ***** home dir
 
 #+NAME: emacs-init.el-home-dir
@@ -3179,8 +3179,7 @@ a old-string and a new-string, new-string will replace the old-string at the spe
 <<init.el>>
 #+END_SRC
 
-**** early-init.el :earlyinit:
-
+**** early-init.el
 ***** home dir
 
 #+NAME: emacs-early-init.el-home-dir
@@ -3195,7 +3194,7 @@ a old-string and a new-string, new-string will replace the old-string at the spe
 <<early-init.el>>
 #+END_SRC
 
-**** lisp :lisp:
+**** lisp
 ***** gptel-custom-tools.el
 ****** home dir
 
@@ -3210,16 +3209,15 @@ a old-string and a new-string, new-string will replace the old-string at the spe
 <<gptel-custom-tools.el>>
 #+END_SRC
 
-**** bookmarks :bookmarks:
-
-+ home dir
+**** bookmarks
+*****  home dir
 
 #+NAME: emacs-bookmarks-home-dir
 #+BEGIN_SRC emacs-lisp :tangle "~/.config/emacs/bookmarks"
 <<emacs-bookmarks>>
 #+END_SRC
 
-+ current dir
+***** current dir
 
 #+NAME: emacs-bookmarks-current-dir
 #+BEGIN_SRC emacs-lisp :tangle ".config/emacs/bookmarks"
