@@ -1334,7 +1334,6 @@
   (setq gptel-model 'llama3.1:8b)
   (setq gptel-model 'granite4:tiny-h)
   (setq gptel-model 'gemma3:4b)
-  (setq gptel-model 'deepseek-r1:7b)
   (setq gptel-model 'deepseek-r1:8b)
   (setq gptel-backend (gptel-make-ollama "Ollama"
                         :host "localhost:11434"
@@ -1342,7 +1341,6 @@
                         :models '(llama3.1:8b
                                   granite4:tiny-h
                                   gemma3:4b
-                                  deepseek-r1:7b
                                   deepseek-r1:8b)))
 
   (setq gptel-model 'gemini-2.5-flash
