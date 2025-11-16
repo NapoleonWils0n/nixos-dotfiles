@@ -101,7 +101,7 @@
     ncmpc
     nerd-fonts.fira-code
     noise-repellent
-    noto-fonts-emoji
+    noto-fonts-color-emoji
     nixd
     nsxiv
     oath-toolkit
