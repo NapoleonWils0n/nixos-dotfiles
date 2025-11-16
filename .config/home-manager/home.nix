@@ -60,7 +60,6 @@
     apg
     alacritty
     aria2
-    ardour
     aspell
     aspellDicts.en
     bash-language-server
