@@ -69,6 +69,7 @@
     chromium
     curl
     csvkit
+    deno
     dict
     dictdDBs.wordnet
     dictdDBs.wiktionary
