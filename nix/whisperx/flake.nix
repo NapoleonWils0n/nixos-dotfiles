@@ -16,9 +16,6 @@
             allowUnfree = true; # Necessary for NVIDIA drivers and CUDA
           };
         };
-        # Resolve the cudnn_8_9 path at Nix evaluation time.
-        # If attribute doesn't exist, getAttrFromPath returns null.
-        cudnn89Path = pkgs.lib.getAttrFromPath [ "cudaPackages" "cudnn_8_9" "out" ] pkgs;
       in
       {
         devShells.default = pkgs.mkShell rec {
@@ -30,8 +27,7 @@
             stdenv.cc.cc.lib # C standard library
             stdenv.cc        # C compiler
             cudaPackages.cudatoolkit # Default CUDA toolkit from NixOS 25.05 (likely 12.x)
-          ] ++ pkgs.lib.optionals (cudnn89Path != null) [ pkgs.cudaPackages.cudnn_8_9 ] # Conditionally include cudnn_8_9 if its path was resolved (not null)
-          ++ [
+            cudaPackages.cudnn  
             linuxPackages.nvidia_x11 # Host NVIDIA X11 drivers (for libcuda.so)
             zlib # Common dependency
           ];
@@ -41,8 +37,6 @@
           CUDA_PATH = pkgs.cudaPackages.cudatoolkit;
           CUDA_HOME = pkgs.cudaPackages.cudatoolkit;
           EXTRA_LDFLAGS = "-L${pkgs.linuxPackages.nvidia_x11}/lib";
-          # Pass the resolved cuDNN 8.9 path to the shell. Convert null to empty string for shell.
-          NIX_CUDNN_8_9_PATH = if cudnn89Path != null then toString cudnn89Path else "";
 
           # Ensure CUDA binaries (like nvidia-smi) are in PATH for diagnostics
           PATH = pkgs.lib.makeBinPath [
