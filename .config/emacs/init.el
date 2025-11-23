@@ -166,7 +166,7 @@
 (setq dictionary-server "localhost")
 
 ;; mpd host
-(setq mpc-host "/home/djwilcox/.config/mpd/socket")
+(setq mpc-host "/run/user/1000/mpd/socket")
 
 ;; ----------------------------------------------------------------------------------
 ;; TAB bar mode
