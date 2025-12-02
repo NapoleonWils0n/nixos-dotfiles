@@ -7442,38 +7442,6 @@ xkb_symbols "swap_sterling_numbersign" {
 <<gb>>
 #+END_SRC
 
-** autostart
-*** autostart config
-**** nocosmic_notications config
-
-#+NAME: nocosmic_notications
-#+BEGIN_SRC conf
-[Desktop Entry]
-Type=Application
-Exec=/home/djwilcox/bin/nocosmic_notifications
-Hidden=True
-NoDisplay=True
-X-GNOME-Autostart-enabled=true
-Name=nocosmic_notifications
-Comment=nocosmic_notifications
-#+END_SRC
-
-*** autostart tangle
-**** nocosmic_notications tangle
-***** home dir
-
-#+NAME: nocosmic_notications-autostart-home-dir
-#+BEGIN_SRC conf :tangle "~/.config/autostart/nocosmic_notications.desktop"
-<<nocosmic_notications>>
-#+END_SRC
-
-***** current dir
-
-#+NAME: nocosmic_notications-autostart-current-dir
-#+BEGIN_SRC conf :tangle ".config/autostart/nocosmic_notications.desktop"
-<<nocosmic_notications>>
-#+END_SRC
-
 ** desktop files
 *** desktop files config
 **** firefox vpn config

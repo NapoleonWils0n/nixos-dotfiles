@@ -1,8 +1,0 @@
-[Desktop Entry]
-Type=Application
-Exec=/home/djwilcox/bin/nocosmic_notifications
-Hidden=True
-NoDisplay=True
-X-GNOME-Autostart-enabled=true
-Name=nocosmic_notifications
-Comment=nocosmic_notifications
