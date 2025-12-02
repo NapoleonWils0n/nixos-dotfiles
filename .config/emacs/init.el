@@ -1083,42 +1083,6 @@
   ) ;; This is the final closing parenthesis for the entire (use-package mpv ...) block
 
 ;; ----------------------------------------------------------------------------------
-;; emacs desktop notification center
-;; ----------------------------------------------------------------------------------
-
-;; start ednc-mode
-(use-package ednc
-  :init
-  (ednc-mode 1)
-  :config
-  (defun show-notification-in-buffer (old new)
-    (let ((name (format "Notification %d" (ednc-notification-id (or old new)))))
-      (with-current-buffer (get-buffer-create name)
-        (if new (let ((inhibit-read-only t))
-                  (if old (erase-buffer) (ednc-view-mode))
-                  (insert (ednc-format-notification new t))
-                  (pop-to-buffer (current-buffer)))
-          (kill-buffer)))))
-  
-  
-  ;; notifications hook
-  (add-hook 'ednc-notification-presentation-functions
-            #'show-notification-in-buffer)
-  
-  ;; open notifications in side window
-  (add-to-list 'display-buffer-alist
-               '("^Notification *" display-buffer-in-side-window
-                 (side . right)
-                 (window-width . 0.50)))
-  
-  ;; ednc evil - normal mode
-  (defun noevil ()
-    (evil-define-key 'normal ednc-view-mode-map "d" 'ednc-dismiss-notification)
-    (evil-define-key 'normal ednc-view-mode-map (kbd "RET") 'ednc-invoke-action)
-    )
-  (add-hook 'ednc-view-mode-hook 'noevil))
-
-;; ----------------------------------------------------------------------------------
 ;; hydra
 ;; ----------------------------------------------------------------------------------
 
