@@ -371,7 +371,41 @@ On graphical displays and on text terminals, Emacs can optionally display a Tab 
   (let ((url (current-kill 0 t)))
     (start-process "pinch" nil "pinch" "-i" url)))
 
+;; ----------------------------------------------------------------------------------
+;; wayland socket
+;; ----------------------------------------------------------------------------------
+
+(defun my/set-wayland-display-dynamically ()
+  "Dynamically checks for the correct Wayland display socket (wayland-1, wayland-0)
+  and sets the WAYLAND_DISPLAY environment variable."
+  (interactive)
+  (let* (;; Get the current user's UID to find the runtime directory.
+         (uid (user-uid))
+         (runtime-dir (format "/run/user/%d/" uid))
+         (wayland-display nil))
+
+    ;; 1. Check for wayland-1 first, as that's the one you confirmed exists and is working.
+    (cond ((file-exists-p (concat runtime-dir "wayland-1"))
+           (setq wayland-display "wayland-1"))
+
+          ;; 2. Fallback to wayland-0.
+          ((file-exists-p (concat runtime-dir "wayland-0"))
+           (setq wayland-display "wayland-0")))
+
+    (if wayland-display
+        (progn
+          ;; Set the environment variable for Emacs and its subprocesses (wl-copy/wl-paste)
+          (setenv "WAYLAND_DISPLAY" wayland-display)
+          (message "WAYLAND_DISPLAY successfully set to: %s" wayland-display))
+      (message "Warning: Could not find Wayland socket (wayland-0 or wayland-1). Clipboard may fail."))))
+
+;; Execute the function immediately when Emacs starts
+(my/set-wayland-display-dynamically)
+
+;; ----------------------------------------------------------------------------------
 ;; wayland clipboard
+;; ----------------------------------------------------------------------------------
+
 (setq wl-copy-process nil)
 (defun wl-copy (text)
   (setq wl-copy-process (make-process :name "wl-copy"
