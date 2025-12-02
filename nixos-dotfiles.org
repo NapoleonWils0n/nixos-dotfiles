@@ -7444,34 +7444,34 @@ xkb_symbols "swap_sterling_numbersign" {
 
 ** autostart
 *** autostart config
-**** nognome_notications config
+**** nocosmic_notications config
 
-#+NAME: nognome_notications
+#+NAME: nocosmic_notications
 #+BEGIN_SRC conf
 [Desktop Entry]
 Type=Application
-Exec=/home/djwilcox/bin/nognome_notifications
+Exec=/home/djwilcox/bin/nocosmic_notifications
 Hidden=True
 NoDisplay=True
 X-GNOME-Autostart-enabled=true
-Name=nognome_notifications
-Comment=nognome_notifications
+Name=nocosmic_notifications
+Comment=nocosmic_notifications
 #+END_SRC
 
 *** autostart tangle
-**** nognome_notications tangle
+**** nocosmic_notications tangle
 ***** home dir
 
-#+NAME: nognome_notications-autostart-home-dir
-#+BEGIN_SRC conf :tangle "~/.config/autostart/nognome_notications.desktop"
-<<nognome_notications>>
+#+NAME: nocosmic_notications-autostart-home-dir
+#+BEGIN_SRC conf :tangle "~/.config/autostart/nocosmic_notications.desktop"
+<<nocosmic_notications>>
 #+END_SRC
 
 ***** current dir
 
-#+NAME: nognome_notications-autostart-current-dir
-#+BEGIN_SRC conf :tangle ".config/autostart/nognome_notications.desktop"
-<<nognome_notications>>
+#+NAME: nocosmic_notications-autostart-current-dir
+#+BEGIN_SRC conf :tangle ".config/autostart/nocosmic_notications.desktop"
+<<nocosmic_notications>>
 #+END_SRC
 
 ** desktop files
