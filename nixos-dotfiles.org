@@ -4007,15 +4007,27 @@ margin_left: 0
 margin_top: 0
 
 menu: 
-  "m": { desc: mpv, cmd: emacsclient -cF "((visibility . nil))" -e "(mpv-play-clipboard)" }
-  "d": { desc: ytdlp-mpv, cmd: /home/djwilcox/bin/ytdlp-mpv -i "$(wl-paste)" -t off }
-  "p": { desc: pinch, cmd: /home/djwilcox/bin/pinch -i "$(wl-paste)" }
-  "s":
+  - key: "m"
+    desc: mpv
+    cmd: emacsclient -cF "((visibility . nil))" -e "(mpv-play-clipboard)" 
+  - key: "d"
+    desc: ytdlp-mpv
+    cmd: /home/djwilcox/bin/ytdlp-mpv -i "$(wl-paste)" -t off
+  - key: "p"
+    desc: pinch
+    cmd: /home/djwilcox/bin/pinch -i "$(wl-paste)"
+  - key: "s"
     desc: screenshot
     submenu:
-      "l": { desc: laptop, cmd: grim -o eDP-1 }
-      "m": { desc: monitor, cmd: grim -o DP-3 }
-      "b": { desc: both, cmd: grim }
+      - key: "l"
+        desc: laptop
+        cmd: grim -o eDP-1
+      - key: "m"
+        desc: monitor
+        cmd: grim -o DP-3
+      - key: "b"
+        desc: both
+        cmd: grim
 #+END_SRC
 
 *** wlr-which-key tangle
