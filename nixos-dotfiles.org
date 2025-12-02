@@ -3236,7 +3236,7 @@ a old-string and a new-string, new-string will replace the old-string at the spe
   home.stateVersion = "25.05"; # Please read the comment before changing.
 
   imports = [
-    ./programs/dconf/dconf.nix
+  #  ./programs/dconf/dconf.nix
     ./programs/firefox/firefox.nix
   ];
  
@@ -3286,7 +3286,7 @@ a old-string and a new-string, new-string will replace the old-string at the spe
     dict
     dictdDBs.wordnet
     dictdDBs.wiktionary
-    dconf-editor
+  #  dconf-editor
     fd
     fdk-aac-encoder
     ffmpeg-full
@@ -3295,7 +3295,7 @@ a old-string and a new-string, new-string will replace the old-string at the spe
     fira-code
     gcc
     git
-    gnome-tweaks
+  #  gnome-tweaks
     gnumake
     grim
     graphviz
@@ -3305,7 +3305,7 @@ a old-string and a new-string, new-string will replace the old-string at the spe
     kodi-wayland
     libnotify
     libwebp
-    lsp-plugins
+  #  lsp-plugins
     openssl
     mpc
     mpd
@@ -3313,7 +3313,7 @@ a old-string and a new-string, new-string will replace the old-string at the spe
     ncdu
     ncmpc
     nerd-fonts.fira-code
-    noise-repellent
+  #  noise-repellent
     noto-fonts-color-emoji
     nixd
     nsxiv
@@ -3327,7 +3327,7 @@ a old-string and a new-string, new-string will replace the old-string at the spe
     pwgen
     qpwgraph
     realesrgan-ncnn-vulkan
-    rnnoise-plugin
+  #  rnnoise-plugin
     ripgrep
     shellcheck-minimal
     sox
@@ -3360,9 +3360,9 @@ services = {
     enable = true;
     package = pkgs.emacs-pgtk;
   };
-  gnome-keyring = {
-    enable = true;
-  };
+#  gnome-keyring = {
+#    enable = true;
+#  };
   gpg-agent = {
     enable = true;
     extraConfig = ''

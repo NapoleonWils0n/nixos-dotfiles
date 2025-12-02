@@ -22,7 +22,7 @@
   home.stateVersion = "25.05"; # Please read the comment before changing.
 
   imports = [
-    ./programs/dconf/dconf.nix
+  #  ./programs/dconf/dconf.nix
     ./programs/firefox/firefox.nix
   ];
  
@@ -72,7 +72,7 @@
     dict
     dictdDBs.wordnet
     dictdDBs.wiktionary
-    dconf-editor
+  #  dconf-editor
     fd
     fdk-aac-encoder
     ffmpeg-full
@@ -81,7 +81,7 @@
     fira-code
     gcc
     git
-    gnome-tweaks
+  #  gnome-tweaks
     gnumake
     grim
     graphviz
@@ -91,7 +91,7 @@
     kodi-wayland
     libnotify
     libwebp
-    lsp-plugins
+  #  lsp-plugins
     openssl
     mpc
     mpd
@@ -99,7 +99,7 @@
     ncdu
     ncmpc
     nerd-fonts.fira-code
-    noise-repellent
+  #  noise-repellent
     noto-fonts-color-emoji
     nixd
     nsxiv
@@ -113,7 +113,7 @@
     pwgen
     qpwgraph
     realesrgan-ncnn-vulkan
-    rnnoise-plugin
+  #  rnnoise-plugin
     ripgrep
     shellcheck-minimal
     sox
@@ -146,9 +146,9 @@ services = {
     enable = true;
     package = pkgs.emacs-pgtk;
   };
-  gnome-keyring = {
-    enable = true;
-  };
+#  gnome-keyring = {
+#    enable = true;
+#  };
   gpg-agent = {
     enable = true;
     extraConfig = ''
