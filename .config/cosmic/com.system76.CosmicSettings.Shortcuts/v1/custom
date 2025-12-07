@@ -1,0 +1,74 @@
+{
+    (
+        modifiers: [
+            Super,
+            Alt,
+        ],
+        key: "space",
+        description: Some("playerctl"),
+    ): Spawn("playerctl play-pause"),
+    (
+        modifiers: [
+            Super,
+        ],
+        key: "a",
+    ): System(Launcher),
+    (
+        modifiers: [
+            Alt,
+        ],
+        key: "l",
+    ): Close,
+    (
+        modifiers: [
+            Alt,
+        ],
+        key: "F4",
+    ): Disable,
+    (
+        modifiers: [
+            Super,
+            Shift,
+        ],
+        key: "Return",
+        description: Some("alacritty"),
+    ): Spawn("alacritty"),
+    (
+        modifiers: [
+            Super,
+            Shift,
+        ],
+        key: "c",
+    ): Close,
+    (
+        modifiers: [
+            Super,
+        ],
+        key: "slash",
+    ): Disable,
+    (
+        modifiers: [
+            Super,
+        ],
+        key: "z",
+        description: Some("wlr-which-key"),
+    ): Spawn("wlr-which-key"),
+    (
+        modifiers: [
+            Super,
+            Ctrl,
+        ],
+        key: "Return",
+    ): Spawn("emacsclient -a= -c"),
+    (
+        modifiers: [
+            Super,
+        ],
+    ): Disable,
+    (
+        modifiers: [
+            Super,
+        ],
+        key: "q",
+    ): Disable,
+}

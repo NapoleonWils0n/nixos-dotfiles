@@ -1,0 +1,9 @@
+(
+    rules: "",
+    model: "pc104",
+    layout: "gb",
+    variant: "mac",
+    options: Some("ctrl:swap_lalt_lctl,custom:swap_sterling_numbersign,caps:none:terminate:ctrl_alt_bksp"),
+    repeat_delay: 600,
+    repeat_rate: 25,
+)
