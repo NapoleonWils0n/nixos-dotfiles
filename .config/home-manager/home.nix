@@ -99,7 +99,6 @@
     nixd
     nsxiv
     oath-toolkit
-    ocrmypdf
     openvpn
     pandoc
     pinentry-curses
