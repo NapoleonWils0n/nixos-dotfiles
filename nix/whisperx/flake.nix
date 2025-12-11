@@ -1,5 +1,5 @@
 {
-  description = "A development shell for WhisperX with CUDA support (pip-based installation, targeting CUDA 12.x and cuDNN 8.x on NixOS 25.05).";
+  description = "A development shell for WhisperX with CUDA support";
 
   inputs = {
     # Pinning to the latest NixOS unstable
@@ -30,6 +30,11 @@
             cudaPackages.cudnn  
             linuxPackages.nvidia_x11 # Host NVIDIA X11 drivers (for libcuda.so)
             zlib # Common dependency
+            # --- NEW MEDIA/BUILD DEPENDENCIES FOR PYAV/FFMPEG ---
+            pkg-config # Required for finding C libraries during python wheel build
+            ffmpeg     # Core library for audio/video processing (PyAV backend)
+            libiconv   # Character encoding conversion library
+            libxml2    # XML parsing library
           ];
 
           # Environment variables required for CUDA and library linking
@@ -45,7 +50,7 @@
 
           # Shell hook to set up the Python virtual environment and install dependencies
           shellHook = ''
-            echo "Entering WhisperX development shell with CUDA support (NixOS 25.05 stable, PyTorch cu121/cu122, attempting cuDNN 8.9)..."
+            echo "Entering WhisperX development shell with CUDA support"
             echo "Note: PyTorch and WhisperX will be installed via pip within a virtual environment."
 
             # Set the locale for consistent encoding
@@ -70,15 +75,14 @@
             # Upgrade pip
             pip install --upgrade pip
 
-            # Install torch torchaudio for CUDA 12.1/12.2 (trying general cu12x)
-            echo "Installing latest stable torch and torchaudio for CUDA 12.x..."
-            pip install torch torchaudio --index-url https://download.pytorch.org/whl/cu121
-            # If cu121 still resolves to 12.6, we might try cu122 or no specific version
-            # If problems persist, consider explicit torch versions that are known to work with cuDNN 8.x and CUDA 12.x
-            # Example: pip install torch==2.1.2 torchaudio==2.1.2 --index-url https://download.pytorch.org/whl/cu121
+            # Set environment variable to prevent silent async CUDA errors (Crucial for debugging low-level crashes)
+            export CUDA_LAUNCH_BLOCKING=1
+            export TORCH_FORCE_NO_WEIGHTS_ONLY_LOAD=true
 
-            # Install whisperx
-            echo "Installing whisperx..."
+            # cuda 13
+            pip install --force-reinstall torch torchaudio --index-url https://download.pytorch.org/whl/cu130
+
+            # install whisperx
             pip install -U whisperx
 
             echo "WhisperX setup complete. You can now use 'whisperx' command."
