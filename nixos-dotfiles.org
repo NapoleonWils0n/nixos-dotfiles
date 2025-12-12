@@ -4136,6 +4136,10 @@ systemctl --user start wallpaper.service
 
 ** nix
 *** deepfilternet
+**** resources
+
+[[https://github.com/NapoleonWils0n/cerberus/blob/master/deepfilternet/deepfilternet.org]]
+
 **** deepfilternet config
 ***** flake.nix
 
