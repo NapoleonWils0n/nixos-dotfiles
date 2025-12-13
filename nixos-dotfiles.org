@@ -569,7 +569,7 @@ On graphical displays and on text terminals, Emacs can optionally display a Tab 
   :config
   (doom-modeline-mode 1)
   (doom-modeline-def-modeline 'main
-    '(bar matches buffer-info remote-host buffer-position selection-info)
+    '(bar matches buffer-info remote-host buffer-position selection-info now-playing)
     '(misc-info minor-modes input-method buffer-encoding major-mode process vcs check battery time)))
 #+end_src
 
@@ -580,6 +580,27 @@ A fancy and fast mode-line inspired by minimalism design.
 #+end_quote
 
 [[https://github.com/seagle0128/doom-modeline]]
+
+***** doom-modeline-now-playing
+
+#+NAME: doom-modeline-now-playing
+#+begin_src emacs-lisp
+;; ----------------------------------------------------------------------------------
+;; doom-modeline now playing
+;; ----------------------------------------------------------------------------------
+
+(use-package doom-modeline-now-playing
+  :after doom-modeline
+  :config
+  (doom-modeline-now-playing-timer)
+  (setq doom-modeline-now-playing-interval 1)
+  (setq doom-modeline-now-playing-playerctl-format "[{{duration(position)}}/{{duration(mpris:length)}}] {{title}}"))
+
+#+end_src
+
+****** info
+
+[[https://github.com/elken/doom-modeline-now-playing]]
 
 ***** evil 
 

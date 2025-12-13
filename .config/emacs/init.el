@@ -400,8 +400,20 @@
   :config
   (doom-modeline-mode 1)
   (doom-modeline-def-modeline 'main
-    '(bar matches buffer-info remote-host buffer-position selection-info)
+    '(bar matches buffer-info remote-host buffer-position selection-info now-playing)
     '(misc-info minor-modes input-method buffer-encoding major-mode process vcs check battery time)))
+
+;; ----------------------------------------------------------------------------------
+;; doom-modeline now playing
+;; ----------------------------------------------------------------------------------
+
+(use-package doom-modeline-now-playing
+  :after doom-modeline
+  :config
+  (doom-modeline-now-playing-timer)
+  (setq doom-modeline-now-playing-interval 1)
+  (setq doom-modeline-now-playing-playerctl-format "[{{duration(position)}}/{{duration(mpris:length)}}] {{title}}"))
+
 
 ;; ----------------------------------------------------------------------------------
 ;; evil
