@@ -80,7 +80,7 @@
             export TORCH_FORCE_NO_WEIGHTS_ONLY_LOAD=true
 
             # cuda 13
-            pip install --force-reinstall torch torchaudio --index-url https://download.pytorch.org/whl/cu130
+            pip install torch torchaudio --index-url https://download.pytorch.org/whl/cu130
 
             # install whisperx
             pip install -U whisperx
