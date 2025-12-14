@@ -595,7 +595,6 @@ A fancy and fast mode-line inspired by minimalism design.
   (doom-modeline-now-playing-timer)
   (setq doom-modeline-now-playing-interval 1)
   (setq doom-modeline-now-playing-playerctl-format "[{{duration(position)}}/{{duration(mpris:length)}}] {{title}}"))
-
 #+end_src
 
 ****** info
