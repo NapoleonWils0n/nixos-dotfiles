@@ -546,6 +546,27 @@ On graphical displays and on text terminals, Emacs can optionally display a Tab 
                     :foreground "grey50")
 #+end_src
 
+***** doom-modeline-now-playing
+
+#+NAME: doom-modeline-now-playing
+#+begin_src emacs-lisp
+;; ----------------------------------------------------------------------------------
+;; doom-modeline now playing
+;; ----------------------------------------------------------------------------------
+
+(use-package doom-modeline-now-playing
+  :after doom-modeline
+  :defer t 
+  :config
+  (setq doom-modeline-now-playing-playerctl-format "[{{duration(position)}}/{{duration(mpris:length)}}] {{title}}")
+  (setq doom-modeline-now-playing-interval 1)
+  (doom-modeline-now-playing-timer))
+#+end_src
+
+****** info
+
+[[https://github.com/elken/doom-modeline-now-playing]]
+
 ***** doom modeline
 
 #+NAME: emacs-doom-modeline
@@ -567,6 +588,7 @@ On graphical displays and on text terminals, Emacs can optionally display a Tab 
         doom-modeline-vcs-max-length 15)
   (display-battery-mode t)
   :config
+  (require 'doom-modeline-now-playing)
   (doom-modeline-mode 1)
   (doom-modeline-def-modeline 'main
     '(bar matches buffer-info remote-host buffer-position selection-info now-playing)
@@ -580,26 +602,6 @@ A fancy and fast mode-line inspired by minimalism design.
 #+end_quote
 
 [[https://github.com/seagle0128/doom-modeline]]
-
-***** doom-modeline-now-playing
-
-#+NAME: doom-modeline-now-playing
-#+begin_src emacs-lisp
-;; ----------------------------------------------------------------------------------
-;; doom-modeline now playing
-;; ----------------------------------------------------------------------------------
-
-(use-package doom-modeline-now-playing
-  :after doom-modeline
-  :config
-  (doom-modeline-now-playing-timer)
-  (setq doom-modeline-now-playing-interval 1)
-  (setq doom-modeline-now-playing-playerctl-format "[{{duration(position)}}/{{duration(mpris:length)}}] {{title}}"))
-#+end_src
-
-****** info
-
-[[https://github.com/elken/doom-modeline-now-playing]]
 
 ***** evil 
 
