@@ -391,6 +391,7 @@
   :config
   (setq doom-modeline-now-playing-playerctl-format "[{{duration(position)}}/{{duration(mpris:length)}}] {{title}}")
   (setq doom-modeline-now-playing-interval 1)
+  (setq doom-modeline-now-playing-playerctl-ignored-players '("firefox" "chromium"))
   (doom-modeline-now-playing-timer))
 
 ;; ----------------------------------------------------------------------------------
