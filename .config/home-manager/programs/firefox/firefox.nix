@@ -157,6 +157,10 @@
           user_pref("widget.content.gtk-theme-override", "Adwaita:dark");
           // trim urls
           user_pref("browser.urlbar.trimURLs", false);
+          // Use AI to suggest tabs and a name for tab groups
+          user_pref("browser.tabs.groups.smart.userEnabled", false);
+          // Enable link previews
+          user_pref("browser.ml.linkPreview.enabled", false);
           '';
           userChrome = ''
           /* userChrome.css */
