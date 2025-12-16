@@ -1337,13 +1337,15 @@
   (setq gptel-model 'llama3.2:3b)
   (setq gptel-model 'gemma3:4b)
   (setq gptel-model 'deepseek-r1:8b)
+  (setq gptel-model 'rnj-1:8b-instruct-q4_K_M)
   (setq gptel-backend (gptel-make-ollama "Ollama"
                         :host "localhost:11434"
                         :stream t
                         :models '(llama3.1:8b
                                   llama3.2:3b
                                   gemma3:4b
-                                  deepseek-r1:8b)))
+                                  deepseek-r1:8b
+                                  rnj-1:8b-instruct-q4_K_M)))
 
   (setq gptel-model 'gemini-2.5-flash
         gptel-backend (gptel-make-gemini "Gemini"
