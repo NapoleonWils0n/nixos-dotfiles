@@ -1950,11 +1950,13 @@ It is a way for multiple applications to share a single configuration (in Emacs 
                                   gemma3:4b
                                   deepseek-r1:8b
                                   rnj-1:8b-instruct-q4_K_M)))
-
-  (setq gptel-model 'gemini-2.5-flash
-        gptel-backend (gptel-make-gemini "Gemini"
+  
+  (setq gptel-model 'gemini-3-flash-preview)
+  (setq gptel-backend (gptel-make-gemini "Gemini"
                         :key (gptel-api-key-from-auth-source "generativelanguage.googleapis.com")
-                        :stream t))
+                        :stream t
+                        :models '(gemini-2.5-flash
+                                  gemini-3-flash-preview)))
   
 
 ;; ----------------------------------------------------------------------------------
