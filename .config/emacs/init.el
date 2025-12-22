@@ -1206,10 +1206,12 @@
         (make "https://github.com/tree-sitter-grammars/tree-sitter-make")
         (nix "https://github.com/nix-community/tree-sitter-nix")
         (python "https://github.com/tree-sitter/tree-sitter-python")
+        (rust "https://github.com/tree-sitter/tree-sitter-rust")
         (xml "https://github.com/panicinc/tree-sitter-xml")))
 
 (setq major-mode-remap-alist
-      '((sh-mode . bash-ts-mode)))
+      '((sh-mode . bash-ts-mode)
+        (rust-mode . rust-ts-mode)))
 
 ;; treesitter explore open in side window
 (add-to-list 'display-buffer-alist
@@ -1312,6 +1314,16 @@
 (add-hook 'nix-mode-hook 'eglot-ensure)
 (add-hook 'sh-mode-hook 'eglot-ensure)
 (add-hook 'python-mode-hook 'eglot-ensure)
+
+;; ----------------------------------------------------------------------------------
+;; Rust and LSP (Eglot)
+;; ----------------------------------------------------------------------------------
+
+(use-package rust-mode
+  :mode ("\\.rs\\'" . rust-mode)
+  :hook (rust-mode . eglot-ensure)
+  :config
+  (setq rust-format-on-save t))
 
 ;; ----------------------------------------------------------------------------------
 ;; auth-source
