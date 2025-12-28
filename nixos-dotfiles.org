@@ -3378,6 +3378,14 @@ a old-string and a new-string, new-string will replace the old-string at the spe
     wlr-which-key
     zathura
     zip
+    virt-manager
+    virt-viewer
+    spice 
+    spice-gtk 
+    spice-protocol
+    virtio-win
+    win-spice
+    adwaita-icon-theme
   ];
 
   # home sessions variables

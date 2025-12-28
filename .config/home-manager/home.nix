@@ -127,6 +127,14 @@
     wlr-which-key
     zathura
     zip
+    virt-manager
+    virt-viewer
+    spice 
+    spice-gtk 
+    spice-protocol
+    virtio-win
+    win-spice
+    adwaita-icon-theme
   ];
 
   # home sessions variables
