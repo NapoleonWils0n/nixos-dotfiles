@@ -47,7 +47,7 @@ style = "Regular"
 [window]
 decorations = "none"
 decorations_theme_variant = "Dark"
-startup_mode = "Maximized"
+#startup_mode = "Maximized"
 
 [window.class]
 general = "Alacritty"
