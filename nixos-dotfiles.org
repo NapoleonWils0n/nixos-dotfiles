@@ -3350,6 +3350,7 @@ a old-string and a new-string, new-string will replace the old-string at the spe
     nixd
     nsxiv
     oath-toolkit
+    obs-cmd
     openvpn
     pandoc
     pinentry-curses
