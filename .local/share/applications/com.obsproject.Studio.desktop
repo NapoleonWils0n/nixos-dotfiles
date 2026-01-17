@@ -1,0 +1,23 @@
+[Desktop Entry]
+Version=1.0
+Name=OBS Studio
+GenericName=Streaming/Recording Software
+Comment=Free and Open Source Streaming/Recording Software
+Exec=/home/djwilcox/bin/start-obs
+Icon=com.obsproject.Studio
+Terminal=false
+Type=Application
+Categories=AudioVideo;Recorder;
+StartupNotify=true
+StartupWMClass=obs
+
+GenericName[en_GB]=Streaming/Recording Software
+Comment[en_GB]=Free and Open Source Streaming/Recording Software
+Icon=com.obsproject.Studio
+Terminal=false
+Type=Application
+Categories=AudioVideo;Recorder;
+StartupNotify=true
+StartupWMClass=obs
+GenericName[en_GB]=Streaming/Recording Software
+Comment[en_GB]=Free and Open Source Streaming/Recording Software
