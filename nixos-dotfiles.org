@@ -4584,6 +4584,98 @@ ollama serve
 <<python-flake.lock>>
 #+END_SRC
 
+*** texliveFull
+**** texliveFull config
+***** flake.nix
+
+#+NAME: texlivefull-flake.nix
+#+begin_src nix
+{
+  description = "LaTeX build environment";
+
+  inputs = {
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+  };
+
+  outputs = { self, nixpkgs }:
+    let
+      system = "x86_64-linux";
+      pkgs = nixpkgs.legacyPackages.${system};
+    in
+    {
+      devShells.${system}.default = pkgs.mkShell {
+        nativeBuildInputs = [
+          pkgs.texliveFull
+        ];
+      };
+    };
+}
+#+end_src
+
+***** flake.lock
+
+#+NAME: texlivefull-flake.lock
+#+begin_src nix
+{
+  "nodes": {
+    "nixpkgs": {
+      "locked": {
+        "lastModified": 1769170682,
+        "narHash": "sha256-oMmN1lVQU0F0W2k6OI3bgdzp2YOHWYUAw79qzDSjenU=",
+        "owner": "nixos",
+        "repo": "nixpkgs",
+        "rev": "c5296fdd05cfa2c187990dd909864da9658df755",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nixos",
+        "ref": "nixos-unstable",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "root": {
+      "inputs": {
+        "nixpkgs": "nixpkgs"
+      }
+    }
+  },
+  "root": "root",
+  "version": 7
+}
+#+end_src
+
+**** texliveFull tangle
+***** flake.nix
+****** home dir
+
+#+NAME: texlivefull-flake.nix-home-dir
+#+BEGIN_SRC nix :tangle "~/nix/texlive/flake.nix"
+<<texlivefull-flake.nix>>
+#+END_SRC
+
+****** current dir
+
+#+NAME: texlivefull-flake.nix-current-dir
+#+BEGIN_SRC nix :tangle "nix/texlive/flake.nix"
+<<texlivefull-flake.nix>>
+#+END_SRC
+
+***** flake.lock
+****** home dir
+
+#+NAME: texlivefull-flake.lock-home-dir
+#+BEGIN_SRC nix :tangle "~/nix/texlive/flake.lock"
+<<texlivefull-flake.lock>>
+#+END_SRC
+
+****** current dir
+
+#+NAME: texlivefull-flake.lock-current-dir
+#+BEGIN_SRC nix :tangle "nix/texlive/flake.lock"
+<<texlivefull-flake.lock>>
+#+END_SRC
+
 *** whisperx
 **** whisperx config
 ***** whisperx flake.nix
