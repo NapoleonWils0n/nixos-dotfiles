@@ -82,7 +82,6 @@
     gnumake
     grim
     graphviz
-    handbrake
     imagemagick
     iosevka
     kodi-wayland

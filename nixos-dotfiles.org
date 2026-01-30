@@ -3333,7 +3333,6 @@ a old-string and a new-string, new-string will replace the old-string at the spe
     gnumake
     grim
     graphviz
-    handbrake
     imagemagick
     iosevka
     kodi-wayland
