@@ -4392,6 +4392,191 @@ systemctl --user start wallpaper.service
 <<deepfilternet-flake.lock>>
 #+END_SRC
 
+*** demucs
+**** demucs config
+***** flake.nix
+
+#+NAME: demucs-flake.nix
+#+begin_src nix
+{
+  description = "A development shell for Demucs with CUDA support";
+
+  inputs = {
+    nixpkgs.url = "github:NixOS/Nixpkgs/nixos-unstable";
+    flake-utils.url = "github:numtide/flake-utils";
+  };
+
+  outputs = { self, nixpkgs, flake-utils }:
+    flake-utils.lib.eachDefaultSystem (system:
+      let
+        pkgs = import nixpkgs {
+          inherit system;
+          config = {
+            allowUnfree = true;
+          };
+        };
+      in
+      {
+        devShells.default = pkgs.mkShell rec {
+          name = "demucs-cuda-shell";
+
+          buildInputs = with pkgs; [
+            python311         # Demucs plays very well with 3.11
+            stdenv.cc.cc.lib
+            stdenv.cc
+            cudaPackages.cudatoolkit 
+            cudaPackages.cudnn  
+            linuxPackages.nvidia_x11 
+            zlib
+            pkg-config 
+            ffmpeg            # Essential for Demucs audio IO
+            libsndfile        # Required for high-quality audio saving
+          ];
+
+          LD_LIBRARY_PATH = pkgs.lib.makeLibraryPath buildInputs;
+          CUDA_PATH = pkgs.cudaPackages.cudatoolkit;
+          CUDA_HOME = pkgs.cudaPackages.cudatoolkit;
+          EXTRA_LDFLAGS = "-L${pkgs.linuxPackages.nvidia_x11}/lib";
+
+          # Ensure CUDA binaries (like nvidia-smi) are in PATH for diagnostics
+          PATH = pkgs.lib.makeBinPath [
+            pkgs.cudaPackages.cudatoolkit
+          ];
+
+          shellHook = ''
+            echo "Entering Demucs CUDA development shell"
+            
+            # Create and activate Python virtual environment
+            if [ ! -d ".venv-demucs" ]; then
+              echo "Creating Demucs virtual environment..."
+              ${pkgs.python311}/bin/python3.11 -m venv .venv
+            fi
+            source .venv/bin/activate
+
+            # Set CUDA variables
+            export CUDA_VISIBLE_DEVICES=0
+            export XDG_CACHE_HOME="$HOME/.cache"
+
+            # Upgrade pip and install Torch with CUDA support
+            pip install --upgrade pip
+
+            # Upgrade pip and install Torch with CUDA support
+            pip install --upgrade pip
+            
+            # Using the standard PyTorch CUDA 12.1+ index which is stable for Demucs
+            pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu121
+
+            # Install Demucs
+            pip install -U demucs diffq soundfile
+
+            echo "---------------------------------------------------------"
+            echo "Demucs is ready! To separate a track, run:"
+            echo "demucs --two-stems=vocals 'your_file.mp3'"
+            echo "---------------------------------------------------------"
+          '';
+        };
+      });
+}
+#+end_src
+
+***** flake.lock
+
+#+NAME: demucs-flake.lock
+#+begin_src nix
+{
+  "nodes": {
+    "flake-utils": {
+      "inputs": {
+        "systems": "systems"
+      },
+      "locked": {
+        "lastModified": 1731533236,
+        "narHash": "sha256-l0KFg5HjrsfsO/JpG+r7fRrqm12kzFHyUHqHCVpMMbI=",
+        "owner": "numtide",
+        "repo": "flake-utils",
+        "rev": "11707dc2f618dd54ca8739b309ec4fc024de578b",
+        "type": "github"
+      },
+      "original": {
+        "owner": "numtide",
+        "repo": "flake-utils",
+        "type": "github"
+      }
+    },
+    "nixpkgs": {
+      "locked": {
+        "lastModified": 1769789167,
+        "narHash": "sha256-kKB3bqYJU5nzYeIROI82Ef9VtTbu4uA3YydSk/Bioa8=",
+        "owner": "NixOS",
+        "repo": "Nixpkgs",
+        "rev": "62c8382960464ceb98ea593cb8321a2cf8f9e3e5",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "nixos-unstable",
+        "repo": "Nixpkgs",
+        "type": "github"
+      }
+    },
+    "root": {
+      "inputs": {
+        "flake-utils": "flake-utils",
+        "nixpkgs": "nixpkgs"
+      }
+    },
+    "systems": {
+      "locked": {
+        "lastModified": 1681028828,
+        "narHash": "sha256-Vy1rq5AaRuLzOxct8nz4T6wlgyUR7zLU309k9mBC768=",
+        "owner": "nix-systems",
+        "repo": "default",
+        "rev": "da67096a3b9bf56a91d16901293e51ba5b49a27e",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-systems",
+        "repo": "default",
+        "type": "github"
+      }
+    }
+  },
+  "root": "root",
+  "version": 7
+}
+#+end_src
+
+**** demucs tangle
+***** flake.nix
+****** home dir
+
+#+NAME: demucs-flake.nix-home-dir
+#+BEGIN_SRC nix :tangle "~/nix/demucs/flake.nix"
+<<demucs-flake.nix>>
+#+END_SRC
+
+****** current dir
+
+#+NAME: demucs-flake.nix-current-dir
+#+BEGIN_SRC nix :tangle "nix/demucs/flake.nix"
+<<demucs-flake.nix>>
+#+END_SRC
+
+***** flake.lock
+****** home dir
+
+#+NAME: demucs-flake.lock-home-dir
+#+BEGIN_SRC nix :tangle "~/nix/demucs/flake.lock"
+<<demucs-flake.lock>>
+#+END_SRC
+
+****** current dir
+
+#+NAME: demucs-flake.lock-current-dir
+#+BEGIN_SRC nix :tangle "nix/demucs/flake.lock"
+<<demucs-flake.lock>>
+#+END_SRC
+
 *** ollama-cuda
 **** ollama-cuda config
 ***** flake.nix
