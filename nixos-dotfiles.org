@@ -1967,6 +1967,9 @@ It is a way for multiple applications to share a single configuration (in Emacs 
   (setq gptel-model 'gemma3:4b)
   (setq gptel-model 'deepseek-r1:8b)
   (setq gptel-model 'rnj-1:8b-instruct-q4_K_M)
+  (setq gptel-model 'codegemma:7b)
+  (setq gptel-model 'deepseek-coder-v2-gpu-20)
+
   (setq gptel-backend (gptel-make-ollama "Ollama"
                         :host "localhost:11434"
                         :stream t
@@ -1974,7 +1977,9 @@ It is a way for multiple applications to share a single configuration (in Emacs 
                                   llama3.2:3b
                                   gemma3:4b
                                   deepseek-r1:8b
-                                  rnj-1:8b-instruct-q4_K_M)))
+                                  rnj-1:8b-instruct-q4_K_M
+                                  codegemma:7b
+                                  deepseek-coder-v2-gpu-20)))
   
   (setq gptel-model 'gemini-3-flash-preview)
   (setq gptel-backend (gptel-make-gemini "Gemini"
@@ -4739,6 +4744,18 @@ export OLLAMA_HOST=0.0.0.0:11434
 ollama serve
 #+end_src
 
+***** modelfiles
+****** deepseek-coder-v2-custom.modelfile
+
+#+NAME: deepseek-coder-v2-custom
+#+begin_src sh
+FROM deepseek-coder-v2:16b-lite-instruct-q4_K_M
+# Limit GPU layers to keep 1GB VRAM free for your NixOS desktop
+PARAMETER num_gpu 20
+# Cap context to 8192 to prevent slow-down as the chat gets long
+PARAMETER num_ctx 8192
+#+end_src
+
 **** ollama-cuda tangle
 ***** flake.nix
 ****** home dir
@@ -4797,6 +4814,22 @@ ollama serve
 
 #+NAME: ollama-start-current-dir
 #+BEGIN_SRC sh :tangle "nix/ollama-cuda/ollama-start" :tangle-mode (identity #o755)
+<<ollama-start>>
+#+END_SRC
+
+***** modelfiles
+****** deepseek-coder-v2-custom.modelfile
+******* home dir
+
+#+NAME: deepseek-coder-v2-custom-home-dir
+#+BEGIN_SRC sh :tangle "~/nix/ollama-cuda/modelfiles/deepseek-coder-v2-custom.modelfile" 
+<<deepseek-coder-v2-custom>>
+#+END_SRC
+
+******* current dir
+
+#+NAME: deepseek-coder-v2-custom-current-dir
+#+BEGIN_SRC sh :tangle "nix/ollama-cuda/modelfiles/deepseek-coder-v2-custom.modelfile"
 <<ollama-start>>
 #+END_SRC
 
