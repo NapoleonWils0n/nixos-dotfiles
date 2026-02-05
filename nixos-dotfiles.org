@@ -1980,7 +1980,8 @@ It is a way for multiple applications to share a single configuration (in Emacs 
                                   codegemma:7b)))
 
  (setq gptel-backend (gptel-make-ollama "OllamaCloud"
-                       :host "api.ollama.com" ;; Note: Check the official API endpoint in your dashboard
+                       :host "ollama.com"       ;; Use ollama.com instead of api.ollama.com
+                       :protocol "https"        ;; MUST be https for cloud
                        :key (gptel-api-key-from-auth-source "ollama.com")
                        :stream t
                        :models '(deepseek-v3.1:671b-cloud
