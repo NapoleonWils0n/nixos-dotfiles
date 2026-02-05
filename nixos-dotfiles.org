@@ -4742,23 +4742,6 @@ export OLLAMA_HOST=0.0.0.0:11434
 ollama serve
 #+end_src
 
-***** modelfiles
-****** deepseek-coder-v2-custom.modelfile
-
-#+NAME: deepseek-coder-v2-custom
-#+begin_src sh
-FROM deepseek-coder-v2:16b-lite-instruct-q4_K_M
-
-# Lowering to 15 layers is a safer bet for a 4GB card
-PARAMETER num_gpu 15
-
-# 4096 is enough for a few files of Rust code but small enough for your VRAM.
-PARAMETER num_ctx 4096
-
-# Optional: Disable some overhead
-PARAMETER f16_kv false
-#+end_src
-
 **** ollama-cuda tangle
 ***** flake.nix
 ****** home dir
@@ -4817,22 +4800,6 @@ PARAMETER f16_kv false
 
 #+NAME: ollama-start-current-dir
 #+BEGIN_SRC sh :tangle "nix/ollama-cuda/ollama-start" :tangle-mode (identity #o755)
-<<ollama-start>>
-#+END_SRC
-
-***** modelfiles
-****** deepseek-coder-v2-custom.modelfile
-******* home dir
-
-#+NAME: deepseek-coder-v2-custom-home-dir
-#+BEGIN_SRC sh :tangle "~/nix/ollama-cuda/modelfiles/deepseek-coder-v2-custom.modelfile" 
-<<deepseek-coder-v2-custom>>
-#+END_SRC
-
-******* current dir
-
-#+NAME: deepseek-coder-v2-custom-current-dir
-#+BEGIN_SRC sh :tangle "nix/ollama-cuda/modelfiles/deepseek-coder-v2-custom.modelfile"
 <<ollama-start>>
 #+END_SRC
 
