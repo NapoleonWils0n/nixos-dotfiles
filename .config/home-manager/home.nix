@@ -56,6 +56,7 @@
   # environment.
   home.packages = with pkgs; [
     abook
+    adwaita-qt6
     apg
     alacritty
     aria2
@@ -107,6 +108,7 @@
     python313Packages.python-lsp-server
     python314
     pwgen
+    qbittorrent
     qpwgraph
     realesrgan-ncnn-vulkan
     ripgrep
@@ -115,7 +117,6 @@
     tofi
     tmux
     translate-shell
-    transmission_4-gtk
     tree
     ts
     unzip
@@ -186,6 +187,16 @@ gtk = {
   gtk4.extraConfig = {
     gtk-application-prefer-dark-theme = true;
   };
+};
+
+# qt
+qt = {
+    enable = true;
+    platformTheme.name = "adwaita";
+    style = {
+      name = "adwaita-dark";
+      package = pkgs.adwaita-qt6;
+   };
 };
 
 # mpv mpris 
