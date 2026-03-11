@@ -7126,7 +7126,13 @@ set-window-option -g mode-keys vi
 
 # Some tweaks to the status line
 #set -g status-right "%H:%M" # date and time
-set -g status-right "" # date and time
+# 1. Remove the session name from the left side
+set -g status-left " " # date and time
+
+# 2. Put the window list on the left (this is usually default)
+set -g status-justify left
+
+set -g status-right "[#S]" # date and time
 set -g status-right-style fg=color245
 
 # If running inside tmux ($TMUX is set), then change the status line to red
