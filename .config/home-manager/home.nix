@@ -68,6 +68,7 @@
     chromium
     curl
     csvkit
+    darktable
     deno
     dict
     dictdDBs.wordnet
