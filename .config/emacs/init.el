@@ -1461,7 +1461,8 @@
 ;; ----------------------------------------------------------------------------------
 
 ;; Make gc pauses faster by decreasing the threshold.
-(setq gc-cons-threshold (* 2 1000 1000))
+;;(setq gc-cons-threshold (* 2 1000 1000))
+(setq gc-cons-threshold (* 64 1000 1000)) ;; 64 MB for images
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
