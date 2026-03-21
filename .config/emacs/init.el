@@ -669,6 +669,23 @@
 
 
 ;; ----------------------------------------------------------------------------------
+;; imv image viewer
+;; ----------------------------------------------------------------------------------
+
+(defun dired-imv-marked-files ()
+  "Open all marked files in a single instance of imv."
+  (interactive)
+  (let ((files (dired-get-marked-files)))
+    (if files
+        (apply 'start-process "imv-process" nil "imv" files)
+      (message "No files marked!"))))
+
+;; Bind it to your preferred key
+(with-eval-after-load 'dired
+  (define-key dired-mode-map (kbd "C-c i") 'dired-imv-marked-files))
+
+
+;; ----------------------------------------------------------------------------------
 ;; fd-dired
 ;; ----------------------------------------------------------------------------------
 
