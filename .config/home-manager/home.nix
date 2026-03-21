@@ -86,6 +86,7 @@
     grim
     graphviz
     imagemagick
+    imv
     iosevka
     kodi-wayland
     libnotify
@@ -99,7 +100,6 @@
     nerd-fonts.fira-code
     noto-fonts-color-emoji
     nixd
-    nsxiv
     oath-toolkit
     obs-cmd
     openvpn

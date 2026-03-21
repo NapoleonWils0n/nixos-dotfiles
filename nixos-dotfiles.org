@@ -3352,6 +3352,7 @@ a old-string and a new-string, new-string will replace the old-string at the spe
     grim
     graphviz
     imagemagick
+    imv
     iosevka
     kodi-wayland
     libnotify
@@ -3365,7 +3366,6 @@ a old-string and a new-string, new-string will replace the old-string at the spe
     nerd-fonts.fira-code
     noto-fonts-color-emoji
     nixd
-    nsxiv
     oath-toolkit
     obs-cmd
     openvpn
@@ -7483,6 +7483,41 @@ fs-screen-name=DP-3
 <<yt-dlp>>
 #+END_SRC
 
+** imv
+*** imv config
+
+#+NAME: imv
+#+BEGIN_SRC toml
+[options]
+# Fix the background color to black
+background = 000000
+# Ensure it starts in a clean way
+fullscreen = false
+
+[binds]
+# Map 'h' and 'l' (Vim style) for the Ducky Mini
+l = next
+h = prev
+
+# Close with 'q'
+q = quit
+#+END_SRC
+
+*** imv tangle
+**** home dir
+
+#+NAME: imv-home-dir
+#+BEGIN_SRC conf :tangle "~/.config/imv/config"
+<<imv>>
+#+END_SRC
+
+**** current dir
+
+#+NAME: imv-current-dir
+#+BEGIN_SRC conf :tangle ".config/imv/config"
+<<imv>>
+#+END_SRC
+
 ** uxplay
 *** uxplay config
 
@@ -8045,6 +8080,19 @@ Exec=/run/wrappers/bin/doas /home/djwilcox/bin/namespace firefox --ProfileManage
 Name=Profile Manager
 #+end_src
 
+**** imv config
+
+#+NAME: imv-desktop
+#+begin_src conf
+[Desktop Entry]
+Type=Application
+Name=imv
+Exec=imv %F
+Icon=image-viewer
+Terminal=false
+MimeType=image/jpeg;image/png;image/gif;image/webp;
+#+end_src
+
 **** obs-studio config
 
 #+NAME: obs-desktop
@@ -8088,6 +8136,21 @@ Comment[en_GB]=Free and Open Source Streaming/Recording Software
 #+NAME: firefox-vpn-desktop-current-dir
 #+BEGIN_SRC conf :tangle ".local/share/applications/firefox_vpn.desktop"
 <<firefox-vpn-desktop>>
+#+END_SRC
+
+**** imv tangle
+***** home dir
+  
+#+NAME: imv-desktop-home-dir
+#+BEGIN_SRC conf :tangle "~/.local/share/applications/imv.desktop"
+<<imv-desktop>>
+#+END_SRC
+
+***** current dir
+
+#+NAME: imv-desktop-current-dir
+#+BEGIN_SRC conf :tangle ".local/share/applications/imv.desktop"
+<<imv-desktop>>
 #+END_SRC
 
 **** obs-studio tangle

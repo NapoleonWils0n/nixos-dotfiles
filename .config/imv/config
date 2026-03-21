@@ -1,0 +1,13 @@
+[options]
+# Fix the background color to black
+background = 000000
+# Ensure it starts in a clean way
+fullscreen = false
+
+[binds]
+# Map 'h' and 'l' (Vim style) for the Ducky Mini
+l = next
+h = prev
+
+# Close with 'q'
+q = quit
