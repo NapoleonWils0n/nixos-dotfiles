@@ -8045,19 +8045,6 @@ Exec=/run/wrappers/bin/doas /home/djwilcox/bin/namespace firefox --ProfileManage
 Name=Profile Manager
 #+end_src
 
-**** nsxiv config
-
-#+NAME: nsxiv-desktop
-#+begin_src conf
-[Desktop Entry]
-Type=Application
-Name=nsxiv
-Exec=nsxiv %F
-Icon=image-viewer
-Terminal=false
-MimeType=image/jpeg;image/png;image/gif;image/webp;
-#+end_src
-
 **** obs-studio config
 
 #+NAME: obs-desktop
@@ -8101,21 +8088,6 @@ Comment[en_GB]=Free and Open Source Streaming/Recording Software
 #+NAME: firefox-vpn-desktop-current-dir
 #+BEGIN_SRC conf :tangle ".local/share/applications/firefox_vpn.desktop"
 <<firefox-vpn-desktop>>
-#+END_SRC
-
-**** nsxiv tangle
-***** home dir
-  
-#+NAME: nsxiv-desktop-home-dir
-#+BEGIN_SRC conf :tangle "~/.local/share/applications/nsxiv.desktop"
-<<nsxiv-desktop>>
-#+END_SRC
-
-***** current dir
-
-#+NAME: nsxiv-desktop-current-dir
-#+BEGIN_SRC conf :tangle ".local/share/applications/nsxiv.desktop"
-<<nsxiv-desktop>>
 #+END_SRC
 
 **** obs-studio tangle
