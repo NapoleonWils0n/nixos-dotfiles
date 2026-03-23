@@ -8139,6 +8139,26 @@ GenericName[en_GB]=Streaming/Recording Software
 Comment[en_GB]=Free and Open Source Streaming/Recording Software
 #+end_src
 
+**** qbittorrent-vpn config
+
+#+NAME: qbittorrent-vpn-desktop
+#+begin_src conf
+[Desktop Entry]
+Categories=Network;FileTransfer;P2P;Qt;
+Exec=/run/wrappers/bin/doas /home/djwilcox/bin/namespace qbittorrent %U
+GenericName=BitTorrent client
+Comment=Download and share files over BitTorrent
+Icon=qbittorrent
+MimeType=application/x-bittorrent;x-scheme-handler/magnet;
+Name=qBittorrent-vpn
+Terminal=false
+Type=Application
+StartupNotify=false
+StartupWMClass=qbittorrent
+Keywords=bittorrent;torrent;magnet;download;p2p;
+SingleMainWindow=true
+#+end_src
+
 *** desktop files tangle
 **** firefox-vpn tangle
 ***** home dir
@@ -8183,6 +8203,21 @@ Comment[en_GB]=Free and Open Source Streaming/Recording Software
 #+NAME: obs-desktop-current-dir
 #+BEGIN_SRC conf :tangle ".local/share/applications/com.obsproject.Studio.desktop"
 <<obs-desktop>>
+#+END_SRC
+
+**** qbittorrent-vpn tangle
+***** home dir
+  
+#+NAME: qbittorrent-vpn-desktop-home-dir
+#+BEGIN_SRC conf :tangle "~/.local/share/applications/qbittorrent-vpn.desktop"
+<<qbittorrent-vpn-desktop>>
+#+END_SRC
+
+***** current dir
+
+#+NAME: qbittorrent-vpn-desktop-current-dir
+#+BEGIN_SRC conf :tangle ".local/share/applications/qbittorrent-vpn.desktop"
+<<qbittorrent-vpn-desktop>>
 #+END_SRC
 
 ** gitconfig
