@@ -6,6 +6,7 @@
     enable = true;
     package = pkgs.firefox;
     policies = {};
+    extraPolicies = {};
       profiles = {
         default = {
           isDefault = true;
