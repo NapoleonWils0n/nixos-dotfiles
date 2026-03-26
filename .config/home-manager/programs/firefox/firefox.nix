@@ -4,9 +4,18 @@
 
   programs.firefox = {
     enable = true;
-    package = pkgs.firefox;
-    policies = {};
-    extraPolicies = {};
+    package = pkgs.wrapFirefox pkgs.firefox-unwrapped {
+    extraPolicies = {
+      DisableFirefoxStudies = true;
+      DisablePocket = true;
+      DisableTelemetry = true;
+      DisableFirefoxAccounts = true;
+      NoDefaultBookmarks = true;
+      OfferToSaveLogins = false;
+      OffertosaveloginsDefault = false;
+      PasswordManagerEnabled = false;
+      };
+    };
       profiles = {
         default = {
           isDefault = true;
