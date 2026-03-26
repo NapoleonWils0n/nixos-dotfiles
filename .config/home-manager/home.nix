@@ -30,6 +30,7 @@
     userDirs = {
       enable = true;
       createDirectories = true;
+      setSessionVariables = true;
       publicShare = null;
       templates = null;
     };
@@ -182,6 +183,7 @@ systemd.user.sessionVariables = {
 # gtk
 gtk = {
   enable = true;
+  gtk4.theme = null;
   gtk3.extraConfig = {
     gtk-application-prefer-dark-theme = true;
   };
