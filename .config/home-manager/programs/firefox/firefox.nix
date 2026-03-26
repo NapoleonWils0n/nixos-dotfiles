@@ -4,8 +4,6 @@
 
   programs.firefox = {
     enable = true;
-    package = pkgs.wrapFirefox pkgs.firefox-unwrapped {
-    };
       profiles = {
         default = {
           isDefault = true;
