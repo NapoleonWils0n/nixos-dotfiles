@@ -117,6 +117,7 @@
     shellcheck-minimal
     sox
     tofi
+    tor-browser
     tmux
     translate-shell
     tree
