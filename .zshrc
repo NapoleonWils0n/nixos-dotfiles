@@ -190,6 +190,40 @@ ZSH_HIGHLIGHT_PATTERNS=('rm -rf *' 'fg=white,bold,bg=red')
 
 
 #===============================================================================
+# Edit and Auto-Execute Command Line in External Editor (CTRL-X CTRL-E)
+#===============================================================================
+
+# Load the 'edit-command-line' function from the Zsh distribution
+# -U: Ignore aliases for this function; -z: Use zsh-style autoloading
+autoload -Uz edit-command-line
+
+# Register 'edit-command-line' as a ZLE widget so it can be bound to keys
+zle -N edit-command-line
+
+# Define a wrapper function to both open the editor and execute the line on exit
+edit-and-execute-command() {
+  # Call the built-in widget to open the buffer in $EDITOR (Emacs)
+  zle edit-command-line
+  
+  # Once the editor closes, 'accept' the line to execute it immediately
+  zle accept-line
+}
+
+# Register the wrapper function as a new ZLE widget
+zle -N edit-and-execute-command
+
+# Map the shortcut for different Zsh modes:
+# 1. Standard/Main keymap
+bindkey '^X^E' edit-and-execute-command
+
+# 2. Vi-Insert mode (while typing, indicated by your [i] prompt)
+bindkey -M viins '^X^E' edit-and-execute-command
+
+# 3. Vi-Command mode (after hitting Escape, indicated by your [n] prompt)
+bindkey -M vicmd '^X^E' edit-and-execute-command
+
+
+#===============================================================================
 # script completions
 #===============================================================================
 
