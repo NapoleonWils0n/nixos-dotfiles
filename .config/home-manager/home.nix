@@ -78,7 +78,7 @@
     fd
     fdk-aac-encoder
     ffmpeg-full
-    pkgs-master.ffmpegthumbnailer
+    ffmpegthumbnailer
     file
     fira-code
     gcc
@@ -124,10 +124,10 @@
     tree
     ts
     unzip
-    pkgs-master.yt-dlp
+    yt-dlp
     wbg
     wget
-    pkgs-master.widevine-cdm
+    widevine-cdm
     wl-clipboard
     wlrctl
     wlr-which-key
@@ -211,13 +211,6 @@ nixpkgs.overlays = [
       scripts = [ self.mpvScripts.mpris ];
     };
   })
-# New overlay to skip Deno tests and unblock yt-dlp/mpv
-    (final: prev: {
-      deno = prev.deno.overrideAttrs (oldAttrs: {
-        doCheck = false;
-        doInstallCheck = false;
-      });
-    })
 ];
 
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
