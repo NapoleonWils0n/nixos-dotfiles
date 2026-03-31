@@ -1369,7 +1369,7 @@
   (setq gptel-model 'rnj-1:8b-instruct-q4_K_M)
   (setq gptel-model 'codegemma:7b)
   (setq gptel-model 'qwen3.5:2b)
-  (setq gptel-model 'huihui_ai/qwen3.5-abliterated:2b )
+  (setq gptel-model 'huihui_ai/qwen3.5-abliterated:2b)
 
   (setq gptel-backend (gptel-make-ollama "Ollama"
                         :host "localhost:11434"
