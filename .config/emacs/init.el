@@ -1453,7 +1453,7 @@
                                    :args ("run" "-i" "--rm"
                                           "--network=host"
                                           "-e" "SEARXNG_URL=http://localhost:8080"
-                                          "mcp-searxng:local")
+                                          "mcp-searxng-enhanced:local")
                                    ))
                      )) ;; closing parentheses
 
