@@ -1364,10 +1364,7 @@
   :config
   (setq gptel-model 'llama3.1:8b)
   (setq gptel-model 'llama3.2:3b)
-  (setq gptel-model 'gemma3:4b)
   (setq gptel-model 'deepseek-r1:8b)
-  (setq gptel-model 'rnj-1:8b-instruct-q4_K_M)
-  (setq gptel-model 'codegemma:7b)
   (setq gptel-model 'qwen3.5:2b)
   (setq gptel-model 'huihui_ai/qwen3.5-abliterated:2b)
 
@@ -1378,10 +1375,7 @@
                                   llama3.2:3b
                                   huihui_ai/qwen3.5-abliterated:2b 
                                   qwen3.5:2b
-                                  gemma3:4b
-                                  deepseek-r1:8b
-                                  rnj-1:8b-instruct-q4_K_M
-                                  codegemma:7b)))
+                                  deepseek-r1:8b)))
 
  (setq gptel-backend (gptel-make-ollama "OllamaCloud"
                        :host "ollama.com"       ;; Use ollama.com instead of api.ollama.com
