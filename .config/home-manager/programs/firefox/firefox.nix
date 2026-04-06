@@ -37,8 +37,8 @@
           user_pref("browser.safebrowsing.malware.enabled", false);
           // browser search
           user_pref("browser.search.hiddenOneOffs", "Google,Yahoo,Bing,Amazon.com,Twitter");
-          // browser search suggest = true
-          user_pref("browser.search.suggest.enabled", true);
+          // browser search suggest = false
+          user_pref("browser.search.suggest.enabled", false);
           // search bar in toolbar
           user_pref("browser.search.widget.inNavBar", true);
           // browser send pings = false
@@ -72,18 +72,18 @@
           user_pref("browser.urlbar.shortcuts.history", false);
           // urlbar shortcuts tabs = false
           user_pref("browser.urlbar.shortcuts.tabs", false);
-          // urlbar show search suggestions first = true
-          user_pref("browser.urlbar.showSearchSuggestionsFirst", true);
+          // urlbar show search suggestions first = false
+          user_pref("browser.urlbar.showSearchSuggestionsFirst", false);
           // urlbar suggest bookmarks = false
           user_pref("browser.urlbar.suggest.bookmark", false);
-          // urlbar suggest engines = true
-          user_pref("browser.urlbar.suggest.engines", true);
+          // urlbar suggest engines = false
+          user_pref("browser.urlbar.suggest.engines", false);
           // urlbar suggest history = false
           user_pref("browser.urlbar.suggest.history", false);
           // urlbar suggest open page = false
           user_pref("browser.urlbar.suggest.openpage", false);
-          // urlbar suggest searches = true
-          user_pref("browser.urlbar.suggest.searches", true);
+          // urlbar suggest searches = false
+          user_pref("browser.urlbar.suggest.searches", false);
           // urlbar suggest topsites = false
           user_pref("browser.urlbar.suggest.topsites", false);
           // firefox healthreport upload = false
