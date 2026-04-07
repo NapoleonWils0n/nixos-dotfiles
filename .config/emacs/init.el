@@ -1357,6 +1357,8 @@
   :init
   ;; Enable tool use
   (setq gptel-use-tools t)
+  ;; track media
+  (setq gptel-track-media t)
   (setq gptel-default-mode 'org-mode
         gptel-post-response-functions #'gptel-end-of-response
         gptel-expert-commands t)
