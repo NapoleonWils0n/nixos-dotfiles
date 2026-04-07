@@ -1439,12 +1439,41 @@
 ;; gptel silence tool output
 ;; ----------------------------------------------------------------------------------
 
-  (defun my/gptel-silence-tools (orig-fun &rest args)
-      "Silence echo area messages while running gptel tools."
-      (let ((inhibit-message t))
-        (apply orig-fun args)))
-  
-    (advice-add 'gptel-send :around #'my/gptel-silence-tools)
+  ;; 1. Define the silence toggle
+  (defvar my/gptel-is-busy nil "Flag to track if gptel is waiting for a tool/response.")
+
+  ;; 2. Create the "Silence" Advice
+  (defun my/gptel-echo-area-silencer (orig-fun &rest args)
+    "Prevent messages from appearing in the echo area if gptel is busy."
+    (if my/gptel-is-busy
+        (let ((inhibit-message t))
+          (apply orig-fun args))
+      (apply orig-fun args)))
+
+  ;; 3. Attach it to the 'message' function itself
+  (advice-add 'message :around #'my/gptel-echo-area-silencer)
+
+  ;; 4. Set the flags when gptel starts and ends
+  (add-hook 'gptel-pre-response-hook (lambda (&rest _) (setq my/gptel-is-busy t)))
+  (add-hook 'gptel-post-response-functions (lambda (&rest _) (setq my/gptel-is-busy nil)))
+
+
+;; ----------------------------------------------------------------------------------
+;; gptel force scroll
+;; ----------------------------------------------------------------------------------
+
+  ;; 1. Define a function that forces the cursor to the end and scrolls
+  (defun my/gptel-force-scroll (&rest _)
+    "Force the cursor to the end of the buffer and scroll to show it."
+    (when (derived-mode-p 'org-mode) ; Only do this in Org buffers
+      (let ((gptel-win (get-buffer-window (current-buffer))))
+        (when gptel-win
+          (with-selected-window gptel-win
+            (goto-char (point-max))
+            (recenter -1)))))) ; -1 keeps the last line at the very bottom
+
+  ;; 2. Hook it into the streaming process
+  (add-hook 'gptel-post-stream-hook #'my/gptel-force-scroll)
 
 
 ;; ----------------------------------------------------------------------------------
