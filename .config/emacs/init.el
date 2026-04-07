@@ -1364,12 +1364,29 @@
         gptel-expert-commands t)
   (require 'gptel-integrations) 
   :config
+  (setq gptel-model 'gemini-3-flash-preview)
+  (setq gptel-backend (gptel-make-gemini "Gemini"
+                        :key (gptel-api-key-from-auth-source "generativelanguage.googleapis.com")
+                        :stream t
+                        :models '(gemini-2.5-flash
+                                  gemini-3-flash-preview)))
+
+  (setq gptel-backend (gptel-make-ollama "OllamaCloud"
+                        :host "ollama.com"       ;; Use ollama.com instead of api.ollama.com
+                        :protocol "https"        ;; MUST be https for cloud
+                        :key (gptel-api-key-from-auth-source "ollama.com")
+                        :stream t
+                        :models '(deepseek-v3.1:671b-cloud
+                                  qwen3-coder:480b-cloud
+                                  llama3.3:70b-cloud
+                                  gemini-3-pro-preview)))
+  
   (setq gptel-model 'llama3.1:8b)
   (setq gptel-model 'llama3.2:3b)
   (setq gptel-model 'deepseek-r1:8b)
   (setq gptel-model 'qwen3.5:2b)
   (setq gptel-model 'huihui_ai/qwen3.5-abliterated:2b)
-  (setq gptel-model 'gemma4-multimodal:latest)
+  (setq gptel-model 'gemma4-text:latest)
 
   (setq gptel-backend (gptel-make-ollama "Ollama"
                         :host "localhost:11434"
@@ -1379,25 +1396,7 @@
                                   huihui_ai/qwen3.5-abliterated:2b 
                                   qwen3.5:2b
                                   deepseek-r1:8b
-                                  gemma4-multimodal:latest :capabilities (media))))
-
- (setq gptel-backend (gptel-make-ollama "OllamaCloud"
-                       :host "ollama.com"       ;; Use ollama.com instead of api.ollama.com
-                       :protocol "https"        ;; MUST be https for cloud
-                       :key (gptel-api-key-from-auth-source "ollama.com")
-                       :stream t
-                       :models '(deepseek-v3.1:671b-cloud
-                                 qwen3-coder:480b-cloud
-                                 llama3.3:70b-cloud
-                                 gemini-3-pro-preview)))
-   
-  
-  (setq gptel-model 'gemini-3-flash-preview)
-  (setq gptel-backend (gptel-make-gemini "Gemini"
-                        :key (gptel-api-key-from-auth-source "generativelanguage.googleapis.com")
-                        :stream t
-                        :models '(gemini-2.5-flash
-                                  gemini-3-flash-preview)))
+                                  gemma4-text:latest)))
   
 
 ;; ----------------------------------------------------------------------------------
