@@ -168,6 +168,16 @@
 ;; mpd host
 (setq mpc-host "/run/user/1000/mpd/socket")
 
+;; kill ring
+(setq save-interprogram-paste-before-kill t)
+(setq kill-do-not-save-duplicates t)
+
+;; windows
+(setq window-combination-resize t)
+
+;; help window
+(setq help-window-select t)
+
 ;; ----------------------------------------------------------------------------------
 ;; TAB bar mode
 ;; ----------------------------------------------------------------------------------
