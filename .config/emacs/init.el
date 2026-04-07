@@ -1367,6 +1367,7 @@
   (setq gptel-model 'deepseek-r1:8b)
   (setq gptel-model 'qwen3.5:2b)
   (setq gptel-model 'huihui_ai/qwen3.5-abliterated:2b)
+  (setq gptel-model 'gemma4-multimodal:latest )
 
   (setq gptel-backend (gptel-make-ollama "Ollama"
                         :host "localhost:11434"
@@ -1374,6 +1375,7 @@
                         :models '(llama3.1:8b
                                   llama3.2:3b
                                   huihui_ai/qwen3.5-abliterated:2b 
+                                  gemma4-multimodal:latest 
                                   qwen3.5:2b
                                   deepseek-r1:8b)))
 
