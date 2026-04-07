@@ -1436,6 +1436,18 @@
 
 
 ;; ----------------------------------------------------------------------------------
+;; gptel silence tool output
+;; ----------------------------------------------------------------------------------
+
+  (defun my/gptel-silence-tools (orig-fun &rest args)
+      "Silence echo area messages while running gptel tools."
+      (let ((inhibit-message t))
+        (apply orig-fun args)))
+  
+    (advice-add 'gptel-send :around #'my/gptel-silence-tools)
+
+
+;; ----------------------------------------------------------------------------------
 ;; gptel-custom-tools.el loaded from ~/.config/emacs/lisp/gptel-custom-tools.el
 ;; ----------------------------------------------------------------------------------
 
