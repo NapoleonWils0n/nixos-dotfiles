@@ -1364,6 +1364,11 @@
         gptel-expert-commands t)
   (require 'gptel-integrations) 
   :config
+  ;; gptel auto scroll
+  (setq gptel-auto-scroll t)
+  (add-hook 'gptel-post-stream-hook 'gptel-auto-scroll)
+
+  ;; gemini
   (setq gptel-model 'gemini-3-flash-preview)
   (setq gptel-backend (gptel-make-gemini "Gemini"
                         :key (gptel-api-key-from-auth-source "generativelanguage.googleapis.com")
@@ -1371,6 +1376,7 @@
                         :models '(gemini-2.5-flash
                                   gemini-3-flash-preview)))
 
+  ;; ollama cloud
   (setq gptel-backend (gptel-make-ollama "OllamaCloud"
                         :host "ollama.com"       ;; Use ollama.com instead of api.ollama.com
                         :protocol "https"        ;; MUST be https for cloud
@@ -1381,6 +1387,7 @@
                                   llama3.3:70b-cloud
                                   gemini-3-pro-preview)))
   
+  ;; ollama
   (setq gptel-model 'llama3.1:8b)
   (setq gptel-model 'llama3.2:3b)
   (setq gptel-model 'deepseek-r1:8b)
