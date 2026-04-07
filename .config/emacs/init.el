@@ -1377,9 +1377,9 @@
                         :models '(llama3.1:8b
                                   llama3.2:3b
                                   huihui_ai/qwen3.5-abliterated:2b 
-                                  gemma4-multimodal:latest 
                                   qwen3.5:2b
-                                  deepseek-r1:8b)))
+                                  deepseek-r1:8b
+                                  gemma4-multimodal:latest :capabilities (media))))
 
  (setq gptel-backend (gptel-make-ollama "OllamaCloud"
                        :host "ollama.com"       ;; Use ollama.com instead of api.ollama.com
