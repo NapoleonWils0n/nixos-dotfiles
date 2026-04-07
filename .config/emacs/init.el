@@ -1459,24 +1459,6 @@
 
 
 ;; ----------------------------------------------------------------------------------
-;; gptel force scroll
-;; ----------------------------------------------------------------------------------
-
-  ;; 1. Define a function that forces the cursor to the end and scrolls
-  (defun my/gptel-force-scroll (&rest _)
-    "Force the cursor to the end of the buffer and scroll to show it."
-    (when (derived-mode-p 'org-mode) ; Only do this in Org buffers
-      (let ((gptel-win (get-buffer-window (current-buffer))))
-        (when gptel-win
-          (with-selected-window gptel-win
-            (goto-char (point-max))
-            (recenter -1)))))) ; -1 keeps the last line at the very bottom
-
-  ;; 2. Hook it into the streaming process
-  (add-hook 'gptel-post-stream-hook #'my/gptel-force-scroll)
-
-
-;; ----------------------------------------------------------------------------------
 ;; gptel-custom-tools.el loaded from ~/.config/emacs/lisp/gptel-custom-tools.el
 ;; ----------------------------------------------------------------------------------
 
