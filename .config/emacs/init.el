@@ -1403,7 +1403,8 @@
   (setq gptel-model 'deepseek-r1:8b)
   (setq gptel-model 'qwen3.5:2b)
   (setq gptel-model 'huihui_ai/qwen3.5-abliterated:2b)
-  (setq gptel-model 'gemma4-uncensored::latest)
+  (setq gptel-model 'gemma4-uncensored:latest)
+  (setq gptel-model 'gemma4-media:latest)
   (setq gptel-model 'gemma4-text:latest)
 
   (setq gptel-backend (gptel-make-ollama "Ollama"
@@ -1414,7 +1415,8 @@
                                   huihui_ai/qwen3.5-abliterated:2b 
                                   qwen3.5:2b
                                   deepseek-r1:8b
-                                  gemma4-uncensored::latest
+                                  gemma4-uncensored:latest
+                                  gemma4-media:latest
                                   gemma4-text:latest)))
   
 
