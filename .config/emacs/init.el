@@ -178,7 +178,7 @@
 ;; help window
 (setq help-window-select t)
 
-;; "eat" all the whitespace at once
+;; Eat all whitespace at once
 (setq backward-delete-char-untabify-method 'hungry)
 
 ;; 1MB - Great for Eglot and gptel
@@ -440,9 +440,12 @@
 (use-package evil
   :init
   (setq evil-want-keybinding nil
-        evil-want-C-i-jump nil)
+        evil-want-C-i-jump nil
+        evil-backspace-join-lines t)
   :config
-  (evil-mode 1))
+  (evil-mode 1)
+  ;; Force Evil to use the 'hungry' method you set in your general settings
+  (define-key evil-insert-state-map (kbd "DEL") 'backward-delete-char-untabify))
 
 
 ;; ----------------------------------------------------------------------------------
