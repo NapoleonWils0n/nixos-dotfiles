@@ -178,6 +178,12 @@
 ;; help window
 (setq help-window-select t)
 
+;; "eat" all the whitespace at once
+(setq backward-delete-char-untabify-method 'hungry)
+
+;; 1MB - Great for Eglot and gptel
+(setq read-process-output-max (* 1024 1024)) 
+
 ;; ----------------------------------------------------------------------------------
 ;; TAB bar mode
 ;; ----------------------------------------------------------------------------------
