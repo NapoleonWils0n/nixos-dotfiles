@@ -30,6 +30,7 @@
     "org/gnome/desktop/input-sources" = {
      color-scheme = "prefer-dark";
   };
+  };
  
   # xdg directories
   xdg = {

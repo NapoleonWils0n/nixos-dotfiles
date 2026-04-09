@@ -3365,6 +3365,7 @@ a old-string and a new-string, new-string will replace the old-string at the spe
     "org/gnome/desktop/input-sources" = {
      color-scheme = "prefer-dark";
   };
+  };
  
   # xdg directories
   xdg = {
