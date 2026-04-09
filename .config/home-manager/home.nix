@@ -189,13 +189,6 @@ systemd.user.sessionVariables = {
 #  WAYLAND_DISPLAY = "wayland-0";
 };
 
-# dwl wayland
-xdg.configFile."environment.d/20-dwl.conf".text = ''
-  # If COSMIC hasn't claimed the session, we assume dwl
-  WAYLAND_DISPLAY=''${WAYLAND_DISPLAY:-wayland-0}
-  XDG_CURRENT_DESKTOP=''${XDG_CURRENT_DESKTOP:-dwl}
-'';
-
 # gtk
 gtk = {
   enable = true;
