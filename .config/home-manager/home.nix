@@ -45,14 +45,6 @@
   }; 
 
 
-  # --- OBS Studio Configuration for wlrobs ---
-  programs.obs-studio = {
-    enable = true;
-    plugins = with pkgs; [
-      obs-studio-plugins.wlrobs
-    ];
-  };
-
   # The home.packages option allows you to install Nix packages into your
   # environment.
   home.packages = with pkgs; [
@@ -93,6 +85,7 @@
     kodi-wayland
     libnotify
     libwebp
+    obs-studio
     openssl
     mpc
     mpd
