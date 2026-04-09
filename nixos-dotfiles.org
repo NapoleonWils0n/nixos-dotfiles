@@ -3524,6 +3524,21 @@ systemd.user.sessionVariables = {
 #  WAYLAND_DISPLAY = "wayland-0";
 };
 
+# dwl wayland socket
+xdg.configFile."systemd/user-environment-generators/wayland-selector" = {
+    executable = true;
+    text = ''
+      #!/bin/sh
+      # If dwl is running, we tell systemd to use wayland-0
+      # Otherwise, we stay out of the way so COSMIC can use wayland-1
+      if pgrep -x "dwl" > /dev/null; then
+        echo "WAYLAND_DISPLAY=wayland-0"
+        echo "XDG_CURRENT_DESKTOP=dwl"
+      fi
+    '';
+};
+
+
 # gtk
 gtk = {
   enable = true;
