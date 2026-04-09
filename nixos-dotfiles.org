@@ -3524,20 +3524,34 @@ systemd.user.sessionVariables = {
 #  WAYLAND_DISPLAY = "wayland-0";
 };
 
-# dwl wayland socket
-xdg.configFile."systemd/user-environment-generators/wayland-selector" = {
-    executable = true;
-    text = ''
-      #!/bin/sh
-      # If dwl is running, we tell systemd to use wayland-0
-      # Otherwise, we stay out of the way so COSMIC can use wayland-1
-      if pgrep -x "dwl" > /dev/null; then
-        echo "WAYLAND_DISPLAY=wayland-0"
-        echo "XDG_CURRENT_DESKTOP=dwl"
-      fi
-    '';
-};
 
+# dwl wayland socket
+systemd.user.services.link-wayland-display = {
+    Unit = {
+      Description = "Link WAYLAND_DISPLAY for dwl portals";
+      # Only run this if we aren't in COSMIC
+      ConditionEnvironment = "!XDG_CURRENT_DESKTOP=COSMIC";
+      After = [ "graphical-session-pre.target" ];
+      Partof = [ "graphical-session.target" ];
+    };
+
+    Service = {
+      Type = "oneshot";
+      # Wait briefly for dwl to create the socket, then push variables to systemd
+      ExecStart = pkgs.writeShellScript "link-wayland" ''
+        while [ ! -S "$XDG_RUNTIME_DIR/wayland-0" ]; do
+          sleep 0.1
+        done
+        ${pkgs.systemd}/bin/systemctl --user set-environment WAYLAND_DISPLAY=wayland-0
+        ${pkgs.systemd}/bin/systemctl --user set-environment XDG_CURRENT_DESKTOP=dwl
+        ${pkgs.dbus}/bin/dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP
+      '';
+    };
+
+    Install = {
+      WantedBy = [ "graphical-session.target" ];
+    };
+};
 
 # gtk
 gtk = {
