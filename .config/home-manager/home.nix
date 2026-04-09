@@ -24,6 +24,12 @@
   imports = [
     ./programs/firefox/firefox.nix
   ];
+
+  # dconf
+  dconf.settings = {
+    "org/gnome/desktop/input-sources" = {
+     color-scheme = "prefer-dark";
+  };
  
   # xdg directories
   xdg = {
@@ -179,7 +185,7 @@ services = {
 # systemd
 systemd.user.sessionVariables = {
   SSH_AUTH_SOCK = "/run/user/1000/keyring/ssh";
-#  WAYLAND_DISPLAY = "wayland-0";
+  WAYLAND_DISPLAY = if (builtins.getEnv "XDG_CURRENT_DESKTOP" != "COSMIC") then "wayland-0" else null;
 };
 
 # gtk
