@@ -189,34 +189,12 @@ systemd.user.sessionVariables = {
 #  WAYLAND_DISPLAY = "wayland-0";
 };
 
-
-# dwl wayland socket
-systemd.user.services.link-wayland-display = {
-    Unit = {
-      Description = "Link WAYLAND_DISPLAY for dwl portals";
-      # Only run this if we aren't in COSMIC
-      ConditionEnvironment = "!XDG_CURRENT_DESKTOP=COSMIC";
-      After = [ "graphical-session-pre.target" ];
-      Partof = [ "graphical-session.target" ];
-    };
-
-    Service = {
-      Type = "oneshot";
-      # Wait briefly for dwl to create the socket, then push variables to systemd
-      ExecStart = pkgs.writeShellScript "link-wayland" ''
-        while [ ! -S "$XDG_RUNTIME_DIR/wayland-0" ]; do
-          sleep 0.1
-        done
-        ${pkgs.systemd}/bin/systemctl --user set-environment WAYLAND_DISPLAY=wayland-0
-        ${pkgs.systemd}/bin/systemctl --user set-environment XDG_CURRENT_DESKTOP=dwl
-        ${pkgs.dbus}/bin/dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP
-      '';
-    };
-
-    Install = {
-      WantedBy = [ "graphical-session.target" ];
-    };
-};
+# dwl wayland
+xdg.configFile."environment.d/20-dwl.conf".text = ''
+  # If COSMIC hasn't claimed the session, we assume dwl
+  WAYLAND_DISPLAY=''${WAYLAND_DISPLAY:-wayland-0}
+  XDG_CURRENT_DESKTOP=''${XDG_CURRENT_DESKTOP:-dwl}
+'';
 
 # gtk
 gtk = {
