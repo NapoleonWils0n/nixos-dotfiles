@@ -24,13 +24,6 @@
   imports = [
     ./programs/firefox/firefox.nix
   ];
-
-  # dconf
-  dconf.settings = {
-    "org/gnome/desktop/input-sources" = {
-     color-scheme = "prefer-dark";
-  };
-  };
  
   # xdg directories
   xdg = {
