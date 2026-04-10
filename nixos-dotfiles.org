@@ -4178,44 +4178,6 @@ Restart=always
 WantedBy=default.target
 #+end_src
 
-**** status-bar.service
-
-#+NAME: status-bar.service
-#+BEGIN_SRC conf
-[Unit]
-Description=dwl Custom Status Bar Feeder
-After=graphical-session.target
-BindsTo=graphical-session.target
-
-[Service]
-ExecStart=/home/djwilcox/bin/status-bar
-Restart=on-failure
-RestartSec=5
-Type=simple
-
-[Install]
-WantedBy=graphical-session.target
-#+END_SRC
-
-**** wallpaper.service
-
-#+NAME: wallpaper.service
-#+BEGIN_SRC conf
-[Unit]
-Description=wbg wlroots wallpaper
-After=graphical-session.target
-BindsTo=graphical-session.target
-
-[Service]
-ExecStart=/home/djwilcox/bin/wallpaper
-Restart=on-failure
-RestartSec=5
-Type=simple
-
-[Install]
-WantedBy=graphical-session.target
-#+END_SRC
-
 *** systemd tangle
 **** dictd.service
 ***** home dir
@@ -4232,36 +4194,6 @@ WantedBy=graphical-session.target
 <<dictd.service>>
 #+END_SRC
 
-**** status-bar.service
-***** home dir
-
-#+NAME: status-bar.service-home-dir
-#+BEGIN_SRC conf :tangle "~/.config/systemd/user/status-bar.service"
-<<status-bar.service>>
-#+END_SRC
-
-***** current dir
-
-#+NAME: status-bar.service-current-dir
-#+BEGIN_SRC conf :tangle ".config/systemd/user/status-bar.service"
-<<status-bar.service>>
-#+END_SRC
-
-**** wallpaper.service
-***** home dir
-
-#+NAME: wallpaper.service-home-dir
-#+BEGIN_SRC conf :tangle "~/.config/systemd/user/wallpaper.service"
-<<wallpaper.service>>
-#+END_SRC
-
-***** current dir
-
-#+NAME: wallpaper.service-current-dir
-#+BEGIN_SRC conf :tangle ".config/systemd/user/wallpaper.service"
-<<wallpaper.service>>
-#+END_SRC
-
 *** enable dictd.service
 
 enable the dictd.service
@@ -4270,26 +4202,6 @@ enable the dictd.service
 systemctl --user daemon-reload 
 systemctl --user enable dictd.service 
 systemctl --user start dictd.service 
-#+end_src
-
-*** enable status-bar.service
-
-enable the status-bar.service
-
-#+begin_src sh
-systemctl --user daemon-reload 
-systemctl --user enable status-bar.service 
-systemctl --user start status-bar.service 
-#+end_src
-
-*** enable wallpaper.service
-
-enable the wallpaper.service
-
-#+begin_src sh
-systemctl --user daemon-reload 
-systemctl --user enable wallpaper.service 
-systemctl --user start wallpaper.service 
 #+end_src
 
 ** nix
