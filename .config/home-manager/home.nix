@@ -173,7 +173,6 @@ services = {
 # systemd
 systemd.user.sessionVariables = {
   SSH_AUTH_SOCK = "/run/user/1000/keyring/ssh";
-#  WAYLAND_DISPLAY = "wayland-0";
 };
 
 # gtk
