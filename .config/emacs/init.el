@@ -1387,6 +1387,9 @@
   (setq gptel-auto-scroll t)
   (add-hook 'gptel-post-stream-hook 'gptel-auto-scroll)
 
+  ;; gptel temprature for factual accuracy
+  (setq-default gptel-temperature 0.1)
+
   ;; gemini
   (setq gptel-model 'gemini-3-flash-preview)
   (setq gptel-backend (gptel-make-gemini "Gemini"
