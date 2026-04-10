@@ -82,11 +82,10 @@
     imagemagick
     imv
     iosevka
+    jq
     kodi-wayland
     libnotify
     libwebp
-    obs-studio
-    openssl
     mpc
     mpd
     mpv
@@ -97,6 +96,8 @@
     nixd
     oath-toolkit
     obs-cmd
+    obs-studio
+    openssl
     openvpn
     pandoc
     pinentry-curses

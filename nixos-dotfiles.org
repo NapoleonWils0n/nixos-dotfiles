@@ -3417,11 +3417,10 @@ a old-string and a new-string, new-string will replace the old-string at the spe
     imagemagick
     imv
     iosevka
+    jq
     kodi-wayland
     libnotify
     libwebp
-    obs-studio
-    openssl
     mpc
     mpd
     mpv
@@ -3432,6 +3431,8 @@ a old-string and a new-string, new-string will replace the old-string at the spe
     nixd
     oath-toolkit
     obs-cmd
+    obs-studio
+    openssl
     openvpn
     pandoc
     pinentry-curses
