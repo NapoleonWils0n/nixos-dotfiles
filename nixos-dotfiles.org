@@ -6646,39 +6646,6 @@ q = quit
 <<imv>>
 #+END_SRC
 
-** uxplay
-*** uxplay config
-
-#+NAME: uxplay
-#+BEGIN_SRC conf
-# Use NVIDIA hardware decoding
-vd nvh264dec
-
-# Use Wayland video sink
-vs waylandsink
-
-# Always start in fullscreen
-fs
-
-# Use legacy ports: UDP 6000, 6001, 7011 and TCP 7000, 7001, 7100
-p
-#+END_SRC
-
-*** uxplay tangle
-**** home dir
-
-#+NAME: uxplay-home-dir
-#+BEGIN_SRC conf :tangle "~/.config/uxplayrc"
-<<uxplay>>
-#+END_SRC
-
-**** current dir
-
-#+NAME: uxplay-current-dir
-#+BEGIN_SRC conf :tangle ".config/uxplayrc"
-<<uxplay>>
-#+END_SRC
-
 ** dict
 *** dict config
 **** dictrc
@@ -7380,58 +7347,3 @@ ssl_cipher_list = "DEFAULT"
 #+BEGIN_SRC conf :tangle ".config/curl/curlrc"
 <<curl>>
 #+END_SRC
-** tofi
-*** tofi config
-
-#+NAME: tofi
-#+BEGIN_SRC conf
-anchor = top
-#output = "eDP-1"
-border-width = 0
-drun-launch = true
-font = "~/.nix-profile/share/fonts/truetype/Iosevka-Bold.ttf"
-font-size = 12
-height = 32
-hint-font = false
-horizontal = true
-min-input-width = 0
-num-results = 10
-outline-width = 0
-padding-bottom = 0
-padding-left = 0
-padding-right = 0
-padding-top = 0
-prompt-color = #eee8d5
-prompt-text = ""
-input-color = #eee8d5
-result-spacing = 18
-selection-color = #002b36
-default-result-color = #eee8d5
-text-color = #eee8d5
-width = 100%
-default-result-background = #073642
-selection-background = #268bd2
-background-color = #005577 
-#background-color = #2b2b2b
-prompt-background=#002b36
-selection-background-padding = 4
-#selection-background-corner-radius = 6
-default-result-background-padding = 4
-#default-result-background-corner-radius = 6
-#+END_SRC
-
-*** tofi tangle
-**** home dir
-
-#+NAME: tofi-home-dir
-#+BEGIN_SRC conf :tangle "~/.config/tofi/config"
-<<tofi>>
-#+END_SRC
-
-**** current dir
-
-#+NAME: tofi-current-dir
-#+BEGIN_SRC conf :tangle ".config/tofi/config"
-<<tofi>>
-#+END_SRC
-
