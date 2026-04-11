@@ -3449,7 +3449,6 @@ a old-string and a new-string, new-string will replace the old-string at the spe
     ripgrep
     shellcheck-minimal
     sox
-    tofi
     tor-browser
     tmux
     translate-shell
@@ -3457,7 +3456,6 @@ a old-string and a new-string, new-string will replace the old-string at the spe
     ts
     unzip
     yt-dlp
-    wbg
     wget
     widevine-cdm
     wl-clipboard
