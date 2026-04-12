@@ -63,7 +63,6 @@
     csvkit
     cryptsetup
     darktable
-    deno
     dict
     dictdDBs.wordnet
     dictdDBs.wiktionary
