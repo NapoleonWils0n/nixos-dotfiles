@@ -3437,6 +3437,7 @@ a old-string and a new-string, new-string will replace the old-string at the spe
     openssl
     openvpn
     pandoc
+    parted
     pinentry-curses
     playerctl
     python313Packages.python-lsp-server
